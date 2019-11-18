@@ -1,0 +1,36 @@
+@import "../../static/css/variables";
+@import "../../static/css/mixins";
+
+.home-page_sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0
+}
+
+.home-page_layout {
+  margin-left: $menu-width;
+}
+
+.home-page_header {
+  background: $default-color;
+  padding: 0;
+}
+
+.home-page_content {
+  padding: $spacing-h-lg $spacing-v-lg;
+}
+
+.home-page_footer {
+  background: $default-color;
+  @include text-align()
+}
+
+.home-page_logo {
+  color: #40a9ff;
+  font-size: 26px;
+  font-weight: bolder;
+  font-style: italic;
+  @include text-align();
+  padding: $spacing-v-lg 0;
+}
