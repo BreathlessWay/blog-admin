@@ -6,7 +6,7 @@ import FullLoadingComponent from "@/components/FullLodaingComponent";
 
 import store from "@/store";
 
-const HomePage = lazy(() => import(/* webpackChunkName: "HomePage" */ "./HomePage"));
+const RouterPage = lazy(() => import(/* webpackChunkName: "RouterPage" */ "./RouterPage"));
 const LoginPage = lazy(() => import(/* webpackChunkName: "LoginPage" */ "./LoginPage"));
 
 const App: React.FC = () => {
@@ -16,7 +16,7 @@ const App: React.FC = () => {
 				<BrowserRouter>
 					<Switch>
 						<Route exact={true} path="/login" component={LoginPage}/>
-						<Route component={HomePage}/>
+						<Route component={RouterPage}/>
 					</Switch>
 				</BrowserRouter>
 			</Provider>

@@ -9,6 +9,7 @@ export enum EMenuType {
 	camera = "camera"
 }
 
+
 export default class HomePageStore {
 	@observable
 	menuList: Array<MenuType> = [
@@ -43,6 +44,20 @@ export default class HomePageStore {
 	@action
 	setMenuList(list: Array<MenuType>) {
 		this.menuList = list;
+	}
+
+	@action
+	changeMenu({item, value, type = "input"}: { item: MenuType, value: any, type?: "input" | "checkbox" }) {
+		this.menuList.forEach(menu => {
+			if (menu.type === item.type) {
+				if (type === "input") {
+					menu.name = value;
+				}
+				if (type === "checkbox") {
+					menu.show = value;
+				}
+			}
+		});
 	}
 
 	@computed

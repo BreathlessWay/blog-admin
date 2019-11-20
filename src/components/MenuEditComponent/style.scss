@@ -1,2 +1,6 @@
 @import "../../static/css/variables";
 @import "../../static/css/mixins";
+
+.menu-edit_list + .menu-edit_list {
+  margin-top: $spacing-v-md;
+}
