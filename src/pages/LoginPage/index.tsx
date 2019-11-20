@@ -1,64 +1,150 @@
 import React, { FormEvent } from "react";
 import { inject, observer } from "mobx-react";
-import { Row, Form, Icon, Input, Button, Checkbox, Col } from "antd";
 
-import { StoreType } from "@/store/store";
+import { Row, Form, Icon, Input, Button, Col } from "antd";
+
 import { RouteComponentProps } from "react-router-dom";
 import { FormComponentProps } from "antd/lib/form";
+import { StoreType } from "@/store/store";
+
+import { login } from "@/service/login";
+
+import "./style.scss";
 
 export type ILoginPagePropType = StoreType & RouteComponentProps & FormComponentProps
 
-@inject("userStore")
+export type ILoginPageStateType = Readonly<{
+	second: number,
+	loading: boolean,
+	disabled: boolean
+}>
+
+@inject((allStore: StoreType) => ({
+	userStore: allStore.userStore,
+	homepageStore: allStore.homepageStore
+}))
 @observer
-class LoginPage extends React.Component<ILoginPagePropType> {
+class LoginPage extends React.Component<ILoginPagePropType, ILoginPageStateType> {
+
+	time:any = null;
+
+	readonly state: ILoginPageStateType = {
+		second: 60,
+		loading: false,
+		disabled: false
+	};
+
+	componentDidMount(): void {
+		const {userStore, history, homepageStore: {firstMenu}} = this.props;
+		login({userStore, history, firstMenu, isLoginPage: true});
+	}
+
 	handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				console.log("Received values of form: ", values);
+				const {firstMenu} = this.props.homepageStore;
+				// 登陆接口
+				this.props.userStore.login("login");
+				this.props.history.replace(firstMenu.path);
 			}
 		});
 	};
 
+	handleGetCode = () => {
+		// 获取邮箱输入框
+		const email = this.props.form.getFieldValue("email");
+		// 邮箱正则
+		const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+		if (emailReg.test(email)) {
+			this.setState({
+				loading: true
+			});
+			// 请求发送
+			// 请求发送成功后loading: false
+			// 发送验证码
+			// 回调倒计时
+			setTimeout(() => {
+				this.setState({
+					loading: false,
+					disabled: true
+				});
+				this.time = setInterval(() => {
+					const {second} = this.state;
+					if (second) {
+						this.setState({
+							second: second - 1
+						});
+					} else {
+						window.clearInterval(this.time);
+						this.setState({
+							disabled: false,
+							second: 5
+						});
+					}
+				}, 1000);
+			}, 5000);
+			return;
+		}
+		this.props.form.setFields({
+			email: {
+				value: "",
+				errors: [new Error("请输入邮箱账号")]
+			}
+		});
+	};
+
+	get label() {
+		const {second, disabled} = this.state;
+		if (disabled) {
+			return `${second}s后重新获取`;
+		}
+		return "获取验证码";
+	}
+
+	componentWillUnmount(): void {
+		window.clearInterval(this.time);
+	}
+
 	render() {
 		const {getFieldDecorator} = this.props.form;
+		const {loading, disabled} = this.state;
+		const {label} = this;
 
-		return <Row align="middle" justify="center" type="flex" style={{height: "100%"}}>
+		return <Row align="middle" justify="center" type="flex" className="login-page">
 			<Col>
-				<Form onSubmit={this.handleSubmit} className="login-form">
+				<Form onSubmit={this.handleSubmit} className="login-page_form">
 					<Form.Item>
-						{getFieldDecorator("username", {
-							rules: [{required: true, message: "Please input your username!"}]
+						{getFieldDecorator("email", {
+							rules: [{required: true, message: "请输入邮箱账号!"}]
 						})(
 							<Input
-								prefix={<Icon type="user" style={{color: "rgba(0,0,0,.25)"}}/>}
-								placeholder="Username"
+								prefix={<Icon type="mail" className="login-page_icon"/>}
+								placeholder="电子邮箱"
 							/>
 						)}
 					</Form.Item>
 					<Form.Item>
-						{getFieldDecorator("password", {
-							rules: [{required: true, message: "Please input your Password!"}]
-						})(
-							<Input
-								prefix={<Icon type="lock" style={{color: "rgba(0,0,0,.25)"}}/>}
-								type="password"
-								placeholder="Password"
-							/>
-						)}
+						<Row gutter={8}>
+							<Col span={14}>
+								{getFieldDecorator("password", {
+									rules: [{required: true, message: "请输入验证码!"}]
+								})(
+									<Input
+										prefix={<Icon type="lock" className="login-page_icon"/>}
+										placeholder="验证码"
+									/>
+								)}
+							</Col>
+							<Col span={10}>
+								<Button block={true} onClick={this.handleGetCode} loading={loading} disabled={disabled}>{label}</Button>
+							</Col>
+						</Row>
 					</Form.Item>
 					<Form.Item>
-						{getFieldDecorator("remember", {
-							valuePropName: "checked",
-							initialValue: true
-						})(<Checkbox>Remember me</Checkbox>)}
-						<a className="login-form-forgot" href="">
-							Forgot password
-						</a>
-						<Button type="primary" htmlType="submit" className="login-form-button">
-							Log in
+						<Button type="primary" htmlType="submit" block={true}>
+							登陆
 						</Button>
-						Or <a href="">register now!</a>
 					</Form.Item>
 				</Form>
 			</Col>

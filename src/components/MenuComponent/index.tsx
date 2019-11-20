@@ -1,6 +1,6 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
 import { Menu, Icon } from "antd";
 
@@ -31,6 +31,7 @@ class MenuComponent extends React.Component<IMenuComponentPropType> {
 		if (matchMenu) {
 			return [matchMenu.type];
 		}
+		return [];
 	}
 
 	render() {

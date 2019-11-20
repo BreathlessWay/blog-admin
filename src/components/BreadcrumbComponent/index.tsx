@@ -13,7 +13,7 @@ const {Item} = Breadcrumb;
 export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType
 
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
-	const {location, homepageStore: {breadcrumbNameMap}, userStore} = props;
+	const {location, homepageStore: {breadcrumbNameMap}, userStore, history} = props;
 	const pathSnippets = location.pathname.split("/").filter(i => i);
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
@@ -31,7 +31,10 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	return (
 		<section className="bread-crumb">
 			<Breadcrumb separator=">">{breadcrumbItems}</Breadcrumb>
-			<Button type="link" onClick={userStore.logout}>退出</Button>
+			<Button type="link" onClick={() => {
+				userStore.logout();
+				history.push("/login");
+			}}>退出</Button>
 		</section>
 	);
 };
