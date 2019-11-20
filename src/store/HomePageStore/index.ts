@@ -60,6 +60,12 @@ export default class HomePageStore {
 		});
 	}
 
+	@action
+	sortMenuList(dragIndex: number, hoverIndex: number) {
+		const dragItem = this.menuList.splice(dragIndex, 1);
+		this.menuList.splice(hoverIndex, 0, ...dragItem);
+	}
+
 	@computed
 	get breadcrumbNameMap() {
 		const maps: Record<string, string> = {};

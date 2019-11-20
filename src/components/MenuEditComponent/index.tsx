@@ -1,14 +1,16 @@
-import React from "react";
+import React, { ComponentClass } from "react";
 import { inject, observer } from "mobx-react";
 
-import { Input, Checkbox, Row, Col, Icon, Typography, Divider, Button } from "antd";
+import HTML5Backend from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+import { Row, Col, Typography, Divider, Button } from "antd";
+import MenuEditItemComponent from "./item";
 
 import { StoreType } from "@/store/store";
-import { MenuType } from "@/store/HomePageStore/hompage";
 
 import "./style.scss";
 
-const {Title, Text} = Typography;
+const {Title} = Typography;
 
 export type IMenuEditComponentPropType = StoreType
 
@@ -41,15 +43,9 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 
 	editMenu = () => {
 		// 发送请求
+		console.log(this.props.homepageStore.menuList);
 	};
 
-	handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>, item: MenuType) => {
-		this.props.homepageStore.changeMenu({item, value: e.target.value});
-	};
-
-	handleChangeCheckbox = (item: MenuType) => () => {
-		this.props.homepageStore.changeMenu({item, value: !item.show, type: "checkbox"});
-	};
 
 	handleEdit = () => {
 		const {isEditing} = this.state;
@@ -66,6 +62,13 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 		}
 	};
 
+	handleMoveCard = (dragIndex: number, hoverIndex: number) => {
+		const {isEditing} = this.state;
+		if (isEditing) {
+			this.props.homepageStore.sortMenuList(dragIndex, hoverIndex);
+		}
+	};
+
 	render() {
 		const {isEditing} = this.state;
 		const {menuList} = this;
@@ -77,36 +80,21 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 				</Row>
 				<Divider style={{margin: "10px 0"}}/>
 			</Col>
-			{
-				menuList.map(item => <Col key={item.type} className="menu-edit_list">
-					<Row type="flex" align="middle">
-						<Col span={10}>
-							<Input
-								value={item.name}
-								maxLength={6}
-								onChange={(e) => this.handleChangeInput(e, item)}
-								prefix={<Icon type={item.type}/>}
-								allowClear={true}
-								disabled={!isEditing}
-							/>
-							{
-								item.error && <Text type="danger">菜单名称不能为空</Text>
-							}
-						</Col>
-						<Col span={6} offset={1}>
-							<Checkbox
-								checked={item.show}
-								onChange={this.handleChangeCheckbox(item)}
-								disabled={!isEditing}
-							>
-								是否显示
-							</Checkbox>
-						</Col>
-					</Row>
-				</Col>)
-			}
+			<DndProvider backend={HTML5Backend}>
+				{
+					menuList.map((item, index) => <MenuEditItemComponent
+						key={item.type}
+						isEditing={isEditing}
+						id={item.type}
+						index={index}
+						item={item}
+						moveCard={this.handleMoveCard}
+					/>)
+				}
+			</DndProvider>
+
 		</Row>;
 	}
 }
 
-export default MenuEditComponent as any;
+export default MenuEditComponent as unknown as ComponentClass;

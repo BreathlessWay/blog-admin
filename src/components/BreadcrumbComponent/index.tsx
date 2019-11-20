@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
@@ -42,4 +42,4 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 export default withRouter(inject((store: StoreType) => ({
 	homepageStore: store.homepageStore,
 	userStore: store.userStore
-}))(observer(BreadcrumbComponent))) as any;
+}))(observer(BreadcrumbComponent))) as unknown as FC;

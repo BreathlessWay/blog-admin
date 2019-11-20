@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentClass } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
@@ -54,4 +54,4 @@ class MenuComponent extends React.Component<IMenuComponentPropType> {
 	}
 }
 
-export default withRouter(MenuComponent) as any;
+export default withRouter(MenuComponent) as unknown as ComponentClass;
