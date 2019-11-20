@@ -13,7 +13,7 @@ const MenuComponent = lazy(() => import(/* webpackChunkName: "MenuComponent" */ 
 const BreadcrumbComponent = lazy(() => import(/* webpackChunkName: "BreadcrumbComponent" */ "../../components/BreadcrumbComponent"));
 
 const HomePage: React.FC<StoreType & RouteComponentProps> = (props) => {
-	const {userStore: {isLogin}} = props;
+	const {userStore: {isLogin}, homepageStore: {firstMenu}} = props;
 	return (
 		isLogin ? <Layout>
 			<Sider className="home-page_sider">
@@ -28,11 +28,12 @@ const HomePage: React.FC<StoreType & RouteComponentProps> = (props) => {
 				</Header>
 				<Content className="home-page_content">
 					<Switch>
-						<Route exact={true} path="/" children={<div>1</div>}/>
+						<Route path="/home" children={<div>1</div>}/>
 						<Route path="/me" children={<div>me</div>}/>
 						<Route path="/article" children={<div>article</div>}/>
 						<Route path="/cat" children={<div>cat</div>}/>
 						<Route path="/photography" children={<div>photography</div>}/>
+						<Redirect from='/' to={firstMenu.path}/>
 					</Switch>
 				</Content>
 				<Footer className="home-page_footer">BreathlessWay 博客管理后台系统</Footer>
@@ -41,5 +42,8 @@ const HomePage: React.FC<StoreType & RouteComponentProps> = (props) => {
 	);
 };
 
-export default inject("userStore")(observer(HomePage)) as any;
+export default inject((allStore: StoreType) => ({
+	userStore: allStore.userStore,
+	homepageStore: allStore.homepageStore
+}))(observer(HomePage)) as any;
 

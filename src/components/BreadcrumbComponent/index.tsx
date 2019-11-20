@@ -13,7 +13,7 @@ const {Item} = Breadcrumb;
 export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType
 
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
-	const {location, homepageStore: {menuList, breadcrumbNameMap}, userStore} = props;
+	const {location, homepageStore: {breadcrumbNameMap}, userStore} = props;
 	const pathSnippets = location.pathname.split("/").filter(i => i);
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
@@ -23,10 +23,9 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 			</Item>
 		);
 	});
-	const first = menuList[0];
 	const breadcrumbItems = [
-		<Item key="home">
-			<Link to={first.path}>{first.name}</Link>
+		<Item key="manager">
+			<Link to="/">管理后台</Link>
 		</Item>
 	].concat(extraBreadcrumbItems);
 	return (

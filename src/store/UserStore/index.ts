@@ -2,7 +2,7 @@ import { observable, action, computed } from "mobx";
 
 export default class UserStore {
 	@observable
-	session = "";
+	session = "login";
 
 	@action.bound
 	login() {

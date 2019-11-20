@@ -7,7 +7,7 @@ import App from "@/pages/App";
 import * as serviceWorker from "./serviceWorker";
 
 import "./style.scss";
-
+// 严格模式，所有observe的数据只能通过action修改
 configure({enforceActions: "observed"});
 
 ReactDOM.render(<App/>, document.getElementById("root"));

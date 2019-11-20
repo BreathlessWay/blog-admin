@@ -13,30 +13,40 @@ export type IMenuComponentPropType = RouteComponentProps & StoreType
 @observer
 class MenuComponent extends React.Component<IMenuComponentPropType> {
 	handleClick = (e: ClickParam) => {
-		const {menuList} = this,
-			key = Number(e.key),
-			{path} = menuList[key];
-		this.props.history.push(path);
+		const matchMenu = this.menuList.find(item => item.type === e.key);
+		if (matchMenu) {
+			this.props.history.push(matchMenu.path);
+		}
 	};
 
 	get menuList() {
 		return this.props.homepageStore.menuList || [];
 	}
 
+	get selectedKeys() {
+		const matchMenu = this.menuList.find(item => {
+			const {pathname} = this.props.location;
+			return pathname.startsWith(item.path);
+		});
+		if (matchMenu) {
+			return [matchMenu.type];
+		}
+	}
+
 	render() {
-		const {menuList} = this;
+		const {menuList, selectedKeys} = this;
 		return (
 			<Menu
 				theme={"dark"}
 				onClick={this.handleClick}
-				defaultSelectedKeys={["0"]}
+				selectedKeys={selectedKeys}
 				mode="inline"
 			>
 				{
-					menuList.map(item => item.show && <Menu.Item key={item.sort}>
-              <Icon type={item.type}/>
+					menuList.map(item => <Menu.Item key={item.type}>
+						<Icon type={item.type}/>
 						{item.name}
-          </Menu.Item>)
+					</Menu.Item>)
 				}
 			</Menu>
 		);

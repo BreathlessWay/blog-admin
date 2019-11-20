@@ -1,37 +1,40 @@
-import { observable, action, computed } from "mobx";
+import { action, computed, observable } from "mobx";
 import { MenuType } from "@/store/HomePageStore/hompage";
+
+export enum EMenuType {
+	home = "home",
+	user = "user",
+	"file-word" = "file-word",
+	contacts = "contacts",
+	camera = "camera"
+}
 
 export default class HomePageStore {
 	@observable
 	menuList: Array<MenuType> = [
 		{
 			name: "首页",
-			sort: 0,
-			type: "home",
-			path: "/",
+			type: EMenuType.home,
+			path: "/home",
 			show: true
 		}, {
 			name: "我",
-			sort: 1,
-			type: "user",
+			type: EMenuType.user,
 			path: "/me",
 			show: true
 		}, {
 			name: "文章",
-			sort: 2,
-			type: "file-word",
+			type: EMenuType["file-word"],
 			path: "/article",
 			show: true
 		}, {
 			name: "撸猫",
-			sort: 3,
-			type: "contacts",
+			type: EMenuType.contacts,
 			path: "/cat",
 			show: true
 		}, {
 			name: "摄影",
-			sort: 4,
-			type: "camera",
+			type: EMenuType.camera,
 			path: "/photography",
 			show: true
 		}
@@ -45,11 +48,14 @@ export default class HomePageStore {
 	@computed
 	get breadcrumbNameMap() {
 		const maps: Record<string, string> = {};
-		this.menuList.forEach((item, index) => {
-			if (index) {
-				maps[item.path] = item.name;
-			}
+		this.menuList.forEach(item => {
+			maps[item.path] = item.name;
 		});
 		return maps;
+	}
+
+	@computed
+	get firstMenu() {
+		return this.menuList[0];
 	}
 }
