@@ -3,14 +3,12 @@ import { inject, observer } from "mobx-react";
 
 import HTML5Backend from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { Row, Col, Typography, Divider, Button } from "antd";
 import MenuEditItemComponent from "./item";
+import CommonWrapComponent from "../CommonWrapComponent";
 
 import { StoreType } from "@/store/store";
 
 import "./style.scss";
-
-const {Title} = Typography;
 
 export type IMenuEditComponentPropType = StoreType
 
@@ -72,14 +70,11 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 	render() {
 		const {isEditing} = this.state;
 		const {menuList} = this;
-		return <Row>
-			<Col className="menu-edit_list">
-				<Row align="middle" justify="space-between" type="flex">
-					<Title level={4} style={{margin: 0}}>编辑菜单栏</Title>
-					<Button type="link" onClick={this.handleEdit}>{isEditing ? "完成" : "编辑"}</Button>
-				</Row>
-				<Divider style={{margin: "10px 0"}}/>
-			</Col>
+		return <CommonWrapComponent
+			title="菜单栏"
+			isEditing={isEditing}
+			handleEdit={this.handleEdit}
+		>
 			<DndProvider backend={HTML5Backend}>
 				{
 					menuList.map((item, index) => <MenuEditItemComponent
@@ -92,8 +87,7 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 					/>)
 				}
 			</DndProvider>
-
-		</Row>;
+		</CommonWrapComponent>;
 	}
 }
 

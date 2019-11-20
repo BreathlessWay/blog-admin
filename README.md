@@ -9,3 +9,4 @@
       ]
     }
     ```
+2. inject的组件，可以先`as unknow`，再`as PropType`导出

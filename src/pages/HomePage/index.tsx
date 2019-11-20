@@ -3,6 +3,7 @@ import { inject, observer } from "mobx-react";
 
 import { Row, Col } from "antd";
 import MenuEditComponent from "@/components/MenuEditComponent";
+import SocialEditComponent from "@/components/SocialEditComponent";
 
 import { StoreType } from "@/store/store";
 
@@ -16,6 +17,7 @@ export default class HomePage extends React.Component {
 		return <Row>
 			<Col>
 				<MenuEditComponent/>
+				<SocialEditComponent/>
 			</Col>
 		</Row>;
 	}
