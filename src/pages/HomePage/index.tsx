@@ -2,8 +2,8 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 
 import { Row, Col } from "antd";
-import MenuEditComponent from "@/components/MenuEditComponent";
-import SocialEditComponent from "@/components/SocialEditComponent";
+import MenuEditComponent from "@/components/business/MenuEditComponent";
+import SocialEditComponent from "@/components/business/SocialEditComponent";
 
 import { StoreType } from "@/store/store";
 

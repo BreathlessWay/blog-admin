@@ -2,9 +2,9 @@ import React, { ComponentClass } from "react";
 import { inject, observer } from "mobx-react";
 
 import { Row, Col, Input, Icon } from "antd";
-import CommonWrapComponent from "../CommonWrapComponent";
-import UploadFileComponent from "../UploadFileComponent";
-import FileShowComponent from "../FileShowComponent";
+import CommonWrapComponent from "../../common/CommonWrapComponent";
+import UploadFileComponent from "../../common/UploadFileComponent";
+import FileShowComponent from "../../common/FileShowComponent";
 
 import UserStore from "@/store/UserStore";
 
@@ -37,7 +37,7 @@ class SocialEditComponent extends React.Component<ISocialEditComponentPropType, 
 
 	render() {
 		const {isEditing} = this.state;
-		const {userDetail} = this.props.userStore;
+		const {userDetail, hasSocial} = this.props.userStore;
 
 		return <CommonWrapComponent
 			title="社交"
@@ -49,13 +49,13 @@ class SocialEditComponent extends React.Component<ISocialEditComponentPropType, 
 					简历
 				</Col>
 				<Col span={6}>
-					<Input value={userDetail.resumeAlias} maxLength={4} disabled={!isEditing}/>
+					<Input value={userDetail ? userDetail.resumeAlias : ""} maxLength={4} disabled={!isEditing}/>
 				</Col>
 				<Col span={5} offset={1}>
 					<UploadFileComponent label={"上传简历"} disabled={!isEditing}/>
 				</Col>
-				<Col span={6}>
-					<FileShowComponent type="file" value={userDetail.resumeName}/>
+				<Col span={10}>
+					<FileShowComponent type="file" value={userDetail ? userDetail.resumeName : "简历.doc"}/>
 				</Col>
 			</Row>
 		</CommonWrapComponent>;

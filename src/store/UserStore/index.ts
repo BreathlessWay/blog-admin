@@ -1,25 +1,18 @@
 import { observable, action, computed } from "mobx";
 import { storage } from "@/utils";
 
+import { UserDetailType } from "@/store/UserStore/user";
+
 export default class UserStore {
 	@observable
 	session = "";
 
 	@observable
-	userDetail = {
-		resumeAlias: "下载简历",
-		resumeUrl: "",
-		resumeName:"",
-		social: [
-			{
-				icon: "",
-				value: ""
-			}
-		],
-		personalShow: "",
-		title: "",
-		motto: "",
-		intro: ""
+	userDetail: UserDetailType | null = null;
+
+	emptySocialTmp = {
+		icon: "",
+		value: ""
 	};
 
 	@action.bound
@@ -37,5 +30,10 @@ export default class UserStore {
 	@computed
 	get isLogin() {
 		return this.session !== "";
+	}
+
+	@computed
+	get hasSocial() {
+		return this.userDetail && this.userDetail.social && this.userDetail.social.length;
 	}
 }

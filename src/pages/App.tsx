@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "mobx-react";
 
-import FullLoadingComponent from "@/components/FullLodaingComponent";
+import FullLoadingComponent from "@/components/common/FullLodaingComponent";
 
 import store from "@/store";
 

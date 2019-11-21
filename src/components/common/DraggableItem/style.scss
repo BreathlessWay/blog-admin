@@ -1,0 +1,5 @@
+@import "../../../static/css/variables";
+
+.drag-list_item + .drag-list_item {
+  margin-top: $spacing-v-md;
+}

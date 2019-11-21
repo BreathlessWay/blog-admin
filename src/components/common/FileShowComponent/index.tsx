@@ -13,10 +13,7 @@ const FileShowComponent: FC<IFileShowComponentPropType> = (props) => {
 
 	if (type === "file") {
 		node = <>
-			<Icon type="file-word"/>
-			<span>
-			{value}
-		</span>
+			<span>{value}</span>
 		</>;
 	}
 
@@ -26,7 +23,10 @@ const FileShowComponent: FC<IFileShowComponentPropType> = (props) => {
 
 	return value ? <>
 		{node}
+		&nbsp;
 		<Icon type="delete"/>
+		&nbsp;
+		<Icon type="eye"/>
 	</> : null;
 };
 

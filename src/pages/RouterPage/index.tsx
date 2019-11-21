@@ -12,8 +12,8 @@ import "./style.scss";
 
 const {Header, Content, Footer, Sider} = Layout;
 
-const MenuComponent = lazy(() => import(/* webpackChunkName: "MenuComponent" */ "../../components/MenuComponent"));
-const BreadcrumbComponent = lazy(() => import(/* webpackChunkName: "BreadcrumbComponent" */ "../../components/BreadcrumbComponent"));
+const MenuComponent = lazy(() => import(/* webpackChunkName: "MenuComponent" */ "../../components/business/MenuComponent"));
+const BreadcrumbComponent = lazy(() => import(/* webpackChunkName: "BreadcrumbComponent" */ "../../components/business/BreadcrumbComponent"));
 
 const HomePage = lazy(() => import(/* webpackChunkName: "HomePage" */ "../HomePage"));
 

@@ -1,36 +1,24 @@
 import React, { FC, useRef } from "react";
-import { inject, observer } from "mobx-react";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { XYCoord } from "dnd-core";
 
-import { Checkbox, Col, Icon, Input, Row, Typography } from "antd";
-
-import { MenuType } from "@/store/HomePageStore/hompage";
-import { StoreType } from "@/store/store";
-
 import "./style.scss";
 
-const {Text} = Typography;
-
-export type IMenuEditItemComponentPropType = {
-	id: string
+export type IDraggableItemPropType = {
 	index: number
 	moveCard: (dragIndex: number, hoverIndex: number) => void
-	item: MenuType & { error: boolean }
-	isEditing: boolean
 }
 
-interface MenuEditItemComponent {
+interface DraggableItem {
 	index: number
-	id: string
 	type: string
 }
 
-const MenuEditItemComponent: React.FC<IMenuEditItemComponentPropType & StoreType> = ({id, index, moveCard, ...props}) => {
+const DraggableItem: FC<IDraggableItemPropType> = ({index, moveCard, children}) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const [, drop] = useDrop({
 		accept: "item",
-		hover(item: MenuEditItemComponent, monitor: DropTargetMonitor) {
+		hover(item: DraggableItem, monitor: DropTargetMonitor) {
 			if (!ref.current) {
 				return;
 			}
@@ -81,7 +69,7 @@ const MenuEditItemComponent: React.FC<IMenuEditItemComponentPropType & StoreType
 	});
 
 	const [{isDragging}, drag] = useDrag({
-		item: {type: "item", id, index},
+		item: {type: "item", index},
 		collect: (monitor: any) => ({
 			isDragging: monitor.isDragging()
 		})
@@ -91,43 +79,11 @@ const MenuEditItemComponent: React.FC<IMenuEditItemComponentPropType & StoreType
 
 	drag(drop(ref));
 
-	const {item, isEditing} = props;
-
 	return (
-		<div ref={ref} style={{opacity}} className="menu-edit_list">
-			<Col>
-				<Row type="flex" align="middle">
-					<Col span={10}>
-						<Input
-							value={item.name}
-							maxLength={6}
-							onChange={(e) => {
-								props.homepageStore.changeMenu({item, value: e.target.value});
-							}}
-							prefix={<Icon type={item.type}/>}
-							allowClear={true}
-							disabled={!isEditing}
-						/>
-						{
-							item.error && <Text type="danger">菜单名称不能为空</Text>
-						}
-					</Col>
-					<Col span={6} offset={1}>
-						<Checkbox
-							checked={item.show}
-							onChange={() => props.homepageStore.changeMenu({item, value: !item.show, type: "checkbox"})}
-							disabled={!isEditing}
-						>
-							是否显示
-						</Checkbox>
-					</Col>
-				</Row>
-			</Col>
+		<div ref={ref} style={{opacity}} className="drag-list_item">
+			{children}
 		</div>
-
 	);
 };
 
-const ObserverMenuEditItemComponent = inject("homepageStore")(observer(MenuEditItemComponent));
-
-export default ObserverMenuEditItemComponent as unknown as FC<IMenuEditItemComponentPropType>;
+export default DraggableItem;
