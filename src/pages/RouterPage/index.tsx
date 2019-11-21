@@ -14,18 +14,20 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const MenuComponent = lazy(() =>
 	import(
-		/* webpackChunkName: "MenuComponent" */ '../../components/business/MenuComponent'
+		/* webpackChunkName: "MenuComponent" */ '@/components/business/MenuComponent'
 	),
 );
 const BreadcrumbComponent = lazy(() =>
 	import(
-		/* webpackChunkName: "BreadcrumbComponent" */ '../../components/business/BreadcrumbComponent'
+		/* webpackChunkName: "BreadcrumbComponent" */ '@/components/business/BreadcrumbComponent'
 	),
 );
 
 const HomePage = lazy(() =>
 	import(/* webpackChunkName: "HomePage" */ '../HomePage'),
 );
+
+const MePage = lazy(() => import(/* webpackChunkName: "MePage" */ '../MePage'));
 
 export type IRouterPagePropType = StoreType & RouteComponentProps;
 
@@ -61,7 +63,7 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 					<Content className="home-page_content">
 						<Switch>
 							<Route path="/home" component={HomePage} />
-							<Route path="/me" children={<div>me</div>} />
+							<Route path="/me" component={MePage} />
 							<Route path="/article" children={<div>article</div>} />
 							<Route path="/cat" children={<div>cat</div>} />
 							<Route path="/photography" children={<div>photography</div>} />
