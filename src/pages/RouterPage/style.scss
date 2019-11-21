@@ -1,38 +1,38 @@
-@import "../../static/css/variables";
-@import "../../static/css/mixins";
+@import '../../static/css/variables';
+@import '../../static/css/mixins';
 
 .home-page_sider {
-  overflow: auto;
-  height: 100%;
-  position: fixed;
-  left: 0;
+	overflow: auto;
+	height: 100%;
+	position: fixed;
+	left: 0;
 }
 
 .home-page_layout {
-  margin-left: $menu-width;
+	margin-left: $menu-width;
 }
 
 .home-page_header {
-  background: $default-color;
-  padding: 0;
+	background: $default-color;
+	padding: 0;
 }
 
 .home-page_content {
-  margin: $spacing-h-lg $spacing-v-lg;
-  padding: $spacing-h-lg $spacing-v-lg;
-  background-color: $default-color;
+	margin: $spacing-h-lg $spacing-v-lg;
+	padding: $spacing-h-lg $spacing-v-lg;
+	background-color: $default-color;
 }
 
 .home-page_footer {
-  background: $default-color;
-  @include text-align();
+	background: $default-color;
+	@include text-align();
 }
 
 .home-page_logo {
-  color: #40a9ff;
-  font-size: 26px;
-  font-weight: bolder;
-  font-style: italic;
-  @include text-align();
-  padding: $spacing-v-lg 0;
+	color: #40a9ff;
+	font-size: 26px;
+	font-weight: bolder;
+	font-style: italic;
+	@include text-align();
+	padding: $spacing-v-lg 0;
 }
