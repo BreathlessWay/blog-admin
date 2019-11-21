@@ -4,7 +4,7 @@ import './style.scss';
 
 class MePage extends React.Component {
 	render() {
-		return <div>1</div>;
+		return <div>我</div>;
 	}
 }
 
