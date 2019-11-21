@@ -24,3 +24,4 @@
      test：新增测试用例或是更新现有测试
      revert：回滚某个更早之前的提交
    ```
+4. git commit --no-verify -m "--no-verify跳过检验规则"
