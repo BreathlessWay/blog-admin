@@ -14,50 +14,40 @@ export type ISocialEditComponentPropType = {
 	userStore: UserStore
 }
 
-export type ISocialEditComponentStateType = {
-	isEditing: boolean
-}
+export type ISocialEditComponentStateType = {}
 
 @inject("userStore")
 @observer
 class SocialEditComponent extends React.Component<ISocialEditComponentPropType, ISocialEditComponentStateType> {
-	readonly state = {
-		isEditing: false
-	};
 
 	handleEdit = () => {
-		const {isEditing} = this.state;
-
-		if (!isEditing) {
-			this.setState({
-				isEditing: true
-			});
-		}
+		return true;
 	};
 
 	render() {
-		const {isEditing} = this.state;
 		const {userDetail, hasSocial} = this.props.userStore;
 
 		return <CommonWrapComponent
 			title="社交"
-			isEditing={isEditing}
 			handleEdit={this.handleEdit}
 		>
-			<Row type="flex" align="middle">
-				<Col span={2}>
-					简历
-				</Col>
-				<Col span={6}>
-					<Input value={userDetail ? userDetail.resumeAlias : ""} maxLength={4} disabled={!isEditing}/>
-				</Col>
-				<Col span={5} offset={1}>
-					<UploadFileComponent label={"上传简历"} disabled={!isEditing}/>
-				</Col>
-				<Col span={10}>
-					<FileShowComponent type="file" value={userDetail ? userDetail.resumeName : "简历.doc"}/>
-				</Col>
-			</Row>
+			{
+				isEditing => <Row type="flex" align="middle">
+					<Col span={2}>
+						简历
+					</Col>
+					<Col span={6}>
+						<Input value={userDetail ? userDetail.resumeAlias : ""} maxLength={4} disabled={!isEditing}/>
+					</Col>
+					<Col span={5} offset={1}>
+						<UploadFileComponent label={"上传简历"} disabled={!isEditing}/>
+					</Col>
+					<Col span={10}>
+						<FileShowComponent type="file" value={userDetail ? userDetail.resumeName : ""}/>
+					</Col>
+				</Row>
+			}
+
 		</CommonWrapComponent>;
 	}
 }

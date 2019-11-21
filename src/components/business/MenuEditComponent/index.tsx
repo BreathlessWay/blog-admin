@@ -15,9 +15,7 @@ const {Text} = Typography;
 
 export type IMenuEditComponentPropType = StoreType
 
-export type IMenuEditComponentStateType = Readonly<{
-	isEditing: boolean
-}>
+export type IMenuEditComponentStateType = Readonly<{}>
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
@@ -25,10 +23,6 @@ export type IMenuEditComponentStateType = Readonly<{
 }))
 @observer
 class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMenuEditComponentStateType> {
-
-	readonly state = {
-		isEditing: false
-	};
 
 	get menuList() {
 		return this.props.homepageStore.menuList.map(item => {
@@ -38,32 +32,22 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 
 	get canSubmit() {
 		const hasEmpty = this.menuList.some(item => item.error);
-		const {isEditing} = this.state;
-		return isEditing && !hasEmpty;
+		return !hasEmpty;
 	}
 
 	editMenu = () => {
 		// 发送请求
-		console.log(this.props.homepageStore.menuList);
 	};
 
 	handleEdit = () => {
-		const {isEditing} = this.state;
 		if (this.canSubmit) {
-			this.setState({
-				isEditing: false
-			});
 			this.editMenu();
+			return true;
 		}
-		if (!isEditing) {
-			this.setState({
-				isEditing: true
-			});
-		}
+		return false;
 	};
 
-	handleMoveCard = (dragIndex: number, hoverIndex: number) => {
-		const {isEditing} = this.state;
+	handleMoveCard = (dragIndex: number, hoverIndex: number, isEditing: boolean) => {
 		if (isEditing) {
 			this.props.homepageStore.sortMenuList(dragIndex, hoverIndex);
 		}
@@ -78,41 +62,44 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 	};
 
 	render() {
-		const {isEditing} = this.state;
 		return <CommonWrapComponent
 			title="菜单栏"
-			isEditing={isEditing}
 			handleEdit={this.handleEdit}
 		>
-			<DraggableComponent
-				moveCard={this.handleMoveCard}
-				list={this.menuList}
-				render={(item) => <Col>
-					<Row type="flex" align="middle">
-						<Col span={10}>
-							<Input
-								value={item.name}
-								maxLength={6}
-								onChange={(e) => this.handleChangeInput(e, item)}
-								prefix={<Icon type={item.type}/>}
-								allowClear={true}
-								disabled={!isEditing}
-							/>
-							{
-								item.error && <Text type="danger">菜单名称不能为空</Text>
-							}
-						</Col>
-						<Col span={6} offset={1}>
-							<Checkbox
-								checked={item.show}
-								onChange={this.handleChangeCheckbox(item)}
-								disabled={!isEditing}
-							>
-								是否显示
-							</Checkbox>
-						</Col>
-					</Row>
-				</Col>}/>
+			{
+				isEditing => <DraggableComponent
+					moveCard={(dragIndex, hoverIndex) => this.handleMoveCard(dragIndex, hoverIndex, isEditing)}
+					list={this.menuList}
+					render={(item) => <Col>
+						<Row type="flex" align="middle">
+							<Col span={10}>
+								<Input
+									value={item.name}
+									maxLength={6}
+									onChange={(e) => this.handleChangeInput(e, item)}
+									prefix={<Icon type={item.type}/>}
+									allowClear={true}
+									disabled={!isEditing}
+								/>
+							</Col>
+							<Col span={6} offset={1}>
+								<Checkbox
+									checked={item.show}
+									onChange={this.handleChangeCheckbox(item)}
+									disabled={!isEditing}
+								>
+									是否显示
+								</Checkbox>
+							</Col>
+							<Col span={24}>
+								{
+									item.error && <Text type="danger">菜单名称不能为空</Text>
+								}
+							</Col>
+						</Row>
+					</Col>}
+				/>
+			}
 		</CommonWrapComponent>;
 	}
 }
