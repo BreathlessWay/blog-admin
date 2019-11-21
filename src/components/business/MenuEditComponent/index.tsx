@@ -65,8 +65,7 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 		return <CommonWrapComponent
 			title="菜单栏"
 			handleEdit={this.handleEdit}
-		>
-			{
+			render={
 				isEditing => <DraggableComponent
 					moveCard={(dragIndex, hoverIndex) => this.handleMoveCard(dragIndex, hoverIndex, isEditing)}
 					list={this.menuList}
@@ -100,7 +99,7 @@ class MenuEditComponent extends React.Component<IMenuEditComponentPropType, IMen
 					</Col>}
 				/>
 			}
-		</CommonWrapComponent>;
+		/>;
 	}
 }
 

@@ -1,10 +1,9 @@
-import React, { ComponentClass } from "react";
+import React, { ChangeEvent, ComponentClass } from "react";
 import { inject, observer } from "mobx-react";
 
-import { Row, Col, Input, Icon } from "antd";
-import CommonWrapComponent from "../../common/CommonWrapComponent";
-import UploadFileComponent from "../../common/UploadFileComponent";
-import FileShowComponent from "../../common/FileShowComponent";
+import { Row, Button } from "antd";
+import CommonWrapComponent from "@/components/common/CommonWrapComponent";
+import SocialEditItem from "./item";
 
 import UserStore from "@/store/UserStore";
 
@@ -14,41 +13,108 @@ export type ISocialEditComponentPropType = {
 	userStore: UserStore
 }
 
-export type ISocialEditComponentStateType = {}
+export type ISocialEditComponentStateType = {
+	resumeError: boolean
+}
 
 @inject("userStore")
 @observer
 class SocialEditComponent extends React.Component<ISocialEditComponentPropType, ISocialEditComponentStateType> {
 
 	handleEdit = () => {
+		this.props.userStore.filterSocial();
+		const {resumeAlias, resumeUrl, resumeName, resumeImageUrl, social} = this.props.userStore.userDetail;
+		const params = {
+			resumeAlias,
+			resumeUrl,
+			resumeName,
+			resumeImageUrl,
+			social
+		};
+		console.log(params);
+		// 提交更新
 		return true;
 	};
 
-	render() {
-		const {userDetail, hasSocial} = this.props.userStore;
+	handleAddSocial = () => {
+		this.props.userStore.addSocial();
+	};
 
+	handleUploadResume = ({fileUrl, fileName}: { fileUrl: string, fileName: string }) => {
+		this.props.userStore.changeResume({fileUrl, fileName});
+	};
+
+	handleDeleteResume = () => {
+		this.props.userStore.changeResume({fileUrl: "", fileName: ""});
+	};
+
+	handleChangeResumeInput = (e: ChangeEvent<HTMLInputElement>) => {
+		this.props.userStore.changeResumeAlias(e.target.value);
+	};
+
+	handleUploadIcon = ({fileUrl, index}: { fileUrl: string, fileName: string, index: number }) => {
+		this.props.userStore.changeSocialIcon({fileUrl, index});
+	};
+
+	handleDeleteSocialIcon = (index: number) => () => {
+		this.props.userStore.changeSocialIcon({fileUrl: "", index});
+	};
+
+	handleDeleteItem = (index: number) => () => {
+		this.props.userStore.deleteSocial(index);
+	};
+
+	handleChangeSocialInput = (index: number, e: ChangeEvent<HTMLInputElement>) => {
+		this.props.userStore.changeSocialValue({value: e.target.value, index});
+	};
+
+	get social() {
+		return this.props.userStore.userDetail.social;
+	}
+
+	render() {
+		const {userDetail} = this.props.userStore;
+		const {social} = this;
 		return <CommonWrapComponent
 			title="社交"
 			handleEdit={this.handleEdit}
-		>
-			{
+			render={
 				isEditing => <Row type="flex" align="middle">
-					<Col span={2}>
-						简历
-					</Col>
-					<Col span={6}>
-						<Input value={userDetail ? userDetail.resumeAlias : ""} maxLength={4} disabled={!isEditing}/>
-					</Col>
-					<Col span={5} offset={1}>
-						<UploadFileComponent label={"上传简历"} disabled={!isEditing}/>
-					</Col>
-					<Col span={10}>
-						<FileShowComponent type="file" value={userDetail ? userDetail.resumeName : ""}/>
-					</Col>
+					<SocialEditItem
+						accept={".doc,.docx,.page,.jpeg,.png,.pdf"}
+						type="file"
+						title={"简历"}
+						value={userDetail.resumeAlias}
+						label={"上传简历"}
+						file={userDetail.resumeName}
+						isEditing={isEditing}
+						onUploadFile={this.handleUploadResume}
+						onDeleteFile={this.handleDeleteResume}
+						onChangeInput={this.handleChangeResumeInput}
+					/>
+					{
+						social.map((item, index) => <SocialEditItem
+							accept={".ico,.png,.jpg,.jpeg"}
+							key={item.icon + index}
+							type="image"
+							value={item.value}
+							file={item.icon}
+							label={"上传图标"}
+							isEditing={isEditing}
+							onUploadFile={({fileUrl, fileName}) => this.handleUploadIcon({fileUrl, fileName, index})}
+							onDeleteFile={this.handleDeleteSocialIcon(index)}
+							onDeleteItem={this.handleDeleteItem(index)}
+							onChangeInput={(e) => this.handleChangeSocialInput(index, e)}
+						/>)
+					}
+					{
+						isEditing && <Button type="primary" icon="plus" onClick={this.handleAddSocial}>
+                新增社交信息
+            </Button>
+					}
 				</Row>
 			}
-
-		</CommonWrapComponent>;
+		/>;
 	}
 }
 

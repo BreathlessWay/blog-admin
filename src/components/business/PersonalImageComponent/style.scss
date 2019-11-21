@@ -1,0 +1,12 @@
+@import "../../../static/css/variables";
+@import "../../../static/css/mixins";
+
+.personal-image_card{
+  width: 180px;
+  margin-right: $spacing-h-lg*2;
+  margin-bottom: $spacing-v-lg*2;
+}
+
+.personal-image_upload{
+  width: 180px;
+}

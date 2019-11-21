@@ -11,7 +11,7 @@ export type IDraggableComponentPropType = {
 		[key: string]: any
 	}>
 	moveCard: (dragIndex: number, hoverIndex: number) => void
-	render: (item: any) => ReactNode
+	render: (item: any, index: number) => ReactNode
 }
 
 const DraggableComponent: FC<IDraggableComponentPropType> = (props) => {
@@ -24,7 +24,7 @@ const DraggableComponent: FC<IDraggableComponentPropType> = (props) => {
 					index={index}
 					key={item.id}
 				>
-					{render(item)}
+					{render(item, index)}
 				</DraggableItem>)
 		}
 	</DndProvider>;

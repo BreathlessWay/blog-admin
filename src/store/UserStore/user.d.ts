@@ -2,13 +2,16 @@ export type UserDetailType = {
 	resumeAlias: string,
 	resumeUrl: string,
 	resumeName: string,
-	resumeImageUrl: string
+	resumeImageUrl: string,
 	social: Array<{
 		icon: string,
 		value: string
 	}>,
-	personalShow: string,
-	title: string,
-	motto: string,
+	personalImage: Array<{
+		url: string,
+		default: boolean
+	}>,
+	en: string,
+	zh: string,
 	intro: string
 }

@@ -24,7 +24,7 @@ const CommonGap: FC<ICommonGapPropType> = (props) => {
 			height = 0;
 	}
 
-	return <aside style={{height}}/>;
+	return <aside style={{height, width: "100%"}}/>;
 };
 
 export default CommonGap;

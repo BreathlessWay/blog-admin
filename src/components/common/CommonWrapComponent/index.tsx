@@ -8,15 +8,19 @@ const {Title} = Typography;
 
 export type ICommonWrapComponentPropType = {
 	title: string
-	handleEdit: () => boolean
-	children: (isEditing: boolean) => ReactNode
+	render?: (isEditing: boolean) => ReactNode
+
+	handleEdit?: () => boolean
+	needEdit?: boolean
 }
 
 const CommonWrapComponent: FC<ICommonWrapComponentPropType> = (props) => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	const handleEdit = () => {
-		if (isEditing && props.handleEdit()) {
+	const {title, children, handleEdit, needEdit = true, render} = props;
+
+	const handleClickEdit = () => {
+		if (handleEdit && isEditing && handleEdit()) {
 			setIsEditing(false);
 		}
 		if (!isEditing) {
@@ -24,16 +28,19 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType> = (props) => {
 		}
 	};
 
+
 	return <Row>
 		<Col>
 			<Row align="middle" justify="space-between" type="flex">
-				<Title level={4} style={{margin: 0}}>{props.title}</Title>
-				<Button type="link" onClick={handleEdit}>{isEditing ? "完成" : "编辑"}</Button>
+				<Title level={4} style={{margin: 0}}>{title}</Title>
+				{
+					needEdit && <Button type="link" onClick={handleClickEdit}>{isEditing ? "完成" : "编辑"}</Button>
+				}
 			</Row>
 			<Divider style={{margin: "10px 0"}}/>
 		</Col>
 		<Col>
-			{props.children(isEditing)}
+			{render ? render(isEditing) : children}
 		</Col>
 		<Col>
 			<CommonGap size="xl"/>
