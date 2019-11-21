@@ -10,21 +10,21 @@ import SocialEditComponent from "@/components/business/SocialEditComponent";
 import { StoreType } from "@/store/store";
 
 @inject((allStore: StoreType) => ({
-	userStore: allStore.userStore,
-	homepageStore: allStore.homepageStore
+  userStore: allStore.userStore,
+  homepageStore: allStore.homepageStore
 }))
 @observer
 export default class HomePage extends React.Component {
-	render() {
-		return <Row>
-			<Col>
-				<MenuEditComponent/>
-				<PersonalImageComponent/>
-				<MottoComponent/>
-				<SocialEditComponent/>
-			</Col>
-		</Row>;
-	}
+  render() {
+    return (
+      <Row>
+        <Col>
+          <MenuEditComponent />
+          <PersonalImageComponent />
+          <MottoComponent />
+          <SocialEditComponent />
+        </Col>
+      </Row>
+    );
+  }
 }
-
-

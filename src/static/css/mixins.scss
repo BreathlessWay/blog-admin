@@ -1,8 +1,8 @@
-@mixin text-align($align:center) {
+@mixin text-align($align: center) {
   text-align: $align;
 }
 
-@mixin flex($align-items: center, $justify-content:space-between) {
+@mixin flex($align-items: center, $justify-content: space-between) {
   display: flex;
   justify-content: $justify-content;
   align-items: $align-items;

@@ -6,23 +6,26 @@ import FullLoadingComponent from "@/components/common/FullLodaingComponent";
 
 import store from "@/store";
 
-const RouterPage = lazy(() => import(/* webpackChunkName: "RouterPage" */ "./RouterPage"));
-const LoginPage = lazy(() => import(/* webpackChunkName: "LoginPage" */ "./LoginPage"));
+const RouterPage = lazy(() =>
+  import(/* webpackChunkName: "RouterPage" */ "./RouterPage")
+);
+const LoginPage = lazy(() =>
+  import(/* webpackChunkName: "LoginPage" */ "./LoginPage")
+);
 
 const App: React.FC = () => {
-	return (
-		<Suspense fallback={<FullLoadingComponent/>}>
-			<Provider {...store}>
-				<BrowserRouter>
-					<Switch>
-						<Route exact={true} path="/login" component={LoginPage}/>
-						<Route component={RouterPage}/>
-					</Switch>
-				</BrowserRouter>
-			</Provider>
-		</Suspense>
-	);
+  return (
+    <Suspense fallback={<FullLoadingComponent />}>
+      <Provider {...store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact={true} path="/login" component={LoginPage} />
+            <Route component={RouterPage} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </Suspense>
+  );
 };
 
 export default App;
-
