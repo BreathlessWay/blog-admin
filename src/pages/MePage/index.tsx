@@ -8,10 +8,24 @@ const MeLikeImageComponent = lazy(() =>
 	),
 );
 
+const PersonalInfoComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "PersonalInfoComponent" */ '@/components/business/PersonalInfoComponent'
+	),
+);
+
+const SkillComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "SkillComponent" */ '@/components/business/SkillComponent'
+	),
+);
+
 const MePage = () => {
 	return (
 		<>
 			<MeLikeImageComponent />
+			<PersonalInfoComponent />
+			<SkillComponent />
 		</>
 	);
 };

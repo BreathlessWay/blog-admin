@@ -1,7 +1,15 @@
 import { observable, action, computed } from 'mobx';
 import { storage } from '@/utils';
 
+import { SKILL_PERCENT_MID } from '@/utils/constant';
+
 import { UserDetailType } from '@/store/UserStore/user';
+
+export enum EPersonalChangeType {
+	personalTitle = 'personalTitle',
+	personalInfo = 'personalInfo',
+	personalIntro = 'personalIntro',
+}
 
 export default class UserStore {
 	@observable
@@ -22,7 +30,20 @@ export default class UserStore {
 		personalTitle: '',
 		personalInfo: '',
 		personalIntro: '',
-		personalSkill: [],
+		personalSkill: [
+			// {
+			// 	name: 'javascript',
+			// 	percent: 80,
+			// },
+			// {
+			// 	name: 'html',
+			// 	percent: 90,
+			// },
+			// {
+			// 	name: 'css',
+			// 	percent: 70,
+			// },
+		],
 	};
 
 	emptySocialTmp = {
@@ -122,6 +143,48 @@ export default class UserStore {
 	setShowLikeImage(index: number) {
 		this.userDetail.likeImage.forEach((item, i) => {
 			item.show = i === index;
+		});
+	}
+
+	@action.bound
+	setPersonalInfo({
+		value,
+		type,
+	}: {
+		value: string;
+		type: EPersonalChangeType;
+	}) {
+		this.userDetail[type] = value;
+	}
+
+	@action.bound
+	sortSkill(dragIndex: number, hoverIndex: number) {
+		const dragItem = this.userDetail.personalSkill.splice(dragIndex, 1);
+		this.userDetail.personalSkill.splice(hoverIndex, 0, ...dragItem);
+	}
+
+	@action.bound
+	changeSkillName(value: string, index: number) {
+		this.userDetail.personalSkill[index].name = value;
+	}
+
+	@action.bound
+	changeSkillPercent(value: number, index: number) {
+		this.userDetail.personalSkill[index].percent = value;
+	}
+
+	@action.bound
+	filterSkill() {
+		this.userDetail.personalSkill = this.userDetail.personalSkill.filter(item =>
+			item.name.trim(),
+		);
+	}
+
+	@action.bound
+	addSkill() {
+		this.userDetail.personalSkill.push({
+			name: '',
+			percent: SKILL_PERCENT_MID,
 		});
 	}
 

@@ -47,9 +47,7 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType & {
 				})
 				.catch(() => {})
 				.finally(() => {
-					setTimeout(() => {
-						globalStore.endLoading();
-					}, 2000);
+					globalStore.endLoading();
 				});
 		}
 		if (!isEditing) {

@@ -19,9 +19,9 @@ export type UserDetailType = {
 		url: string;
 		show: boolean;
 	}>;
-	personalTitle: '';
-	personalInfo: '';
-	personalIntro: '';
+	personalTitle: string;
+	personalInfo: string;
+	personalIntro: string;
 	personalSkill: Array<{
 		name: string;
 		percent: number;
