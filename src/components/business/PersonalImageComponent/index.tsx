@@ -23,8 +23,8 @@ class PersonalImageComponent extends React.Component<
 		this.props.userStore.removePersonalImage(index);
 	};
 
-	handleSetAsDefault = (index: number) => {
-		this.props.userStore.setAsDefaultPersonalImage(index);
+	handleSetShow = (index: number) => {
+		this.props.userStore.setShowPersonalImage(index);
 	};
 
 	handleUploadImage = (url: string) => {
@@ -41,7 +41,7 @@ class PersonalImageComponent extends React.Component<
 				<ImageShowAndUploadComponent
 					onRemove={this.handleRemove}
 					imageList={this.fileList}
-					onSetDefault={this.handleSetAsDefault}
+					onSetShow={this.handleSetShow}
 					onUploadImage={this.handleUploadImage}
 				/>
 			</CommonWrapComponent>

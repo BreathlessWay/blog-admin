@@ -15,10 +15,10 @@ const iconStyle = {
 export type IImageShowAndUploadComponentPropType = {
 	imageList: Array<{
 		url: string;
-		default: boolean;
+		show: boolean;
 	}>;
 	onRemove: (index: number) => void;
-	onSetDefault: (index: number) => void;
+	onSetShow: (index: number) => void;
 	onUploadImage: (url: string) => void;
 };
 
@@ -41,7 +41,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 	};
 	// TODO 不用Card，用固定大小的框，图片设置为背景图
 	render() {
-		const { imageList, onRemove, onSetDefault } = this.props;
+		const { imageList, onRemove, onSetShow } = this.props;
 		return (
 			<Row type="flex">
 				{imageList.map((item, index) => (
@@ -66,9 +66,9 @@ export default class ImageShowAndUploadComponent extends React.Component<
 								type="check-circle"
 								style={{
 									...iconStyle,
-									...{ color: item.default ? '#faad14' : '' },
+									...{ color: item.show ? '#faad14' : '' },
 								}}
-								onClick={() => onSetDefault(index)}
+								onClick={() => onSetShow(index)}
 							/>,
 						]}
 					/>

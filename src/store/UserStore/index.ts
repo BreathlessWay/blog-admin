@@ -89,14 +89,14 @@ export default class UserStore {
 	addPersonalImage(fileUrl: string) {
 		this.userDetail.personalImage.push({
 			url: fileUrl,
-			default: this.personalImageLength === 0,
+			show: this.personalImageLength === 0,
 		});
 	}
 
 	@action.bound
-	setAsDefaultPersonalImage(index: number) {
+	setShowPersonalImage(index: number) {
 		this.userDetail.personalImage.forEach((item, i) => {
-			item.default = i === index;
+			item.show = i === index;
 		});
 	}
 

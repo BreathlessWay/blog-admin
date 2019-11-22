@@ -2,9 +2,10 @@ import React, { ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 import CommonWrapComponent from '@/components/common/CommonWrapComponent';
+import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
 import UserStore from '@/store/UserStore';
-import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
+
 import { toJS } from 'mobx';
 
 export type IMeLikeImageComponentPropType = {
@@ -18,7 +19,7 @@ class MeLikeImageComponent extends React.Component<
 > {
 	handleRemove = (index: number) => {};
 
-	handleSetAsDefault = (index: number) => {};
+	handleSetShow = (index: number) => {};
 
 	handleUploadImage = (url: string) => {};
 
@@ -32,7 +33,7 @@ class MeLikeImageComponent extends React.Component<
 				<ImageShowAndUploadComponent
 					onRemove={this.handleRemove}
 					imageList={this.likeImage}
-					onSetDefault={this.handleSetAsDefault}
+					onSetShow={this.handleSetShow}
 					onUploadImage={this.handleUploadImage}
 				/>
 			</CommonWrapComponent>

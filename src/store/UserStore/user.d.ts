@@ -9,7 +9,7 @@ export type UserDetailType = {
 	}>;
 	personalImage: Array<{
 		url: string;
-		default: boolean;
+		show: boolean;
 	}>;
 	en: string;
 	zh: string;
@@ -17,7 +17,7 @@ export type UserDetailType = {
 
 	likeImage: Array<{
 		url: string;
-		default: boolean;
+		show: boolean;
 	}>;
 	personalTitle: '';
 	personalInfo: '';
