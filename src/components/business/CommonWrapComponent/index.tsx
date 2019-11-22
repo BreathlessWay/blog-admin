@@ -1,8 +1,10 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import { Button, Col, Divider, Row, Typography } from 'antd';
-import CommonGap from '../CommonGap';
+import CommonGap from '@/components/common/CommonGap';
+
+import GlobalStore from '@/store/GlobalStore';
 
 import compose from '@/utils/compose';
 
@@ -16,18 +18,39 @@ export type ICommonWrapComponentPropType = {
 	note?: string;
 	render?: (isEditing: boolean) => ReactNode;
 
-	handleEdit?: () => boolean;
+	handleEdit?: () => Promise<any>;
 	needEdit?: boolean;
 };
 
-const CommonWrapComponent: FC<ICommonWrapComponentPropType> = props => {
+const CommonWrapComponent: FC<ICommonWrapComponentPropType & {
+	globalStore: GlobalStore;
+}> = props => {
+	// 不能提到globalStore，每个表单的isEditing是独立的
 	const [isEditing, setIsEditing] = useState(false);
 
-	const { title, children, handleEdit, needEdit = true, render, note } = props;
+	const {
+		title,
+		children,
+		handleEdit,
+		needEdit = true,
+		render,
+		note,
+		globalStore,
+	} = props;
 
 	const handleClickEdit = () => {
-		if (handleEdit && isEditing && handleEdit()) {
-			setIsEditing(false);
+		if (handleEdit && isEditing) {
+			globalStore.startLoading();
+			handleEdit()
+				.then(() => {
+					setIsEditing(false);
+				})
+				.catch(() => {})
+				.finally(() => {
+					setTimeout(() => {
+						globalStore.endLoading();
+					}, 2000);
+				});
 		}
 		if (!isEditing) {
 			setIsEditing(true);
@@ -61,7 +84,8 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType> = props => {
 		</Row>
 	);
 };
-// 不加observer不会响应menuList的更改而更新，mobx的问题
-export default compose<FC<ICommonWrapComponentPropType>>(observer)(
-	CommonWrapComponent,
-);
+
+export default compose<FC<ICommonWrapComponentPropType>>(
+	inject('globalStore'),
+	observer,
+)(CommonWrapComponent);

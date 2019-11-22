@@ -2,7 +2,7 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Row, Col, Input, Typography } from 'antd';
-import CommonWrapComponent from '@/components/common/CommonWrapComponent';
+import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 import CommonGap from '@/components/common/CommonGap';
 
 import { StoreType } from '@/store/store';
@@ -37,23 +37,25 @@ class MottoComponent extends React.Component<
 	};
 
 	handleEdit = () => {
-		const { en, zh, intro } = this.props.userStore.userDetail;
-		if (en.trim() && zh.trim() && intro.trim()) {
-			this.setState({
-				enError: false,
-				zhError: false,
-				introError: false,
-			});
-			// this.props.globalStore.startLoading()
-			// 提交更新
-			return true;
-		}
-		this.setState({
-			enError: !en.trim(),
-			zhError: !zh.trim(),
-			introError: !intro.trim(),
+		return new Promise((resolve, reject) => {
+			const { en, zh, intro } = this.props.userStore.userDetail;
+			if (en.trim() && zh.trim() && intro.trim()) {
+				this.setState({
+					enError: false,
+					zhError: false,
+					introError: false,
+				});
+				// 提交更新
+				resolve();
+			} else {
+				this.setState({
+					enError: !en.trim(),
+					zhError: !zh.trim(),
+					introError: !intro.trim(),
+				});
+				reject();
+			}
 		});
-		return false;
 	};
 
 	handleChangeEn = (e: ChangeEvent<HTMLInputElement>) => {

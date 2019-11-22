@@ -2,7 +2,7 @@ import React, { ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { message } from 'antd';
-import CommonWrapComponent from '@/components/common/CommonWrapComponent';
+import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
 import UserStore from '@/store/UserStore';

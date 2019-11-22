@@ -2,7 +2,7 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Row, Button } from 'antd';
-import CommonWrapComponent from '@/components/common/CommonWrapComponent';
+import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
@@ -17,7 +17,6 @@ export type ISocialEditComponentStateType = {
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
-	globalStore: allStore.globalStore,
 }))
 @observer
 class SocialEditComponent extends React.Component<
@@ -26,24 +25,25 @@ class SocialEditComponent extends React.Component<
 > {
 	handleEdit = () => {
 		this.props.userStore.filterSocial();
-		const {
-			resumeAlias,
-			resumeUrl,
-			resumeName,
-			resumeImageUrl,
-			social,
-		} = this.props.userStore.userDetail;
-		const params = {
-			resumeAlias,
-			resumeUrl,
-			resumeName,
-			resumeImageUrl,
-			social,
-		};
-		// this.props.globalStore.startLoading()
-		console.log(params);
-		// 提交更新
-		return true;
+		return new Promise((resolve, reject) => {
+			const {
+				resumeAlias,
+				resumeUrl,
+				resumeName,
+				resumeImageUrl,
+				social,
+			} = this.props.userStore.userDetail;
+			const params = {
+				resumeAlias,
+				resumeUrl,
+				resumeName,
+				resumeImageUrl,
+				social,
+			};
+			console.log(params);
+			// 提交更新
+			resolve();
+		});
 	};
 
 	handleAddSocial = () => {

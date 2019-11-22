@@ -14,28 +14,7 @@ export default class UserStore {
 		resumeName: '',
 		resumeImageUrl: '',
 		social: [],
-		personalImage: [
-			{
-				url:
-					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-				show: false,
-			},
-			{
-				url:
-					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-				show: false,
-			},
-			{
-				url:
-					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-				show: false,
-			},
-			{
-				url:
-					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-				show: false,
-			},
-		],
+		personalImage: [],
 		en: '',
 		zh: '',
 		intro: '',
@@ -124,6 +103,26 @@ export default class UserStore {
 	@action.bound
 	setMotto({ key, value }: { key: 'en' | 'zh' | 'intro'; value: string }) {
 		this.userDetail[key] = value;
+	}
+
+	@action.bound
+	removeLikeImage(index: number) {
+		this.userDetail.likeImage.splice(index, 1);
+	}
+
+	@action.bound
+	addLikeImage(fileUrl: string) {
+		this.userDetail.likeImage.push({
+			url: fileUrl,
+			show: this.likeImageLength === 0,
+		});
+	}
+
+	@action.bound
+	setShowLikeImage(index: number) {
+		this.userDetail.likeImage.forEach((item, i) => {
+			item.show = i === index;
+		});
 	}
 
 	@computed

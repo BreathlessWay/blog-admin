@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Checkbox, Col, Icon, Input, Row, Typography } from 'antd';
 
 import DraggableComponent from '@/components/common/DraggableComponent';
-import CommonWrapComponent from '@/components/common/CommonWrapComponent';
+import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 
 import { StoreType } from '@/store/store';
 import { MenuType } from '@/store/HomePageStore/hompage';
@@ -20,7 +20,6 @@ export type IMenuEditComponentStateType = Readonly<{}>;
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	homepageStore: allStore.homepageStore,
-	globalStore: allStore.globalStore,
 }))
 @observer
 class MenuEditComponent extends React.Component<
@@ -40,16 +39,18 @@ class MenuEditComponent extends React.Component<
 	}
 
 	editMenu = () => {
-		// this.props.globalStore.startLoading();
 		// 发送请求
 	};
 
 	handleEdit = () => {
-		if (this.canSubmit) {
-			this.editMenu();
-			return true;
-		}
-		return false;
+		return new Promise((resolve, reject) => {
+			if (this.canSubmit) {
+				this.editMenu();
+				resolve();
+			} else {
+				reject();
+			}
+		});
 	};
 
 	handleMoveCard = (
