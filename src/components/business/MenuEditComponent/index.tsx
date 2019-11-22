@@ -20,6 +20,7 @@ export type IMenuEditComponentStateType = Readonly<{}>;
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	homepageStore: allStore.homepageStore,
+	globalStore: allStore.globalStore,
 }))
 @observer
 class MenuEditComponent extends React.Component<
@@ -39,6 +40,7 @@ class MenuEditComponent extends React.Component<
 	}
 
 	editMenu = () => {
+		// this.props.globalStore.startLoading();
 		// 发送请求
 	};
 

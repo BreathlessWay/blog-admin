@@ -39,7 +39,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 			}
 		};
 	};
-
+	// TODO 不用Card，用固定大小的框，图片设置为背景图
 	render() {
 		const { imageList, onRemove, onSetDefault } = this.props;
 		return (

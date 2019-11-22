@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { ComponentClass, lazy } from 'react';
 
 import './style.scss';
 
-class MePage extends React.Component {
-	render() {
-		return <div>我</div>;
-	}
-}
+const MeLikeImageComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "MeLikeImageComponent" */ '@/components/business/MeLikeImageComponent'
+	),
+);
 
-export default MePage;
+const MePage = () => {
+	return (
+		<>
+			<MeLikeImageComponent />
+		</>
+	);
+};
+
+export default (MePage as unknown) as ComponentClass;

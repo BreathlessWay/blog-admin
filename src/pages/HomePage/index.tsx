@@ -1,7 +1,5 @@
 import React, { lazy } from 'react';
 
-import { Row, Col } from 'antd';
-
 const MenuEditComponent = lazy(() =>
 	import(
 		/* webpackChunkName: "MenuEditComponent" */ '@/components/business/MenuEditComponent'
@@ -25,14 +23,12 @@ const SocialEditComponent = lazy(() =>
 
 const HomePage = () => {
 	return (
-		<Row>
-			<Col>
-				<MenuEditComponent />
-				<PersonalImageComponent />
-				<MottoComponent />
-				<SocialEditComponent />
-			</Col>
-		</Row>
+		<>
+			<MenuEditComponent />
+			<PersonalImageComponent />
+			<MottoComponent />
+			<SocialEditComponent />
+		</>
 	);
 };
 

@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 
 import { StoreType } from '@/store/store';
 
@@ -34,6 +34,7 @@ export type IRouterPagePropType = StoreType & RouteComponentProps;
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	homepageStore: allStore.homepageStore,
+	globalStore: allStore.globalStore,
 }))
 @observer
 class RouterPage extends React.Component<IRouterPagePropType> {
@@ -49,6 +50,7 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 	render() {
 		const {
 			homepageStore: { firstMenu },
+			globalStore: { loading },
 		} = this.props;
 		return (
 			<Layout>
@@ -61,14 +63,16 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 						<BreadcrumbComponent />
 					</Header>
 					<Content className="home-page_content">
-						<Switch>
-							<Route path="/home" component={HomePage} />
-							<Route path="/me" component={MePage} />
-							<Route path="/article" children={<div>article</div>} />
-							<Route path="/cat" children={<div>cat</div>} />
-							<Route path="/photography" children={<div>photography</div>} />
-							<Redirect from="/" to={firstMenu.path} />
-						</Switch>
+						<Spin spinning={loading}>
+							<Switch>
+								<Route path="/home" component={HomePage} />
+								<Route path="/me" component={MePage} />
+								<Route path="/article" children={<div>article</div>} />
+								<Route path="/cat" children={<div>cat</div>} />
+								<Route path="/photography" children={<div>photography</div>} />
+								<Redirect from="/" to={firstMenu.path} />
+							</Switch>
+						</Spin>
 					</Content>
 					<Footer className="home-page_footer">
 						BreathlessWay 博客管理后台系统
