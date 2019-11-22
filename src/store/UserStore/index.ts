@@ -111,6 +111,11 @@ export default class UserStore {
 	}
 
 	@computed
+	get likeImageLength() {
+		return this.userDetail.likeImage.length;
+	}
+
+	@computed
 	get isLogin() {
 		return this.session !== '';
 	}

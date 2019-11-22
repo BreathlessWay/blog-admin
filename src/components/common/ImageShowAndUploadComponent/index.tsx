@@ -20,6 +20,7 @@ export type IImageShowAndUploadComponentPropType = {
 	onRemove: (index: number) => void;
 	onSetShow: (index: number) => void;
 	onUploadImage: (url: string) => void;
+	disabled: boolean;
 };
 
 export default class ImageShowAndUploadComponent extends React.Component<
@@ -41,7 +42,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 	};
 	// TODO 不用Card，用固定大小的框，图片设置为背景图
 	render() {
-		const { imageList, onRemove, onSetShow } = this.props;
+		const { imageList, onRemove, onSetShow, disabled } = this.props;
 		return (
 			<Row type="flex">
 				{imageList.map((item, index) => (
@@ -73,18 +74,20 @@ export default class ImageShowAndUploadComponent extends React.Component<
 						]}
 					/>
 				))}
-				<section className="personal-image_upload">
-					<Upload
-						customRequest={this.handleCustomUpload}
-						accept={'.jpg,.jpeg,.png'}
-						listType="picture-card"
-						showUploadList={false}>
-						<div>
-							<Icon type="plus" />
-							<div className="ant-upload-text">上传图片</div>
-						</div>
-					</Upload>
-				</section>
+				{!disabled && (
+					<section className="personal-image_upload">
+						<Upload
+							customRequest={this.handleCustomUpload}
+							accept={'.jpg,.jpeg,.png'}
+							listType="picture-card"
+							showUploadList={false}>
+							<div>
+								<Icon type="plus" />
+								<div className="ant-upload-text">上传图片</div>
+							</div>
+						</Upload>
+					</section>
+				)}
 			</Row>
 		);
 	}

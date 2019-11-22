@@ -8,6 +8,8 @@ import UserStore from '@/store/UserStore';
 
 import { toJS } from 'mobx';
 
+import { MAX_IMAGE_COUNT } from '@/utils/constant';
+
 import './style.scss';
 
 export type IPersonalImageComponentPropType = {
@@ -36,9 +38,15 @@ class PersonalImageComponent extends React.Component<
 	}
 
 	render() {
+		const { personalImageLength } = this.props.userStore;
+
 		return (
-			<CommonWrapComponent title="个人形象" needEdit={false}>
+			<CommonWrapComponent
+				title="个人形象"
+				needEdit={false}
+				note={`最多上传${MAX_IMAGE_COUNT}张`}>
 				<ImageShowAndUploadComponent
+					disabled={personalImageLength === MAX_IMAGE_COUNT}
 					onRemove={this.handleRemove}
 					imageList={this.fileList}
 					onSetShow={this.handleSetShow}

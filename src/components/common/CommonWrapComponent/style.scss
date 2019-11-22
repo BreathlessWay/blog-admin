@@ -1,2 +1,11 @@
-@import "../../../static/css/variables";
-@import "../../../static/css/mixins";
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.ant-typography.common-wrap_title {
+	margin: 0;
+	display: inline-block;
+}
+
+.common-wrap_note {
+	margin-left: $spacing-h-md;
+}

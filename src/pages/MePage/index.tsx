@@ -1,4 +1,4 @@
-import React, { ComponentClass, lazy } from 'react';
+import React, { lazy } from 'react';
 
 import './style.scss';
 
@@ -16,4 +16,4 @@ const MePage = () => {
 	);
 };
 
-export default (MePage as unknown) as ComponentClass;
+export default MePage;

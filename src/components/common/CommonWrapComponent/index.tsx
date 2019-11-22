@@ -6,10 +6,14 @@ import CommonGap from '../CommonGap';
 
 import compose from '@/utils/compose';
 
-const { Title } = Typography;
+import './style.scss';
+
+const { Title, Text } = Typography;
 
 export type ICommonWrapComponentPropType = {
 	title: string;
+
+	note?: string;
 	render?: (isEditing: boolean) => ReactNode;
 
 	handleEdit?: () => boolean;
@@ -19,7 +23,7 @@ export type ICommonWrapComponentPropType = {
 const CommonWrapComponent: FC<ICommonWrapComponentPropType> = props => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	const { title, children, handleEdit, needEdit = true, render } = props;
+	const { title, children, handleEdit, needEdit = true, render, note } = props;
 
 	const handleClickEdit = () => {
 		if (handleEdit && isEditing && handleEdit()) {
@@ -34,9 +38,14 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType> = props => {
 		<Row>
 			<Col>
 				<Row align="middle" justify="space-between" type="flex">
-					<Title level={4} style={{ margin: 0 }}>
-						{title}
-					</Title>
+					<Col>
+						<Title level={4} className="common-wrap_title">
+							{title}
+						</Title>
+						<Text className="common-wrap_note" type="danger">
+							{note}
+						</Text>
+					</Col>
 					{needEdit && (
 						<Button type="link" onClick={handleClickEdit}>
 							{isEditing ? '完成' : '编辑'}

@@ -8,6 +8,8 @@ import UserStore from '@/store/UserStore';
 
 import { toJS } from 'mobx';
 
+import { MAX_IMAGE_COUNT } from '@/utils/constant';
+
 export type IMeLikeImageComponentPropType = {
 	userStore: UserStore;
 };
@@ -28,9 +30,15 @@ class MeLikeImageComponent extends React.Component<
 	}
 
 	render() {
+		const { likeImageLength } = this.props.userStore;
 		return (
-			<CommonWrapComponent title="个人形象" needEdit={false}>
+			<CommonWrapComponent
+				title="爱好形象"
+				needEdit={false}
+				note={`最多上传${MAX_IMAGE_COUNT}张`}>
+				>
 				<ImageShowAndUploadComponent
+					disabled={likeImageLength === MAX_IMAGE_COUNT}
 					onRemove={this.handleRemove}
 					imageList={this.likeImage}
 					onSetShow={this.handleSetShow}

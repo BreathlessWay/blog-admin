@@ -9,6 +9,8 @@ import { StoreType } from '@/store/store';
 
 import { login } from '@/service/login';
 
+import { TIME_COUNT_DOWN } from '@/utils/constant';
+
 import './style.scss';
 
 const { confirm } = Modal;
@@ -35,7 +37,7 @@ class LoginPage extends React.Component<
 	time: any = null;
 
 	readonly state: ILoginPageStateType = {
-		second: 60,
+		second: TIME_COUNT_DOWN,
 		loading: false,
 		disabled: false,
 	};
@@ -120,7 +122,7 @@ class LoginPage extends React.Component<
 					window.clearInterval(this.time);
 					this.setState({
 						disabled: false,
-						second: 5,
+						second: TIME_COUNT_DOWN,
 					});
 				}
 			}, 1000);
