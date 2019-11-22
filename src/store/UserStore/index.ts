@@ -14,7 +14,28 @@ export default class UserStore {
 		resumeName: '',
 		resumeImageUrl: '',
 		social: [],
-		personalImage: [],
+		personalImage: [
+			{
+				url:
+					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+				show: false,
+			},
+			{
+				url:
+					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+				show: false,
+			},
+			{
+				url:
+					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+				show: false,
+			},
+			{
+				url:
+					'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+				show: false,
+			},
+		],
 		en: '',
 		zh: '',
 		intro: '',

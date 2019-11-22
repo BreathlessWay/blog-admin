@@ -1,42 +1,67 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent } from 'react';
 
-import { Button, Icon } from "antd";
+import { Button, Icon } from 'antd';
 
-import "./style.scss";
+import { uploadFile } from '@/service/upload';
+
+import './style.scss';
 
 export type IUploadFileComponentPropType = {
-  label: string;
+	label: string;
 
-  accept?: string;
-  disabled?: boolean;
+	accept?: string;
+	disabled?: boolean;
 
-  onUploadFile: (params: { fileUrl: string; fileName: string }) => void;
+	onUploadFile: (params: { fileUrl: string; fileName: string }) => void;
 };
 
-export default class UploadFileComponent extends React.Component<
-  IUploadFileComponentPropType
-> {
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    // 通用上传文件，返回文件url和文件名
-    this.props.onUploadFile({ fileUrl: "", fileName: "" });
-  };
+export type IUploadFileComponentStateType = Readonly<{
+	compLoading: boolean;
+	compDisabled: boolean;
+}>;
 
-  render() {
-    const { disabled = false, accept = "" } = this.props;
-    return (
-      <section className="upload-file">
-        <Button>
-          <Icon type="upload" /> {this.props.label}
-        </Button>
-        <input
-          accept={accept}
-          type="file"
-          onChange={this.handleChange}
-          className="upload-file_input"
-          disabled={disabled}
-        />
-      </section>
-    );
-  }
+export default class UploadFileComponent extends React.Component<
+	IUploadFileComponentPropType,
+	IUploadFileComponentStateType
+> {
+	readonly state = {
+		compLoading: false,
+		compDisabled: false,
+	};
+
+	handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files) {
+			this.setState({
+				compLoading: true,
+				compDisabled: true,
+			});
+			// 通用上传文件，返回文件url和文件名
+			uploadFile(e.target.files[0], ({ url, name }) => {
+				this.props.onUploadFile({ fileUrl: url, fileName: name });
+				this.setState({
+					compLoading: false,
+					compDisabled: false,
+				});
+			});
+		}
+	};
+
+	render() {
+		const { disabled = false, accept = '' } = this.props;
+		const { compLoading, compDisabled } = this.state;
+		return (
+			<section className="upload-file">
+				<Button loading={compLoading}>
+					<Icon type="upload" /> {this.props.label}
+				</Button>
+				<input
+					accept={accept}
+					type="file"
+					onChange={this.handleChange}
+					className="upload-file_input"
+					disabled={disabled || compDisabled}
+				/>
+			</section>
+		);
+	}
 }

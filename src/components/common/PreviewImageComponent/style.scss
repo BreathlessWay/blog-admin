@@ -1,27 +1,56 @@
-@import "../../../static/css/variables";
-@import "../../../static/css/mixins";
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+$icon-size: 60px;
+
+.preview-image_icon {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: $icon-size;
+	height: $icon-size;
+	font-size: $icon-size;
+	opacity: 0.5;
+	transition: opacity 0.2s ease;
+	color: $default-color;
+	&:hover {
+		opacity: 1;
+	}
+}
 
 .preview-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	padding: 50px 0;
+	z-index: $z-index;
+	.preview-image_wrap {
+		margin: auto;
+		width: 80%;
+		height: 100%;
+		overflow-y: auto;
+		position: relative;
+		@include flex($justify-content: center);
 
-  .preview-image_wrap {
-    margin: auto;
-    width: 80%;
-    height: 100%;
-    overflow-y: auto;
-    @include flex($justify-content: center);
+		&::-webkit-scrollbar {
+			display: none;
+		}
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+		.preview-image_left {
+			@extend .preview-image_icon;
+			left: $spacing-h-lg;
+		}
+		.preview-image_right {
+			@extend .preview-image_icon;
+			right: $spacing-h-lg;
+		}
 
-    img {
-      max-width: 100%;
-    }
-  }
+		img {
+			max-width: 100%;
+		}
+	}
 }

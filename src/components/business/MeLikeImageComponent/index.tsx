@@ -36,7 +36,6 @@ class MeLikeImageComponent extends React.Component<
 				title="爱好形象"
 				needEdit={false}
 				note={`最多上传${MAX_IMAGE_COUNT}张`}>
-				>
 				<ImageShowAndUploadComponent
 					disabled={likeImageLength === MAX_IMAGE_COUNT}
 					onRemove={this.handleRemove}

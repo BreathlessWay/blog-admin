@@ -1,6 +1,7 @@
 import React, { ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import { message } from 'antd';
 import CommonWrapComponent from '@/components/common/CommonWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
@@ -21,8 +22,12 @@ export type IPersonalImageComponentPropType = {
 class PersonalImageComponent extends React.Component<
 	IPersonalImageComponentPropType
 > {
-	handleRemove = (index: number) => {
-		this.props.userStore.removePersonalImage(index);
+	handleRemove = (index: number, item: { url: string; show: boolean }) => {
+		if (item.show) {
+			message.warning('当前图片正在使用中！');
+		} else {
+			this.props.userStore.removePersonalImage(index);
+		}
 	};
 
 	handleSetShow = (index: number) => {

@@ -1,8 +1,16 @@
 $default-color: #fff;
 
+$border-color: #eee;
+$border-width: 1px;
+$border-style: solid;
+
+$border-normal: $border-width $border-style $border-color;
+
 $icon-width: 20px;
 
 $menu-width: 200px;
+
+$z-index: 99;
 
 /* 水平间距 */
 $spacing-h-sm: 5px;

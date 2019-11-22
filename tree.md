@@ -67,6 +67,9 @@
 │   │       ├── FullLodaingComponent
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
+│   │       ├── ImageCardComponent
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
 │   │       ├── ImageShowAndUploadComponent
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -95,7 +98,8 @@
 │   │       └── style.scss
 │   ├── react-app-env.d.ts
 │   ├── service
-│   │   └── login.ts
+│   │   ├── login.ts
+│   │   └── upload.ts
 │   ├── serviceWorker.ts
 │   ├── static
 │   │   ├── css
@@ -123,5 +127,5 @@
 ├── tree.md
 └── tsconfig.json
 
-39 directories, 84 files
+40 directories, 87 files
 ```
