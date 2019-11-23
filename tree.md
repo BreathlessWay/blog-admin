@@ -29,10 +29,10 @@
 ├── src/
 │   ├── components/
 │   │   ├── business/
-│   │   │   ├── BreadcrumbComponent/
+│   │   │   ├── BasicWrapComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── CommonWrapComponent/
+│   │   │   ├── BreadcrumbComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
 │   │   │   ├── MeLikeImageComponent/
@@ -52,6 +52,10 @@
 │   │   │   │   └── style.scss
 │   │   │   ├── PersonalInfoComponent/
 │   │   │   │   └── index.tsx
+│   │   │   ├── RewardComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── item.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── SkillComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   ├── item.tsx
@@ -61,8 +65,6 @@
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
 │   │   └── common/
-│   │       ├── CommonGap/
-│   │       │   └── index.tsx
 │   │       ├── DraggableComponent/
 │   │       │   └── index.tsx
 │   │       ├── DraggableItem/
@@ -74,6 +76,8 @@
 │   │       ├── FullLodaingComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
+│   │       ├── Gap/
+│   │       │   └── index.tsx
 │   │       ├── ImageCardComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -133,5 +137,5 @@
 ├── tree.md
 └── tsconfig.json
 
-41 directories, 91 files
+42 directories, 94 files
 ```
