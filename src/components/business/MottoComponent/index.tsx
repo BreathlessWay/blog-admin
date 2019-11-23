@@ -1,9 +1,10 @@
 import React, { ChangeEvent, ComponentClass } from 'react';
+
 import { inject, observer } from 'mobx-react';
 
 import { Row, Col, Input, Typography } from 'antd';
 import CommonWrapComponent from '@/components/business/CommonWrapComponent';
-import CommonGap from '@/components/common/CommonGap';
+import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
 
@@ -90,7 +91,7 @@ class MottoComponent extends React.Component<
 					<Row>
 						<Col>
 							<Text>短句：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<Input
 								placeholder="请输入短句"
 								allowClear={true}
@@ -102,9 +103,9 @@ class MottoComponent extends React.Component<
 						</Col>
 						<Col>{enError && <Text type="danger">短句不能为空</Text>}</Col>
 						<Col>
-							<CommonGap size="sm" />
+							<Gap />
 							<Text>座右铭：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<Input
 								placeholder="请输入座右铭"
 								allowClear={true}
@@ -116,9 +117,9 @@ class MottoComponent extends React.Component<
 						</Col>
 						<Col>{zhError && <Text type="danger">座右铭不能为空</Text>}</Col>
 						<Col>
-							<CommonGap size="sm" />
+							<Gap />
 							<Text>简介：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<TextArea
 								placeholder="请输入简介"
 								onChange={this.handleChangeIntro}

@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FC } from 'react';
 
 import { Col, Input, Icon, Typography } from 'antd';
-
 import UploadFileComponent from '@/components/common/UploadFileComponent';
 import FileShowComponent from '@/components/common/FileShowComponent';
-import CommonGap from '@/components/common/CommonGap';
+import Gap from '@/components/common/Gap';
 
 const { Text } = Typography;
 
@@ -69,7 +68,7 @@ const SocialEditItem: FC<ISocialEditItemPropType> = props => {
 				<FileShowComponent type={type} value={file} onDelete={onDeleteFile} />
 			</Col>
 			<Col span={24}>{error && <Text type="danger">{errorMsg}</Text>}</Col>
-			<CommonGap size="sm" />
+			<Gap />
 		</>
 	);
 };

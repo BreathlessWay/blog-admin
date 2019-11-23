@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 

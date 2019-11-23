@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import PreviewImageComponent from './PreviewImageComponent';
 
-import { close } from '@/components/common/PreviewImageComponent/close';
+import { close } from './close';
 
 const preview = {
 	show({

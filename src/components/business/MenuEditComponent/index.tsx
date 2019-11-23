@@ -1,8 +1,8 @@
 import React, { ChangeEvent, ComponentClass } from 'react';
+
 import { inject, observer } from 'mobx-react';
 
 import { Checkbox, Col, Icon, Input, Row, Typography } from 'antd';
-
 import DraggableComponent from '@/components/common/DraggableComponent';
 import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 

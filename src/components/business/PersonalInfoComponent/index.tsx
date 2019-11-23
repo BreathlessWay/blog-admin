@@ -1,9 +1,10 @@
 import React, { ChangeEvent, Component, ComponentClass } from 'react';
+
 import { inject, observer } from 'mobx-react';
 
 import { Col, Input, Row, Typography } from 'antd';
 import CommonWrapComponent from '@/components/business/CommonWrapComponent';
-import CommonGap from '@/components/common/CommonGap';
+import Gap from '@/components/common/Gap';
 
 import UserStore, { EPersonalChangeType } from '@/store/UserStore';
 
@@ -94,7 +95,7 @@ class PersonalInfoComponent extends Component<
 					<Row>
 						<Col>
 							<Text>标题：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<Input
 								placeholder="请输入标题"
 								allowClear={true}
@@ -113,9 +114,9 @@ class PersonalInfoComponent extends Component<
 							{titleError && <Text type="danger">标题不能为空</Text>}
 						</Col>
 						<Col>
-							<CommonGap size="sm" />
+							<Gap />
 							<Text>个人简介：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<Input
 								placeholder="请输入个人简介"
 								allowClear={true}
@@ -134,9 +135,9 @@ class PersonalInfoComponent extends Component<
 							{infoError && <Text type="danger">个人简介不能为空</Text>}
 						</Col>
 						<Col>
-							<CommonGap size="sm" />
+							<Gap />
 							<Text>自我介绍：</Text>
-							<CommonGap size="sm" />
+							<Gap />
 							<TextArea
 								placeholder="请输入自我介绍"
 								onChange={event =>

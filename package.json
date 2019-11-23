@@ -80,6 +80,7 @@
 		"workbox-webpack-plugin": "4.3.1"
 	},
 	"scripts": {
+		"tree": "echo '```' > tree.md && tree >> tree.md -I 'node_modules' -F",
 		"start": "node scripts/start.js",
 		"build": "node scripts/build.js",
 		"test": "node scripts/test.js"

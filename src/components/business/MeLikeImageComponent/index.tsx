@@ -1,6 +1,7 @@
 import React, { ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
+
 import CommonWrapComponent from '@/components/business/CommonWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 

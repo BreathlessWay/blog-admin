@@ -1,8 +1,9 @@
 import React, { ChangeEvent, Component, ComponentClass } from 'react';
+
 import { inject, observer } from 'mobx-react';
 
 import { Col, Icon, Input, Row, Slider } from 'antd';
-import CommonGap from '@/components/common/CommonGap';
+import Gap from '@/components/common/Gap';
 
 import UserStore from '@/store/UserStore';
 import { SliderValue } from 'antd/lib/slider';
@@ -50,7 +51,7 @@ class SkillComponentItem extends Component<
 			<>
 				<Col>技能名称：</Col>
 				<Col>
-					<CommonGap size="sm" />
+					<Gap />
 				</Col>
 				<Col>
 					<Input
@@ -64,7 +65,7 @@ class SkillComponentItem extends Component<
 					/>
 				</Col>
 				<Col>
-					<CommonGap size="sm" />
+					<Gap />
 				</Col>
 				<Col>技能熟练度：</Col>
 				<Col>

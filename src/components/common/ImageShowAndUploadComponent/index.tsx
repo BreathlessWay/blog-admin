@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Icon, Upload } from 'antd';
 import ImageCardComponent from '../ImageCardComponent';
-
 import preview from '@/components/common/PreviewImageComponent';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';

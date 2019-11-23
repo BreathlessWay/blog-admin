@@ -1,8 +1,9 @@
 import React, { FC, ReactNode, useState } from 'react';
+
 import { inject, observer } from 'mobx-react';
 
 import { Button, Col, Divider, Row, Typography } from 'antd';
-import CommonGap from '@/components/common/CommonGap';
+import Gap from '@/components/common/Gap';
 
 import GlobalStore from '@/store/GlobalStore';
 
@@ -77,7 +78,7 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType & {
 			</Col>
 			<Col>{render ? render(isEditing) : children}</Col>
 			<Col>
-				<CommonGap size="xl" />
+				<Gap size="xl" />
 			</Col>
 		</Row>
 	);

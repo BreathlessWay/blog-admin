@@ -1,9 +1,10 @@
 ```
+.
 ├── README.md
 ├── commitlint.config.js
-├── config
+├── config/
 │   ├── env.js
-│   ├── jest
+│   ├── jest/
 │   │   ├── cssTransform.js
 │   │   └── fileTransform.js
 │   ├── modules.js
@@ -14,118 +15,123 @@
 ├── jest.config.js
 ├── package-lock.json
 ├── package.json
-├── public
+├── public/
 │   ├── favicon.ico
 │   ├── index.html
 │   ├── logo192.png
 │   ├── logo512.png
 │   ├── manifest.json
 │   └── robots.txt
-├── scripts
+├── scripts/
 │   ├── build.js
 │   ├── start.js
 │   └── test.js
-├── src
-│   ├── components
-│   │   ├── business
-│   │   │   ├── BreadcrumbComponent
+├── src/
+│   ├── components/
+│   │   ├── business/
+│   │   │   ├── BreadcrumbComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── MeLikeImageComponent
+│   │   │   ├── CommonWrapComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── MenuComponent
+│   │   │   ├── MeLikeImageComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── MenuEditComponent
+│   │   │   ├── MenuComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── MottoComponent
+│   │   │   ├── MenuEditComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── PersonalImageComponent
+│   │   │   ├── MottoComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   └── SocialEditComponent
+│   │   │   ├── PersonalImageComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
+│   │   │   ├── PersonalInfoComponent/
+│   │   │   │   └── index.tsx
+│   │   │   ├── SkillComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── item.tsx
+│   │   │   │   └── style.scss
+│   │   │   └── SocialEditComponent/
 │   │   │       ├── index.tsx
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
-│   │   └── common
-│   │       ├── CommonGap
+│   │   └── common/
+│   │       ├── CommonGap/
 │   │       │   └── index.tsx
-│   │       ├── CommonWrapComponent
-│   │       │   ├── index.tsx
-│   │       │   └── style.scss
-│   │       ├── DraggableComponent
+│   │       ├── DraggableComponent/
 │   │       │   └── index.tsx
-│   │       ├── DraggableItem
+│   │       ├── DraggableItem/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── FileShowComponent
+│   │       ├── FileShowComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── FullLodaingComponent
+│   │       ├── FullLodaingComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── ImageCardComponent
+│   │       ├── ImageCardComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── ImageShowAndUploadComponent
+│   │       ├── ImageShowAndUploadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── PreviewImageComponent
+│   │       ├── PreviewImageComponent/
 │   │       │   ├── PreviewImageComponent.tsx
 │   │       │   ├── close.ts
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       └── UploadFileComponent
+│   │       └── UploadFileComponent/
 │   │           ├── index.tsx
 │   │           └── style.scss
 │   ├── index.tsx
-│   ├── pages
+│   ├── pages/
 │   │   ├── App.tsx
-│   │   ├── HomePage
+│   │   ├── HomePage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
-│   │   ├── LoginPage
+│   │   ├── LoginPage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
-│   │   ├── MePage
+│   │   ├── MePage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
-│   │   └── RouterPage
+│   │   └── RouterPage/
 │   │       ├── index.tsx
 │   │       └── style.scss
 │   ├── react-app-env.d.ts
-│   ├── service
+│   ├── service/
 │   │   ├── login.ts
 │   │   └── upload.ts
 │   ├── serviceWorker.ts
-│   ├── static
-│   │   ├── css
+│   ├── static/
+│   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
-│   │   ├── fonts
-│   │   └── images
+│   │   └── images/
 │   │       └── logo.svg
-│   ├── store
-│   │   ├── GlobalStore
+│   ├── store/
+│   │   ├── GlobalStore/
 │   │   │   └── index.ts
-│   │   ├── HomePageStore
+│   │   ├── HomePageStore/
 │   │   │   ├── hompage.d.ts
 │   │   │   └── index.ts
-│   │   ├── UserStore
+│   │   ├── UserStore/
 │   │   │   ├── index.ts
 │   │   │   └── user.d.ts
 │   │   ├── index.ts
 │   │   └── store.d.ts
 │   ├── style.scss
-│   └── utils
+│   └── utils/
 │       ├── compose.ts
 │       ├── constant.ts
 │       └── index.ts
 ├── tree.md
 └── tsconfig.json
 
-40 directories, 87 files
+41 directories, 91 files
 ```
