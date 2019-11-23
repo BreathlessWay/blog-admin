@@ -3,7 +3,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Col, Input, Row, Typography } from 'antd';
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
 import UserStore, { EPersonalChangeType } from '@/store/UserStore';
@@ -88,7 +88,7 @@ class PersonalInfoComponent extends Component<
 		} = this.props.userStore.userDetail;
 		const { titleError, infoError, introError } = this.state;
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="个人信息"
 				handleEdit={this.handleEdit}
 				render={isEditing => (

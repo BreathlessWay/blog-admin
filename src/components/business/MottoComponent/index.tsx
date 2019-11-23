@@ -3,7 +3,7 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Row, Col, Input, Typography } from 'antd';
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
@@ -84,7 +84,7 @@ class MottoComponent extends React.Component<
 		const { en, zh, intro } = this.props.userStore.userDetail;
 		const { enError, zhError, introError } = this.state;
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="菜单栏"
 				handleEdit={this.handleEdit}
 				render={isEditing => (

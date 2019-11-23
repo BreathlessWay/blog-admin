@@ -20,6 +20,11 @@ const SocialEditComponent = lazy(() =>
 		/* webpackChunkName: "SocialEditComponent" */ '@/components/business/SocialEditComponent'
 	),
 );
+const RewardComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "RewardComponent" */ '@/components/business/RewardComponent'
+	),
+);
 
 const HomePage = () => {
 	return (
@@ -28,6 +33,7 @@ const HomePage = () => {
 			<PersonalImageComponent />
 			<MottoComponent />
 			<SocialEditComponent />
+			<RewardComponent />
 		</>
 	);
 };

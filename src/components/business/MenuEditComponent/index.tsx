@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 
 import { Checkbox, Col, Icon, Input, Row, Typography } from 'antd';
 import DraggableComponent from '@/components/common/DraggableComponent';
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 
 import { StoreType } from '@/store/store';
 import { MenuType } from '@/store/HomePageStore/hompage';
@@ -77,7 +77,7 @@ class MenuEditComponent extends React.Component<
 
 	render() {
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="菜单栏"
 				handleEdit={this.handleEdit}
 				render={isEditing => (

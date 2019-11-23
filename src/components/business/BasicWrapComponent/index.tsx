@@ -13,7 +13,7 @@ import './style.scss';
 
 const { Title, Text } = Typography;
 
-export type ICommonWrapComponentPropType = {
+export type IBasicWrapComponentPropType = {
 	title: string;
 
 	note?: string;
@@ -23,7 +23,7 @@ export type ICommonWrapComponentPropType = {
 	needEdit?: boolean;
 };
 
-const CommonWrapComponent: FC<ICommonWrapComponentPropType & {
+const BasicWrapComponent: FC<IBasicWrapComponentPropType & {
 	globalStore: GlobalStore;
 }> = props => {
 	// 不能提到globalStore，每个表单的isEditing是独立的
@@ -84,7 +84,7 @@ const CommonWrapComponent: FC<ICommonWrapComponentPropType & {
 	);
 };
 
-export default compose<FC<ICommonWrapComponentPropType>>(
+export default compose<FC<IBasicWrapComponentPropType>>(
 	inject('globalStore'),
 	observer,
-)(CommonWrapComponent);
+)(BasicWrapComponent);

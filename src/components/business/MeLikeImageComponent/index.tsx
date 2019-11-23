@@ -2,7 +2,7 @@ import React, { ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
 import UserStore from '@/store/UserStore';
@@ -44,7 +44,7 @@ class MeLikeImageComponent extends React.Component<
 	render() {
 		const { likeImageLength } = this.props.userStore;
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="爱好"
 				needEdit={false}
 				note={`最多上传${MAX_IMAGE_COUNT}张`}>
@@ -55,7 +55,7 @@ class MeLikeImageComponent extends React.Component<
 					onSetShow={this.handleSetShow}
 					onUploadImage={this.handleUploadImage}
 				/>
-			</CommonWrapComponent>
+			</BasicWrapComponent>
 		);
 	}
 }

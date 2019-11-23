@@ -3,7 +3,7 @@ import React, { Component, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Button } from 'antd';
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import DraggableComponent from '@/components/common/DraggableComponent';
 import SkillComponentItem from './item';
 
@@ -51,7 +51,7 @@ class SkillComponent extends Component<ISkillComponentPropType> {
 		const { skills } = this;
 
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="个人技能"
 				handleEdit={this.handleEdit}
 				render={isEditing => (

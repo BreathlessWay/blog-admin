@@ -3,7 +3,7 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { Row, Button } from 'antd';
-import CommonWrapComponent from '@/components/business/CommonWrapComponent';
+import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
@@ -103,7 +103,7 @@ class SocialEditComponent extends React.Component<
 		const { userDetail } = this.props.userStore;
 		const { social } = this;
 		return (
-			<CommonWrapComponent
+			<BasicWrapComponent
 				title="社交"
 				handleEdit={this.handleEdit}
 				render={isEditing => (
