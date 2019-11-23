@@ -2,21 +2,18 @@
 @import '../../../static/css/mixins';
 
 .image-upload_input {
-	margin: $spacing-h-lg $spacing-v-lg;
-	width: 180px;
+	margin: $spacing-v-lg $spacing-h-lg;
+	width: $image-size;
 }
 
 .image-upload_list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
 	@include flex($justify-content: flex-start);
 	flex-wrap: wrap;
 }
 
 .image-upload_item {
 	border: $border-normal;
-	margin: $spacing-h-lg $spacing-v-lg;
+	margin: $spacing-v-lg $spacing-h-lg;
 	transition: transform 0.4s ease, opacity 0.4s ease;
 	&:hover {
 		transform: scale(1.1);

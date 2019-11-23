@@ -1,15 +1,15 @@
-@import "../../static/css/variables";
-@import "../../static/css/mixins";
+@import '../../static/css/variables';
+@import '../../static/css/mixins';
 
 .login-page {
-  height: 100%;
-  background-color: #71adde;
+	height: 100%;
+	background-color: $theme-color;
 }
 
 .login-page_icon {
-  color: rgba(0, 0, 0, 0.25);
+	color: rgba(0, 0, 0, 0.25);
 }
 
 .login-page_form {
-  width: 300px;
+	width: 300px;
 }

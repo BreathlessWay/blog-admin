@@ -26,4 +26,7 @@ export type UserDetailType = {
 		name: string;
 		percent: number;
 	}>;
+	rewardTitle: string;
+	zfbCode: string;
+	wxCode: string;
 };

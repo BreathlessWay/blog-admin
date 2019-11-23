@@ -18,8 +18,8 @@
 }
 
 .home-page_content {
-	margin: $spacing-h-lg $spacing-v-lg;
-	padding: $spacing-h-lg $spacing-v-lg;
+	margin: $spacing-v-lg $spacing-h-lg;
+	padding: $spacing-v-lg $spacing-h-lg;
 	background-color: $default-color;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .home-page_logo {
-	color: #40a9ff;
+	color: $theme-color;
 	font-size: 26px;
 	font-weight: bolder;
 	font-style: italic;

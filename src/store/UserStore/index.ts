@@ -5,10 +5,22 @@ import { SKILL_PERCENT_MID } from '@/utils/constant';
 
 import { UserDetailType } from '@/store/UserStore/user';
 
+export enum EMottoChangeType {
+	en = 'en',
+	zh = 'zh',
+	intro = 'intro',
+}
+
 export enum EPersonalChangeType {
 	personalTitle = 'personalTitle',
 	personalInfo = 'personalInfo',
 	personalIntro = 'personalIntro',
+}
+
+export enum ERewardChangeType {
+	rewardTitle = 'rewardTitle',
+	zfbCode = 'zfbCode',
+	wxCode = 'wxCode',
 }
 
 export default class UserStore {
@@ -30,27 +42,17 @@ export default class UserStore {
 		personalTitle: '',
 		personalInfo: '',
 		personalIntro: '',
-		personalSkill: [
-			// {
-			// 	name: 'javascript',
-			// 	percent: 80,
-			// },
-			// {
-			// 	name: 'html',
-			// 	percent: 90,
-			// },
-			// {
-			// 	name: 'css',
-			// 	percent: 70,
-			// },
-		],
+		personalSkill: [],
+		rewardTitle: '',
+		zfbCode: '',
+		wxCode: '',
 	};
 
 	emptySocialTmp = {
 		icon: '',
 		value: '',
 	};
-
+	// 登陆页面
 	@action.bound
 	login(token: string) {
 		this.session = token;
@@ -62,7 +64,7 @@ export default class UserStore {
 		this.session = '';
 		storage.remove('token');
 	}
-
+	// 首页
 	@action.bound
 	addSocial() {
 		this.userDetail.social.push(this.emptySocialTmp);
@@ -122,10 +124,15 @@ export default class UserStore {
 	}
 
 	@action.bound
-	setMotto({ key, value }: { key: 'en' | 'zh' | 'intro'; value: string }) {
+	setMotto({ key, value }: { key: EMottoChangeType; value: string }) {
 		this.userDetail[key] = value;
 	}
 
+	@action.bound
+	setReward({ key, value }: { key: ERewardChangeType; value: string }) {
+		this.userDetail[key] = value;
+	}
+	// 我页面
 	@action.bound
 	removeLikeImage(index: number) {
 		this.userDetail.likeImage.splice(index, 1);

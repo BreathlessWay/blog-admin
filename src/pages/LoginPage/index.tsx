@@ -185,7 +185,7 @@ class LoginPage extends React.Component<
 							</Row>
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" block={true}>
+							<Button type="default" htmlType="submit" block={true}>
 								登陆
 							</Button>
 						</Form.Item>
