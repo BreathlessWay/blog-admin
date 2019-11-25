@@ -2,7 +2,7 @@ import UserStore from '@/store/UserStore';
 import HomePageStore, { EMenuType } from '@/store/HomePageStore';
 import * as H from 'history';
 
-import { storage } from '@/utils';
+import { storage } from '@/utils/storage';
 
 const mockMenu = [
 	{

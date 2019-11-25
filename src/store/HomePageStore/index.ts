@@ -19,14 +19,7 @@ const articlePage = [
 	{ name: '编辑文章', path: '/article/edit', show: false },
 ];
 
-const photographyPage = [
-	{ name: '摄影', path: '/photography', show: true },
-	{ name: '相册管理', path: '/photography/tag', show: true },
-	{ name: '新建相册', path: '/photography/create', show: false },
-	{ name: '编辑相册', path: '/photography/edit', show: false },
-];
-
-const hasChildrenMenuPath = ['/article', '/photography'];
+const photographyPage = [{ name: '摄影', path: '/photography', show: true }];
 
 export default class HomePageStore {
 	@observable
@@ -63,28 +56,19 @@ export default class HomePageStore {
 
 	@action.bound
 	setKeys(pathname: string) {
-		const matchIndex = this.menuList.findIndex(item =>
-			pathname.startsWith(item.path),
-		);
-		let flag = false;
-		hasChildrenMenuPath.forEach(menu => {
-			if (pathname.startsWith(menu)) {
-				this.openKeys = [`${matchIndex}`];
-				const { children } = this.menuList[matchIndex];
-				if (children && children.length) {
-					const childIndex = children.findIndex(
-						child => child.path === pathname,
-					);
-					this.selectedKeys = [`${matchIndex}-${childIndex}`];
-				}
-				flag = true;
+		this.menuList.forEach((menu, menuIndex) => {
+			if (menu.children) {
+				menu.children.forEach((child, childIndex) => {
+					if (child.path === pathname) {
+						this.openKeys = [`${menuIndex}`];
+						this.selectedKeys = [`${menuIndex}-${childIndex}`];
+					}
+				});
+			} else if (menu.path === pathname) {
+				this.selectedKeys = [`${menuIndex}`];
+				this.openKeys = [];
 			}
 		});
-
-		if (!flag) {
-			this.selectedKeys = [`${matchIndex}`];
-			this.openKeys = [];
-		}
 	}
 
 	@action.bound

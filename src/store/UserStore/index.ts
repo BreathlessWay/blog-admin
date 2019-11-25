@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import { storage } from '@/utils';
+import { storage } from '@/utils/storage';
 
 import { SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 
