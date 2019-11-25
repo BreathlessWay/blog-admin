@@ -18,6 +18,7 @@ const MenuComponent = lazy(() =>
 		/* webpackChunkName: "MenuComponent" */ '@/components/business/MenuComponent'
 	),
 );
+
 const BreadcrumbComponent = lazy(() =>
 	import(
 		/* webpackChunkName: "BreadcrumbComponent" */ '@/components/business/BreadcrumbComponent'
@@ -29,6 +30,10 @@ const HomePage = lazy(() =>
 );
 
 const MePage = lazy(() => import(/* webpackChunkName: "MePage" */ '../MePage'));
+
+const ArticlePage = lazy(() =>
+	import(/* webpackChunkName: "ArticlePage" */ '../ArticlePage'),
+);
 
 export type IRouterPagePropType = StoreType & RouteComponentProps;
 
@@ -66,12 +71,50 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 					<Content className="home-page_content">
 						<Spin spinning={loading}>
 							<Switch>
-								<Route path="/home" component={HomePage} />
-								<Route path="/me" component={MePage} />
-								<Route path="/article" children={<div>article</div>} />
-								<Route path="/cat" children={<div>cat</div>} />
-								<Route path="/photography" children={<div>photography</div>} />
+								<Route path="/home" exact={true} component={HomePage} />
+								<Route path="/me" exact={true} component={MePage} />
+								<Route
+									path="/article"
+									render={() => (
+										<Switch>
+											<Route
+												exact={true}
+												path="/article"
+												component={ArticlePage}
+											/>
+											<Route
+												exact={true}
+												path="/article/tag"
+												children={<div>tag</div>}
+											/>
+											<Route
+												exact={true}
+												path="/article/create"
+												children={<div>create</div>}
+											/>
+											<Route
+												exact={true}
+												path="/article/edit"
+												children={<div>edit</div>}
+											/>
+											<Route
+												path="*"
+												render={() => <Redirect to={firstMenu.path} />}
+											/>
+										</Switch>
+									)}
+								/>
+								<Route path="/cat" exact={true} children={<div>cat</div>} />
+								<Route
+									path="/photography"
+									exact={true}
+									children={<div>photography</div>}
+								/>
 								<Redirect from="/" to={firstMenu.path} />
+								<Route
+									path="*"
+									render={() => <Redirect to={firstMenu.path} />}
+								/>
 							</Switch>
 						</Spin>
 					</Content>

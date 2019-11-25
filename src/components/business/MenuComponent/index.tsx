@@ -9,48 +9,68 @@ import { ClickParam } from 'antd/lib/menu';
 import { StoreType } from '@/store/store';
 
 import compose from '@/utils/compose';
+import { getPath } from '@/utils/path';
+
+const { Item, SubMenu } = Menu;
 
 export type IMenuComponentPropType = RouteComponentProps & StoreType;
+export type IMenuComponentStateType = Readonly<{}>;
 
 @inject('homepageStore')
 @observer
-class MenuComponent extends React.Component<IMenuComponentPropType> {
-	handleClick = (e: ClickParam) => {
-		const matchMenu = this.menuList.find(item => item.type === e.key);
-		if (matchMenu) {
-			this.props.history.push(matchMenu.path);
-		}
-	};
-
+class MenuComponent extends React.Component<
+	IMenuComponentPropType,
+	IMenuComponentStateType
+> {
 	get menuList() {
 		return this.props.homepageStore.menuList || [];
 	}
 
-	get selectedKeys() {
-		const matchMenu = this.menuList.find(item => {
-			const { pathname } = this.props.location;
-			return pathname.startsWith(item.path);
-		});
-		if (matchMenu) {
-			return [matchMenu.type];
+	handleClick = (e: ClickParam) => {
+		const _keys = e.key.split('-');
+		const index = 0;
+		const _path = getPath(_keys, this.menuList as any, index);
+		if (_path) {
+			this.props.history.push(_path);
 		}
-		return [];
-	}
+	};
 
 	render() {
-		const { menuList, selectedKeys } = this;
+		const { menuList } = this;
 		return (
 			<Menu
 				theme={'dark'}
 				onClick={this.handleClick}
-				selectedKeys={selectedKeys}
+				defaultSelectedKeys={['0']}
 				mode="inline">
-				{menuList.map(item => (
-					<Menu.Item key={item.type}>
-						<Icon type={item.type} />
-						{item.name}
-					</Menu.Item>
-				))}
+				{menuList.map((item, index) => {
+					if (item.children && item.children.length) {
+						return (
+							<SubMenu
+								key={index}
+								title={
+									<span>
+										<Icon type={item.type} />
+										<span>{item.name}</span>
+									</span>
+								}>
+								{item.children.map(
+									(child, i) =>
+										child.show && (
+											<Item key={`${index}-${i}`}>{child.name}</Item>
+										),
+								)}
+							</SubMenu>
+						);
+					} else {
+						return (
+							<Item key={index}>
+								<Icon type={item.type} />
+								{item.name}
+							</Item>
+						);
+					}
+				})}
 			</Menu>
 		);
 	}

@@ -9,3 +9,6 @@ export const SKILL_PERCENT_MID = 50;
 
 // 技能默认色
 export const SKILL_COLOR = '#333';
+
+// 默认每页数量
+export const PAGE_LIMIT = 10;
