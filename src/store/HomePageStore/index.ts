@@ -33,10 +33,10 @@ export default class HomePageStore {
 	menuList: Array<MenuType> = [];
 
 	@observable
-	defaultOpenKeys: Array<string> = [];
+	openKeys: Array<string> = [];
 
 	@observable
-	defaultSelectedKeys: Array<string> = [];
+	selectedKeys: Array<string> = [];
 
 	@action.bound
 	setMenuList(list: Array<MenuType>) {
@@ -52,6 +52,16 @@ export default class HomePageStore {
 	}
 
 	@action.bound
+	changeOpenKeys(keys: Array<string>) {
+		this.openKeys = keys;
+	}
+
+	@action.bound
+	changeSelectedKeys(keys: Array<string>) {
+		this.selectedKeys = keys;
+	}
+
+	@action.bound
 	setKeys(pathname: string) {
 		const matchIndex = this.menuList.findIndex(item =>
 			pathname.startsWith(item.path),
@@ -59,21 +69,21 @@ export default class HomePageStore {
 		let flag = false;
 		hasChildrenMenuPath.forEach(menu => {
 			if (pathname.startsWith(menu)) {
-				this.defaultOpenKeys = [`${matchIndex}`];
+				this.openKeys = [`${matchIndex}`];
 				const { children } = this.menuList[matchIndex];
 				if (children && children.length) {
 					const childIndex = children.findIndex(
 						child => child.path === pathname,
 					);
-					this.defaultSelectedKeys = [`${matchIndex}-${childIndex}`];
+					this.selectedKeys = [`${matchIndex}-${childIndex}`];
 				}
 				flag = true;
 			}
 		});
 
 		if (!flag) {
-			this.defaultSelectedKeys = [`${matchIndex}`];
-			this.defaultOpenKeys = [];
+			this.selectedKeys = [`${matchIndex}`];
+			this.openKeys = [];
 		}
 	}
 

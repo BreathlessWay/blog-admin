@@ -32,18 +32,24 @@ class MenuComponent extends React.Component<
 		const _path = getPath(_keys, this.menuList as any, index);
 		if (_path) {
 			this.props.history.push(_path);
+			this.props.homepageStore.changeSelectedKeys([e.key]);
 		}
 	};
 
+	handleOpenChange = (keys: Array<string>) => {
+		this.props.homepageStore.changeOpenKeys(keys);
+	};
+
 	render() {
-		const { defaultOpenKeys, defaultSelectedKeys } = this.props.homepageStore;
+		const { openKeys, selectedKeys } = this.props.homepageStore;
 		const { menuList } = this;
 		return (
 			<Menu
 				theme={'dark'}
 				onClick={this.handleClick}
-				defaultOpenKeys={defaultOpenKeys}
-				defaultSelectedKeys={defaultSelectedKeys}
+				openKeys={openKeys}
+				onOpenChange={this.handleOpenChange}
+				selectedKeys={selectedKeys}
 				mode="inline">
 				{menuList.map((item, index) => {
 					if (item.children && item.children.length) {

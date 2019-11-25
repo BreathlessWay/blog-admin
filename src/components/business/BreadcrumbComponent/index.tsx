@@ -18,7 +18,7 @@ export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType;
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	const {
 		location,
-		homepageStore: { breadcrumbNameMap },
+		homepageStore: { breadcrumbNameMap, setKeys },
 		userStore,
 		history,
 	} = props;
@@ -27,7 +27,13 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
 		return (
 			<Item key={url}>
-				<Link to={url}>{breadcrumbNameMap[url]}</Link>
+				<Link
+					to={url}
+					onClick={() => {
+						setKeys(url);
+					}}>
+					{breadcrumbNameMap[url]}
+				</Link>
 			</Item>
 		);
 	});
