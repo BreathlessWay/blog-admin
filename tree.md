@@ -65,6 +65,9 @@
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
 │   │   └── common/
+│   │       ├── ColorPickerComponent/
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
 │   │       ├── DraggableComponent/
 │   │       │   └── index.tsx
 │   │       ├── DraggableItem/
@@ -116,6 +119,7 @@
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
+│   │   ├── fonts/
 │   │   └── images/
 │   │       └── logo.svg
 │   ├── store/
@@ -137,5 +141,5 @@
 ├── tree.md
 └── tsconfig.json
 
-42 directories, 94 files
+44 directories, 96 files
 ```
