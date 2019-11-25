@@ -75,7 +75,7 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 										<Switch>
 											<Route
 												exact={true}
-												path="/article"
+												path="/article/index"
 												component={ArticlePage}
 											/>
 											<Route
@@ -95,7 +95,9 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 											/>
 											<Route
 												path="*"
-												render={() => <Redirect to={firstMenu.path} />}
+												render={() => {
+													return <Redirect to="/article/index" />;
+												}}
 											/>
 										</Switch>
 									)}

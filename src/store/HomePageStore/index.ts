@@ -13,7 +13,7 @@ export enum EMenuType {
 }
 
 const articlePage = [
-	{ name: '文章管理', path: '/article', show: true },
+	{ name: '文章管理', path: '/article/index', show: true },
 	{ name: '标签管理', path: '/article/tag', show: true },
 	{ name: '新建文章', path: '/article/create', show: false },
 	{ name: '编辑文章', path: '/article/edit', show: false },

@@ -26,10 +26,9 @@ export const getBreadcrumbNameMap = (
 	maps: Record<string, string>,
 ) => {
 	list.forEach(item => {
+		maps[item.path] = item.name;
 		if (item.children && item.children.length) {
 			getBreadcrumbNameMap(item.children, maps);
-		} else {
-			maps[item.path] = item.name;
 		}
 	});
 };

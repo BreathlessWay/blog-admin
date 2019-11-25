@@ -18,20 +18,27 @@ export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType;
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	const {
 		location,
-		homepageStore: { breadcrumbNameMap, setKeys, firstMenu },
+		homepageStore: { breadcrumbNameMap, setKeys, firstMenu, menuList },
 		userStore,
 		history,
 	} = props;
+
+	const handleClick = (url: string) => {
+		const matchMenu = menuList.find(menu => menu.path === url);
+		if (matchMenu && matchMenu.children && matchMenu.children.length) {
+			const indexChild = matchMenu.children[0];
+			setKeys(indexChild.path);
+			return;
+		}
+		setKeys(url);
+	};
+
 	const pathSnippets = location.pathname.split('/').filter(i => i);
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
 		return (
 			<Item key={url}>
-				<Link
-					to={url}
-					onClick={() => {
-						setKeys(url);
-					}}>
+				<Link to={url} onClick={() => handleClick(url)}>
 					{breadcrumbNameMap[url]}
 				</Link>
 			</Item>
@@ -39,11 +46,7 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	});
 	const breadcrumbItems = [
 		<Item key="manager">
-			<Link
-				to="/"
-				onClick={() => {
-					setKeys(firstMenu.path);
-				}}>
+			<Link to="/" onClick={() => handleClick(firstMenu.path)}>
 				管理后台
 			</Link>
 		</Item>,
