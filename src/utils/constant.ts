@@ -6,3 +6,6 @@ export const TIME_COUNT_DOWN = 60;
 
 // 技能中间值
 export const SKILL_PERCENT_MID = 50;
+
+// 技能默认色
+export const SKILL_COLOR = '#333';

@@ -25,6 +25,7 @@ export type UserDetailType = {
 	personalSkill: Array<{
 		name: string;
 		percent: number;
+		color: string;
 	}>;
 	rewardTitle: string;
 	zfbCode: string;

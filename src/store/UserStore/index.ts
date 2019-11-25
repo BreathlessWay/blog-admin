@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { storage } from '@/utils';
 
-import { SKILL_PERCENT_MID } from '@/utils/constant';
+import { SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 
 import { UserDetailType } from '@/store/UserStore/user';
 
@@ -181,6 +181,11 @@ export default class UserStore {
 	}
 
 	@action.bound
+	changeSkillColor(value: string, index: number) {
+		this.userDetail.personalSkill[index].color = value;
+	}
+
+	@action.bound
 	filterSkill() {
 		this.userDetail.personalSkill = this.userDetail.personalSkill.filter(item =>
 			item.name.trim(),
@@ -192,6 +197,7 @@ export default class UserStore {
 		this.userDetail.personalSkill.push({
 			name: '',
 			percent: SKILL_PERCENT_MID,
+			color: SKILL_COLOR,
 		});
 	}
 

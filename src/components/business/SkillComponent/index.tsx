@@ -64,7 +64,10 @@ class SkillComponent extends Component<ISkillComponentPropType> {
 									this.handleMoveCard(dragIndex, hoverIndex, isEditing)
 								}
 								list={skills}
-								render={(item: { name: string; percent: number }, index) => (
+								render={(
+									item: { name: string; percent: number; color: string },
+									index,
+								) => (
 									<SkillComponentItem
 										key={index}
 										item={item}
