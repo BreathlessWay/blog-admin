@@ -32,6 +32,12 @@ class MenuComponent extends React.Component<
 		const _path = getPath(_keys, this.menuList as any, index);
 		if (_path) {
 			this.props.history.push(_path);
+			if (_keys.length > 1) {
+				const [openKey] = _keys;
+				this.props.homepageStore.changeOpenKeys([openKey]);
+			} else {
+				this.props.homepageStore.changeOpenKeys([]);
+			}
 			this.props.homepageStore.changeSelectedKeys([e.key]);
 		}
 	};

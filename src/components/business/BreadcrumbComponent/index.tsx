@@ -18,7 +18,7 @@ export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType;
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	const {
 		location,
-		homepageStore: { breadcrumbNameMap, setKeys },
+		homepageStore: { breadcrumbNameMap, setKeys, firstMenu },
 		userStore,
 		history,
 	} = props;
@@ -39,7 +39,13 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	});
 	const breadcrumbItems = [
 		<Item key="manager">
-			<Link to="/">管理后台</Link>
+			<Link
+				to="/"
+				onClick={() => {
+					setKeys(firstMenu.path);
+				}}>
+				管理后台
+			</Link>
 		</Item>,
 	].concat(extraBreadcrumbItems);
 	return (

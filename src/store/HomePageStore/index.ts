@@ -2,7 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 import { MenuType } from '@/store/HomePageStore/hompage';
 
-import { getMapRoute } from '@/utils/path';
+import { getBreadcrumbNameMap } from '@/utils/path';
 
 export enum EMenuType {
 	home = 'home',
@@ -22,8 +22,8 @@ const articlePage = [
 const photographyPage = [
 	{ name: '摄影', path: '/photography', show: true },
 	{ name: '相册管理', path: '/photography/tag', show: true },
-	{ name: '新建文章', path: '/photography/create', show: false },
-	{ name: '编辑文章', path: '/photography/edit', show: false },
+	{ name: '新建相册', path: '/photography/create', show: false },
+	{ name: '编辑相册', path: '/photography/edit', show: false },
 ];
 
 const hasChildrenMenuPath = ['/article', '/photography'];
@@ -118,7 +118,7 @@ export default class HomePageStore {
 	@computed
 	get breadcrumbNameMap() {
 		const maps: Record<string, string> = {};
-		getMapRoute(this.menuList, maps);
+		getBreadcrumbNameMap(this.menuList, maps);
 		return maps;
 	}
 

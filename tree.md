@@ -98,6 +98,8 @@
 │   ├── index.tsx
 │   ├── pages/
 │   │   ├── App.tsx
+│   │   ├── ArticlePage/
+│   │   │   └── index.tsx
 │   │   ├── HomePage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
@@ -123,11 +125,18 @@
 │   │   └── images/
 │   │       └── logo.svg
 │   ├── store/
+│   │   ├── ArticleStore/
+│   │   │   └── index.ts
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
 │   │   ├── HomePageStore/
 │   │   │   ├── hompage.d.ts
 │   │   │   └── index.ts
+│   │   ├── ListStore/
+│   │   │   └── index.ts
+│   │   ├── TagStore/
+│   │   │   ├── index.ts
+│   │   │   └── tag.d.ts
 │   │   ├── UserStore/
 │   │   │   ├── index.ts
 │   │   │   └── user.d.ts
@@ -137,9 +146,10 @@
 │   └── utils/
 │       ├── compose.ts
 │       ├── constant.ts
-│       └── index.ts
+│       ├── index.ts
+│       └── path.ts
 ├── tree.md
 └── tsconfig.json
 
-44 directories, 96 files
+48 directories, 102 files
 ```

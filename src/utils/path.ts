@@ -17,7 +17,7 @@ export const getPath = (
 	}
 };
 
-export const getMapRoute = (
+export const getBreadcrumbNameMap = (
 	list: Array<{
 		name: string;
 		path: string;
@@ -27,7 +27,7 @@ export const getMapRoute = (
 ) => {
 	list.forEach(item => {
 		if (item.children && item.children.length) {
-			getMapRoute(item.children, maps);
+			getBreadcrumbNameMap(item.children, maps);
 		} else {
 			maps[item.path] = item.name;
 		}

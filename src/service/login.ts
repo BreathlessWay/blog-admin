@@ -6,12 +6,6 @@ import { storage } from '@/utils';
 
 const mockMenu = [
 	{
-		name: '文章',
-		type: EMenuType.read,
-		path: '/article',
-		show: true,
-	},
-	{
 		name: '首页',
 		type: EMenuType.home,
 		path: '/home',
@@ -23,7 +17,12 @@ const mockMenu = [
 		path: '/me',
 		show: true,
 	},
-
+	{
+		name: '文章',
+		type: EMenuType.read,
+		path: '/article',
+		show: true,
+	},
 	{
 		name: '撸猫',
 		type: EMenuType.contacts,
