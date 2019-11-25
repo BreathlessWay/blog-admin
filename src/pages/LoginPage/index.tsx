@@ -44,22 +44,23 @@ class LoginPage extends React.Component<
 	};
 
 	componentDidMount(): void {
-		const {
-			userStore,
-			history,
-			homepageStore: { firstMenu },
-		} = this.props;
-		login({ userStore, history, firstMenu, isLoginPage: true });
+		const { userStore, history, homepageStore } = this.props;
+		login({ userStore, history, homepageStore, isLoginPage: true });
 	}
 
 	handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				const { firstMenu } = this.props.homepageStore;
+				const { userStore, history, homepageStore } = this.props;
 				// 登陆接口
-				this.props.userStore.login('login');
-				this.props.history.replace(firstMenu.path);
+				login({
+					userStore,
+					history,
+					homepageStore,
+					isLoginPage: true,
+					token: 'login',
+				});
 			}
 		});
 	};

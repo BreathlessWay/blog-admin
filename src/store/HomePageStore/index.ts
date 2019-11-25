@@ -20,61 +20,64 @@ const articlePage = [
 ];
 
 const photographyPage = [
-	{ name: '摄影', path: '/article', show: true },
+	{ name: '摄影', path: '/photography', show: true },
 	{ name: '相册管理', path: '/photography/tag', show: true },
-	{ name: '新建文章', path: '/article/create', show: false },
-	{ name: '编辑文章', path: '/article/edit', show: false },
+	{ name: '新建文章', path: '/photography/create', show: false },
+	{ name: '编辑文章', path: '/photography/edit', show: false },
 ];
+
+const hasChildrenMenuPath = ['/article', '/photography'];
 
 export default class HomePageStore {
 	@observable
-	menuList: Array<MenuType> = [
-		{
-			name: '文章',
-			type: EMenuType.read,
-			path: '/article',
-			show: true,
-			children: articlePage,
-		},
-		{
-			name: '首页',
-			type: EMenuType.home,
-			path: '/home',
-			show: true,
-		},
-		{
-			name: '我',
-			type: EMenuType.user,
-			path: '/me',
-			show: true,
-		},
+	menuList: Array<MenuType> = [];
 
-		{
-			name: '撸猫',
-			type: EMenuType.contacts,
-			path: '/cat',
-			show: true,
-		},
-		{
-			name: '摄影',
-			type: EMenuType.camera,
-			path: '/photography',
-			show: true,
-			children: photographyPage,
-		},
-	];
+	@observable
+	defaultOpenKeys: Array<string> = [];
 
-	@action
+	@observable
+	defaultSelectedKeys: Array<string> = [];
+
+	@action.bound
 	setMenuList(list: Array<MenuType>) {
 		this.menuList = list;
 		this.menuList.forEach(item => {
 			if (item.type === EMenuType.read) {
 				item.children = articlePage;
 			}
+			if (item.type === EMenuType.camera) {
+				item.children = photographyPage;
+			}
 		});
 	}
 
-	@action
+	@action.bound
+	setKeys(pathname: string) {
+		const matchIndex = this.menuList.findIndex(item =>
+			pathname.startsWith(item.path),
+		);
+		let flag = false;
+		hasChildrenMenuPath.forEach(menu => {
+			if (pathname.startsWith(menu)) {
+				this.defaultOpenKeys = [`${matchIndex}`];
+				const { children } = this.menuList[matchIndex];
+				if (children && children.length) {
+					const childIndex = children.findIndex(
+						child => child.path === pathname,
+					);
+					this.defaultSelectedKeys = [`${matchIndex}-${childIndex}`];
+				}
+				flag = true;
+			}
+		});
+
+		if (!flag) {
+			this.defaultSelectedKeys = [`${matchIndex}`];
+			this.defaultOpenKeys = [];
+		}
+	}
+
+	@action.bound
 	changeMenu({
 		item,
 		value,
@@ -96,7 +99,7 @@ export default class HomePageStore {
 		});
 	}
 
-	@action
+	@action.bound
 	sortMenuList(dragIndex: number, hoverIndex: number) {
 		const dragItem = this.menuList.splice(dragIndex, 1);
 		this.menuList.splice(hoverIndex, 0, ...dragItem);
@@ -111,6 +114,11 @@ export default class HomePageStore {
 
 	@computed
 	get firstMenu() {
-		return this.menuList[0];
+		if (this.menuList.length) {
+			return this.menuList[0];
+		}
+		return {
+			path: '/home',
+		};
 	}
 }

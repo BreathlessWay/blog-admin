@@ -45,12 +45,8 @@ export type IRouterPagePropType = StoreType & RouteComponentProps;
 @observer
 class RouterPage extends React.Component<IRouterPagePropType> {
 	componentDidMount(): void {
-		const {
-			userStore,
-			history,
-			homepageStore: { firstMenu },
-		} = this.props;
-		login({ userStore, history, firstMenu });
+		const { userStore, history, homepageStore } = this.props;
+		login({ userStore, history, homepageStore });
 	}
 
 	render() {
@@ -110,7 +106,6 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 									exact={true}
 									children={<div>photography</div>}
 								/>
-								<Redirect from="/" to={firstMenu.path} />
 								<Route
 									path="*"
 									render={() => <Redirect to={firstMenu.path} />}
