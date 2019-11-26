@@ -109,7 +109,11 @@ export default class HomePageStore {
 	@computed
 	get firstMenu() {
 		if (this.menuList.length) {
-			return this.menuList[0];
+			let _firstMenu = this.menuList[0];
+			if (_firstMenu.children && _firstMenu.children.length) {
+				_firstMenu = _firstMenu.children[0] as any;
+			}
+			return _firstMenu;
 		}
 		return {
 			path: '/home',
