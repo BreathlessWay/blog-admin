@@ -37,6 +37,25 @@ export default class TagStore {
 
 	@computed
 	get hasTag() {
-		return this.tags.length > 0;
+		return this.tagLength > 0;
+	}
+
+	@computed
+	get tagLength() {
+		return this.tags.length;
+	}
+
+	@computed
+	get hasSameNameTag() {
+		for (let i = 0; i < this.tagLength; i++) {
+			const currentTag = this.tags[i];
+			for (let j = i + 1; j < this.tagLength; j++) {
+				const _compareTag = this.tags[j];
+				if (currentTag.name === _compareTag.name) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

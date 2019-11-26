@@ -2,7 +2,17 @@ import React, { Component, ComponentClass, Fragment } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Empty, Row, Col, Icon, Input, Switch, Typography, Button } from 'antd';
+import {
+	Empty,
+	Row,
+	Col,
+	Icon,
+	Input,
+	Switch,
+	Typography,
+	Button,
+	message,
+} from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
@@ -28,7 +38,12 @@ export type IArticleTagPagePropType = Pick<
 class ArticleTagPage extends Component<IArticleTagPagePropType> {
 	handleEdit = () => {
 		return new Promise((resolve, reject) => {
-			this.props.tagStore.filterEmptyTag();
+			const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
+			filterEmptyTag();
+			if (hasSameNameTag) {
+				message.error('存在相同名称的标签，请确认后重试');
+				reject();
+			}
 			resolve();
 		});
 	};
@@ -37,7 +52,11 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 		this.props.tagStore.changeTagShow(index);
 	};
 
-	handleDelete = (index: number) => () => {
+	handleDelete = ({ tag, index }: { tag: TagType; index: number }) => () => {
+		if (tag.count) {
+			message.error('当前标签下存在文章，不可删除');
+			return;
+		}
 		this.props.tagStore.removeTag(index);
 	};
 
@@ -62,7 +81,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 			<Row type="flex" align="middle">
 				{isEditing && (
 					<Col className="article-tag_item">
-						<Icon type="delete" onClick={this.handleDelete(index)} />
+						<Icon type="delete" onClick={this.handleDelete({ tag, index })} />
 					</Col>
 				)}
 				<Col className="article-tag_item">
