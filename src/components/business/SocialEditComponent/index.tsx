@@ -10,7 +10,7 @@ import { StoreType } from '@/store/store';
 
 import './style.scss';
 
-export type ISocialEditComponentPropType = StoreType;
+export type ISocialEditComponentPropType = Pick<StoreType, 'userStore'>;
 
 export type ISocialEditComponentStateType = {
 	resumeError: boolean;

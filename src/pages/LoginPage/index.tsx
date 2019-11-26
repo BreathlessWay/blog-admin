@@ -16,7 +16,10 @@ import './style.scss';
 
 const { confirm } = Modal;
 
-export type ILoginPagePropType = StoreType &
+export type ILoginPagePropType = Pick<
+	StoreType,
+	'userStore' | 'homepageStore'
+> &
 	RouteComponentProps &
 	FormComponentProps;
 

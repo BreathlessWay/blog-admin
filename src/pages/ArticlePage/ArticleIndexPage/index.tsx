@@ -3,7 +3,10 @@ import React, { Component, ComponentClass } from 'react';
 import { inject, observer } from 'mobx-react';
 import { StoreType } from '@/store/store';
 
-export type IArticlePagePropType = {};
+export type IArticlePagePropType = {} & Pick<
+	StoreType,
+	'userStore' | 'tagStore' | 'articleStore'
+>;
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
@@ -11,7 +14,7 @@ export type IArticlePagePropType = {};
 	articleStore: allStore.articleStore,
 }))
 @observer
-class ArticlePage extends Component<IArticlePagePropType & StoreType> {
+class ArticlePage extends Component<IArticlePagePropType> {
 	render() {
 		console.log(this.props.articleStore.currentCount);
 		return <div onClick={this.props.articleStore.nextPage}>a</div>;

@@ -13,7 +13,10 @@ import './style.scss';
 
 const { Text } = Typography;
 
-export type IMenuEditComponentPropType = StoreType;
+export type IMenuEditComponentPropType = Pick<
+	StoreType,
+	'userStore' | 'homepageStore'
+>;
 
 export type IMenuEditComponentStateType = Readonly<{}>;
 

@@ -13,7 +13,8 @@ import { getPath } from '@/utils/path';
 
 const { Item, SubMenu } = Menu;
 
-export type IMenuComponentPropType = RouteComponentProps & StoreType;
+export type IMenuComponentPropType = RouteComponentProps &
+	Pick<StoreType, 'homepageStore'>;
 export type IMenuComponentStateType = Readonly<{}>;
 
 @inject('homepageStore')

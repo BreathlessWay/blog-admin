@@ -13,7 +13,8 @@ import './style.scss';
 
 const { Item } = Breadcrumb;
 
-export type IBreadcrumbComponentPropType = RouteComponentProps & StoreType;
+export type IBreadcrumbComponentPropType = RouteComponentProps &
+	Pick<StoreType, 'homepageStore' | 'userStore'>;
 
 const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 	const {

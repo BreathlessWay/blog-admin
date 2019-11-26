@@ -31,11 +31,23 @@ const HomePage = lazy(() =>
 
 const MePage = lazy(() => import(/* webpackChunkName: "MePage" */ '../MePage'));
 
-const ArticlePage = lazy(() =>
-	import(/* webpackChunkName: "ArticlePage" */ '../ArticlePage'),
+const ArticleIndexPage = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleIndexPage" */ '../ArticlePage/ArticleIndexPage'
+	),
 );
 
-export type IRouterPagePropType = StoreType & RouteComponentProps;
+const ArticleTagPage = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleTagPage" */ '../ArticlePage/ArticleTagPage'
+	),
+);
+
+export type IRouterPagePropType = Pick<
+	StoreType,
+	'userStore' | 'homepageStore' | 'globalStore'
+> &
+	RouteComponentProps;
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
@@ -76,12 +88,12 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 											<Route
 												exact={true}
 												path="/article/index"
-												component={ArticlePage}
+												component={ArticleIndexPage}
 											/>
 											<Route
 												exact={true}
 												path="/article/tag"
-												children={<div>tag</div>}
+												component={ArticleTagPage}
 											/>
 											<Route
 												exact={true}

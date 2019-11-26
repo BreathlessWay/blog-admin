@@ -15,7 +15,10 @@ const { TextArea } = Input;
 
 const { Text } = Typography;
 
-export type IMottoComponentPropType = StoreType;
+export type IMottoComponentPropType = Pick<
+	StoreType,
+	'userStore' | 'globalStore'
+>;
 
 export type IMottoComponentStateType = Readonly<{
 	enError: boolean;
