@@ -3,28 +3,12 @@ import { TagsType } from './tag';
 
 export default class TagStore {
 	@observable
-	tags: TagsType = [
-		{
-			name: '标签1',
-			show: true,
-			count: 1,
-		},
-		{
-			name: '标签2',
-			show: true,
-			count: 1,
-		},
-		{
-			name: '标签3',
-			show: true,
-			count: 1,
-		},
-	];
+	tags: TagsType = [];
 
 	@action.bound
-	addTag(name: string) {
+	addTag() {
 		this.tags.push({
-			name,
+			name: '',
 			show: true,
 			count: 0,
 		});
@@ -33,6 +17,22 @@ export default class TagStore {
 	@action.bound
 	removeTag(index: number) {
 		this.tags.splice(index, 1);
+	}
+
+	@action.bound
+	changeTagName({ name, index }: { name: string; index: number }) {
+		this.tags[index].name = name;
+	}
+
+	@action.bound
+	changeTagShow(index: number) {
+		const { show } = this.tags[index];
+		this.tags[index].show = !show;
+	}
+
+	@action.bound
+	filterEmptyTag() {
+		this.tags = this.tags.filter(tag => tag.name);
 	}
 
 	@computed

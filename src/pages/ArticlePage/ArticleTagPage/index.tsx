@@ -2,7 +2,7 @@ import React, { Component, ComponentClass, Fragment } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Empty, Row, Col, Icon, Input, Switch, Typography } from 'antd';
+import { Empty, Row, Col, Icon, Input, Switch, Typography, Button } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
@@ -28,21 +28,26 @@ export type IArticleTagPagePropType = Pick<
 class ArticleTagPage extends Component<IArticleTagPagePropType> {
 	handleEdit = () => {
 		return new Promise((resolve, reject) => {
+			this.props.tagStore.filterEmptyTag();
 			resolve();
 		});
 	};
 
-	handleChangeSwitch = (index: number) => () => {};
+	handleChangeSwitch = (index: number) => () => {
+		this.props.tagStore.changeTagShow(index);
+	};
 
-	handleDelete = (index: number) => () => {};
+	handleDelete = (index: number) => () => {
+		this.props.tagStore.removeTag(index);
+	};
 
-	handleChangeInput = ({
-		value,
-		index,
-	}: {
-		value: string;
-		index: number;
-	}) => {};
+	handleChangeInput = ({ value, index }: { value: string; index: number }) => {
+		this.props.tagStore.changeTagName({ name: value, index });
+	};
+
+	handleAddTag = () => {
+		this.props.tagStore.addTag();
+	};
 
 	renderItem = ({
 		tag,
@@ -91,11 +96,18 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 		return (
 			<Row type="flex">
 				{tags.map((tag, index) => (
-					<Fragment key={tag.name || index}>
+					<Fragment key={index}>
 						<Col>{this.renderItem({ tag, index, isEditing })}</Col>
 						<Gap size="lg" />
 					</Fragment>
 				))}
+				{isEditing && (
+					<Col>
+						<Button type="primary" icon="plus" onClick={this.handleAddTag}>
+							新增个人技能
+						</Button>
+					</Col>
+				)}
 			</Row>
 		);
 	};
