@@ -1,24 +1,13 @@
-import React, { Component, ComponentClass } from 'react';
+import React from 'react';
 
-import { inject, observer } from 'mobx-react';
-import { StoreType } from '@/store/store';
+import ArticleFilterComponent from '@/components/business/ArticleFilterComponent';
 
-export type IArticlePagePropType = {} & Pick<
-	StoreType,
-	'userStore' | 'tagStore' | 'articleStore'
->;
+const ArticlePage = () => {
+	return (
+		<>
+			<ArticleFilterComponent />
+		</>
+	);
+};
 
-@inject((allStore: StoreType) => ({
-	userStore: allStore.userStore,
-	tagStore: allStore.tagStore,
-	articleStore: allStore.articleStore,
-}))
-@observer
-class ArticlePage extends Component<IArticlePagePropType> {
-	render() {
-		console.log(this.props.articleStore.currentCount);
-		return <div onClick={this.props.articleStore.nextPage}>a</div>;
-	}
-}
-
-export default (ArticlePage as unknown) as ComponentClass;
+export default ArticlePage;

@@ -97,6 +97,9 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 					/>
 				</Col>
 				<Col className="article-tag_item">
+					<Text>是否显示</Text>
+				</Col>
+				<Col className="article-tag_item">
 					<Switch
 						disabled={!isEditing}
 						checked={tag.show}
@@ -104,7 +107,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 					/>
 				</Col>
 				<Col className="article-tag_item">
-					<Text>是否显示</Text>
+					<Text type="warning">当前标签下有{tag.count}篇文章</Text>
 				</Col>
 			</Row>
 		);
@@ -123,7 +126,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 				{isEditing && (
 					<Col>
 						<Button type="primary" icon="plus" onClick={this.handleAddTag}>
-							新增个人技能
+							新增标签
 						</Button>
 					</Col>
 				)}

@@ -86,7 +86,7 @@ class SkillComponent extends Component<ISkillComponentPropType> {
 							)}
 						</>
 					) : (
-						<Empty description={'尚未添加技能'} />
+						<Empty description="尚未添加技能" />
 					)
 				}
 			/>
