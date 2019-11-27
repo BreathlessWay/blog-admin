@@ -4,8 +4,6 @@ import ListStore from '@/store/ListStore';
 
 import { ArticleQueryType, ArticleListType } from './article';
 
-import data from './data';
-
 export default class ArticleStore extends ListStore {
 	@observable
 	list: ArticleListType = [];
