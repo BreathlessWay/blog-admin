@@ -10,7 +10,7 @@ export default class ListStore {
 	pageIndex = 1;
 
 	@observable
-	count = 16;
+	count = 0;
 
 	@observable
 	loading = false;

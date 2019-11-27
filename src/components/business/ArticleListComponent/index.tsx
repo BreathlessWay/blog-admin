@@ -151,6 +151,7 @@ class ArticleListComponent extends Component<
 			pageIndex,
 			pageSize,
 			count,
+			isEmpty,
 		} = this.props.articleStore;
 		const { selectedRowKeys } = this.state;
 		return (
@@ -162,43 +163,35 @@ class ArticleListComponent extends Component<
 					columns={columns}
 					dataSource={list}
 					pagination={false}
-					// pagination={{
-					// 	pageSize,
-					// 	current: pageIndex,
-					// 	showQuickJumper: true,
-					// 	showTotal: total => <span>共{total}篇文章</span>,
-					// 	total: count,
-					// 	showSizeChanger: true,
-					// 	onChange: this.handlePaginationChange,
-					// 	onShowSizeChange: this.handleShowSizeChange,
-					// }}
 				/>
 				<Gap size="lg" />
-				<Row type="flex" align="middle" justify="space-between">
-					<Col>
-						<Button type="link" onClick={this.handleDeleteSelected}>
-							删除
-						</Button>
-						<Button type="link" onClick={this.handleShowSelected}>
-							显示
-						</Button>
-						<Button type="link" onClick={this.handleHideSelected}>
-							隐藏
-						</Button>
-					</Col>
-					<Col>
-						<Pagination
-							pageSize={pageSize}
-							current={pageIndex}
-							showQuickJumper={true}
-							showTotal={total => <span>共{total}篇文章</span>}
-							total={count}
-							showSizeChanger={true}
-							onChange={this.handlePaginationChange}
-							onShowSizeChange={this.handleShowSizeChange}
-						/>
-					</Col>
-				</Row>
+				{!isEmpty && (
+					<Row type="flex" align="middle" justify="space-between">
+						<Col>
+							<Button type="link" onClick={this.handleDeleteSelected}>
+								删除
+							</Button>
+							<Button type="link" onClick={this.handleShowSelected}>
+								显示
+							</Button>
+							<Button type="link" onClick={this.handleHideSelected}>
+								隐藏
+							</Button>
+						</Col>
+						<Col>
+							<Pagination
+								pageSize={pageSize}
+								current={pageIndex}
+								showQuickJumper={true}
+								showTotal={total => <span>共{total}篇文章</span>}
+								total={count}
+								showSizeChanger={true}
+								onChange={this.handlePaginationChange}
+								onShowSizeChange={this.handleShowSizeChange}
+							/>
+						</Col>
+					</Row>
+				)}
 			</>
 		);
 	}
