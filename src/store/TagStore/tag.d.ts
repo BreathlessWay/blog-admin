@@ -1,8 +1,8 @@
-export type TagType = {
+export type TagItemType = {
 	name: string;
 	count: number;
 	show: boolean;
 	objectId?: string;
 };
 
-export type TagsType = Array<TagType>;
+export type TagListType = Array<TagItemType>;

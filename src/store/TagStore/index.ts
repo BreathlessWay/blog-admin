@@ -1,9 +1,9 @@
 import { action, computed, observable } from 'mobx';
-import { TagsType } from './tag';
+import { TagListType } from './tag';
 
 export default class TagStore {
 	@observable
-	tags: TagsType = [];
+	tags: TagListType = [];
 
 	@action.bound
 	addTag() {

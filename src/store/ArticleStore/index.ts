@@ -2,13 +2,13 @@ import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
-import { ArticleQueryType } from './article';
+import { ArticleQueryType, ArticleListType } from './article';
+
+import data from './data';
 
 export default class ArticleStore extends ListStore {
-	limit = 20;
-
 	@observable
-	list: Array<any> = [];
+	list: ArticleListType = [];
 
 	@observable
 	query: ArticleQueryType = {
@@ -20,7 +20,8 @@ export default class ArticleStore extends ListStore {
 	};
 
 	@action.bound
-	setList(result: { list: Array<any>; count: number }) {
+	setList(result: { list: ArticleListType; count: number }) {
+		result.list.forEach(item => (item.key = item.objectId));
 		this.list = result.list;
 		this.count = result.count;
 	}
@@ -30,11 +31,32 @@ export default class ArticleStore extends ListStore {
 		this.query = query;
 	}
 
+	@action.bound
+	changeStatus(articleIds: Array<string>, status: boolean) {
+		this.list = this.list.map(item => {
+			const { objectId } = item;
+			if (articleIds.includes(objectId)) {
+				item.status = status;
+			}
+			return item;
+		});
+	}
+
+	@action.bound
+	deleteArticle(articleIds: Array<string>) {
+		this.list = this.list.filter(item => !articleIds.includes(item.objectId));
+	}
+
 	@computed
 	get searchQuery() {
 		return JSON.stringify({
 			...this.query,
-			...{ pageIndex: this.pageIndex, pageSize: this.limit },
+			...{ pageIndex: this.pageIndex, pageSize: this.pageSize },
 		});
+	}
+
+	@computed
+	get isEmpty() {
+		return !this.list.length;
 	}
 }

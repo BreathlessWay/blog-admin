@@ -18,7 +18,7 @@ import Gap from '@/components/common/Gap';
 
 import { RouteComponentProps } from 'react-router';
 import { StoreType } from '@/store/store';
-import { TagType } from '@/store/TagStore/tag';
+import { TagItemType } from '@/store/TagStore/tag';
 
 import './style.scss';
 
@@ -52,7 +52,13 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 		this.props.tagStore.changeTagShow(index);
 	};
 
-	handleDelete = ({ tag, index }: { tag: TagType; index: number }) => () => {
+	handleDelete = ({
+		tag,
+		index,
+	}: {
+		tag: TagItemType;
+		index: number;
+	}) => () => {
 		if (tag.count) {
 			message.error('当前标签下存在文章，不可删除');
 			return;
@@ -73,7 +79,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 		index,
 		isEditing,
 	}: {
-		tag: TagType;
+		tag: TagItemType;
 		index: number;
 		isEditing: boolean;
 	}) => {

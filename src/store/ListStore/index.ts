@@ -3,13 +3,17 @@ import { action, computed, observable } from 'mobx';
 import { PAGE_LIMIT } from '@/utils/constant';
 
 export default class ListStore {
-	limit = PAGE_LIMIT;
+	@observable
+	pageSize = PAGE_LIMIT;
 
 	@observable
 	pageIndex = 1;
 
 	@observable
-	count = 0;
+	count = 16;
+
+	@observable
+	loading = false;
 
 	@action.bound
 	prePage() {
@@ -30,9 +34,19 @@ export default class ListStore {
 		this.pageIndex = page;
 	}
 
+	@action.bound
+	changeLoading() {
+		this.loading = !this.loading;
+	}
+
+	@action.bound
+	changePageSize(pageSize: number) {
+		this.pageSize = pageSize;
+	}
+
 	@computed
 	get currentCount() {
-		return this.limit * this.pageIndex;
+		return this.pageSize * this.pageIndex;
 	}
 
 	@computed

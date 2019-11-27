@@ -12,3 +12,18 @@ export const SKILL_COLOR = '#333';
 
 // 默认每页数量
 export const PAGE_LIMIT = 10;
+
+// tag颜色
+export const TAG_COLOR = [
+	'magenta',
+	'red',
+	'volcano',
+	'orange',
+	'gold',
+	'lime',
+	'green',
+	'cyan',
+	'blue',
+	'geekblue',
+	'purple',
+];
