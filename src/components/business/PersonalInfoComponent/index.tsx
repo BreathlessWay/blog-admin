@@ -6,14 +6,14 @@ import { Col, Input, Row, Typography } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
-import UserStore, { EPersonalChangeType } from '@/store/UserStore';
+import { StoreType } from '@/store/store';
+
+import { EPersonalChangeType } from '@/store/UserStore/user.enum';
 
 const { Text } = Typography;
 const { TextArea } = Input;
 
-export type IPersonalInfoComponentPropType = {
-	userStore: UserStore;
-};
+export type IPersonalInfoComponentPropType = Pick<StoreType, 'userStore'>;
 
 export type IPersonalInfoComponentStateType = Readonly<{
 	titleError: boolean;
@@ -60,19 +60,19 @@ class PersonalInfoComponent extends Component<
 		const value = e.target.value;
 		switch (type) {
 			case EPersonalChangeType.personalTitle:
-				this.props.userStore.setPersonalInfo({ value, type });
+				this.props.userStore.setPersonalInfo({ type, value });
 				this.setState({
 					titleError: !value.trim(),
 				});
 				break;
 			case EPersonalChangeType.personalInfo:
-				this.props.userStore.setPersonalInfo({ value, type });
+				this.props.userStore.setPersonalInfo({ type, value });
 				this.setState({
 					infoError: !value.trim(),
 				});
 				break;
 			case EPersonalChangeType.personalIntro:
-				this.props.userStore.setPersonalInfo({ value, type });
+				this.props.userStore.setPersonalInfo({ type, value });
 				this.setState({
 					introError: !value.trim(),
 				});

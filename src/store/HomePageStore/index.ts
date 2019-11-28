@@ -1,29 +1,16 @@
 import { action, computed, observable } from 'mobx';
 
-import { MenuType } from '@/store/HomePageStore/hompage';
+import { MenuItemType, MenuListType } from '@/types/hompage';
+
+import { EMenuType } from '@/store/HomePageStore/homepage.enum';
+
+import { articleRoute, photographyRoute } from '@/route';
 
 import { getBreadcrumbNameMap } from '@/utils/path';
 
-export enum EMenuType {
-	home = 'home',
-	user = 'user',
-	read = 'read',
-	contacts = 'contacts',
-	camera = 'camera',
-}
-
-const articlePage = [
-	{ name: '文章管理', path: '/article/index', show: true },
-	{ name: '标签管理', path: '/article/tag', show: true },
-	{ name: '新建文章', path: '/article/create', show: false },
-	{ name: '编辑文章', path: '/article/edit', show: false },
-];
-
-const photographyPage = [{ name: '摄影', path: '/photography', show: true }];
-
 export default class HomePageStore {
 	@observable
-	menuList: Array<MenuType> = [];
+	menuList: MenuListType = [];
 
 	@observable
 	openKeys: Array<string> = [];
@@ -32,14 +19,14 @@ export default class HomePageStore {
 	selectedKeys: Array<string> = [];
 
 	@action.bound
-	setMenuList(list: Array<MenuType>) {
+	setMenuList(list: MenuListType) {
 		this.menuList = list;
 		this.menuList.forEach(item => {
 			if (item.type === EMenuType.read) {
-				item.children = articlePage;
+				item.children = articleRoute;
 			}
 			if (item.type === EMenuType.camera) {
-				item.children = photographyPage;
+				item.children = photographyRoute;
 			}
 		});
 	}
@@ -77,7 +64,7 @@ export default class HomePageStore {
 		value,
 		type = 'input',
 	}: {
-		item: MenuType;
+		item: MenuItemType;
 		value: any;
 		type?: 'input' | 'checkbox';
 	}) {
@@ -108,15 +95,16 @@ export default class HomePageStore {
 
 	@computed
 	get firstMenu() {
+		let _firstMenu = {
+			path: '/home',
+		} as MenuItemType;
 		if (this.menuList.length) {
-			let _firstMenu = this.menuList[0];
+			_firstMenu = this.menuList[0];
 			if (_firstMenu.children && _firstMenu.children.length) {
-				_firstMenu = _firstMenu.children[0] as any;
+				_firstMenu = _firstMenu.children[0] as MenuItemType;
 			}
 			return _firstMenu;
 		}
-		return {
-			path: '/home',
-		};
+		return _firstMenu;
 	}
 }

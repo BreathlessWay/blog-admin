@@ -7,7 +7,7 @@ import DraggableComponent from '@/components/common/DraggableComponent';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 
 import { StoreType } from '@/store/store';
-import { MenuType } from '@/store/HomePageStore/hompage';
+import { MenuItemType } from '@/types/hompage';
 
 import './style.scss';
 
@@ -66,11 +66,14 @@ class MenuEditComponent extends React.Component<
 		}
 	};
 
-	handleChangeInput = (e: ChangeEvent<HTMLInputElement>, item: MenuType) => {
+	handleChangeInput = (
+		e: ChangeEvent<HTMLInputElement>,
+		item: MenuItemType,
+	) => {
 		this.props.homepageStore.changeMenu({ item, value: e.target.value });
 	};
 
-	handleChangeCheckbox = (item: MenuType) => () => {
+	handleChangeCheckbox = (item: MenuItemType) => () => {
 		this.props.homepageStore.changeMenu({
 			item,
 			value: !item.show,

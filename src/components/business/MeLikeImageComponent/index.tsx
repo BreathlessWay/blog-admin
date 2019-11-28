@@ -2,26 +2,25 @@ import React, { ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
+import { message } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
-import UserStore from '@/store/UserStore';
+import { StoreType } from '@/store/store';
+import { LikeImageItemType } from '@/types/user';
 
 import { toJS } from 'mobx';
 
 import { MAX_IMAGE_COUNT } from '@/utils/constant';
-import { message } from 'antd';
 
-export type IMeLikeImageComponentPropType = {
-	userStore: UserStore;
-};
+export type IMeLikeImageComponentPropType = Pick<StoreType, 'userStore'>;
 
 @inject('userStore')
 @observer
 class MeLikeImageComponent extends React.Component<
 	IMeLikeImageComponentPropType
 > {
-	handleRemove = (index: number, item: { url: string; show: boolean }) => {
+	handleRemove = (index: number, item: LikeImageItemType) => {
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {

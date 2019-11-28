@@ -4,6 +4,7 @@ import { Icon, Row, Col, Upload } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
 
 import { uploadFile } from '@/service/upload';
 
@@ -81,7 +82,7 @@ export default class RewardComponentItem extends React.Component<
 			<Upload
 				disabled={disabled}
 				customRequest={this.handleCustomUpload}
-				accept={'.jpg,.jpeg,.png'}>
+				accept={UPLOAD_IMAGE_TYPE}>
 				<Icon type="upload" className="reward-code_icon" />
 			</Upload>
 		);

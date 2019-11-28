@@ -8,6 +8,8 @@ import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 
 import { uploadFile } from '@/service/upload';
 
+import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
+
 import './style.scss';
 
 const iconStyle = {
@@ -99,7 +101,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 					<Upload
 						disabled={disabled || compDisabled}
 						customRequest={this.handleCustomUpload}
-						accept={'.jpg,.jpeg,.png'}
+						accept={UPLOAD_IMAGE_TYPE}
 						listType="picture-card"
 						showUploadList={false}>
 						<div>

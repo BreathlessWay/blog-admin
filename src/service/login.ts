@@ -1,41 +1,10 @@
 import UserStore from '@/store/UserStore';
-import HomePageStore, { EMenuType } from '@/store/HomePageStore';
+import HomePageStore from '@/store/HomePageStore';
 import * as H from 'history';
 
-import { storage } from '@/utils/storage';
+import { baseRoute } from '@/route';
 
-const mockMenu = [
-	{
-		name: '首页',
-		type: EMenuType.home,
-		path: '/home',
-		show: true,
-	},
-	{
-		name: '我',
-		type: EMenuType.user,
-		path: '/me',
-		show: true,
-	},
-	{
-		name: '文章',
-		type: EMenuType.read,
-		path: '/article',
-		show: true,
-	},
-	{
-		name: '撸猫',
-		type: EMenuType.contacts,
-		path: '/cat',
-		show: true,
-	},
-	{
-		name: '摄影',
-		type: EMenuType.camera,
-		path: '/photography',
-		show: true,
-	},
-];
+import { storage } from '@/utils/storage';
 
 export const getMenu = ({
 	homepageStore,
@@ -47,7 +16,7 @@ export const getMenu = ({
 	isLoginPage?: boolean;
 }) => {
 	// get menu
-	homepageStore.setMenuList(mockMenu);
+	homepageStore.setMenuList(baseRoute);
 	const _pathname = isLoginPage ? homepageStore.firstMenu.path : pathname;
 	homepageStore.setKeys(_pathname);
 };

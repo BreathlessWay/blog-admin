@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
-import ArticleFilterComponent from '@/components/business/ArticleFilterComponent';
-import ArticleListComponent from '@/components/business/ArticleListComponent';
 import Gap from '@/components/common/Gap';
+
+const ArticleFilterComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleFilterComponent" */ '@/components/business/ArticleFilterComponent'
+	),
+);
+
+const ArticleListComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleListComponent" */ '@/components/business/ArticleListComponent'
+	),
+);
 
 const ArticlePage = () => {
 	return (

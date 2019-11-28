@@ -7,7 +7,9 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
 
-import UserStore, { ERewardChangeType } from '@/store/UserStore';
+import UserStore from '@/store/UserStore';
+
+import { ERewardChangeType } from '@/store/UserStore/user.enum';
 
 import './style.scss';
 
@@ -24,22 +26,22 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 		});
 	};
 	handelChangeRewardTitle = (e: ChangeEvent<HTMLInputElement>) => {
-		this.props.userStore.setReward({
-			key: ERewardChangeType.rewardTitle,
+		this.props.userStore.setPersonalInfo({
+			type: ERewardChangeType.rewardTitle,
 			value: e.target.value,
 		});
 	};
 
 	handleDelete = ({ key }: { key: ERewardChangeType }) => () => {
-		this.props.userStore.setReward({
-			key,
+		this.props.userStore.setPersonalInfo({
+			type: key,
 			value: '',
 		});
 	};
 
 	handleUpload = ({ key, url }: { key: ERewardChangeType; url: string }) => {
-		this.props.userStore.setReward({
-			key,
+		this.props.userStore.setPersonalInfo({
+			type: key,
 			value: url,
 		});
 	};

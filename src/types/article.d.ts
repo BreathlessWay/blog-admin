@@ -1,4 +1,4 @@
-import { TagListType } from '@/store/TagStore/tag';
+import { TagListType } from '@/types/tag';
 
 export type ArticleQueryType = {
 	keyword: string | undefined;

@@ -15,7 +15,7 @@ import './style.scss';
 export type IArticleListComponentPropType = Pick<StoreType, 'articleStore'>;
 
 export type IArticleListComponentStateType = Readonly<{
-	selectedRowKeys: Array<any>;
+	selectedRowKeys: Array<string>;
 }>;
 
 @inject((allStore: StoreType) => ({

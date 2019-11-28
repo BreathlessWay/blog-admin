@@ -6,9 +6,9 @@ import { Icon, Tag } from 'antd';
 
 import store from '@/store';
 
-import { ArticleItemType } from '@/store/ArticleStore/article';
-import { TagListType } from '@/store/TagStore/tag';
 import { ColumnProps } from 'antd/es/table';
+import { ArticleItemType } from '@/types/article';
+import { TagListType } from '@/types/tag';
 
 import { TAG_COLOR } from '@/utils/constant';
 

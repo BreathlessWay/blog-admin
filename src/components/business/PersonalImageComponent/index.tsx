@@ -6,7 +6,8 @@ import { message } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 
-import UserStore from '@/store/UserStore';
+import { StoreType } from '@/store/store';
+import { PersonalImageItemType } from '@/types/user';
 
 import { toJS } from 'mobx';
 
@@ -14,16 +15,14 @@ import { MAX_IMAGE_COUNT } from '@/utils/constant';
 
 import './style.scss';
 
-export type IPersonalImageComponentPropType = {
-	userStore: UserStore;
-};
+export type IPersonalImageComponentPropType = Pick<StoreType, 'userStore'>;
 
 @inject('userStore')
 @observer
 class PersonalImageComponent extends React.Component<
 	IPersonalImageComponentPropType
 > {
-	handleRemove = (index: number, item: { url: string; show: boolean }) => {
+	handleRemove = (index: number, item: PersonalImageItemType) => {
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {

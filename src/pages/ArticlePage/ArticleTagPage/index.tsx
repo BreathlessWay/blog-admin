@@ -18,7 +18,7 @@ import Gap from '@/components/common/Gap';
 
 import { RouteComponentProps } from 'react-router';
 import { StoreType } from '@/store/store';
-import { TagItemType } from '@/store/TagStore/tag';
+import { TagItemType } from '@/types/tag';
 
 import './style.scss';
 

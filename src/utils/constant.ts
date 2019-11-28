@@ -1,6 +1,12 @@
 // 最大上传图片数量
 export const MAX_IMAGE_COUNT = 5;
 
+// 默认上传图片类型
+export const UPLOAD_IMAGE_TYPE = '.ico,.png,.jpg,.jpeg';
+
+// 默认上传简历类型
+export const UPLOAD_RESUME_TYPE = '.doc,.docx,.page,.jpeg,.png,.pdf';
+
 // 倒计时
 export const TIME_COUNT_DOWN = 60;
 

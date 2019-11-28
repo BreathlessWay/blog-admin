@@ -7,13 +7,12 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import DraggableComponent from '@/components/common/DraggableComponent';
 import SkillComponentItem from './item';
 
-import UserStore from '@/store/UserStore';
+import { StoreType } from '@/store/store';
+import { PersonalSkillItemType } from '@/types/user';
 
 import './style.scss';
 
-export type ISkillComponentPropType = {
-	userStore: UserStore;
-};
+export type ISkillComponentPropType = Pick<StoreType, 'userStore'>;
 
 @inject('userStore')
 @observer
@@ -64,10 +63,7 @@ class SkillComponent extends Component<ISkillComponentPropType> {
 									this.handleMoveCard(dragIndex, hoverIndex, isEditing)
 								}
 								list={skills}
-								render={(
-									item: { name: string; percent: number; color: string },
-									index,
-								) => (
+								render={(item: PersonalSkillItemType, index) => (
 									<SkillComponentItem
 										key={index}
 										item={item}

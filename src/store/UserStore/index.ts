@@ -3,25 +3,14 @@ import { storage } from '@/utils/storage';
 
 import { SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 
-import { UserDetailType } from '@/store/UserStore/user';
+import { UserDetailType } from '@/types/user';
 
-export enum EMottoChangeType {
-	en = 'en',
-	zh = 'zh',
-	intro = 'intro',
-}
-
-export enum EPersonalChangeType {
-	personalTitle = 'personalTitle',
-	personalInfo = 'personalInfo',
-	personalIntro = 'personalIntro',
-}
-
-export enum ERewardChangeType {
-	rewardTitle = 'rewardTitle',
-	zfbCode = 'zfbCode',
-	wxCode = 'wxCode',
-}
+import {
+	EMottoChangeType,
+	EPersonalChangeType,
+	EResumeChangeType,
+	ERewardChangeType,
+} from '@/store/UserStore/user.enum';
 
 export default class UserStore {
 	@observable
@@ -93,17 +82,6 @@ export default class UserStore {
 	}
 
 	@action.bound
-	changeResume({ fileUrl, fileName }: { fileUrl: string; fileName: string }) {
-		this.userDetail.resumeUrl = fileUrl;
-		this.userDetail.resumeName = fileName;
-	}
-
-	@action.bound
-	changeResumeAlias(alias: string) {
-		this.userDetail.resumeAlias = alias.trim();
-	}
-
-	@action.bound
 	removePersonalImage(index: number) {
 		this.userDetail.personalImage.splice(index, 1);
 	}
@@ -124,14 +102,20 @@ export default class UserStore {
 	}
 
 	@action.bound
-	setMotto({ key, value }: { key: EMottoChangeType; value: string }) {
-		this.userDetail[key] = value;
+	setPersonalInfo({
+		value,
+		type,
+	}: {
+		value: string;
+		type:
+			| EPersonalChangeType
+			| EMottoChangeType
+			| ERewardChangeType
+			| EResumeChangeType;
+	}) {
+		this.userDetail[type] = value;
 	}
 
-	@action.bound
-	setReward({ key, value }: { key: ERewardChangeType; value: string }) {
-		this.userDetail[key] = value;
-	}
 	// 我页面
 	@action.bound
 	removeLikeImage(index: number) {
@@ -151,17 +135,6 @@ export default class UserStore {
 		this.userDetail.likeImage.forEach((item, i) => {
 			item.show = i === index;
 		});
-	}
-
-	@action.bound
-	setPersonalInfo({
-		value,
-		type,
-	}: {
-		value: string;
-		type: EPersonalChangeType;
-	}) {
-		this.userDetail[type] = value;
 	}
 
 	@action.bound

@@ -2,11 +2,13 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Row, Button } from 'antd';
+import { Button, Row } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
+import { EResumeChangeType } from '@/store/UserStore/user.enum';
+import { UPLOAD_IMAGE_TYPE, UPLOAD_RESUME_TYPE } from '@/utils/constant';
 
 import './style.scss';
 
@@ -58,15 +60,32 @@ class SocialEditComponent extends React.Component<
 		fileUrl: string;
 		fileName: string;
 	}) => {
-		this.props.userStore.changeResume({ fileUrl, fileName });
+		this.props.userStore.setPersonalInfo({
+			type: EResumeChangeType.resumeName,
+			value: fileName,
+		});
+		this.props.userStore.setPersonalInfo({
+			type: EResumeChangeType.resumeUrl,
+			value: fileUrl,
+		});
 	};
 
 	handleDeleteResume = () => {
-		this.props.userStore.changeResume({ fileUrl: '', fileName: '' });
+		this.props.userStore.setPersonalInfo({
+			type: EResumeChangeType.resumeName,
+			value: '',
+		});
+		this.props.userStore.setPersonalInfo({
+			type: EResumeChangeType.resumeUrl,
+			value: '',
+		});
 	};
 
 	handleChangeResumeInput = (e: ChangeEvent<HTMLInputElement>) => {
-		this.props.userStore.changeResumeAlias(e.target.value);
+		this.props.userStore.setPersonalInfo({
+			type: EResumeChangeType.resumeAlias,
+			value: e.target.value,
+		});
 	};
 
 	handleUploadIcon = ({
@@ -109,7 +128,7 @@ class SocialEditComponent extends React.Component<
 				render={isEditing => (
 					<Row type="flex" align="middle">
 						<SocialEditItem
-							accept={'.doc,.docx,.page,.jpeg,.png,.pdf'}
+							accept={UPLOAD_RESUME_TYPE}
 							type="file"
 							title={'简历'}
 							value={userDetail.resumeAlias}
@@ -122,7 +141,7 @@ class SocialEditComponent extends React.Component<
 						/>
 						{social.map((item, index) => (
 							<SocialEditItem
-								accept={'.ico,.png,.jpg,.jpeg'}
+								accept={UPLOAD_IMAGE_TYPE}
 								key={item.icon + index}
 								type="image"
 								value={item.value}

@@ -7,7 +7,8 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
-import { EMottoChangeType } from '@/store/UserStore';
+
+import { EMottoChangeType } from '@/store/UserStore/user.enum';
 
 import './style.scss';
 
@@ -64,22 +65,22 @@ class MottoComponent extends React.Component<
 	};
 
 	handleChangeEn = (e: ChangeEvent<HTMLInputElement>) => {
-		this.props.userStore.setMotto({
-			key: EMottoChangeType.en,
+		this.props.userStore.setPersonalInfo({
+			type: EMottoChangeType.en,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeZh = (e: ChangeEvent<HTMLInputElement>) => {
-		this.props.userStore.setMotto({
-			key: EMottoChangeType.zh,
+		this.props.userStore.setPersonalInfo({
+			type: EMottoChangeType.zh,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		this.props.userStore.setMotto({
-			key: EMottoChangeType.intro,
+		this.props.userStore.setPersonalInfo({
+			type: EMottoChangeType.intro,
 			value: e.target.value,
 		});
 	};
