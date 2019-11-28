@@ -10,6 +10,7 @@ import { ColumnProps } from 'antd/es/table';
 import { ArticleItemType } from '@/types/article';
 import { TagListType } from '@/types/tag';
 
+import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 import { TAG_COLOR } from '@/utils/constant';
 
 import moment from 'moment';
@@ -93,7 +94,10 @@ const columns: ColumnProps<ArticleItemType>[] = [
 ];
 
 const handleChangeStatus = (article: ArticleItemType) => () => {
-	store.articleListStore.changeStatus([article.objectId], !article.status);
+	const status = Boolean(article.status)
+		? EArticleStatus.hide
+		: EArticleStatus.show;
+	store.articleListStore.changeStatus([article.objectId], status);
 };
 
 const handleDelete = (article: ArticleItemType) => () => {

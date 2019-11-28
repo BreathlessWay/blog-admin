@@ -12,7 +12,7 @@ export type ArticleQueryType = {
 export type ArticleItemType = {
 	objectId: string;
 	title: string;
-	status: boolean;
+	status: number;
 	createAt: number;
 	tags: TagListType;
 	key?: string;
@@ -24,7 +24,7 @@ export type ArticleDetailType = {
 	title: string;
 	intro: string;
 	detail: string;
-	status: boolean;
+	status: number;
 	tags: TagListType;
 	renderType: EArticleRenderType;
 

@@ -10,6 +10,8 @@ import columns from './columns';
 
 import { StoreType } from '@/store/store';
 
+import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
+
 import { routeMapPath } from '@/route';
 
 import './style.scss';
@@ -51,11 +53,17 @@ class ArticleListComponent extends Component<
 	};
 
 	handleShowSelected = () => {
-		this.props.articleListStore.changeStatus(this.state.selectedRowKeys, true);
+		this.props.articleListStore.changeStatus(
+			this.state.selectedRowKeys,
+			EArticleStatus.show,
+		);
 	};
 
 	handleHideSelected = () => {
-		this.props.articleListStore.changeStatus(this.state.selectedRowKeys, false);
+		this.props.articleListStore.changeStatus(
+			this.state.selectedRowKeys,
+			EArticleStatus.hide,
+		);
 	};
 
 	render() {

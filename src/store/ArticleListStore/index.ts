@@ -30,7 +30,7 @@ export default class ArticleListStore extends ListStore {
 	}
 
 	@action.bound
-	changeStatus(articleIds: Array<string>, status: boolean) {
+	changeStatus(articleIds: Array<string>, status: number) {
 		this.list = this.list.map(item => {
 			const { objectId } = item;
 			if (articleIds.includes(objectId)) {

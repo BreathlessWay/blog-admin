@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx';
 
 import { ArticleDetailType } from '@/types/article';
-import { EArticleRenderType } from './article.enum';
+
+import { EArticleDetailType, EArticleRenderType } from './article.enum';
 
 export default class ArticleDetailStore {
 	@observable
@@ -11,7 +12,7 @@ export default class ArticleDetailStore {
 		title: '',
 		intro: '',
 		detail: '',
-		status: true,
+		status: 1,
 		tags: [],
 		renderType: EArticleRenderType.richText,
 	};
@@ -24,5 +25,12 @@ export default class ArticleDetailStore {
 	@action.bound
 	createArticle() {
 		this.detail = this.emptyDetail;
+	}
+
+	@action.bound
+	changeDetail({ key, value }: { key: EArticleDetailType; value: any }) {
+		if (this.detail) {
+			(this.detail[key] as any) = value;
+		}
 	}
 }

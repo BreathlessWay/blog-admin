@@ -7,6 +7,8 @@ import { Input, DatePicker, Select, Form, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { StoreType } from '@/store/store';
 
+import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
+
 import moment from 'moment';
 
 const { RangePicker } = DatePicker;
@@ -17,11 +19,6 @@ export type IArticleFilterComponentPropType = Pick<
 	'tagStore' | 'articleListStore'
 > &
 	FormComponentProps;
-
-export enum EArticleStatus {
-	show = 'show',
-	hide = 'hide',
-}
 
 export enum EFormKey {
 	keyword = 'keyword',
@@ -78,10 +75,6 @@ class ArticleFilterComponent extends Component<
 		} = this.props.articleListStore;
 		const { getFieldDecorator } = this.props.form;
 
-		const initialStatusValue = status
-			? EArticleStatus.show
-			: EArticleStatus.hide;
-
 		return (
 			<Form layout="inline" onSubmit={this.handleSubmit}>
 				<Form.Item label="关键字" htmlFor={EFormKey.keyword}>
@@ -109,7 +102,7 @@ class ArticleFilterComponent extends Component<
 				</Form.Item>
 				<Form.Item label="文章状态" htmlFor={EFormKey.status}>
 					{getFieldDecorator(EFormKey.status, {
-						initialValue: initialStatusValue,
+						initialValue: status,
 					})(
 						<Select style={{ width: '70px' }} id={EFormKey.status}>
 							<Option value={EArticleStatus.show}>显示</Option>
