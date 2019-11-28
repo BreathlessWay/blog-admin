@@ -6,6 +6,8 @@ import { baseRoute, routeMapPath } from '@/route';
 
 import { storage } from '@/utils/storage';
 
+import { MenuListType } from '@/types/hompage';
+
 export const getMenu = ({
 	homepageStore,
 	pathname,
@@ -16,7 +18,7 @@ export const getMenu = ({
 	isLoginPage?: boolean;
 }) => {
 	// get menu
-	homepageStore.setMenuList(baseRoute);
+	homepageStore.setMenuList(baseRoute as MenuListType);
 	const _pathname = isLoginPage ? homepageStore.firstMenu.path : pathname;
 	homepageStore.setKeys(_pathname);
 };
