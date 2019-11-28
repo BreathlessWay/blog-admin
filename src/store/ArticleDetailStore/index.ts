@@ -1,5 +1,8 @@
 import { action, observable } from 'mobx';
 
+import { ContentState, EditorState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
+
 import { ArticleDetailType } from '@/types/article';
 
 import { EArticleDetailType, EArticleRenderType } from './article.enum';
@@ -12,6 +15,7 @@ export default class ArticleDetailStore {
 		title: '',
 		intro: '',
 		detail: '',
+		draftDetail: EditorState.createEmpty(),
 		status: 1,
 		tags: [],
 		renderType: EArticleRenderType.richText,
@@ -19,7 +23,18 @@ export default class ArticleDetailStore {
 
 	@action.bound
 	setDetail(detail: ArticleDetailType | null) {
-		this.detail = detail;
+		if (detail) {
+			const blocksFromHtml = htmlToDraft(detail?.detail ?? '');
+			const { contentBlocks, entityMap } = blocksFromHtml;
+			const contentState = ContentState.createFromBlockArray(
+				contentBlocks,
+				entityMap,
+			);
+			detail.draftDetail = EditorState.createWithContent(contentState);
+			this.detail = detail;
+		} else {
+			this.createArticle();
+		}
 	}
 
 	@action.bound

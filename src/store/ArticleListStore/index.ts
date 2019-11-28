@@ -2,7 +2,9 @@ import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
-import { ArticleQueryType, ArticleListType } from '@/types/article';
+import { ArticleListType, ArticleQueryType } from '@/types/article';
+
+import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
 export default class ArticleListStore extends ListStore {
 	@observable
@@ -13,7 +15,7 @@ export default class ArticleListStore extends ListStore {
 		keyword: undefined,
 		startTime: undefined,
 		endTime: undefined,
-		status: true,
+		status: EArticleStatus.show,
 		tags: undefined,
 	};
 

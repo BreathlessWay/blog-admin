@@ -56,7 +56,7 @@ class ArticleFilterComponent extends Component<
 					keyword,
 					startTime,
 					endTime,
-					status: status === EArticleStatus.show,
+					status,
 					tags: tag,
 				});
 				console.log(this.props.articleListStore.searchQuery);
@@ -74,7 +74,6 @@ class ArticleFilterComponent extends Component<
 			query: { status },
 		} = this.props.articleListStore;
 		const { getFieldDecorator } = this.props.form;
-
 		return (
 			<Form layout="inline" onSubmit={this.handleSubmit}>
 				<Form.Item label="关键字" htmlFor={EFormKey.keyword}>

@@ -15,4 +15,5 @@ export enum EArticleDetailType {
 	status = 'status',
 	tags = 'tags',
 	renderType = 'renderType',
+	draftDetail = 'draftDetail',
 }
