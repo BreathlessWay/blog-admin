@@ -8,6 +8,7 @@ import store from '@/store';
 
 import { ArticleItemType } from '@/store/ArticleStore/article';
 import { TagListType } from '@/store/TagStore/tag';
+import { ColumnProps } from 'antd/es/table';
 
 import { TAG_COLOR } from '@/utils/constant';
 
@@ -15,12 +16,12 @@ import moment from 'moment';
 
 import './style.scss';
 
-const columns = [
+const columns: ColumnProps<ArticleItemType>[] = [
 	{
 		title: '标题',
 		dataIndex: 'title',
 		key: 'title',
-		render: (title: string) => (
+		render: title => (
 			<div className="article-list_title">
 				<span>{title}</span>
 			</div>
@@ -31,7 +32,7 @@ const columns = [
 		align: 'center' as const,
 		dataIndex: 'createAt',
 		key: 'createAt',
-		render: (createAt: number) => (
+		render: createAt => (
 			<div className="article-list_item">
 				<span>{moment(createAt).format('YYYY-MM-DD HH:mm:ss')}</span>
 			</div>
@@ -57,7 +58,7 @@ const columns = [
 		align: 'center' as const,
 		dataIndex: 'status',
 		key: 'status',
-		render: (status: boolean) => (
+		render: status => (
 			<div className="article-list_item">
 				<span>{status ? '显示中' : '已隐藏'}</span>
 			</div>
@@ -67,7 +68,7 @@ const columns = [
 		title: '操作',
 		align: 'center' as const,
 		key: 'operation',
-		render: (article: ArticleItemType) => (
+		render: article => (
 			<div className="article-list_item">
 				<Icon
 					type={article.status ? 'eye' : 'eye-invisible'}

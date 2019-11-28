@@ -1,5 +1,6 @@
 import React, { Component, ComponentClass } from 'react';
 
+import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 import { Table, Button, Pagination, Row, Col } from 'antd';
@@ -76,19 +77,26 @@ class ArticleListComponent extends Component<
 					pagination={false}
 				/>
 				<Gap size="lg" />
-				{!isEmpty && (
-					<Row type="flex" align="middle" justify="space-between">
-						<Col>
-							<Button type="link" onClick={this.handleDeleteSelected}>
-								删除
-							</Button>
-							<Button type="link" onClick={this.handleShowSelected}>
-								显示
-							</Button>
-							<Button type="link" onClick={this.handleHideSelected}>
-								隐藏
-							</Button>
-						</Col>
+				<Row type="flex" align="middle" justify="space-between">
+					<Col>
+						{!isEmpty && (
+							<>
+								<Button type="link" onClick={this.handleDeleteSelected}>
+									删除
+								</Button>
+								<Button type="link" onClick={this.handleShowSelected}>
+									显示
+								</Button>
+								<Button type="link" onClick={this.handleHideSelected}>
+									隐藏
+								</Button>
+							</>
+						)}
+						<Button type="link">
+							<Link to="/article/create">新建文章</Link>
+						</Button>
+					</Col>
+					{!isEmpty && (
 						<Col>
 							<Pagination
 								pageSize={pageSize}
@@ -101,8 +109,8 @@ class ArticleListComponent extends Component<
 								onShowSizeChange={this.handleShowSizeChange}
 							/>
 						</Col>
-					</Row>
-				)}
+					)}
+				</Row>
 			</>
 		);
 	}
