@@ -13,6 +13,12 @@ const ArticleDetailTopComponent = lazy(() =>
 	),
 );
 
+const ArticleDetailContentComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleDetailContentComponent" */ '@/components/business/ArticleDetailContentComponent'
+	),
+);
+
 export type IArticleEditPagePropType = Pick<StoreType, 'articleDetailStore'> &
 	RouteComponentProps;
 
@@ -33,6 +39,7 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 		return (
 			<>
 				<ArticleDetailTopComponent />
+				<ArticleDetailContentComponent />
 			</>
 		);
 	}

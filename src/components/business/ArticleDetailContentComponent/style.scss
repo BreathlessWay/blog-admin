@@ -1,0 +1,7 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.editorClassName {
+	border: $border-normal;
+	height: 800px;
+}

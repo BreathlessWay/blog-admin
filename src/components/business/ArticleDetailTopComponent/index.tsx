@@ -148,6 +148,10 @@ class ArticleDetailTopComponent extends Component<
 					</Radio.Group>
 				</Col>
 				<Gap />
+				<Col span={24}>
+					<Title level={4}>文章内容</Title>
+				</Col>
+				<Gap />
 			</Row>
 		);
 	}
