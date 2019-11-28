@@ -7,6 +7,8 @@ import { Breadcrumb, Button } from 'antd';
 
 import { StoreType } from '@/store/store';
 
+import { routeMapPath } from '@/route';
+
 import compose from '@/utils/compose';
 
 import './style.scss';
@@ -59,7 +61,7 @@ const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
 				type="link"
 				onClick={() => {
 					userStore.logout();
-					history.push('/login');
+					history.push(routeMapPath.login);
 				}}>
 				退出
 			</Button>

@@ -9,6 +9,8 @@ import FullLoadingComponent from '@/components/common/FullLodaingComponent';
 
 import zhCN from 'antd/es/locale/zh_CN';
 
+import { routeMapPath } from '@/route';
+
 import store from '@/store';
 
 const RouterPage = lazy(() =>
@@ -25,7 +27,11 @@ const App: React.FC = () => {
 				<Provider {...store}>
 					<BrowserRouter>
 						<Switch>
-							<Route exact={true} path="/login" component={LoginPage} />
+							<Route
+								exact={true}
+								path={routeMapPath.login}
+								component={LoginPage}
+							/>
 							<Route component={RouterPage} />
 						</Switch>
 					</BrowserRouter>

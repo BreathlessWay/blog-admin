@@ -14,6 +14,8 @@ import { TAG_COLOR } from '@/utils/constant';
 
 import moment from 'moment';
 
+import { routeMapPath } from '@/route';
+
 import './style.scss';
 
 const columns: ColumnProps<ArticleItemType>[] = [
@@ -82,7 +84,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 					onClick={handleDelete(article)}
 				/>
 				&nbsp; &nbsp;
-				<Link to={`/article/edit?id=${article.objectId}`}>
+				<Link to={`${routeMapPath.article.edit}?id=${article.objectId}`}>
 					<Icon type="edit" style={{ fontSize: 20 }} />
 				</Link>
 			</div>

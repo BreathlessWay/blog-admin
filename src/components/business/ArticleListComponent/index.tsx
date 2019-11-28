@@ -10,6 +10,8 @@ import columns from './columns';
 
 import { StoreType } from '@/store/store';
 
+import { routeMapPath } from '@/route';
+
 import './style.scss';
 
 export type IArticleListComponentPropType = Pick<StoreType, 'articleStore'>;
@@ -93,7 +95,7 @@ class ArticleListComponent extends Component<
 							</>
 						)}
 						<Button type="link">
-							<Link to="/article/create">新建文章</Link>
+							<Link to={routeMapPath.article.create}>新建文章</Link>
 						</Button>
 					</Col>
 					{!isEmpty && (

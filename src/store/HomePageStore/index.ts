@@ -4,7 +4,7 @@ import { MenuItemType, MenuListType } from '@/types/hompage';
 
 import { EMenuType } from '@/store/HomePageStore/homepage.enum';
 
-import { articleRoute, photographyRoute } from '@/route';
+import { articleRoute, photographyRoute, routeMapPath } from '@/route';
 
 import { getBreadcrumbNameMap } from '@/utils/path';
 
@@ -96,7 +96,7 @@ export default class HomePageStore {
 	@computed
 	get firstMenu() {
 		let _firstMenu = {
-			path: '/home',
+			path: routeMapPath.home,
 		} as MenuItemType;
 		if (this.menuList.length) {
 			_firstMenu = this.menuList[0];

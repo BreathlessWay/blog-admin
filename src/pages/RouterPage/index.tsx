@@ -9,6 +9,8 @@ import { StoreType } from '@/store/store';
 
 import { login } from '@/service/login';
 
+import { routeMapPath } from '@/route';
+
 import './style.scss';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -79,44 +81,52 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 					<Content className="home-page_content">
 						<Spin spinning={loading}>
 							<Switch>
-								<Route path="/home" exact={true} component={HomePage} />
-								<Route path="/me" exact={true} component={MePage} />
 								<Route
-									path="/article"
+									path={routeMapPath.home}
+									exact={true}
+									component={HomePage}
+								/>
+								<Route path={routeMapPath.me} exact={true} component={MePage} />
+								<Route
+									path={routeMapPath.article.index}
 									render={() => (
 										<Switch>
 											<Route
 												exact={true}
-												path="/article/index"
+												path={routeMapPath.article.home}
 												component={ArticleIndexPage}
 											/>
 											<Route
 												exact={true}
-												path="/article/tag"
+												path={routeMapPath.article.tag}
 												component={ArticleTagPage}
 											/>
 											<Route
 												exact={true}
-												path="/article/create"
+												path={routeMapPath.article.create}
 												children={<div>create</div>}
 											/>
 											<Route
 												exact={true}
-												path="/article/edit"
+												path={routeMapPath.article.edit}
 												children={<div>edit</div>}
 											/>
 											<Route
 												path="*"
 												render={() => {
-													return <Redirect to="/article/index" />;
+													return <Redirect to={routeMapPath.article.home} />;
 												}}
 											/>
 										</Switch>
 									)}
 								/>
-								<Route path="/cat" exact={true} children={<div>cat</div>} />
 								<Route
-									path="/photography"
+									path={routeMapPath.cat}
+									exact={true}
+									children={<div>cat</div>}
+								/>
+								<Route
+									path={routeMapPath.photography}
 									exact={true}
 									children={<div>photography</div>}
 								/>

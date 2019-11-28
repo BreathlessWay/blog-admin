@@ -2,7 +2,7 @@ import UserStore from '@/store/UserStore';
 import HomePageStore from '@/store/HomePageStore';
 import * as H from 'history';
 
-import { baseRoute } from '@/route';
+import { baseRoute, routeMapPath } from '@/route';
 
 import { storage } from '@/utils/storage';
 
@@ -53,6 +53,6 @@ export const login = async ({
 			history.replace(homepageStore.firstMenu.path);
 		}
 	} else {
-		history.push('/login');
+		history.push(routeMapPath.login);
 	}
 };

@@ -124,6 +124,8 @@
 │   │       ├── index.tsx
 │   │       └── style.scss
 │   ├── react-app-env.d.ts
+│   ├── route/
+│   │   └── index.ts
 │   ├── service/
 │   │   ├── login.ts
 │   │   └── upload.ts
@@ -137,26 +139,28 @@
 │   │       └── logo.svg
 │   ├── store/
 │   │   ├── ArticleStore/
-│   │   │   ├── article.d.ts
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
 │   │   ├── HomePageStore/
-│   │   │   ├── hompage.d.ts
+│   │   │   ├── homepage.enum.ts
 │   │   │   └── index.ts
 │   │   ├── ListStore/
 │   │   │   └── index.ts
 │   │   ├── TagStore/
-│   │   │   ├── index.ts
-│   │   │   └── tag.d.ts
+│   │   │   └── index.ts
 │   │   ├── UserStore/
 │   │   │   ├── index.ts
-│   │   │   └── user.d.ts
+│   │   │   └── user.enum.ts
 │   │   ├── index.ts
 │   │   └── store.d.ts
 │   ├── style.scss
 │   ├── types/
+│   │   ├── article.d.ts
+│   │   ├── hompage.d.ts
+│   │   ├── tag.d.ts
+│   │   └── user.d.ts
 │   └── utils/
 │       ├── axios.conf.ts
 │       ├── compose.ts
@@ -167,5 +171,5 @@
 ├── tree.md
 └── tsconfig.json
 
-54 directories, 112 files
+55 directories, 115 files
 ```
