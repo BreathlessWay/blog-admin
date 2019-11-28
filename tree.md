@@ -30,6 +30,9 @@
 │   ├── apis/
 │   ├── components/
 │   │   ├── business/
+│   │   │   ├── ArticleDetailTopComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── ArticleFilterComponent/
 │   │   │   │   └── index.tsx
 │   │   │   ├── ArticleListComponent/
@@ -106,6 +109,8 @@
 │   ├── pages/
 │   │   ├── App.tsx
 │   │   ├── ArticlePage/
+│   │   │   ├── ArticleEditPage/
+│   │   │   │   └── index.tsx
 │   │   │   ├── ArticleIndexPage/
 │   │   │   │   └── index.tsx
 │   │   │   └── ArticleTagPage/
@@ -138,7 +143,10 @@
 │   │   └── images/
 │   │       └── logo.svg
 │   ├── store/
-│   │   ├── ArticleStore/
+│   │   ├── ArticleDetailStore/
+│   │   │   ├── article.enum.ts
+│   │   │   └── index.ts
+│   │   ├── ArticleListStore/
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── GlobalStore/
@@ -171,5 +179,5 @@
 ├── tree.md
 └── tsconfig.json
 
-55 directories, 115 files
+58 directories, 120 files
 ```

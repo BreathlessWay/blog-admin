@@ -9,6 +9,8 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import { StoreType } from '@/store/store';
 import { MenuItemType } from '@/types/hompage';
 
+import { MAX_LENGTH_SM } from '@/utils/constant';
+
 import './style.scss';
 
 const { Text } = Typography;
@@ -98,7 +100,7 @@ class MenuEditComponent extends React.Component<
 									<Col span={10}>
 										<Input
 											value={item.name}
-											maxLength={6}
+											maxLength={MAX_LENGTH_SM}
 											onChange={e => this.handleChangeInput(e, item)}
 											prefix={<Icon type={item.type} />}
 											allowClear={true}

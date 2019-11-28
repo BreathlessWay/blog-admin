@@ -14,7 +14,7 @@ const { Option } = Select;
 
 export type IArticleFilterComponentPropType = Pick<
 	StoreType,
-	'tagStore' | 'articleStore'
+	'tagStore' | 'articleListStore'
 > &
 	FormComponentProps;
 
@@ -39,7 +39,7 @@ export type FormValueType = {
 
 @inject((allStore: StoreType) => ({
 	tagStore: allStore.tagStore,
-	articleStore: allStore.articleStore,
+	articleListStore: allStore.articleListStore,
 }))
 @observer
 class ArticleFilterComponent extends Component<
@@ -55,14 +55,14 @@ class ArticleFilterComponent extends Component<
 					startTime = date[0].startOf('day').valueOf();
 					endTime = date[1].endOf('day').valueOf();
 				}
-				this.props.articleStore.setQuery({
+				this.props.articleListStore.setQuery({
 					keyword,
 					startTime,
 					endTime,
 					status: status === EArticleStatus.show,
 					tags: tag,
 				});
-				console.log(this.props.articleStore.searchQuery);
+				console.log(this.props.articleListStore.searchQuery);
 			}
 		});
 	};
@@ -75,7 +75,7 @@ class ArticleFilterComponent extends Component<
 		const { tags } = this.props.tagStore;
 		const {
 			query: { status },
-		} = this.props.articleStore;
+		} = this.props.articleListStore;
 		const { getFieldDecorator } = this.props.form;
 
 		const initialStatusValue = status

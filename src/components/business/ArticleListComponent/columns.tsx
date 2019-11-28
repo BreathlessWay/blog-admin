@@ -93,11 +93,11 @@ const columns: ColumnProps<ArticleItemType>[] = [
 ];
 
 const handleChangeStatus = (article: ArticleItemType) => () => {
-	store.articleStore.changeStatus([article.objectId], !article.status);
+	store.articleListStore.changeStatus([article.objectId], !article.status);
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
-	store.articleStore.deleteArticle([article.objectId]);
+	store.articleListStore.deleteArticle([article.objectId]);
 };
 
 export default columns;

@@ -10,6 +10,7 @@ import RewardComponentItem from './item';
 import UserStore from '@/store/UserStore';
 
 import { ERewardChangeType } from '@/store/UserStore/user.enum';
+import { MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
 
@@ -61,7 +62,7 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 								disabled={!isEditing}
 								value={rewardTitle}
 								allowClear={true}
-								maxLength={20}
+								maxLength={MAX_LENGTH_MD}
 								onChange={this.handelChangeRewardTitle}
 							/>
 						</Col>

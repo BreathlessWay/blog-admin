@@ -33,3 +33,11 @@ export const TAG_COLOR = [
 	'geekblue',
 	'purple',
 ];
+
+export const MAX_LENGTH_SM = 10;
+
+export const MAX_LENGTH_MD = 20;
+
+export const MAX_LENGTH_LG = 200;
+
+export const MAX_LENGTH_XL = 400;

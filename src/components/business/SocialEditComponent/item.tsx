@@ -5,6 +5,8 @@ import UploadFileComponent from '@/components/common/UploadFileComponent';
 import FileShowComponent from '@/components/common/FileShowComponent';
 import Gap from '@/components/common/Gap';
 
+import { MAX_LENGTH_MD } from '@/utils/constant';
+
 const { Text } = Typography;
 
 export type ISocialEditItemPropType = {
@@ -51,7 +53,7 @@ const SocialEditItem: FC<ISocialEditItemPropType> = props => {
 				<Input
 					allowClear={true}
 					value={value}
-					maxLength={13}
+					maxLength={MAX_LENGTH_MD}
 					disabled={!isEditing}
 					onChange={onChangeInput}
 				/>

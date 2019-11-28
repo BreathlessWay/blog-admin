@@ -9,6 +9,7 @@ import Gap from '@/components/common/Gap';
 import { StoreType } from '@/store/store';
 
 import { EMottoChangeType } from '@/store/UserStore/user.enum';
+import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
 
@@ -103,7 +104,7 @@ class MottoComponent extends React.Component<
 								onChange={this.handleChangeEn}
 								value={en}
 								disabled={!isEditing}
-								maxLength={20}
+								maxLength={MAX_LENGTH_MD}
 							/>
 						</Col>
 						<Col>{enError && <Text type="danger">短句不能为空</Text>}</Col>
@@ -116,7 +117,7 @@ class MottoComponent extends React.Component<
 								allowClear={true}
 								onChange={this.handleChangeZh}
 								value={zh}
-								maxLength={20}
+								maxLength={MAX_LENGTH_MD}
 								disabled={!isEditing}
 							/>
 						</Col>
@@ -130,7 +131,7 @@ class MottoComponent extends React.Component<
 								onChange={this.handleChangeIntro}
 								value={intro}
 								disabled={!isEditing}
-								maxLength={200}
+								maxLength={MAX_LENGTH_LG}
 								autoSize={true}
 							/>
 						</Col>

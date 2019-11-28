@@ -9,6 +9,7 @@ import Gap from '@/components/common/Gap';
 import { StoreType } from '@/store/store';
 
 import { EPersonalChangeType } from '@/store/UserStore/user.enum';
+import { MAX_LENGTH_LG, MAX_LENGTH_XL, MAX_LENGTH_MD } from '@/utils/constant';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -107,7 +108,7 @@ class PersonalInfoComponent extends Component<
 								}
 								value={personalTitle}
 								disabled={!isEditing}
-								maxLength={20}
+								maxLength={MAX_LENGTH_MD}
 							/>
 						</Col>
 						<Col span={24}>
@@ -127,7 +128,7 @@ class PersonalInfoComponent extends Component<
 									)
 								}
 								value={personalInfo}
-								maxLength={200}
+								maxLength={MAX_LENGTH_LG}
 								disabled={!isEditing}
 							/>
 						</Col>
@@ -148,7 +149,7 @@ class PersonalInfoComponent extends Component<
 								}
 								value={personalIntro}
 								disabled={!isEditing}
-								maxLength={400}
+								maxLength={MAX_LENGTH_XL}
 								autoSize={true}
 							/>
 						</Col>

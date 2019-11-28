@@ -45,6 +45,12 @@ const ArticleTagPage = lazy(() =>
 	),
 );
 
+const ArticleEditPage = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleEditPage" */ '../ArticlePage/ArticleEditPage'
+	),
+);
+
 export type IRouterPagePropType = Pick<
 	StoreType,
 	'userStore' | 'homepageStore' | 'globalStore'
@@ -104,12 +110,12 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 											<Route
 												exact={true}
 												path={routeMapPath.article.create}
-												children={<div>create</div>}
+												component={ArticleEditPage}
 											/>
 											<Route
 												exact={true}
 												path={routeMapPath.article.edit}
-												children={<div>edit</div>}
+												component={ArticleEditPage}
 											/>
 											<Route
 												path="*"

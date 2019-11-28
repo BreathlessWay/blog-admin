@@ -1,4 +1,5 @@
 import { TagListType } from '@/types/tag';
+import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
 
 export type ArticleQueryType = {
 	keyword: string | undefined;
@@ -18,3 +19,15 @@ export type ArticleItemType = {
 };
 
 export type ArticleListType = Array<ArticleItemType>;
+
+export type ArticleDetailType = {
+	title: string;
+	intro: string;
+	detail: string;
+	status: boolean;
+	tags: TagListType;
+	renderType: EArticleRenderType;
+
+	objectId?: string;
+	createAt?: number;
+};

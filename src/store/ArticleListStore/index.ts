@@ -2,9 +2,9 @@ import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
-import { ArticleQueryType, ArticleListType } from '../../types/article';
+import { ArticleQueryType, ArticleListType } from '@/types/article';
 
-export default class ArticleStore extends ListStore {
+export default class ArticleListStore extends ListStore {
 	@observable
 	list: ArticleListType = [];
 

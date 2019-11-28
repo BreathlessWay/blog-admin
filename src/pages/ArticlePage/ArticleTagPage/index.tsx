@@ -20,6 +20,8 @@ import { RouteComponentProps } from 'react-router';
 import { StoreType } from '@/store/store';
 import { TagItemType } from '@/types/tag';
 
+import { MAX_LENGTH_SM } from '@/utils/constant';
+
 import './style.scss';
 
 const { Text } = Typography;
@@ -94,7 +96,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 					<Input
 						disabled={!isEditing}
 						placeholder="标签名"
-						maxLength={6}
+						maxLength={MAX_LENGTH_SM}
 						value={tag.name}
 						allowClear={true}
 						onChange={e =>

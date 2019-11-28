@@ -14,14 +14,14 @@ import { routeMapPath } from '@/route';
 
 import './style.scss';
 
-export type IArticleListComponentPropType = Pick<StoreType, 'articleStore'>;
+export type IArticleListComponentPropType = Pick<StoreType, 'articleListStore'>;
 
 export type IArticleListComponentStateType = Readonly<{
 	selectedRowKeys: Array<string>;
 }>;
 
 @inject((allStore: StoreType) => ({
-	articleStore: allStore.articleStore,
+	articleListStore: allStore.articleListStore,
 }))
 @observer
 class ArticleListComponent extends Component<
@@ -39,23 +39,23 @@ class ArticleListComponent extends Component<
 	};
 
 	handlePaginationChange = (page: number) => {
-		this.props.articleStore.jumpToPage(page);
+		this.props.articleListStore.jumpToPage(page);
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
-		this.props.articleStore.changePageSize(size);
+		this.props.articleListStore.changePageSize(size);
 	};
 
 	handleDeleteSelected = () => {
-		this.props.articleStore.deleteArticle(this.state.selectedRowKeys);
+		this.props.articleListStore.deleteArticle(this.state.selectedRowKeys);
 	};
 
 	handleShowSelected = () => {
-		this.props.articleStore.changeStatus(this.state.selectedRowKeys, true);
+		this.props.articleListStore.changeStatus(this.state.selectedRowKeys, true);
 	};
 
 	handleHideSelected = () => {
-		this.props.articleStore.changeStatus(this.state.selectedRowKeys, false);
+		this.props.articleListStore.changeStatus(this.state.selectedRowKeys, false);
 	};
 
 	render() {
@@ -66,7 +66,7 @@ class ArticleListComponent extends Component<
 			pageSize,
 			count,
 			isEmpty,
-		} = this.props.articleStore;
+		} = this.props.articleListStore;
 		const { selectedRowKeys } = this.state;
 		return (
 			<>

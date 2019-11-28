@@ -21,30 +21,35 @@ export const baseRoute = [
 		type: EMenuType.home,
 		path: routeMapPath.home,
 		show: true,
+		objectId: 'home',
 	},
 	{
 		name: '我',
 		type: EMenuType.user,
 		path: routeMapPath.me,
 		show: true,
+		objectId: 'me',
 	},
 	{
 		name: '文章',
 		type: EMenuType.read,
 		path: routeMapPath.article.index,
 		show: true,
+		objectId: 'article',
 	},
 	{
 		name: '撸猫',
 		type: EMenuType.contacts,
 		path: routeMapPath.cat,
 		show: true,
+		objectId: 'cat',
 	},
 	{
 		name: '摄影',
 		type: EMenuType.camera,
 		path: routeMapPath.photography,
 		show: true,
+		objectId: 'camera',
 	},
 ];
 
