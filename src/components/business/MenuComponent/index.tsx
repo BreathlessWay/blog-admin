@@ -30,7 +30,7 @@ class MenuComponent extends React.Component<
 	handleClick = (e: ClickParam) => {
 		const _keys = e.key.split('-');
 		const index = 0;
-		const _path = getPath(_keys, this.menuList as any, index);
+		const _path = getPath(_keys, this.menuList, index);
 		if (_path) {
 			this.props.history.push(_path);
 			if (_keys.length > 1) {

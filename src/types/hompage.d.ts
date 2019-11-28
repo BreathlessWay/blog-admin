@@ -3,7 +3,7 @@ export type MenuItemType = {
 	type: string;
 	path: string;
 	show: boolean;
-	objectId?: string;
+	objectId: string;
 	children?: Array<{
 		name: string;
 		path: string;

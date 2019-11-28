@@ -142,7 +142,7 @@ class SocialEditComponent extends React.Component<
 						{social.map((item, index) => (
 							<SocialEditItem
 								accept={UPLOAD_IMAGE_TYPE}
-								key={item.icon + index}
+								key={item.objectId || `${index}`}
 								type="image"
 								value={item.value}
 								file={item.icon}
