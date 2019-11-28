@@ -30,6 +30,10 @@
 │   ├── apis/
 │   ├── components/
 │   │   ├── business/
+│   │   │   ├── ArticleDetailContentComponent/
+│   │   │   │   ├── markdown.tsx
+│   │   │   │   ├── richText.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── ArticleDetailTopComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
@@ -179,5 +183,5 @@
 ├── tree.md
 └── tsconfig.json
 
-58 directories, 120 files
+59 directories, 123 files
 ```

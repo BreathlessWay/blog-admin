@@ -18,7 +18,7 @@ export default class ArticleDetailStore {
 		draftDetail: EditorState.createEmpty(),
 		status: 1,
 		tags: [],
-		renderType: EArticleRenderType.richText,
+		renderType: EArticleRenderType.markdown,
 	};
 
 	@action.bound

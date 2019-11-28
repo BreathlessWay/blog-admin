@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
 
 import { routeMapPath } from '@/route';
+import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
 
 const ArticleDetailTopComponent = lazy(() =>
 	import(
@@ -13,9 +14,15 @@ const ArticleDetailTopComponent = lazy(() =>
 	),
 );
 
-const ArticleDetailContentComponent = lazy(() =>
+const ArticleDetailRichTextComponent = lazy(() =>
 	import(
-		/* webpackChunkName: "ArticleDetailContentComponent" */ '@/components/business/ArticleDetailContentComponent'
+		/* webpackChunkName: "ArticleDetailRichTextComponent" */ '@/components/business/ArticleDetailContentComponent/richText'
+	),
+);
+
+const ArticleDetailMarkdownComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleDetailMarkdownComponent" */ '@/components/business/ArticleDetailContentComponent/markdown'
 	),
 );
 
@@ -36,10 +43,16 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 	}
 
 	render() {
+		const { detail } = this.props.articleDetailStore;
 		return (
 			<>
 				<ArticleDetailTopComponent />
-				<ArticleDetailContentComponent />
+				{detail?.renderType === EArticleRenderType.richText && (
+					<ArticleDetailRichTextComponent />
+				)}
+				{detail?.renderType === EArticleRenderType.markdown && (
+					<ArticleDetailMarkdownComponent />
+				)}
 			</>
 		);
 	}

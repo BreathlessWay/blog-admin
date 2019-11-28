@@ -21,19 +21,16 @@ import { routeMapPath } from '@/route';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './style.scss';
 
-export type IArticleDetailContentComponentPropType = Pick<
+export type IArticleDetailRichTextComponentPropType = Pick<
 	StoreType,
 	'articleDetailStore'
 > &
 	RouteComponentProps;
 
-export type IArticleDetailContentComponentStateType = Readonly<{}>;
-
 @inject('articleDetailStore')
 @observer
-class ArticleDetailContentComponent extends Component<
-	IArticleDetailContentComponentPropType,
-	IArticleDetailContentComponentStateType
+class ArticleDetailRichTextComponent extends Component<
+	IArticleDetailRichTextComponentPropType
 > {
 	handleChange = (content: EditorState) => {
 		this.props.articleDetailStore.changeDetail({
@@ -72,6 +69,9 @@ class ArticleDetailContentComponent extends Component<
 						wrapperClassName="wrapperClassName"
 						editorClassName="editorClassName"
 						onEditorStateChange={this.handleChange}
+						localization={{
+							locale: 'zh',
+						}}
 					/>
 				</Col>
 				<Gap size="lg" />
@@ -95,5 +95,5 @@ class ArticleDetailContentComponent extends Component<
 }
 
 export default compose<ComponentClass>(withRouter)(
-	ArticleDetailContentComponent,
+	ArticleDetailRichTextComponent,
 );
