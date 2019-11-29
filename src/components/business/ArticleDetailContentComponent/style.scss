@@ -1,11 +1,10 @@
 @import '../../../static/css/variables';
 @import '../../../static/css/mixins';
 
-.editorClassName {
+.rich-text {
 	border: $border-normal;
-	height: 500px;
-}
-
-.rdw-link-modal {
-	height: 225px;
+	.bf-controlbar {
+		box-shadow: none;
+		border-bottom: $border-normal;
+	}
 }

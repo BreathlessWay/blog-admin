@@ -1,5 +1,7 @@
 import { action, observable } from 'mobx';
 
+import BraftEditor from 'braft-editor';
+
 import { ArticleDetailType } from '@/types/article';
 
 import { EArticleDetailKey, EArticleRenderType } from './article.enum';
@@ -11,16 +13,21 @@ export default class ArticleDetailStore {
 	emptyDetail: ArticleDetailType = {
 		title: '',
 		intro: '',
-		richText: '',
+		richTextHtml: '',
+		richTextRaw: '',
 		markdown: '',
 		status: 1,
 		tags: [],
+		draftDetail: BraftEditor.createEditorState(null),
 		renderType: EArticleRenderType.richText,
 	};
 
 	@action.bound
 	setDetail(detail: ArticleDetailType | null) {
 		if (detail) {
+			if (detail.renderType === EArticleRenderType.richText) {
+				detail.draftDetail = BraftEditor.createEditorState(detail.richTextRaw);
+			}
 			this.detail = detail;
 		} else {
 			this.createArticle();

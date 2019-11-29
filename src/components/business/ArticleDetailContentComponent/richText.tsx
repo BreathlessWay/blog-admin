@@ -1,19 +1,19 @@
-import React, { Component, ComponentClass, createRef } from 'react';
+import React, { Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
-
 // 引入编辑器组件
-import BraftEditor from 'braft-editor';
+import BraftEditor, { EditorState } from 'braft-editor';
 import { Button, Col, Row } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { StoreType } from '@/store/store';
 
+import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
+
 import compose from '@/utils/compose';
 
 import { routeMapPath } from '@/route';
-
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import './style.scss';
@@ -27,47 +27,48 @@ export type IArticleDetailUEditComponentPropType = Pick<
 @inject('articleDetailStore')
 @observer
 class ArticleDetailUEditComponent extends Component<
-	IArticleDetailUEditComponentPropType,
-	any
+	IArticleDetailUEditComponentPropType
 > {
-	state = {
-		// 创建一个空的editorState作为初始值
-		editorState: BraftEditor.createEditorState(null),
-	};
-
-	componentDidMount() {
-		// 假设此处从服务端获取html格式的编辑器内容
-		const htmlContent = '<p>Hello <b>World!</b></p>';
-		BraftEditor.createEditorState(htmlContent);
-		// // 使用BraftEditor.createEditorState将html字符串转换为编辑器需要的editorStat
-		// this.setState({
-		// 	editorState: BraftEditor.createEditorState('',{}),
-		// });
-	}
-
-	submitContent = async () => {
+	submitContent = () => {
 		// 在编辑器获得焦点时按下ctrl+s会执行此方法
-		// 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
-		const htmlContent = this.state.editorState.toHTML();
 	};
 
-	handleEditorChange = (editorState: any) => {
-		this.setState({ editorState });
+	handleEditorChange = (editorState: EditorState) => {
+		this.props.articleDetailStore.changeDetail({
+			key: EArticleDetailKey.draftDetail,
+			value: editorState,
+		});
 	};
 
 	handleCancel = () => {
 		this.props.history.replace(routeMapPath.article.home);
 	};
-
-	handleSubmitRichText = () => {};
+	// 虽然html字符串也可以用于持久化存储，但是对于比较复杂的富文本内容，在反复编辑的过程中，可能会存在格式丢失的情况
+	// 比较标准的做法是在数据库中同时存储raw字符串和html字符串，分别用于再次编辑和前台展示。
+	handleSubmitRichText = () => {
+		const { detail } = this.props.articleDetailStore;
+		// 将editorState数据转换成HTML字符串
+		const htmlContent = detail?.draftDetail.toHTML();
+		// 将editorState数据转换成RAW字符串
+		const rawString = detail?.draftDetail.toRAW();
+		this.props.articleDetailStore.changeDetail({
+			key: EArticleDetailKey.richTextHtml,
+			value: htmlContent,
+		});
+		this.props.articleDetailStore.changeDetail({
+			key: EArticleDetailKey.richTextRaw,
+			value: rawString,
+		});
+	};
 
 	render() {
-		const { editorState } = this.state;
+		const { detail } = this.props.articleDetailStore;
 		return (
 			<>
 				<Col>
 					<BraftEditor
-						value={editorState}
+						className="rich-text"
+						value={detail?.draftDetail}
 						onChange={this.handleEditorChange}
 						onSave={this.submitContent}
 					/>

@@ -3,6 +3,7 @@ import {
 	EArticleRenderType,
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
+import { EditorState } from 'braft-editor';
 
 export type ArticleQueryType = {
 	keyword: string | undefined;
@@ -26,11 +27,14 @@ export type ArticleListType = Array<ArticleItemType>;
 export type ArticleDetailType = {
 	title: string;
 	intro: string;
-	richText: string;
+	richTextHtml: string;
+	richTextRaw: string;
 	markdown: string;
 	status: number;
 	tags: TagListType;
 	renderType: EArticleRenderType;
+
+	draftDetail?: EditorState;
 
 	objectId?: string;
 	createAt?: number;

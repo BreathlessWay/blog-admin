@@ -35,22 +35,11 @@ export type IArticleEditPagePropType = Pick<StoreType, 'articleDetailStore'> &
 class ArticleEditPage extends Component<IArticleEditPagePropType> {
 	componentDidMount() {
 		const { search, pathname } = this.props.location;
-		const { createArticle, setDetail } = this.props.articleDetailStore;
+		const { createArticle } = this.props.articleDetailStore;
 		if (search && pathname === routeMapPath.article.edit) {
 		}
 		if (pathname === routeMapPath.article.create) {
 			createArticle();
-			setTimeout(() => {
-				setDetail({
-					title: '',
-					intro: '',
-					richText: '<div>aaa</div>',
-					markdown: '',
-					status: 1,
-					tags: [],
-					renderType: EArticleRenderType.richText,
-				});
-			}, 3000);
 		}
 	}
 
