@@ -44,5 +44,3 @@ export const MAX_LENGTH_MD = 20;
 export const MAX_LENGTH_LG = 200;
 
 export const MAX_LENGTH_XL = 400;
-
-export const RICH_TEXT_AUTO_SAVE_TIME = 1000;

@@ -191,6 +191,6 @@ export default class UserStore {
 
 	@computed
 	get userId() {
-		return this.userDetail.objectId;
+		return this.userDetail.objectId || 'objectId';
 	}
 }
