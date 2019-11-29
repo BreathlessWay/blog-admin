@@ -48,7 +48,9 @@ export default class HomePageStore {
 				menu.children.forEach((child, childIndex) => {
 					if (child.path === pathname) {
 						this.openKeys = [`${menuIndex}`];
-						this.selectedKeys = [`${menuIndex}-${childIndex}`];
+						this.selectedKeys = child.show
+							? [`${menuIndex}-${childIndex}`]
+							: [`${menuIndex}-${0}`];
 					}
 				});
 			} else if (menu.path === pathname) {

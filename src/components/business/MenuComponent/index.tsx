@@ -23,6 +23,11 @@ class MenuComponent extends React.Component<
 	IMenuComponentPropType,
 	IMenuComponentStateType
 > {
+	componentDidMount(): void {
+		const { setKeys } = this.props.homepageStore;
+		setKeys(this.props.location.pathname);
+	}
+
 	get menuList() {
 		return this.props.homepageStore.menuList || [];
 	}
