@@ -6,7 +6,10 @@ import BraftEditor, { EditorState } from 'braft-editor';
 
 import { StoreType } from '@/store/store';
 
-import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
+import {
+	EArticleDetailKey,
+	EArticleRenderType,
+} from '@/store/ArticleDetailStore/article.enum';
 
 import { storage } from '@/utils/storage';
 
@@ -28,8 +31,11 @@ class ArticleDetailUEditComponent extends Component<
 		// 在编辑器获得焦点时按下ctrl+s会执行此方法
 		const { detail } = this.props.articleDetailStore;
 		storage.set({
-			key: 'rich_text',
-			value: detail?.draftDetail.toRAW(),
+			key: 'article_save',
+			value: {
+				type: EArticleRenderType.richText,
+				data: detail?.draftDetail.toRAW(),
+			},
 		});
 	};
 
