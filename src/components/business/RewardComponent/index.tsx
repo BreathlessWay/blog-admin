@@ -9,7 +9,7 @@ import RewardComponentItem from './item';
 
 import UserStore from '@/store/UserStore';
 
-import { ERewardChangeType } from '@/store/UserStore/user.enum';
+import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
@@ -28,21 +28,21 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 	};
 	handelChangeRewardTitle = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.userStore.setPersonalInfo({
-			type: ERewardChangeType.rewardTitle,
+			key: ERewardChangeKey.rewardTitle,
 			value: e.target.value,
 		});
 	};
 
-	handleDelete = ({ key }: { key: ERewardChangeType }) => () => {
+	handleDelete = ({ key }: { key: ERewardChangeKey }) => () => {
 		this.props.userStore.setPersonalInfo({
-			type: key,
+			key: key,
 			value: '',
 		});
 	};
 
-	handleUpload = ({ key, url }: { key: ERewardChangeType; url: string }) => {
+	handleUpload = ({ key, url }: { key: ERewardChangeKey; url: string }) => {
 		this.props.userStore.setPersonalInfo({
-			type: key,
+			key: key,
 			value: url,
 		});
 	};
@@ -75,11 +75,11 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 									url={zfbCode}
 									title={'支付宝二维码'}
 									onDeleteCode={this.handleDelete({
-										key: ERewardChangeType.zfbCode,
+										key: ERewardChangeKey.zfbCode,
 									})}
 									onUploadCode={url =>
 										this.handleUpload({
-											key: ERewardChangeType.zfbCode,
+											key: ERewardChangeKey.zfbCode,
 											url,
 										})
 									}
@@ -88,11 +88,11 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 									url={wxCode}
 									title={'微信二维码'}
 									onDeleteCode={this.handleDelete({
-										key: ERewardChangeType.wxCode,
+										key: ERewardChangeKey.wxCode,
 									})}
 									onUploadCode={url =>
 										this.handleUpload({
-											key: ERewardChangeType.wxCode,
+											key: ERewardChangeKey.wxCode,
 											url,
 										})
 									}

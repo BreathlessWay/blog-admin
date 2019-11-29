@@ -9,7 +9,7 @@ import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import { StoreType } from '@/store/store';
 
 import {
-	EArticleDetailType,
+	EArticleDetailKey,
 	EArticleRenderType,
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
@@ -37,21 +37,21 @@ class ArticleDetailTopComponent extends Component<
 > {
 	handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailType.title,
+			key: EArticleDetailKey.title,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailType.intro,
+			key: EArticleDetailKey.intro,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeStatus = (e: RadioChangeEvent) => {
 		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailType.status,
+			key: EArticleDetailKey.status,
 			value: e.target.value,
 		});
 	};
@@ -61,7 +61,7 @@ class ArticleDetailTopComponent extends Component<
 		if (value && value.length && hasTag) {
 			const selectedTags = tags.filter(tag => value.includes(tag.objectId));
 			this.props.articleDetailStore.changeDetail({
-				key: EArticleDetailType.tags,
+				key: EArticleDetailKey.tags,
 				value: selectedTags,
 			});
 		}
@@ -69,7 +69,7 @@ class ArticleDetailTopComponent extends Component<
 
 	handleChangeRenderType = (e: RadioChangeEvent) => {
 		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailType.renderType,
+			key: EArticleDetailKey.renderType,
 			value: e.target.value,
 		});
 	};

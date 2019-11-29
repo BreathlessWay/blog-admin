@@ -12,7 +12,7 @@ import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
 
-import { EArticleDetailType } from '@/store/ArticleDetailStore/article.enum';
+import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
 
 import compose from '@/utils/compose';
 
@@ -34,7 +34,7 @@ class ArticleDetailRichTextComponent extends Component<
 > {
 	handleChange = (content: EditorState) => {
 		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailType.draftDetail,
+			key: EArticleDetailKey.draftDetail,
 			value: content,
 		});
 	};
@@ -50,7 +50,7 @@ class ArticleDetailRichTextComponent extends Component<
 				convertToRaw(detail.draftDetail.getCurrentContent()),
 			);
 			this.props.articleDetailStore.changeDetail({
-				key: EArticleDetailType.detail,
+				key: EArticleDetailKey.detail,
 				value: data,
 			});
 			console.log(data);

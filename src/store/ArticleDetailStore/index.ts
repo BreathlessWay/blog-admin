@@ -5,7 +5,7 @@ import htmlToDraft from 'html-to-draftjs';
 
 import { ArticleDetailType } from '@/types/article';
 
-import { EArticleDetailType, EArticleRenderType } from './article.enum';
+import { EArticleDetailKey, EArticleRenderType } from './article.enum';
 
 export default class ArticleDetailStore {
 	@observable
@@ -43,7 +43,7 @@ export default class ArticleDetailStore {
 	}
 
 	@action.bound
-	changeDetail({ key, value }: { key: EArticleDetailType; value: any }) {
+	changeDetail({ key, value }: { key: EArticleDetailKey; value: any }) {
 		if (this.detail) {
 			(this.detail[key] as any) = value;
 		}

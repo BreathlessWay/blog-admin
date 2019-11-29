@@ -8,7 +8,7 @@ export enum EArticleStatus {
 	show = 1,
 }
 
-export enum EArticleDetailType {
+export enum EArticleDetailKey {
 	title = 'title',
 	intro = 'intro',
 	detail = 'detail',

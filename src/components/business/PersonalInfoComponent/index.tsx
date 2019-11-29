@@ -8,7 +8,7 @@ import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
 
-import { EPersonalChangeType } from '@/store/UserStore/user.enum';
+import { EPersonalChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_XL, MAX_LENGTH_MD } from '@/utils/constant';
 
 const { Text } = Typography;
@@ -56,24 +56,24 @@ class PersonalInfoComponent extends Component<
 
 	handleChangeContent = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		type: EPersonalChangeType,
+		key: EPersonalChangeKey,
 	) => {
 		const value = e.target.value;
-		switch (type) {
-			case EPersonalChangeType.personalTitle:
-				this.props.userStore.setPersonalInfo({ type, value });
+		switch (key) {
+			case EPersonalChangeKey.personalTitle:
+				this.props.userStore.setPersonalInfo({ key, value });
 				this.setState({
 					titleError: !value.trim(),
 				});
 				break;
-			case EPersonalChangeType.personalInfo:
-				this.props.userStore.setPersonalInfo({ type, value });
+			case EPersonalChangeKey.personalInfo:
+				this.props.userStore.setPersonalInfo({ key, value });
 				this.setState({
 					infoError: !value.trim(),
 				});
 				break;
-			case EPersonalChangeType.personalIntro:
-				this.props.userStore.setPersonalInfo({ type, value });
+			case EPersonalChangeKey.personalIntro:
+				this.props.userStore.setPersonalInfo({ key, value });
 				this.setState({
 					introError: !value.trim(),
 				});
@@ -103,7 +103,7 @@ class PersonalInfoComponent extends Component<
 								onChange={event =>
 									this.handleChangeContent(
 										event,
-										EPersonalChangeType.personalTitle,
+										EPersonalChangeKey.personalTitle,
 									)
 								}
 								value={personalTitle}
@@ -124,7 +124,7 @@ class PersonalInfoComponent extends Component<
 								onChange={event =>
 									this.handleChangeContent(
 										event,
-										EPersonalChangeType.personalInfo,
+										EPersonalChangeKey.personalInfo,
 									)
 								}
 								value={personalInfo}
@@ -144,7 +144,7 @@ class PersonalInfoComponent extends Component<
 								onChange={event =>
 									this.handleChangeContent(
 										event,
-										EPersonalChangeType.personalIntro,
+										EPersonalChangeKey.personalIntro,
 									)
 								}
 								value={personalIntro}

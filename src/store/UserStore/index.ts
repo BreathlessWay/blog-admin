@@ -6,10 +6,10 @@ import { SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 import { UserDetailType } from '@/types/user';
 
 import {
-	EMottoChangeType,
-	EPersonalChangeType,
-	EResumeChangeType,
-	ERewardChangeType,
+	EMottoChangeKey,
+	EPersonalChangeKey,
+	EResumeChangeKey,
+	ERewardChangeKey,
 } from '@/store/UserStore/user.enum';
 
 export default class UserStore {
@@ -104,16 +104,16 @@ export default class UserStore {
 	@action.bound
 	setPersonalInfo({
 		value,
-		type,
+		key,
 	}: {
 		value: string;
-		type:
-			| EPersonalChangeType
-			| EMottoChangeType
-			| ERewardChangeType
-			| EResumeChangeType;
+		key:
+			| EPersonalChangeKey
+			| EMottoChangeKey
+			| ERewardChangeKey
+			| EResumeChangeKey;
 	}) {
-		this.userDetail[type] = value;
+		this.userDetail[key] = value;
 	}
 
 	// 我页面

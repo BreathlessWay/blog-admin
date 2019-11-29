@@ -1,22 +1,22 @@
-export enum EMottoChangeType {
+export enum EMottoChangeKey {
 	en = 'en',
 	zh = 'zh',
 	intro = 'intro',
 }
 
-export enum EPersonalChangeType {
+export enum EPersonalChangeKey {
 	personalTitle = 'personalTitle',
 	personalInfo = 'personalInfo',
 	personalIntro = 'personalIntro',
 }
 
-export enum ERewardChangeType {
+export enum ERewardChangeKey {
 	rewardTitle = 'rewardTitle',
 	zfbCode = 'zfbCode',
 	wxCode = 'wxCode',
 }
 
-export enum EResumeChangeType {
+export enum EResumeChangeKey {
 	resumeUrl = 'resumeUrl',
 	resumeName = 'resumeName',
 	resumeAlias = 'resumeAlias',

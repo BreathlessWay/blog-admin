@@ -7,7 +7,7 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
-import { EResumeChangeType } from '@/store/UserStore/user.enum';
+import { EResumeChangeKey } from '@/store/UserStore/user.enum';
 import { UPLOAD_IMAGE_TYPE, UPLOAD_RESUME_TYPE } from '@/utils/constant';
 
 import './style.scss';
@@ -61,29 +61,29 @@ class SocialEditComponent extends React.Component<
 		fileName: string;
 	}) => {
 		this.props.userStore.setPersonalInfo({
-			type: EResumeChangeType.resumeName,
+			key: EResumeChangeKey.resumeName,
 			value: fileName,
 		});
 		this.props.userStore.setPersonalInfo({
-			type: EResumeChangeType.resumeUrl,
+			key: EResumeChangeKey.resumeUrl,
 			value: fileUrl,
 		});
 	};
 
 	handleDeleteResume = () => {
 		this.props.userStore.setPersonalInfo({
-			type: EResumeChangeType.resumeName,
+			key: EResumeChangeKey.resumeName,
 			value: '',
 		});
 		this.props.userStore.setPersonalInfo({
-			type: EResumeChangeType.resumeUrl,
+			key: EResumeChangeKey.resumeUrl,
 			value: '',
 		});
 	};
 
 	handleChangeResumeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.userStore.setPersonalInfo({
-			type: EResumeChangeType.resumeAlias,
+			key: EResumeChangeKey.resumeAlias,
 			value: e.target.value,
 		});
 	};

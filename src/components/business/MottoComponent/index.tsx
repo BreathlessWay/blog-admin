@@ -8,7 +8,7 @@ import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
 
-import { EMottoChangeType } from '@/store/UserStore/user.enum';
+import { EMottoChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
@@ -67,21 +67,21 @@ class MottoComponent extends React.Component<
 
 	handleChangeEn = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.userStore.setPersonalInfo({
-			type: EMottoChangeType.en,
+			key: EMottoChangeKey.en,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeZh = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.userStore.setPersonalInfo({
-			type: EMottoChangeType.zh,
+			key: EMottoChangeKey.zh,
 			value: e.target.value,
 		});
 	};
 
 	handleChangeIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		this.props.userStore.setPersonalInfo({
-			type: EMottoChangeType.intro,
+			key: EMottoChangeKey.intro,
 			value: e.target.value,
 		});
 	};
