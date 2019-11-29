@@ -3,7 +3,6 @@ import {
 	EArticleRenderType,
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
-import { EditorState } from 'draft-js';
 
 export type ArticleQueryType = {
 	keyword: string | undefined;
@@ -32,8 +31,6 @@ export type ArticleDetailType = {
 	status: number;
 	tags: TagListType;
 	renderType: EArticleRenderType;
-
-	draftDetail?: EditorState;
 
 	objectId?: string;
 	createAt?: number;

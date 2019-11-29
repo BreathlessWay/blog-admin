@@ -1,27 +1,24 @@
-import React, { Component, ComponentClass } from 'react';
+import React, { Component, ComponentClass, createRef } from 'react';
 
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Editor } from 'react-draft-wysiwyg';
-import { convertToRaw, EditorState } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-
-import { Col, Button, Row } from 'antd';
+// 引入编辑器组件
+import BraftEditor from 'braft-editor';
+import { Button, Col, Row } from 'antd';
 import Gap from '@/components/common/Gap';
 
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { StoreType } from '@/store/store';
-
-import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
 
 import compose from '@/utils/compose';
 
 import { routeMapPath } from '@/route';
 
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// 引入编辑器样式
+import 'braft-editor/dist/index.css';
 import './style.scss';
 
-export type IArticleDetailRichTextComponentPropType = Pick<
+export type IArticleDetailUEditComponentPropType = Pick<
 	StoreType,
 	'articleDetailStore'
 > &
@@ -29,49 +26,50 @@ export type IArticleDetailRichTextComponentPropType = Pick<
 
 @inject('articleDetailStore')
 @observer
-class ArticleDetailRichTextComponent extends Component<
-	IArticleDetailRichTextComponentPropType
+class ArticleDetailUEditComponent extends Component<
+	IArticleDetailUEditComponentPropType,
+	any
 > {
-	handleChange = (content: EditorState) => {
-		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailKey.draftDetail,
-			value: content,
-		});
+	state = {
+		// 创建一个空的editorState作为初始值
+		editorState: BraftEditor.createEditorState(null),
+	};
+
+	componentDidMount() {
+		// 假设此处从服务端获取html格式的编辑器内容
+		const htmlContent = '<p>Hello <b>World!</b></p>';
+		BraftEditor.createEditorState(htmlContent);
+		// // 使用BraftEditor.createEditorState将html字符串转换为编辑器需要的editorStat
+		// this.setState({
+		// 	editorState: BraftEditor.createEditorState('',{}),
+		// });
+	}
+
+	submitContent = async () => {
+		// 在编辑器获得焦点时按下ctrl+s会执行此方法
+		// 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
+		const htmlContent = this.state.editorState.toHTML();
+	};
+
+	handleEditorChange = (editorState: any) => {
+		this.setState({ editorState });
 	};
 
 	handleCancel = () => {
 		this.props.history.replace(routeMapPath.article.home);
 	};
 
-	handleSubmitRichText = () => {
-		const { detail } = this.props.articleDetailStore;
-		if (detail && detail.draftDetail) {
-			const data = draftToHtml(
-				convertToRaw(detail.draftDetail.getCurrentContent()),
-			);
-			this.props.articleDetailStore.changeDetail({
-				key: EArticleDetailKey.richText,
-				value: data,
-			});
-			console.log(data);
-		}
-	};
+	handleSubmitRichText = () => {};
 
 	render() {
-		const { detail } = this.props.articleDetailStore;
-
+		const { editorState } = this.state;
 		return (
 			<>
 				<Col>
-					<Editor
-						editorState={detail?.draftDetail}
-						toolbarClassName="toolbarClassName"
-						wrapperClassName="wrapperClassName"
-						editorClassName="editorClassName"
-						onEditorStateChange={this.handleChange}
-						localization={{
-							locale: 'zh',
-						}}
+					<BraftEditor
+						value={editorState}
+						onChange={this.handleEditorChange}
+						onSave={this.submitContent}
 					/>
 				</Col>
 				<Gap size="lg" />
@@ -94,6 +92,4 @@ class ArticleDetailRichTextComponent extends Component<
 	}
 }
 
-export default compose<ComponentClass>(withRouter)(
-	ArticleDetailRichTextComponent,
-);
+export default compose<ComponentClass>(withRouter)(ArticleDetailUEditComponent);

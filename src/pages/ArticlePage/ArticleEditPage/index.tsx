@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
 
-import { routeMapPath } from '@/route';
 import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
+
+import { routeMapPath } from '@/route';
 
 const ArticleDetailTopComponent = lazy(() =>
 	import(
@@ -34,11 +35,22 @@ export type IArticleEditPagePropType = Pick<StoreType, 'articleDetailStore'> &
 class ArticleEditPage extends Component<IArticleEditPagePropType> {
 	componentDidMount() {
 		const { search, pathname } = this.props.location;
-		const { createArticle } = this.props.articleDetailStore;
+		const { createArticle, setDetail } = this.props.articleDetailStore;
 		if (search && pathname === routeMapPath.article.edit) {
 		}
 		if (pathname === routeMapPath.article.create) {
 			createArticle();
+			setTimeout(() => {
+				setDetail({
+					title: '',
+					intro: '',
+					richText: '<div>aaa</div>',
+					markdown: '',
+					status: 1,
+					tags: [],
+					renderType: EArticleRenderType.richText,
+				});
+			}, 3000);
 		}
 	}
 

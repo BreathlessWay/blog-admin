@@ -87,6 +87,8 @@
 │   │       ├── DraggableItem/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
+│   │       ├── ErrorBoundaryComponent/
+│   │       │   └── index.tsx
 │   │       ├── FileShowComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -183,5 +185,5 @@
 ├── tree.md
 └── tsconfig.json
 
-59 directories, 123 files
+60 directories, 124 files
 ```

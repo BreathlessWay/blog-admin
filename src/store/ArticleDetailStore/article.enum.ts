@@ -16,5 +16,4 @@ export enum EArticleDetailKey {
 	status = 'status',
 	tags = 'tags',
 	renderType = 'renderType',
-	draftDetail = 'draftDetail',
 }

@@ -34,7 +34,7 @@ class ArticleDetailMarkdownComponent extends Component<
 
 		return (
 			<>
-				<Col span={24}></Col>
+				<Col span={24}>{detail?.markdown}</Col>
 				<Gap size="lg" />
 				<Col span={24}>
 					<Row type="flex" align="middle" justify="end">
