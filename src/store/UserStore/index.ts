@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { storage } from '@/utils/storage';
 
-import { SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
+import { LOGIN_TOKEN, SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 
 import { UserDetailType } from '@/types/user';
 
@@ -45,13 +45,13 @@ export default class UserStore {
 	@action.bound
 	login(token: string) {
 		this.session = token;
-		storage.set({ key: 'token', value: 'login' });
+		storage.set({ key: LOGIN_TOKEN, value: 'login' });
 	}
 
 	@action.bound
 	logout() {
 		this.session = '';
-		storage.remove('token');
+		storage.remove(LOGIN_TOKEN);
 	}
 	// 首页
 	@action.bound
@@ -187,5 +187,10 @@ export default class UserStore {
 	@computed
 	get isLogin() {
 		return this.session !== '';
+	}
+
+	@computed
+	get userId() {
+		return this.userDetail.objectId;
 	}
 }

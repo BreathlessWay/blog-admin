@@ -4,9 +4,10 @@ import * as H from 'history';
 
 import { baseRoute, routeMapPath } from '@/route';
 
-import { storage } from '@/utils/storage';
-
 import { MenuListType } from '@/types/hompage';
+import { LOGIN_TOKEN } from '@/utils/constant';
+
+import { storage } from '@/utils/storage';
 
 export const getMenu = ({
 	homepageStore,
@@ -40,7 +41,7 @@ export const login = async ({
 	if (token) {
 		_token = token;
 	} else {
-		const storageToken = storage.get('token');
+		const storageToken = storage.get(LOGIN_TOKEN);
 		// 验证token是否有效
 		_token = storageToken;
 	}

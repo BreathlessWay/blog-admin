@@ -95,7 +95,7 @@ class ArticleDetailTopComponent extends Component<
 						onChange={this.handleChangeTitle}
 					/>
 				</Col>
-				<Gap />
+				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>文章描述</Title>
 					<TextArea
@@ -107,7 +107,7 @@ class ArticleDetailTopComponent extends Component<
 						onChange={this.handleChangeIntro}
 					/>
 				</Col>
-				<Gap />
+				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>文章状态</Title>
 					<Radio.Group
@@ -117,7 +117,7 @@ class ArticleDetailTopComponent extends Component<
 						<Radio.Button value={EArticleStatus.hide}>隐藏</Radio.Button>
 					</Radio.Group>
 				</Col>
-				<Gap />
+				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>文章标签</Title>
 					<Select
@@ -133,7 +133,7 @@ class ArticleDetailTopComponent extends Component<
 						))}
 					</Select>
 				</Col>
-				<Gap />
+				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>文章编辑方式</Title>
 					<Radio.Group
@@ -147,11 +147,10 @@ class ArticleDetailTopComponent extends Component<
 						</Radio.Button>
 					</Radio.Group>
 				</Col>
-				<Gap />
+				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>文章内容</Title>
 				</Col>
-				<Gap />
 			</Row>
 		);
 	}

@@ -27,6 +27,12 @@ const ArticleDetailMarkdownComponent = lazy(() =>
 	),
 );
 
+const ArticleDetailButtonComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "ArticleDetailButtonComponent" */ '@/components/business/ArticleDetailButtonComponent'
+	),
+);
+
 export type IArticleEditPagePropType = Pick<StoreType, 'articleDetailStore'> &
 	RouteComponentProps;
 
@@ -54,6 +60,7 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 				{detail?.renderType === EArticleRenderType.markdown && (
 					<ArticleDetailMarkdownComponent />
 				)}
+				<ArticleDetailButtonComponent />
 			</>
 		);
 	}

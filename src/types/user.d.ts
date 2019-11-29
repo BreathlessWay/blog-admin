@@ -32,6 +32,7 @@ export type PersonalSkillItemType = {
 export type PersonalSkillListType = Array<PersonalSkillItemType>;
 
 export type UserDetailType = {
+	objectId?: string;
 	resumeAlias: string;
 	resumeUrl: string;
 	resumeName: string;
