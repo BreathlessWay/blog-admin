@@ -14,7 +14,8 @@ export default class ArticleDetailStore {
 	emptyDetail: ArticleDetailType = {
 		title: '',
 		intro: '',
-		detail: '',
+		richText: '',
+		markdown: '',
 		draftDetail: EditorState.createEmpty(),
 		status: 1,
 		tags: [],
@@ -24,13 +25,15 @@ export default class ArticleDetailStore {
 	@action.bound
 	setDetail(detail: ArticleDetailType | null) {
 		if (detail) {
-			const blocksFromHtml = htmlToDraft(detail?.detail ?? '');
-			const { contentBlocks, entityMap } = blocksFromHtml;
-			const contentState = ContentState.createFromBlockArray(
-				contentBlocks,
-				entityMap,
-			);
-			detail.draftDetail = EditorState.createWithContent(contentState);
+			if (detail.renderType === EArticleRenderType.richText) {
+				const blocksFromHtml = htmlToDraft(detail.richText ?? '');
+				const { contentBlocks, entityMap } = blocksFromHtml;
+				const contentState = ContentState.createFromBlockArray(
+					contentBlocks,
+					entityMap,
+				);
+				detail.draftDetail = EditorState.createWithContent(contentState);
+			}
 			this.detail = detail;
 		} else {
 			this.createArticle();

@@ -50,7 +50,7 @@ class ArticleDetailRichTextComponent extends Component<
 				convertToRaw(detail.draftDetail.getCurrentContent()),
 			);
 			this.props.articleDetailStore.changeDetail({
-				key: EArticleDetailKey.detail,
+				key: EArticleDetailKey.richText,
 				value: data,
 			});
 			console.log(data);

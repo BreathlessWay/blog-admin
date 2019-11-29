@@ -27,7 +27,8 @@ export type ArticleListType = Array<ArticleItemType>;
 export type ArticleDetailType = {
 	title: string;
 	intro: string;
-	detail: string;
+	richText: string;
+	markdown: string;
 	status: number;
 	tags: TagListType;
 	renderType: EArticleRenderType;

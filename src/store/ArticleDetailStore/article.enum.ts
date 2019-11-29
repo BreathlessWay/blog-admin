@@ -11,7 +11,8 @@ export enum EArticleStatus {
 export enum EArticleDetailKey {
 	title = 'title',
 	intro = 'intro',
-	detail = 'detail',
+	richText = 'richText',
+	markdown = 'markdown',
 	status = 'status',
 	tags = 'tags',
 	renderType = 'renderType',
