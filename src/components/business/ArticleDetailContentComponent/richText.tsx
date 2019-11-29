@@ -8,7 +8,6 @@ import { StoreType } from '@/store/store';
 
 import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
 
-import { throttle } from 'lodash';
 import { storage } from '@/utils/storage';
 
 // 引入编辑器样式
@@ -27,19 +26,19 @@ class ArticleDetailUEditComponent extends Component<
 > {
 	submitContent = () => {
 		// 在编辑器获得焦点时按下ctrl+s会执行此方法
-	};
-
-	handleEditorChange = throttle((editorState: EditorState) => {
-		this.props.articleDetailStore.changeDetail({
-			key: EArticleDetailKey.draftDetail,
-			value: editorState,
-		});
 		const { detail } = this.props.articleDetailStore;
 		storage.set({
 			key: 'rich_text',
 			value: detail?.draftDetail.toRAW(),
 		});
-	}, 2000);
+	};
+
+	handleEditorChange = (editorState: EditorState) => {
+		this.props.articleDetailStore.changeDetail({
+			key: EArticleDetailKey.draftDetail,
+			value: editorState,
+		});
+	};
 
 	render() {
 		const { detail } = this.props.articleDetailStore;

@@ -17,7 +17,7 @@ import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -149,7 +149,10 @@ class ArticleDetailTopComponent extends Component<
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
-					<Title level={4}>文章内容</Title>
+					<Title level={4} style={{ display: 'inline-block' }}>
+						文章内容
+					</Title>
+					<Text type="danger">(Ctrl+S保存草稿)</Text>
 				</Col>
 			</Row>
 		);
