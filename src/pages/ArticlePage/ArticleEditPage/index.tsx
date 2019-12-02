@@ -41,7 +41,7 @@ const ArticleDetailButtonComponent = lazy(() =>
 	),
 );
 
-const { confirm } = Modal;
+const { confirm, warning } = Modal;
 
 export type IArticleEditPagePropType = Pick<
 	StoreType,
@@ -57,32 +57,36 @@ export type IArticleEditPagePropType = Pick<
 class ArticleEditPage extends Component<IArticleEditPagePropType> {
 	time: any = null;
 
-	componentDidMount() {
-		const { search } = this.props.location;
-
-		const articleCache: ArticleCacheType | null = storage.get(
-			ARTICLE_CACHE_KEY,
-		);
-		const cacheId = parseSearch(search) || 'create';
+	async componentDidMount() {
+		const { pathname } = this.props.location;
 		const _this = this;
-		if (articleCache && articleCache.id === cacheId) {
-			const { title, intro, detail, tags } = articleCache.data;
-			const hasCache = Boolean(
-				title || intro || detail || (tags && tags.length),
-			);
-			if (hasCache) {
-				confirm({
-					title: '提示',
-					content: '您似乎有上一次未保存的记录，是否载入',
-					onOk() {
-						_this.loadCache(articleCache);
-					},
-					onCancel() {
-						_this.getData();
-					},
-				});
-				return;
-			}
+
+		if (pathname === routeMapPath.article.edit && !this.articleId) {
+			warning({
+				title: '提示',
+				content: '编辑文章缺失文章id参数！',
+				okText: '确定',
+				onOk() {
+					_this.props.history.replace(routeMapPath.article.home);
+				},
+			});
+			return;
+		}
+
+		if (await this.judgeCache()) {
+			confirm({
+				title: '提示',
+				content: '您似乎有上一次未保存的草稿，是否载入？',
+				keyboard: false,
+				maskClosable: false,
+				onOk() {
+					_this.loadCache();
+				},
+				onCancel() {
+					_this.getData();
+				},
+			});
+			return;
 		}
 
 		this.getData();
@@ -93,17 +97,57 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 		this.time = null;
 	}
 
+	judgeCache = async () => {
+		if (this.articleCache) {
+			const {
+				id,
+				data: { title, intro, detail: cacheDetail, tags, renderType, status },
+			} = this.articleCache;
+			if (this.isCreate && id === 'create') {
+				return Boolean(title || intro || cacheDetail || tags.length);
+			}
+			if (this.isEdit && id === this.articleId) {
+				const { detail } = this.props.articleDetailStore;
+				if (detail) {
+					if (
+						title !== detail.title ||
+						intro !== detail.intro ||
+						renderType !== detail.renderType ||
+						Number(status) !== detail.status
+					) {
+						return true;
+					}
+					if (detail.tags.map(tag => tag.objectId).join() !== tags.join()) {
+						return true;
+					}
+					if (
+						renderType === EArticleRenderType.markdown &&
+						cacheDetail !== detail.markdown
+					) {
+						return true;
+					}
+					if (
+						renderType === EArticleRenderType.richText &&
+						cacheDetail !== detail.richTextRaw
+					) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	};
+
 	startCache = () => {
 		this.time = setInterval(() => {
 			const { detail } = this.props.articleDetailStore;
 			if (detail) {
 				const {
-					objectId,
 					title,
-					tags,
 					intro,
-					renderType,
+					tags,
 					status,
+					renderType,
 					markdown,
 					draftDetail,
 				} = detail;
@@ -117,14 +161,14 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 				if (renderType === EArticleRenderType.markdown) {
 					_cacheDetail = markdown;
 				}
-				const cache = {
-					id: objectId || 'create',
+				const cache: ArticleCacheType = {
+					id: this.articleId || 'create',
 					data: {
 						title,
 						intro,
-						tags: _cacheTag,
-						status: status,
-						renderType: renderType,
+						tags: _cacheTag as Array<string>,
+						status,
+						renderType,
 						detail: _cacheDetail,
 					},
 				};
@@ -133,51 +177,68 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 		}, ARTICLE_CACHE_TIME);
 	};
 
-	loadCache = (cache: ArticleCacheType) => {
-		const {
-			data: { title, intro, tags, renderType, status, detail },
-		} = cache;
-		let richTextRaw = '',
-			markdown = '',
-			richTextHtml = '',
-			_tags: TagListType = [];
-		if (renderType === EArticleRenderType.richText) {
-			richTextRaw = detail;
+	loadCache = () => {
+		if (this.articleCache) {
+			const {
+				data: { title, intro, tags, renderType, status, detail },
+			} = this.articleCache;
+			let richTextRaw = '',
+				markdown = '',
+				richTextHtml = '',
+				_tags: TagListType = [];
+			if (renderType === EArticleRenderType.richText) {
+				richTextRaw = detail;
+			}
+			if (renderType === EArticleRenderType.markdown) {
+				markdown = detail;
+			}
+			if (tags.length) {
+				_tags = this.props.tagStore.tags.filter(
+					item => item.objectId && tags.includes(item.objectId),
+				);
+			}
+			this.props.articleDetailStore.setDetail({
+				title,
+				intro,
+				tags: _tags,
+				renderType,
+				status: Number(status),
+				richTextRaw,
+				markdown,
+				richTextHtml,
+			});
 		}
-		if (renderType === EArticleRenderType.markdown) {
-			markdown = detail;
-		}
-		if (tags && tags.length) {
-			_tags = this.props.tagStore.tags.filter(
-				item => item.objectId && tags.includes(item.objectId),
-			);
-		}
-		this.props.articleDetailStore.setDetail({
-			title,
-			intro,
-			tags: _tags,
-			renderType,
-			status: Number(status),
-			richTextRaw,
-			markdown,
-			richTextHtml,
-		});
 		this.startCache();
 	};
 
 	getData = () => {
 		storage.remove(ARTICLE_CACHE_KEY);
 
-		const { search, pathname } = this.props.location;
-
 		const { createArticle } = this.props.articleDetailStore;
-		if (search && pathname === routeMapPath.article.edit) {
+		if (this.isEdit) {
 		}
-		if (pathname === routeMapPath.article.create) {
+		if (this.isCreate) {
 			createArticle();
 		}
 		this.startCache();
 	};
+
+	get articleCache(): ArticleCacheType | null {
+		return storage.get(ARTICLE_CACHE_KEY);
+	}
+
+	get articleId() {
+		return parseSearch<{ id: string }>(this.props.location.search)?.id ?? null;
+	}
+
+	get isCreate() {
+		return this.props.location.pathname === routeMapPath.article.create;
+	}
+
+	get isEdit() {
+		const { search, pathname } = this.props.location;
+		return search && pathname === routeMapPath.article.edit;
+	}
 
 	render() {
 		const { detail } = this.props.articleDetailStore;

@@ -33,7 +33,8 @@ export default class RewardComponentItem extends React.Component<
 		this.setState({
 			disabled: true,
 		});
-		uploadFile(options.file, ({ url }) => {
+
+		uploadFile(options.file).then(({ url }) => {
 			this.props.onUploadCode(url);
 			this.setState({
 				disabled: false,

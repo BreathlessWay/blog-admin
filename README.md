@@ -27,3 +27,5 @@
 4. git commit --no-verify -m "--no-verify 跳过检验规则"
 
 5. 目前菜单最多嵌套一层，为了能适配面包屑导航，使用 Query 代替 Params
+
+6. [富文本编辑器](https://braft.margox.cn/)

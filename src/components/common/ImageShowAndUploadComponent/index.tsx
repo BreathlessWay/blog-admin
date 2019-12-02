@@ -57,7 +57,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 		this.setState({
 			compDisabled: true,
 		});
-		uploadFile(options.file, ({ url }) => {
+		uploadFile(options.file).then(({ url }) => {
 			this.props.onUploadImage(url);
 			this.setState({
 				compDisabled: false,
