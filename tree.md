@@ -30,7 +30,11 @@
 │   ├── apis/
 │   ├── components/
 │   │   ├── business/
+│   │   │   ├── ArticleDetailButtonComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── ArticleDetailContentComponent/
+│   │   │   │   ├── braft-extend.ts
 │   │   │   │   ├── markdown.tsx
 │   │   │   │   ├── richText.tsx
 │   │   │   │   └── style.scss
@@ -180,10 +184,11 @@
 │       ├── compose.ts
 │       ├── config.ts
 │       ├── constant.ts
+│       ├── parseSearch.ts
 │       ├── path.ts
 │       └── storage.ts
 ├── tree.md
 └── tsconfig.json
 
-60 directories, 124 files
+61 directories, 128 files
 ```
