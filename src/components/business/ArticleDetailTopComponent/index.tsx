@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Input, Radio, Row, Select, Typography, Button } from 'antd';
+import { Col, Input, Radio, Row, Select, Typography } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
@@ -13,12 +13,12 @@ import {
 	EArticleRenderType,
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
+
 import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
-import { storage } from '@/utils/storage';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -27,13 +27,6 @@ export type IArticleDetailTopComponentPropType = Pick<
 	'userStore' | 'articleDetailStore' | 'tagStore'
 >;
 
-export type IArticleDetailTopComponentStateType = Readonly<{
-	save: {
-		type: EArticleRenderType;
-		data: any;
-	} | null;
-}>;
-
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	articleDetailStore: allStore.articleDetailStore,
@@ -41,19 +34,8 @@ export type IArticleDetailTopComponentStateType = Readonly<{
 }))
 @observer
 class ArticleDetailTopComponent extends Component<
-	IArticleDetailTopComponentPropType,
-	IArticleDetailTopComponentStateType
+	IArticleDetailTopComponentPropType
 > {
-	readonly state = {
-		save: null,
-	};
-
-	componentDidMount(): void {
-		this.setState({
-			save: storage.get('article_save') || null,
-		});
-	}
-
 	handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.articleDetailStore.changeDetail({
 			key: EArticleDetailKey.title,
@@ -91,12 +73,6 @@ class ArticleDetailTopComponent extends Component<
 			key: EArticleDetailKey.renderType,
 			value: e.target.value,
 		});
-	};
-
-	handleLoadSave = () => {
-		const { save } = this.state;
-		if (save) {
-		}
 	};
 
 	get selectTag() {
@@ -175,21 +151,11 @@ class ArticleDetailTopComponent extends Component<
 				<Gap size="lg" />
 				<Col span={24}>
 					<Row type="flex" align="middle" justify="space-between">
-						<Col>
-							<Title
-								level={4}
-								style={{ display: 'inline-block', marginBottom: 0 }}>
-								文章内容
-							</Title>
-							<Text type="danger">(Ctrl+S保存草稿)</Text>
-						</Col>
-						<Col>
-							{this.state.save && (
-								<Button type="link" onClick={this.handleLoadSave}>
-									加载草稿
-								</Button>
-							)}
-						</Col>
+						<Title
+							level={4}
+							style={{ display: 'inline-block', marginBottom: 0 }}>
+							文章内容
+						</Title>
 					</Row>
 				</Col>
 				<Gap />

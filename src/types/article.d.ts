@@ -39,3 +39,15 @@ export type ArticleDetailType = {
 	objectId?: string;
 	createAt?: number;
 };
+
+export type ArticleCacheType = {
+	id: string;
+	data: {
+		title: string;
+		intro: string;
+		tags: Array<string>;
+		status: EArticleStatus;
+		renderType: EArticleRenderType;
+		detail: any;
+	};
+};

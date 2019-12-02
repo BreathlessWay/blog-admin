@@ -8,14 +8,16 @@ import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
 
-import { routeMapPath } from '@/route';
-
-import compose from '@/utils/compose';
 import {
 	EArticleDetailKey,
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
+
+import { ARTICLE_CACHE_KEY } from '@/utils/constant';
+import compose from '@/utils/compose';
 import { storage } from '@/utils/storage';
+
+import { routeMapPath } from '@/route';
 
 export type IArticleDetailButtonComponentPropType = Pick<
 	StoreType,
@@ -49,8 +51,10 @@ class ArticleDetailButtonComponent extends Component<
 				key: EArticleDetailKey.richTextRaw,
 				value: rawString,
 			});
-			storage.remove('rich_text');
 		}
+		if (detail && detail.renderType === EArticleRenderType.markdown) {
+		}
+		storage.remove(ARTICLE_CACHE_KEY);
 	};
 
 	render() {
