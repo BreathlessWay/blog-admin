@@ -11,7 +11,9 @@
 7. 富文本编辑器: [braft-editor](https://braft.margox.cn/)
 8. 参数格式转换库: [qs](https://github.com/ljharb/qs)
 9. 颜色选择器: [react-color](http://casesandberg.github.io/react-color/)
-10. CSS 扩展语言,: [Sass](https://www.sass.hk/)
+10. CSS 扩展语言: [Sass](https://www.sass.hk/)
+11. 时间处理库: [Moment.js](http://momentjs.cn/)
+12. JavaScript 实用工具库: [Lodash](https://www.lodashjs.com/)
 
 > 代码规范
 

@@ -6,7 +6,7 @@ import { Modal } from 'antd';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
-import { ArticleCacheType } from '@/types/article';
+import { ArticleCacheType, ArticleDetailType } from '@/types/article';
 import { TagListType } from '@/types/tag';
 
 import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
@@ -72,8 +72,9 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 			});
 			return;
 		}
+		await this.getData();
 
-		if (await this.judgeCache()) {
+		if (this.judgeCache) {
 			confirm({
 				title: '提示',
 				content: '您似乎有上一次未保存的草稿，是否载入？',
@@ -83,13 +84,14 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 					_this.loadCache();
 				},
 				onCancel() {
-					_this.getData();
+					storage.remove(ARTICLE_CACHE_KEY);
 				},
 			});
 			return;
 		}
 
-		this.getData();
+		storage.remove(ARTICLE_CACHE_KEY);
+		this.startCache();
 	}
 
 	componentWillUnmount(): void {
@@ -97,7 +99,7 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 		this.time = null;
 	}
 
-	judgeCache = async () => {
+	get judgeCache() {
 		if (this.articleCache) {
 			const {
 				id,
@@ -136,7 +138,7 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 			}
 		}
 		return false;
-	};
+	}
 
 	startCache = () => {
 		this.time = setInterval(() => {
@@ -182,45 +184,38 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 			const {
 				data: { title, intro, tags, renderType, status, detail },
 			} = this.articleCache;
-			let richTextRaw = '',
-				markdown = '',
-				richTextHtml = '',
-				_tags: TagListType = [];
-			if (renderType === EArticleRenderType.richText) {
-				richTextRaw = detail;
-			}
-			if (renderType === EArticleRenderType.markdown) {
-				markdown = detail;
-			}
+
+			const params: ArticleDetailType = {
+				title,
+				intro,
+				tags: [],
+				renderType,
+				status: Number(status),
+			} as any;
 			if (tags.length) {
-				_tags = this.props.tagStore.tags.filter(
+				params.tags = this.props.tagStore.tags.filter(
 					item => item.objectId && tags.includes(item.objectId),
 				);
 			}
-			this.props.articleDetailStore.setDetail({
-				title,
-				intro,
-				tags: _tags,
-				renderType,
-				status: Number(status),
-				richTextRaw,
-				markdown,
-				richTextHtml,
-			});
+			if (renderType === EArticleRenderType.richText) {
+				params.richTextRaw = detail;
+			}
+			if (renderType === EArticleRenderType.markdown) {
+				params.markdown = detail;
+			}
+
+			this.props.articleDetailStore.setDetail(params);
 		}
 		this.startCache();
 	};
 
 	getData = () => {
-		storage.remove(ARTICLE_CACHE_KEY);
-
 		const { createArticle } = this.props.articleDetailStore;
 		if (this.isEdit) {
 		}
 		if (this.isCreate) {
 			createArticle();
 		}
-		this.startCache();
 	};
 
 	get articleCache(): ArticleCacheType | null {
