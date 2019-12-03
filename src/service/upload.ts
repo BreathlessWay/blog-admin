@@ -5,6 +5,7 @@ export const uploadFile = (
 ): Promise<{
 	url: string;
 	name: string;
+	objectId: string;
 }> => {
 	return new Promise((resolve, reject) => {
 		// 伪文件上传预览
@@ -14,7 +15,11 @@ export const uploadFile = (
 		fileReader.onload = e => {
 			if (e.target && e.target.result) {
 				loading();
-				resolve({ url: e.target.result as string, name: file.name });
+				resolve({
+					url: e.target.result as string,
+					name: file.name,
+					objectId: 'objectId',
+				});
 			} else {
 				reject();
 			}

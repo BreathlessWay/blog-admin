@@ -2,7 +2,10 @@ import { action, computed, observable } from 'mobx';
 
 import { PAGE_LIMIT } from '@/utils/constant';
 
-export default class ListStore {
+export default class ListStore<T> {
+	@observable
+	list: Array<T> = [];
+
 	@observable
 	pageSize = PAGE_LIMIT;
 
@@ -14,6 +17,12 @@ export default class ListStore {
 
 	@observable
 	loading = false;
+
+	@observable
+	error = false;
+
+	@observable
+	errMsg = '';
 
 	@action.bound
 	prePage() {
@@ -44,6 +53,12 @@ export default class ListStore {
 		this.pageSize = pageSize;
 	}
 
+	@action.bound
+	setList({ results, count }: { results: Array<T>; count: number }) {
+		this.list = results;
+		this.count = count;
+	}
+
 	@computed
 	get currentCount() {
 		return this.pageSize * this.pageIndex;
@@ -52,5 +67,10 @@ export default class ListStore {
 	@computed
 	get hasNext() {
 		return this.count > this.currentCount;
+	}
+
+	@computed
+	get isEmpty() {
+		return !this.list.length;
 	}
 }

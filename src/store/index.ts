@@ -5,6 +5,7 @@ import UserStore from '@/store/UserStore';
 import TagStore from '@/store/TagStore';
 import ArticleListStore from '@/store/ArticleListStore';
 import ArticleDetailStore from '@/store/ArticleDetailStore';
+import CatStore from '@/store/CatStore';
 
 import { StoreType } from './store';
 
@@ -15,6 +16,7 @@ const store: StoreType = {
 	tagStore: new TagStore(),
 	articleListStore: new ArticleListStore(),
 	articleDetailStore: new ArticleDetailStore(),
+	catStore: new CatStore(),
 };
 
 export default store;

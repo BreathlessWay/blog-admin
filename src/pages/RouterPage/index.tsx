@@ -28,27 +28,33 @@ const BreadcrumbComponent = lazy(() =>
 );
 
 const HomePage = lazy(() =>
-	import(/* webpackChunkName: "HomePage" */ '../HomePage'),
+	import(/* webpackChunkName: "HomePage" */ '@/pages/HomePage'),
 );
 
-const MePage = lazy(() => import(/* webpackChunkName: "MePage" */ '../MePage'));
+const MePage = lazy(() =>
+	import(/* webpackChunkName: "MePage" */ '@/pages/MePage'),
+);
 
 const ArticleIndexPage = lazy(() =>
 	import(
-		/* webpackChunkName: "ArticleIndexPage" */ '../ArticlePage/ArticleIndexPage'
+		/* webpackChunkName: "ArticleIndexPage" */ '@/pages/ArticlePage/ArticleIndexPage'
 	),
 );
 
 const ArticleTagPage = lazy(() =>
 	import(
-		/* webpackChunkName: "ArticleTagPage" */ '../ArticlePage/ArticleTagPage'
+		/* webpackChunkName: "ArticleTagPage" */ '@/pages/ArticlePage/ArticleTagPage'
 	),
 );
 
 const ArticleEditPage = lazy(() =>
 	import(
-		/* webpackChunkName: "ArticleEditPage" */ '../ArticlePage/ArticleEditPage'
+		/* webpackChunkName: "ArticleEditPage" */ '@/pages/ArticlePage/ArticleEditPage'
 	),
+);
+
+const CatPage = lazy(() =>
+	import(/* webpackChunkName: "CatPage" */ '@/pages/CatPage'),
 );
 
 export type IRouterPagePropType = Pick<
@@ -129,7 +135,7 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 								<Route
 									path={routeMapPath.cat}
 									exact={true}
-									children={<div>cat</div>}
+									component={CatPage}
 								/>
 								<Route
 									path={routeMapPath.photography}

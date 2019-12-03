@@ -2,14 +2,11 @@ import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
-import { ArticleListType, ArticleQueryType } from '@/types/article';
+import { ArticleQueryType, ArticleItemType } from '@/types/article';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
-export default class ArticleListStore extends ListStore {
-	@observable
-	list: ArticleListType = [];
-
+export default class ArticleListStore extends ListStore<ArticleItemType> {
 	@observable
 	query: ArticleQueryType = {
 		keyword: undefined,
@@ -20,10 +17,12 @@ export default class ArticleListStore extends ListStore {
 	};
 
 	@action.bound
-	setList(result: { list: ArticleListType; count: number }) {
-		result.list.forEach(item => (item.key = item.objectId));
-		this.list = result.list;
-		this.count = result.count;
+	getList() {
+		// results.forEach(item => (item.key = item.objectId));
+		this.setList({
+			results: [],
+			count: 0,
+		});
 	}
 
 	@action.bound
@@ -53,10 +52,5 @@ export default class ArticleListStore extends ListStore {
 			...this.query,
 			...{ pageIndex: this.pageIndex, pageSize: this.pageSize },
 		});
-	}
-
-	@computed
-	get isEmpty() {
-		return !this.list.length;
 	}
 }

@@ -20,6 +20,7 @@ $icon-size: 60px;
 }
 
 .preview-image {
+	animation: fadeIn 400ms ease 0ms 1 normal;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -52,5 +53,14 @@ $icon-size: 60px;
 		img {
 			max-width: 100%;
 		}
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }

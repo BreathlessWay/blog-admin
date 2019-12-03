@@ -4,20 +4,7 @@ import { TagListType } from '@/types/tag';
 
 export default class TagStore {
 	@observable
-	tags: TagListType = [
-		{
-			name: 'aaa',
-			show: true,
-			count: 1,
-			objectId: 'fasd',
-		},
-		{
-			name: '512',
-			show: true,
-			count: 51,
-			objectId: 'hsdf',
-		},
-	];
+	tags: TagListType = [];
 
 	@action.bound
 	addTag() {

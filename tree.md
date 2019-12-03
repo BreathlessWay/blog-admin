@@ -126,6 +126,8 @@
 │   │   │   └── ArticleTagPage/
 │   │   │       ├── index.tsx
 │   │   │       └── style.scss
+│   │   ├── CatPage/
+│   │   │   └── index.tsx
 │   │   ├── HomePage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
@@ -159,6 +161,8 @@
 │   │   ├── ArticleListStore/
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
+│   │   ├── CatStore/
+│   │   │   └── index.tsx
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
 │   │   ├── HomePageStore/
@@ -176,6 +180,7 @@
 │   ├── style.scss
 │   ├── types/
 │   │   ├── article.d.ts
+│   │   ├── cat.d.ts
 │   │   ├── hompage.d.ts
 │   │   ├── tag.d.ts
 │   │   └── user.d.ts
@@ -190,5 +195,5 @@
 ├── tree.md
 └── tsconfig.json
 
-61 directories, 128 files
+63 directories, 131 files
 ```
