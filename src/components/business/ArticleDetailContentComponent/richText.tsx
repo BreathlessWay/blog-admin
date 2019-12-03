@@ -98,7 +98,7 @@ class ArticleDetailUEditComponent extends Component<
 		return (
 			<BraftEditor
 				className="rich-text"
-				placeholder="请输入文章内容"
+				placeholder="请输入文章内容..."
 				value={detail?.draftDetail}
 				onChange={this.handleEditorChange}
 				onSave={this.submitContent}

@@ -7,7 +7,6 @@ import { Modal } from 'antd';
 import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
 import { ArticleCacheType, ArticleDetailType } from '@/types/article';
-import { TagListType } from '@/types/tag';
 
 import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
 

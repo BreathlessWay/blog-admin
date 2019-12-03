@@ -23,15 +23,13 @@ export default class ArticleDetailStore {
 	};
 
 	@action.bound
-	setDetail(detail: (Partial<ArticleDetailType> & Record<string, any>) | null) {
+	setDetail(detail: Partial<ArticleDetailType> | null) {
 		this.createArticle();
 		if (detail) {
 			if (detail.renderType === EArticleRenderType.richText) {
 				detail.draftDetail = BraftEditor.createEditorState(detail.richTextRaw);
 			}
-			for (let p in detail) {
-				(this.detail as Record<string, any>)[p] = detail[p];
-			}
+			(this.detail as any) = { ...this.detail, ...detail };
 		}
 	}
 
