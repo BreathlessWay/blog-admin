@@ -24,11 +24,9 @@ export type UserDetailType = {
 	resumeName: string;
 	resumeImageUrl: string;
 	social: SocialListType;
-	personalFigure: FigureListType;
 	en: string;
 	zh: string;
 	intro: string;
-	hobbiesFigure: FigureListType;
 	personalTitle: string;
 	personalInfo: string;
 	personalIntro: string;

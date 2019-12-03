@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { storage } from '@/utils/storage';
 
-import { LOGIN_TOKEN, SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
+import FigureStore from '@/store/FigureStore';
 
 import { UserDetailType } from '@/types/user';
 
@@ -11,11 +11,18 @@ import {
 	EResumeChangeKey,
 	ERewardChangeKey,
 } from '@/store/UserStore/user.enum';
-import { FigureItemType } from '@/types/figure';
+
+import { LOGIN_TOKEN, SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
 
 export default class UserStore {
 	@observable
 	session = '';
+
+	@observable
+	personalFigure = new FigureStore();
+
+	@observable
+	hobbiesFigure = new FigureStore();
 
 	@observable
 	userDetail: UserDetailType = {
@@ -24,11 +31,9 @@ export default class UserStore {
 		resumeName: '',
 		resumeImageUrl: '',
 		social: [],
-		personalFigure: [],
 		en: '',
 		zh: '',
 		intro: '',
-		hobbiesFigure: [],
 		personalTitle: '',
 		personalInfo: '',
 		personalIntro: '',
@@ -83,23 +88,6 @@ export default class UserStore {
 	}
 
 	@action.bound
-	removePersonalFigure(index: number) {
-		this.userDetail.personalFigure.splice(index, 1);
-	}
-
-	@action.bound
-	addPersonalFigure(params: FigureItemType) {
-		this.userDetail.personalFigure.push(params);
-	}
-
-	@action.bound
-	setShowPersonalFigure(index: number) {
-		this.userDetail.personalFigure.forEach((item, i) => {
-			item.show = i === index;
-		});
-	}
-
-	@action.bound
 	setPersonalInfo({
 		value,
 		key,
@@ -115,23 +103,6 @@ export default class UserStore {
 	}
 
 	// 我页面
-	@action.bound
-	removeHobbiesFigure(index: number) {
-		this.userDetail.hobbiesFigure.splice(index, 1);
-	}
-
-	@action.bound
-	addHobbiesFigure(params: FigureItemType) {
-		this.userDetail.hobbiesFigure.push(params);
-	}
-
-	@action.bound
-	setShowHobbiesFigure(index: number) {
-		this.userDetail.hobbiesFigure.forEach((item, i) => {
-			item.show = i === index;
-		});
-	}
-
 	@action.bound
 	sortSkill(dragIndex: number, hoverIndex: number) {
 		const dragItem = this.userDetail.personalSkill.splice(dragIndex, 1);
@@ -167,16 +138,6 @@ export default class UserStore {
 			percent: SKILL_PERCENT_MID,
 			color: SKILL_COLOR,
 		});
-	}
-
-	@computed
-	get personalFigureLength() {
-		return this.userDetail.personalFigure.length;
-	}
-
-	@computed
-	get hobbiesFigureLength() {
-		return this.userDetail.hobbiesFigure.length;
 	}
 
 	@computed

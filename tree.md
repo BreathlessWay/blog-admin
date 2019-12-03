@@ -169,6 +169,8 @@
 │   │   │   └── index.ts
 │   │   ├── CatStore/
 │   │   │   └── index.tsx
+│   │   ├── FigureStore/
+│   │   │   └── index.ts
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
 │   │   ├── HomePageStore/
@@ -202,5 +204,5 @@
 ├── tree.md
 └── tsconfig.json
 
-66 directories, 135 files
+67 directories, 136 files
 ```

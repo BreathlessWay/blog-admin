@@ -15,18 +15,18 @@ export type IPersonalFigureComponentPropType = Pick<StoreType, 'userStore'>;
 
 const PersonalFigureComponent: FC<IPersonalFigureComponentPropType> = props => {
 	const {
-		removePersonalFigure,
-		setShowPersonalFigure,
-		addPersonalFigure,
-		userDetail: { personalFigure = [] },
-	} = props.userStore;
+		figureList,
+		addFigure,
+		setShowFigure,
+		removeFigure,
+	} = props.userStore.personalFigure;
 	return (
 		<FigureEditComponent
 			title="个人形象卡通图"
-			imageList={toJS(personalFigure)}
-			onRemoveFigure={removePersonalFigure}
-			onSetShowFigure={setShowPersonalFigure}
-			onAddFigure={addPersonalFigure}
+			imageList={toJS(figureList)}
+			onRemoveFigure={removeFigure}
+			onSetShowFigure={setShowFigure}
+			onAddFigure={addFigure}
 		/>
 	);
 };
