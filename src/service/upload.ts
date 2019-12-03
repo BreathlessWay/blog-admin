@@ -4,7 +4,7 @@ export const uploadFile = (
 	file: File,
 ): Promise<{
 	url: string;
-	name: string;
+	title: string;
 	objectId: string;
 }> => {
 	return new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ export const uploadFile = (
 				loading();
 				resolve({
 					url: e.target.result as string,
-					name: file.name,
+					title: file.name,
 					objectId: 'objectId',
 				});
 			} else {

@@ -1,9 +1,17 @@
-import React, { Component } from 'react';
+import React, { lazy } from 'react';
 
-class CatPage extends Component {
-	render() {
-		return <div>cat</div>;
-	}
-}
+const CatFigureComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "CatFigureComponent" */ '@/components/business/CatFigureComponent'
+	),
+);
+
+const CatPage = () => {
+	return (
+		<>
+			<CatFigureComponent />
+		</>
+	);
+};
 
 export default CatPage;

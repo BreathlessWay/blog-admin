@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { Button, Col, Divider, Row, Typography } from 'antd';
 import Gap from '@/components/common/Gap';
 
-import GlobalStore from '@/store/GlobalStore';
+import { StoreType } from '@/store/store';
 
 import compose from '@/utils/compose';
 
@@ -17,15 +17,14 @@ export type IBasicWrapComponentPropType = {
 	title: string;
 
 	note?: string;
-	render?: (isEditing: boolean) => ReactNode;
-
-	handleEdit?: () => Promise<any>;
 	needEdit?: boolean;
+
+	render?: (isEditing: boolean) => ReactNode;
+	handleEdit?: () => Promise<any>;
 };
 
-const BasicWrapComponent: FC<IBasicWrapComponentPropType & {
-	globalStore: GlobalStore;
-}> = props => {
+const BasicWrapComponent: FC<IBasicWrapComponentPropType &
+	Pick<StoreType, 'globalStore'>> = props => {
 	// 不能提到globalStore，每个表单的isEditing是独立的
 	const [isEditing, setIsEditing] = useState(false);
 

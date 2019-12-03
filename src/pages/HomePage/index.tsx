@@ -5,9 +5,9 @@ const MenuEditComponent = lazy(() =>
 		/* webpackChunkName: "MenuEditComponent" */ '@/components/business/MenuEditComponent'
 	),
 );
-const PersonalImageComponent = lazy(() =>
+const PersonalFigureComponent = lazy(() =>
 	import(
-		/* webpackChunkName: "PersonalImageComponent" */ '@/components/business/PersonalImageComponent'
+		/* webpackChunkName: "PersonalFigureComponent" */ '@/components/business/PersonalFigureComponent'
 	),
 );
 const MottoComponent = lazy(() =>
@@ -30,7 +30,7 @@ const HomePage = () => {
 	return (
 		<>
 			<MenuEditComponent />
-			<PersonalImageComponent />
+			<PersonalFigureComponent />
 			<MottoComponent />
 			<SocialEditComponent />
 			<RewardComponent />

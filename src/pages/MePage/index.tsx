@@ -2,9 +2,9 @@ import React, { lazy } from 'react';
 
 import './style.scss';
 
-const MeLikeImageComponent = lazy(() =>
+const HobbiesFigureComponent = lazy(() =>
 	import(
-		/* webpackChunkName: "MeLikeImageComponent" */ '@/components/business/MeLikeImageComponent'
+		/* webpackChunkName: "HobbiesFigureComponent" */ '@/components/business/HobbiesFigureComponent'
 	),
 );
 
@@ -23,7 +23,7 @@ const SkillComponent = lazy(() =>
 const MePage = () => {
 	return (
 		<>
-			<MeLikeImageComponent />
+			<HobbiesFigureComponent />
 			<PersonalInfoComponent />
 			<SkillComponent />
 		</>

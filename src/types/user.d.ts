@@ -1,3 +1,5 @@
+import { FigureListType } from '@/types/figure';
+
 export type SocialItemType = {
 	icon: string;
 	value: string;
@@ -5,22 +7,6 @@ export type SocialItemType = {
 };
 
 export type SocialListType = Array<SocialItemType>;
-
-export type PersonalImageItemType = {
-	url: string;
-	show: boolean;
-	objectId?: string;
-};
-
-export type PersonalImageListType = Array<PersonalImageItemType>;
-
-export type LikeImageItemType = {
-	url: string;
-	show: boolean;
-	objectId?: string;
-};
-
-export type LikeImageListType = Array<LikeImageItemType>;
 
 export type PersonalSkillItemType = {
 	name: string;
@@ -38,11 +24,11 @@ export type UserDetailType = {
 	resumeName: string;
 	resumeImageUrl: string;
 	social: SocialListType;
-	personalImage: PersonalImageListType;
+	personalFigure: FigureListType;
 	en: string;
 	zh: string;
 	intro: string;
-	likeImage: LikeImageListType;
+	hobbiesFigure: FigureListType;
 	personalTitle: string;
 	personalInfo: string;
 	personalIntro: string;

@@ -28,8 +28,8 @@ class ArticleDetailMarkdownComponent extends Component<
 	};
 
 	handleUploadFile = (file: File, index: number) => {
-		uploadFile(file).then(({ url, name }) => {
-			this.$vm.current.$img2Url(name, url);
+		uploadFile(file).then(({ url, title }) => {
+			this.$vm.current.$img2Url(title, url);
 		});
 	};
 

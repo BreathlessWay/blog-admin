@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { Icon } from 'antd';
 
-import preview from '../PreviewImageComponent';
+import preview from '@/components/common/PreviewImageComponent';
 
 import './style.scss';
 

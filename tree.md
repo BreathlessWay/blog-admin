@@ -53,7 +53,9 @@
 │   │   │   ├── BreadcrumbComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── MeLikeImageComponent/
+│   │   │   ├── CatFigureComponent/
+│   │   │   │   └── index.tsx
+│   │   │   ├── HobbiesFigureComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
 │   │   │   ├── MenuComponent/
@@ -65,7 +67,7 @@
 │   │   │   ├── MottoComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
-│   │   │   ├── PersonalImageComponent/
+│   │   │   ├── PersonalFigureComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
 │   │   │   ├── PersonalInfoComponent/
@@ -93,6 +95,8 @@
 │   │       │   └── style.scss
 │   │       ├── ErrorBoundaryComponent/
 │   │       │   └── index.tsx
+│   │       ├── FigureEditComponent/
+│   │       │   └── index.tsx
 │   │       ├── FileShowComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -100,6 +104,8 @@
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── Gap/
+│   │       │   └── index.tsx
+│   │       ├── GitHubComponent/
 │   │       │   └── index.tsx
 │   │       ├── ImageCardComponent/
 │   │       │   ├── index.tsx
@@ -181,6 +187,7 @@
 │   ├── types/
 │   │   ├── article.d.ts
 │   │   ├── cat.d.ts
+│   │   ├── figure.d.ts
 │   │   ├── hompage.d.ts
 │   │   ├── tag.d.ts
 │   │   └── user.d.ts
@@ -195,5 +202,5 @@
 ├── tree.md
 └── tsconfig.json
 
-63 directories, 131 files
+66 directories, 135 files
 ```

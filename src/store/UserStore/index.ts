@@ -11,6 +11,7 @@ import {
 	EResumeChangeKey,
 	ERewardChangeKey,
 } from '@/store/UserStore/user.enum';
+import { FigureItemType } from '@/types/figure';
 
 export default class UserStore {
 	@observable
@@ -23,11 +24,11 @@ export default class UserStore {
 		resumeName: '',
 		resumeImageUrl: '',
 		social: [],
-		personalImage: [],
+		personalFigure: [],
 		en: '',
 		zh: '',
 		intro: '',
-		likeImage: [],
+		hobbiesFigure: [],
 		personalTitle: '',
 		personalInfo: '',
 		personalIntro: '',
@@ -82,21 +83,18 @@ export default class UserStore {
 	}
 
 	@action.bound
-	removePersonalImage(index: number) {
-		this.userDetail.personalImage.splice(index, 1);
+	removePersonalFigure(index: number) {
+		this.userDetail.personalFigure.splice(index, 1);
 	}
 
 	@action.bound
-	addPersonalImage(fileUrl: string) {
-		this.userDetail.personalImage.push({
-			url: fileUrl,
-			show: this.personalImageLength === 0,
-		});
+	addPersonalFigure(params: FigureItemType) {
+		this.userDetail.personalFigure.push(params);
 	}
 
 	@action.bound
-	setShowPersonalImage(index: number) {
-		this.userDetail.personalImage.forEach((item, i) => {
+	setShowPersonalFigure(index: number) {
+		this.userDetail.personalFigure.forEach((item, i) => {
 			item.show = i === index;
 		});
 	}
@@ -118,21 +116,18 @@ export default class UserStore {
 
 	// 我页面
 	@action.bound
-	removeLikeImage(index: number) {
-		this.userDetail.likeImage.splice(index, 1);
+	removeHobbiesFigure(index: number) {
+		this.userDetail.hobbiesFigure.splice(index, 1);
 	}
 
 	@action.bound
-	addLikeImage(fileUrl: string) {
-		this.userDetail.likeImage.push({
-			url: fileUrl,
-			show: this.likeImageLength === 0,
-		});
+	addHobbiesFigure(params: FigureItemType) {
+		this.userDetail.hobbiesFigure.push(params);
 	}
 
 	@action.bound
-	setShowLikeImage(index: number) {
-		this.userDetail.likeImage.forEach((item, i) => {
+	setShowHobbiesFigure(index: number) {
+		this.userDetail.hobbiesFigure.forEach((item, i) => {
 			item.show = i === index;
 		});
 	}
@@ -175,13 +170,13 @@ export default class UserStore {
 	}
 
 	@computed
-	get personalImageLength() {
-		return this.userDetail.personalImage.length;
+	get personalFigureLength() {
+		return this.userDetail.personalFigure.length;
 	}
 
 	@computed
-	get likeImageLength() {
-		return this.userDetail.likeImage.length;
+	get hobbiesFigureLength() {
+		return this.userDetail.hobbiesFigure.length;
 	}
 
 	@computed

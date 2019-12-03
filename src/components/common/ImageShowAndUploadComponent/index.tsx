@@ -5,6 +5,7 @@ import ImageCardComponent from '../ImageCardComponent';
 import preview from '@/components/common/PreviewImageComponent';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import { FigureListType, FigureItemType } from '@/types/figure';
 
 import { uploadFile } from '@/service/upload';
 
@@ -17,19 +18,10 @@ const iconStyle = {
 };
 
 export type IImageShowAndUploadComponentPropType = {
-	imageList: Array<{
-		url: string;
-		show: boolean;
-	}>;
-	onRemove: (
-		index: number,
-		item: {
-			url: string;
-			show: boolean;
-		},
-	) => void;
+	imageList: FigureListType;
+	onRemove: (index: number, item: FigureItemType) => void;
 	onSetShow: (index: number) => void;
-	onUploadImage: (url: string) => void;
+	onUploadImage: (params: FigureItemType) => void;
 	disabled: boolean;
 };
 
@@ -49,6 +41,10 @@ export default class ImageShowAndUploadComponent extends React.Component<
 		return this.props.imageList.map(item => item.url);
 	}
 
+	get imageListLength() {
+		return this.props.imageList.length;
+	}
+
 	handlePreview = (index: number) => () => {
 		preview.show({ urls: this.urls, index });
 	};
@@ -57,8 +53,13 @@ export default class ImageShowAndUploadComponent extends React.Component<
 		this.setState({
 			compDisabled: true,
 		});
-		uploadFile(options.file).then(({ url }) => {
-			this.props.onUploadImage(url);
+		uploadFile(options.file).then(({ url, title, objectId }) => {
+			this.props.onUploadImage({
+				url,
+				title,
+				objectId,
+				show: this.imageListLength === 0,
+			});
 			this.setState({
 				compDisabled: false,
 			});
