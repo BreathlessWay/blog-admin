@@ -11,7 +11,21 @@ export default class CatStore extends ListStore<CatItemType> {
 
 	@action.bound
 	getList() {
-		this.setList({ results: [], count: 0 });
+		this.setList({
+			results: [
+				{
+					title: '图片图片图片图片图片图片图片图片图片图片图片图片图片图片',
+					intro:
+						'简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介',
+					createAt: 1575372223416,
+					objectId: 'objectId',
+					show: true,
+					url:
+						'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+				},
+			],
+			count: 0,
+		});
 	}
 
 	@action.bound

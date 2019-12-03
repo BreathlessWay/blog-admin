@@ -21,6 +21,9 @@
 	margin: $spacing-v-lg $spacing-h-lg;
 	padding: $spacing-v-lg $spacing-h-lg;
 	background-color: $default-color;
+	.ant-back-top {
+		right: 20px;
+	}
 }
 
 .home-page_footer {
@@ -34,4 +37,13 @@
 	font-style: italic;
 	@include text-align();
 	padding: $spacing-v-lg 0;
+}
+
+.back-top {
+	height: 40px;
+	border-radius: 5px;
+	@include text-align();
+	line-height: 40px;
+	background: $theme-color;
+	color: $default-color;
 }

@@ -109,4 +109,16 @@ export default class HomePageStore {
 		}
 		return _firstMenu;
 	}
+
+	@computed
+	get catAlias() {
+		const item = this.menuList.find(menu => menu.type === EMenuType.contacts);
+		return item?.name ?? '';
+	}
+
+	@computed
+	get cameraAlias() {
+		const item = this.menuList.find(menu => menu.type === EMenuType.camera);
+		return item?.name ?? '';
+	}
 }

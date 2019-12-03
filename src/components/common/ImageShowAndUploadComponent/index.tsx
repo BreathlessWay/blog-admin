@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Icon, Upload } from 'antd';
-import ImageCardComponent from '../ImageCardComponent';
-import preview from '@/components/common/PreviewImageComponent';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 import { FigureListType, FigureItemType } from '@/types/figure';
@@ -13,20 +11,17 @@ import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
 
 import './style.scss';
 
-const iconStyle = {
-	fontSize: '24px',
-};
-
 export type IImageShowAndUploadComponentPropType = {
 	imageList: FigureListType;
-	onRemove: (index: number, item: FigureItemType) => void;
-	onSetShow: (index: number) => void;
 	onUploadImage: (params: FigureItemType) => void;
-	disabled: boolean;
+	render: (params: { item: FigureItemType; index: number }) => ReactNode;
+
+	disabled?: boolean;
+	multiple?: boolean;
 };
 
 export type IImageShowAndUploadComponentStateType = Readonly<{
-	compDisabled: boolean;
+	stateDisabled: boolean;
 }>;
 
 export default class ImageShowAndUploadComponent extends React.Component<
@@ -34,25 +29,21 @@ export default class ImageShowAndUploadComponent extends React.Component<
 	IImageShowAndUploadComponentStateType
 > {
 	readonly state = {
-		compDisabled: false,
+		stateDisabled: false,
 	};
-
-	get urls() {
-		return this.props.imageList.map(item => item.url);
-	}
 
 	get imageListLength() {
 		return this.props.imageList.length;
 	}
 
-	handlePreview = (index: number) => () => {
-		preview.show({ urls: this.urls, index });
-	};
-
 	handleCustomUpload = (options: RcCustomRequestOptions) => {
 		this.setState({
-			compDisabled: true,
+			stateDisabled: true,
 		});
+		if (this.props.multiple) {
+			console.log(options);
+			return;
+		}
 		uploadFile(options.file).then(({ url, title, objectId }) => {
 			this.props.onUploadImage({
 				url,
@@ -61,46 +52,30 @@ export default class ImageShowAndUploadComponent extends React.Component<
 				show: this.imageListLength === 0,
 			});
 			this.setState({
-				compDisabled: false,
+				stateDisabled: false,
 			});
 		});
 	};
 
 	render() {
-		const { imageList, onRemove, onSetShow, disabled } = this.props;
-		const { compDisabled } = this.state;
+		const {
+			imageList,
+			disabled = false,
+			render,
+			multiple = false,
+		} = this.props;
+		const { stateDisabled } = this.state;
 		return (
 			<ul className="image-upload_list">
 				{imageList.map((item, index) => (
-					<li key={item.url + index} className="image-upload_item">
-						<ImageCardComponent
-							url={item.url}
-							actions={[
-								<Icon
-									type="eye"
-									style={iconStyle}
-									onClick={this.handlePreview(index)}
-								/>,
-								<Icon
-									type="delete"
-									style={iconStyle}
-									onClick={() => onRemove(index, item)}
-								/>,
-								<Icon
-									type="check-circle"
-									style={{
-										...iconStyle,
-										...{ color: item.show ? '#1890ff' : '' },
-									}}
-									onClick={() => onSetShow(index)}
-								/>,
-							]}
-						/>
+					<li key={item.objectId} className="image-upload_item">
+						{render({ item, index })}
 					</li>
 				))}
 				<li className="image-upload_input">
 					<Upload
-						disabled={disabled || compDisabled}
+						multiple={multiple}
+						disabled={disabled || stateDisabled}
 						customRequest={this.handleCustomUpload}
 						accept={UPLOAD_IMAGE_TYPE}
 						listType="picture-card"

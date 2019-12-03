@@ -9,7 +9,10 @@ import { StoreType } from '@/store/store';
 import { toJS } from 'mobx';
 import compose from '@/utils/compose';
 
-export type ICatFigureComponentPropType = Pick<StoreType, 'catStore'>;
+export type ICatFigureComponentPropType = Pick<
+	StoreType,
+	'catStore' | 'homepageStore'
+>;
 
 const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
 	const {
@@ -19,9 +22,11 @@ const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
 		setShowFigure,
 	} = props.catStore.catFigure;
 
+	const { catAlias } = props.homepageStore;
+
 	return (
 		<FigureEditComponent
-			title="猫卡通图"
+			title={`${catAlias}卡通图`}
 			imageList={toJS(figureList)}
 			onRemoveFigure={removeFigure}
 			onSetShowFigure={setShowFigure}
@@ -30,4 +35,10 @@ const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
 	);
 };
 
-export default compose<FC>(inject('catStore'), observer)(CatFigureComponent);
+export default compose<FC>(
+	inject((allStore: StoreType) => ({
+		catStore: allStore.catStore,
+		homepageStore: allStore.homepageStore,
+	})),
+	observer,
+)(CatFigureComponent);

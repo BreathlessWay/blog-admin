@@ -1,6 +1,7 @@
 export type CatItemType = {
-	url: string;
 	title: string;
+	intro: string;
+	url: string;
 	show: boolean;
 
 	objectId: string;

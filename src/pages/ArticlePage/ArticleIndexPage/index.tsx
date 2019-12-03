@@ -1,6 +1,11 @@
-import React, { lazy } from 'react';
+import React, { FC, lazy, useEffect } from 'react';
+
+import { inject, observer } from 'mobx-react';
 
 import Gap from '@/components/common/Gap';
+
+import compose from '@/utils/compose';
+import { StoreType } from '@/store/store';
 
 const ArticleFilterComponent = lazy(() =>
 	import(
@@ -14,7 +19,17 @@ const ArticleListComponent = lazy(() =>
 	),
 );
 
-const ArticlePage = () => {
+export type IArticlePagePropType = Pick<StoreType, 'articleListStore'>;
+
+const ArticlePage: FC<IArticlePagePropType> = props => {
+	const {
+		articleListStore: { getList },
+	} = props;
+
+	useEffect(() => {
+		getList();
+	}, [getList]);
+
 	return (
 		<>
 			<ArticleFilterComponent />
@@ -24,4 +39,4 @@ const ArticlePage = () => {
 	);
 };
 
-export default ArticlePage;
+export default compose<FC>(inject('articleListStore'), observer)(ArticlePage);

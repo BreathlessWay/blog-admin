@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Layout, Row, Spin } from 'antd';
+import { Layout, Row, Spin, BackTop } from 'antd';
 
 import { StoreType } from '@/store/store';
 
@@ -153,6 +153,9 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 									render={() => <Redirect to={firstMenu.path} />}
 								/>
 							</Switch>
+							<BackTop>
+								<aside className="back-top">TOP</aside>
+							</BackTop>
 						</Spin>
 					</Content>
 					<Footer className="home-page_footer">

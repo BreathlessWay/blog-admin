@@ -1,4 +1,10 @@
-import React, { lazy } from 'react';
+import React, { lazy, useEffect, FC } from 'react';
+
+import { inject, observer } from 'mobx-react';
+
+import { StoreType } from '@/store/store';
+
+import compose from '@/utils/compose';
 
 const CatFigureComponent = lazy(() =>
 	import(
@@ -6,12 +12,29 @@ const CatFigureComponent = lazy(() =>
 	),
 );
 
-const CatPage = () => {
+const CatPictureListComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "CatPictureListComponent" */ '@/components/business/CatPictureListComponent'
+	),
+);
+
+export type ICatPagePropType = Pick<StoreType, 'catStore'>;
+
+const CatPage: FC<ICatPagePropType> = props => {
+	const {
+		catStore: { getList },
+	} = props;
+
+	useEffect(() => {
+		getList();
+	}, [getList]);
+
 	return (
 		<>
 			<CatFigureComponent />
+			<CatPictureListComponent />
 		</>
 	);
 };
 
-export default CatPage;
+export default compose<FC>(inject('catStore'), observer)(CatPage);

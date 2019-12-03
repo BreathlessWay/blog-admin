@@ -1,9 +1,24 @@
 @mixin text-align($align: center) {
-  text-align: $align;
+	text-align: $align;
 }
 
 @mixin flex($align-items: center, $justify-content: space-between) {
-  display: flex;
-  justify-content: $justify-content;
-  align-items: $align-items;
+	display: flex;
+	justify-content: $justify-content;
+	align-items: $align-items;
+}
+
+@mixin ellipsis($line: 1) {
+	overflow: hidden; /*超出部分隐藏*/
+	text-overflow: ellipsis; /*文字超出部分以省略号显示*/
+
+	@if ($line==1) {
+		white-space: nowrap; /*内容超宽后禁止换行显示*/
+	} @else {
+		display: -webkit-box;
+		-webkit-line-clamp: $line;
+
+		/* autoprefixer: off */
+		-webkit-box-orient: vertical;
+	}
 }

@@ -1,6 +1,7 @@
 export type FigureItemType = {
-	url: string;
 	title: string;
+	intro?: string;
+	url: string;
 	objectId: string;
 	show: boolean;
 

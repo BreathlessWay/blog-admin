@@ -55,6 +55,8 @@
 │   │   │   │   └── style.scss
 │   │   │   ├── CatFigureComponent/
 │   │   │   │   └── index.tsx
+│   │   │   ├── CatPictureListComponent/
+│   │   │   │   └── index.tsx
 │   │   │   ├── HobbiesFigureComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
@@ -204,5 +206,5 @@
 ├── tree.md
 └── tsconfig.json
 
-67 directories, 136 files
+68 directories, 137 files
 ```

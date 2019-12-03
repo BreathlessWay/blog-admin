@@ -2,8 +2,7 @@
 @import '../../../static/css/mixins';
 
 .image-card_picture {
-	width: $image-size;
-	height: $image-size;
+	width: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -15,4 +14,23 @@
 	& + & {
 		border-left: $border-normal;
 	}
+}
+
+.image-card_info {
+	width: 100%;
+	.image-card_title {
+		padding: $spacing-v-lg $spacing-h-lg 0;
+		font-size: 18px;
+		@include ellipsis;
+	}
+	.image-card_intro {
+		padding: 0 $spacing-h-lg $spacing-v-lg;
+		font-size: 13px;
+		margin-bottom: 0;
+		@include ellipsis(3);
+	}
+}
+
+.image-card_bottom {
+	border-top: $border-normal;
 }
