@@ -24,7 +24,7 @@ const Gap: FC<ICommonGapPropType> = props => {
 			height = 8;
 	}
 
-	return <aside style={{ height, width: '100%' }} />;
+	return <aside style={{ height, width: '100%', clear: 'both' }} />;
 };
 
 export default Gap;

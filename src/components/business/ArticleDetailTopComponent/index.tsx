@@ -10,6 +10,7 @@ import { StoreType } from '@/store/store';
 
 import {
 	EArticleDetailKey,
+	EArticleEditError,
 	EArticleRenderType,
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
@@ -18,7 +19,7 @@ import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -37,16 +38,30 @@ class ArticleDetailTopComponent extends Component<
 	IArticleDetailTopComponentPropType
 > {
 	handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-		this.props.articleDetailStore.changeDetail({
+		const { value } = e.target;
+		const { validError, changeDetail } = this.props.articleDetailStore;
+
+		validError({
+			key: EArticleEditError.titleError,
+			value: !value.trim(),
+		});
+		changeDetail({
 			key: EArticleDetailKey.title,
-			value: e.target.value,
+			value: value,
 		});
 	};
 
 	handleChangeIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		this.props.articleDetailStore.changeDetail({
+		const { value } = e.target;
+		const { validError, changeDetail } = this.props.articleDetailStore;
+
+		validError({
+			key: EArticleEditError.introError,
+			value: !value.trim(),
+		});
+		changeDetail({
 			key: EArticleDetailKey.intro,
-			value: e.target.value,
+			value: value,
 		});
 	};
 
@@ -58,10 +73,16 @@ class ArticleDetailTopComponent extends Component<
 	};
 
 	handleChangeTag = (value: Array<string | undefined>) => {
+		const { validError, changeDetail } = this.props.articleDetailStore;
 		const { tags, hasTag } = this.props.tagStore;
-		if (value && value.length && hasTag) {
+
+		validError({
+			key: EArticleEditError.tagError,
+			value: !value.length,
+		});
+		if (value && hasTag) {
 			const selectedTags = tags.filter(tag => value.includes(tag.objectId));
-			this.props.articleDetailStore.changeDetail({
+			changeDetail({
 				key: EArticleDetailKey.tags,
 				value: selectedTags,
 			});
@@ -69,7 +90,12 @@ class ArticleDetailTopComponent extends Component<
 	};
 
 	handleChangeRenderType = (e: RadioChangeEvent) => {
-		this.props.articleDetailStore.changeDetail({
+		const { validError, changeDetail } = this.props.articleDetailStore;
+		validError({
+			key: EArticleEditError.contentError,
+			value: false,
+		});
+		changeDetail({
 			key: EArticleDetailKey.renderType,
 			value: e.target.value,
 		});
@@ -81,13 +107,22 @@ class ArticleDetailTopComponent extends Component<
 	}
 
 	render() {
-		const { detail } = this.props.articleDetailStore;
+		const {
+			detail,
+			error: { titleError, introError, tagError },
+		} = this.props.articleDetailStore;
 		const { tags } = this.props.tagStore;
 		return (
 			<Row type="flex">
 				<Col span={24}>
-					<Title level={4}>文章标题</Title>
+					<Title level={4} className="article-detail_label">
+						<label htmlFor="title">文章标题</label>
+					</Title>
+					<Text type="warning" className="article-detail_warning">
+						文章标题最多{MAX_LENGTH_MD}个字
+					</Text>
 					<Input
+						id="title"
 						placeholder="请输入文章标题"
 						maxLength={MAX_LENGTH_MD}
 						size="large"
@@ -95,23 +130,43 @@ class ArticleDetailTopComponent extends Component<
 						value={detail?.title ?? ''}
 						onChange={this.handleChangeTitle}
 					/>
+					{titleError && (
+						<Text type="danger" className="article-detail_warning">
+							文章标题不能为空
+						</Text>
+					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
-					<Title level={4}>文章描述</Title>
+					<Title level={4} className="article-detail_label">
+						<label htmlFor="intro">文章描述</label>
+					</Title>
+					<Text type="warning" className="article-detail_warning">
+						文章描述最多{MAX_LENGTH_LG}个字
+					</Text>
 					<TextArea
+						id="intro"
 						placeholder="请输入文章描述"
 						allowClear={true}
 						rows={3}
 						maxLength={MAX_LENGTH_LG}
 						value={detail?.intro ?? ''}
 						onChange={this.handleChangeIntro}
+						className="article-detail_intro"
 					/>
+					{introError && (
+						<Text type="danger" className="article-detail_warning">
+							文章描述不能为空
+						</Text>
+					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
-					<Title level={4}>文章状态</Title>
+					<Title level={4}>
+						<label htmlFor="status">文章状态</label>
+					</Title>
 					<Radio.Group
+						id="status"
 						value={detail?.status ?? EArticleStatus.show}
 						onChange={this.handleChangeStatus}>
 						<Radio.Button value={EArticleStatus.show}>显示</Radio.Button>
@@ -120,8 +175,11 @@ class ArticleDetailTopComponent extends Component<
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
-					<Title level={4}>文章标签</Title>
+					<Title level={4}>
+						<label htmlFor="tag">文章标签</label>
+					</Title>
 					<Select
+						id="tag"
 						size="large"
 						style={{ width: '100%' }}
 						mode="multiple"
@@ -133,11 +191,19 @@ class ArticleDetailTopComponent extends Component<
 							<Option key={tag.objectId}>{tag.name}</Option>
 						))}
 					</Select>
+					{tagError && (
+						<Text type="danger" className="article-detail_warning">
+							文章标签不能为空
+						</Text>
+					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
-					<Title level={4}>文章编辑方式</Title>
+					<Title level={4}>
+						<label htmlFor="renderType">文章编辑方式</label>
+					</Title>
 					<Radio.Group
+						id="renderType"
 						value={detail?.renderType ?? EArticleRenderType.richText}
 						onChange={this.handleChangeRenderType}>
 						<Radio.Button value={EArticleRenderType.richText}>
@@ -151,14 +217,11 @@ class ArticleDetailTopComponent extends Component<
 				<Gap size="lg" />
 				<Col span={24}>
 					<Row type="flex" align="middle" justify="space-between">
-						<Title
-							level={4}
-							style={{ display: 'inline-block', marginBottom: 0 }}>
-							文章内容
+						<Title level={4}>
+							<label htmlFor="content">文章内容</label>
 						</Title>
 					</Row>
 				</Col>
-				<Gap />
 			</Row>
 		);
 	}

@@ -171,12 +171,12 @@
 │   │   │   └── index.ts
 │   │   ├── CatStore/
 │   │   │   └── index.tsx
-│   │   ├── FigureStore/
-│   │   │   └── index.ts
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
 │   │   ├── HomePageStore/
 │   │   │   ├── homepage.enum.ts
+│   │   │   └── index.ts
+│   │   ├── ImageStore/
 │   │   │   └── index.ts
 │   │   ├── ListStore/
 │   │   │   └── index.ts
@@ -191,8 +191,8 @@
 │   ├── types/
 │   │   ├── article.d.ts
 │   │   ├── cat.d.ts
-│   │   ├── figure.d.ts
 │   │   ├── hompage.d.ts
+│   │   ├── image.d.ts
 │   │   ├── tag.d.ts
 │   │   └── user.d.ts
 │   └── utils/

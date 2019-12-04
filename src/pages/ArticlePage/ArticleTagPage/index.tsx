@@ -147,6 +147,7 @@ class ArticleTagPage extends Component<IArticleTagPagePropType> {
 		return (
 			<BasicWrapComponent
 				title="文章标签管理"
+				note={`文章标签名最长${MAX_LENGTH_SM}个字`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasTag || isEditing ? (

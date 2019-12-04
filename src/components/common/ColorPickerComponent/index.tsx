@@ -72,6 +72,10 @@ export default class ColorPickerComponent extends Component<
 		this.props.onConfirm(this.state.value);
 	};
 
+	handleVisibleChange = (visible: boolean) => {
+		this.setState({ visible });
+	};
+
 	render() {
 		const { disabled } = this.props;
 		const { value, visible } = this.state;
@@ -99,6 +103,7 @@ export default class ColorPickerComponent extends Component<
 						</Col>
 					</Row>
 				}
+				onVisibleChange={this.handleVisibleChange}
 				trigger="click"
 				overlayClassName="color-pick"
 				visible={visible}>

@@ -19,3 +19,10 @@ export enum EArticleDetailKey {
 	renderType = 'renderType',
 	draftDetail = 'draftDetail',
 }
+
+export enum EArticleEditError {
+	titleError = 'titleError',
+	introError = 'introError',
+	tagError = 'tagError',
+	contentError = 'contentError',
+}

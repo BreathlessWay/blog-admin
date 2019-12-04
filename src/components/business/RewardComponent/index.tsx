@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Input, Row } from 'antd';
+import { Col, Input, Row, Switch } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
@@ -10,7 +10,7 @@ import RewardComponentItem from './item';
 import UserStore from '@/store/UserStore';
 
 import { ERewardChangeKey } from '@/store/UserStore/user.enum';
-import { MAX_LENGTH_MD } from '@/utils/constant';
+import { MAX_LENGTH_SM } from '@/utils/constant';
 
 import './style.scss';
 
@@ -26,7 +26,19 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 			resolve();
 		});
 	};
-	handelChangeRewardTitle = (e: ChangeEvent<HTMLInputElement>) => {
+
+	handleChangeSwitch = () => {
+		const {
+			userDetail: { rewardEnable },
+			setPersonalInfo,
+		} = this.props.userStore;
+		setPersonalInfo({
+			key: ERewardChangeKey.rewardEnable,
+			value: !rewardEnable,
+		});
+	};
+
+	handleChangeRewardTitle = (e: ChangeEvent<HTMLInputElement>) => {
 		this.props.userStore.setPersonalInfo({
 			key: ERewardChangeKey.rewardTitle,
 			value: e.target.value,
@@ -48,22 +60,39 @@ class RewardComponent extends Component<IRewardComponentPropType> {
 	};
 
 	render() {
-		const { rewardTitle, zfbCode, wxCode } = this.props.userStore.userDetail;
+		const {
+			rewardTitle,
+			zfbCode,
+			wxCode,
+			rewardEnable,
+		} = this.props.userStore.userDetail;
 		return (
 			<BasicWrapComponent
 				title="打赏"
+				note={`打赏标题最长${MAX_LENGTH_SM}个字`}
 				handleEdit={this.handleEdit}
 				render={isEditing => (
 					<Row type="flex">
-						<Col>打赏标题：</Col>
+						<Col>
+							{rewardEnable ? '关闭' : '开启'}打赏功能：{' '}
+							<Switch
+								checked={rewardEnable}
+								onChange={this.handleChangeSwitch}
+							/>
+						</Col>
+						<Gap />
+						<Col>
+							<label htmlFor="rewardTitle">打赏标题：</label>
+						</Col>
 						<Gap />
 						<Col span={12}>
 							<Input
+								id="rewardTitle"
 								disabled={!isEditing}
 								value={rewardTitle}
 								allowClear={true}
-								maxLength={MAX_LENGTH_MD}
-								onChange={this.handelChangeRewardTitle}
+								maxLength={MAX_LENGTH_SM}
+								onChange={this.handleChangeRewardTitle}
 							/>
 						</Col>
 						<Gap />

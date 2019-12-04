@@ -91,14 +91,15 @@ class MottoComponent extends React.Component<
 		const { enError, zhError, introError } = this.state;
 		return (
 			<BasicWrapComponent
-				title="菜单栏"
+				title="座右铭"
 				handleEdit={this.handleEdit}
 				render={isEditing => (
 					<Row>
 						<Col>
-							<Text>短句：</Text>
+							<label htmlFor="en">短句：</label>
 							<Gap />
 							<Input
+								id="en"
 								placeholder="请输入短句"
 								allowClear={true}
 								onChange={this.handleChangeEn}
@@ -110,9 +111,10 @@ class MottoComponent extends React.Component<
 						<Col>{enError && <Text type="danger">短句不能为空</Text>}</Col>
 						<Col>
 							<Gap />
-							<Text>座右铭：</Text>
+							<label htmlFor="zh">座右铭：</label>
 							<Gap />
 							<Input
+								id="zh"
 								placeholder="请输入座右铭"
 								allowClear={true}
 								onChange={this.handleChangeZh}
@@ -124,15 +126,15 @@ class MottoComponent extends React.Component<
 						<Col>{zhError && <Text type="danger">座右铭不能为空</Text>}</Col>
 						<Col>
 							<Gap />
-							<Text>简介：</Text>
-							<Gap />
+							<label htmlFor="intro">简介：</label> <Gap />
 							<TextArea
+								id="intro"
 								placeholder="请输入简介"
 								onChange={this.handleChangeIntro}
 								value={intro}
 								disabled={!isEditing}
 								maxLength={MAX_LENGTH_LG}
-								autoSize={true}
+								rows={3}
 							/>
 						</Col>
 						<Col>{introError && <Text type="danger">简介不能为空</Text>}</Col>

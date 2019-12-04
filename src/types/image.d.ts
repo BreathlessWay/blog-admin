@@ -1,4 +1,4 @@
-export type FigureItemType = {
+export type ImageItemType = {
 	title: string;
 	intro?: string;
 	url: string;
@@ -8,4 +8,4 @@ export type FigureItemType = {
 	createAt?: number;
 };
 
-export type FigureListType = Array<FigureItemType>;
+export type ImageListType = Array<ImageItemType>;

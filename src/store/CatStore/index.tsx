@@ -1,13 +1,13 @@
 import { action, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
-import FigureStore from '@/store/FigureStore';
+import ImageStore from '@/store/ImageStore';
 
 import { CatItemType } from '@/types/cat';
 
 export default class CatStore extends ListStore<CatItemType> {
 	@observable
-	catFigure = new FigureStore();
+	catFigure = new ImageStore();
 
 	@action.bound
 	getList() {
@@ -30,6 +30,9 @@ export default class CatStore extends ListStore<CatItemType> {
 
 	@action.bound
 	setCatFigure() {
-		this.catFigure.setFigureList([]);
+		this.catFigure.setImageList([]);
 	}
+
+	@action.bound
+	changeImageInfo() {}
 }

@@ -10,6 +10,7 @@ import { StoreType } from '@/store/store';
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
 import moment from 'moment';
+import { MAX_LENGTH_MD } from '@/utils/constant';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -85,6 +86,7 @@ class ArticleFilterComponent extends Component<
 							id={EFormKey.keyword}
 							placeholder="关键字"
 							allowClear={true}
+							maxLength={MAX_LENGTH_MD}
 						/>,
 					)}
 				</Form.Item>

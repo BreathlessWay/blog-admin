@@ -11,6 +11,7 @@ export enum EPersonalChangeKey {
 }
 
 export enum ERewardChangeKey {
+	rewardEnable = 'rewardEnable',
 	rewardTitle = 'rewardTitle',
 	zfbCode = 'zfbCode',
 	wxCode = 'wxCode',

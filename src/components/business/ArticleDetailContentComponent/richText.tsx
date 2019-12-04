@@ -6,7 +6,11 @@ import BraftEditor, { EditorState } from 'braft-editor';
 
 import { StoreType } from '@/store/store';
 
-import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
+import {
+	EArticleDetailKey,
+	EArticleEditError,
+	EArticleRenderType,
+} from '@/store/ArticleDetailStore/article.enum';
 
 import { uploadFile } from '@/service/upload';
 
@@ -54,7 +58,14 @@ class ArticleDetailUEditComponent extends Component<
 	};
 
 	handleEditorChange = (editorState: EditorState) => {
-		this.props.articleDetailStore.changeDetail({
+		const { validError, changeDetail, detail } = this.props.articleDetailStore;
+		validError({
+			key: EArticleEditError.contentError,
+			value:
+				!editorState.toText() &&
+				detail?.renderType === EArticleRenderType.richText,
+		});
+		changeDetail({
 			key: EArticleDetailKey.draftDetail,
 			value: editorState,
 		});

@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { storage } from '@/utils/storage';
 
-import FigureStore from '@/store/FigureStore';
+import ImageStore from '@/store/ImageStore';
 
 import { UserDetailType } from '@/types/user';
 
@@ -19,10 +19,10 @@ export default class UserStore {
 	session = '';
 
 	@observable
-	personalFigure = new FigureStore();
+	personalFigure = new ImageStore();
 
 	@observable
-	hobbiesFigure = new FigureStore();
+	hobbiesFigure = new ImageStore();
 
 	@observable
 	userDetail: UserDetailType = {
@@ -38,6 +38,7 @@ export default class UserStore {
 		personalInfo: '',
 		personalIntro: '',
 		personalSkill: [],
+		rewardEnable: false,
 		rewardTitle: '',
 		zfbCode: '',
 		wxCode: '',
@@ -89,17 +90,17 @@ export default class UserStore {
 
 	@action.bound
 	setPersonalInfo({
-		value,
 		key,
+		value,
 	}: {
-		value: string;
 		key:
 			| EPersonalChangeKey
 			| EMottoChangeKey
 			| ERewardChangeKey
 			| EResumeChangeKey;
+		value: any;
 	}) {
-		this.userDetail[key] = value;
+		(this.userDetail[key] as any) = value;
 	}
 
 	// 我页面

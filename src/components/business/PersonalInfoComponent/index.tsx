@@ -9,7 +9,7 @@ import Gap from '@/components/common/Gap';
 import { StoreType } from '@/store/store';
 
 import { EPersonalChangeKey } from '@/store/UserStore/user.enum';
-import { MAX_LENGTH_LG, MAX_LENGTH_XL, MAX_LENGTH_MD } from '@/utils/constant';
+import { MAX_LENGTH_LG, MAX_LENGTH_MD, MAX_LENGTH_XXL } from '@/utils/constant';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -95,9 +95,10 @@ class PersonalInfoComponent extends Component<
 				render={isEditing => (
 					<Row>
 						<Col>
-							<Text>标题：</Text>
+							<label htmlFor="personalTitle">标题：</label>
 							<Gap />
 							<Input
+								id="personalTitle"
 								placeholder="请输入标题"
 								allowClear={true}
 								onChange={event =>
@@ -116,9 +117,10 @@ class PersonalInfoComponent extends Component<
 						</Col>
 						<Col>
 							<Gap />
-							<Text>个人简介：</Text>
+							<label htmlFor="personalInfo">个人简介：</label>
 							<Gap />
 							<Input
+								id="personalInfo"
 								placeholder="请输入个人简介"
 								allowClear={true}
 								onChange={event =>
@@ -137,9 +139,10 @@ class PersonalInfoComponent extends Component<
 						</Col>
 						<Col>
 							<Gap />
-							<Text>自我介绍：</Text>
+							<label htmlFor="personalIntro">自我介绍：</label>
 							<Gap />
 							<TextArea
+								id="personalIntro"
 								placeholder="请输入自我介绍"
 								onChange={event =>
 									this.handleChangeContent(
@@ -149,8 +152,8 @@ class PersonalInfoComponent extends Component<
 								}
 								value={personalIntro}
 								disabled={!isEditing}
-								maxLength={MAX_LENGTH_XL}
-								autoSize={true}
+								maxLength={MAX_LENGTH_XXL}
+								rows={4}
 							/>
 						</Col>
 						<Col>

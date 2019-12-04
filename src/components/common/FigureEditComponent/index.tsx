@@ -6,9 +6,9 @@ import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadC
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import preview from '@/components/common/PreviewImageComponent';
 
-import { FigureItemType } from '@/types/figure';
+import { ImageItemType } from '@/types/image';
 
-import { MAX_IMAGE_COUNT } from '@/utils/constant';
+import { MAX_IMAGE_COUNT, MAX_IMAGE_SIZE } from '@/utils/constant';
 
 const iconStyle = {
 	fontSize: '24px',
@@ -18,8 +18,8 @@ export type IFigureEditComponentPropType = {
 	title: string;
 	onRemoveFigure: (index: number) => void;
 	onSetShowFigure: (index: number) => void;
-	onAddFigure: (params: FigureItemType) => void;
-	imageList: Array<FigureItemType>;
+	onAddFigure: (params: ImageItemType) => void;
+	imageList: Array<ImageItemType>;
 };
 
 export default class FigureEditComponent extends Component<
@@ -29,7 +29,11 @@ export default class FigureEditComponent extends Component<
 		return this.props.imageList.map(item => item.url);
 	}
 
-	handleRemove = (index: number, item: FigureItemType) => () => {
+	get imageListLength() {
+		return this.props.imageList.length;
+	}
+
+	handleRemove = (index: number, item: ImageItemType) => () => {
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {
@@ -41,17 +45,24 @@ export default class FigureEditComponent extends Component<
 		preview.show({ urls: this.urls, index });
 	};
 
+	handleAddFigure = (item: Omit<ImageItemType, 'show'>) => {
+		this.props.onAddFigure({
+			...item,
+			...{ show: this.imageListLength === 0 },
+		});
+	};
+
 	render() {
-		const { title, imageList = [], onAddFigure, onSetShowFigure } = this.props;
+		const { title, imageList = [], onSetShowFigure } = this.props;
 		return (
 			<BasicWrapComponent
 				title={title}
 				needEdit={false}
-				note={`最多上传${MAX_IMAGE_COUNT}张`}>
+				note={`最多上传${MAX_IMAGE_COUNT}张，图片需小于${MAX_IMAGE_SIZE}k`}>
 				<ImageShowAndUploadComponent
 					disabled={imageList.length === MAX_IMAGE_COUNT}
 					imageList={imageList}
-					onUploadImage={onAddFigure}
+					onUploadImage={this.handleAddFigure}
 					render={({ item, index }) => (
 						<ImageCardComponent
 							url={item.url}

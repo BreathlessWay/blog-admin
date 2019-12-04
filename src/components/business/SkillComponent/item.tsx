@@ -55,12 +55,13 @@ class SkillComponentItem extends Component<
 
 		return (
 			<Row type="flex" align="middle">
-				<Col>技能名称：</Col>
+				<label htmlFor={`${index}`}>技能名称：</label>
 				<Col span={24}>
 					<Gap />
 				</Col>
 				<Col span={24}>
 					<Input
+						id={`${index}`}
 						allowClear={true}
 						value={name}
 						maxLength={MAX_LENGTH_MD}

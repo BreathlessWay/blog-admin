@@ -37,14 +37,24 @@ export const TAG_COLOR = [
 	'purple',
 ];
 
+export const MAX_LENGTH_XS = 4;
+
 export const MAX_LENGTH_SM = 10;
 
 export const MAX_LENGTH_MD = 20;
 
-export const MAX_LENGTH_LG = 200;
+export const MAX_LENGTH_LG = 100;
 
-export const MAX_LENGTH_XL = 400;
+export const MAX_LENGTH_XL = 200;
+
+export const MAX_LENGTH_XXL = 400;
 
 export const ARTICLE_CACHE_KEY = 'article_cache_key';
 
 export const ARTICLE_CACHE_TIME = 3000;
+
+export const MAX_IMAGE_SIZE = 500;
+
+export const MAX_RESUME_SIZE = 2048;
+
+export const MAX_SOCIAL_SIZE = 20;

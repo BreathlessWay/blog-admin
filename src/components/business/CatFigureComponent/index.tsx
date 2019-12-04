@@ -16,10 +16,10 @@ export type ICatFigureComponentPropType = Pick<
 
 const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
 	const {
-		figureList = [],
-		removeFigure,
-		addFigure,
-		setShowFigure,
+		ImageList = [],
+		removeImage,
+		addImage,
+		setShowImage,
 	} = props.catStore.catFigure;
 
 	const { catAlias } = props.homepageStore;
@@ -27,10 +27,10 @@ const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
 	return (
 		<FigureEditComponent
 			title={`${catAlias}卡通图`}
-			imageList={toJS(figureList)}
-			onRemoveFigure={removeFigure}
-			onSetShowFigure={setShowFigure}
-			onAddFigure={addFigure}
+			imageList={toJS(ImageList)}
+			onRemoveFigure={removeImage}
+			onSetShowFigure={setShowImage}
+			onAddFigure={addImage}
 		/>
 	);
 };

@@ -70,7 +70,12 @@ export default class ListStore<T> {
 	}
 
 	@computed
+	get listLength() {
+		return this.list.length;
+	}
+
+	@computed
 	get isEmpty() {
-		return !this.list.length;
+		return this.listLength === 0;
 	}
 }

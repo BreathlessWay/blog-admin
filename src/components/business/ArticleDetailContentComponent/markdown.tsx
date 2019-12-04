@@ -5,7 +5,11 @@ import { inject, observer } from 'mobx-react';
 import Editor from 'for-editor';
 
 import { StoreType } from '@/store/store';
-import { EArticleDetailKey } from '@/store/ArticleDetailStore/article.enum';
+import {
+	EArticleDetailKey,
+	EArticleEditError,
+	EArticleRenderType,
+} from '@/store/ArticleDetailStore/article.enum';
 import { uploadFile } from '@/service/upload';
 
 export type IArticleDetailMarkdownComponentPropType = Pick<
@@ -21,7 +25,12 @@ class ArticleDetailMarkdownComponent extends Component<
 	$vm = React.createRef<any>();
 
 	handleChange = (value: string) => {
-		this.props.articleDetailStore.changeDetail({
+		const { validError, changeDetail, detail } = this.props.articleDetailStore;
+		validError({
+			key: EArticleEditError.contentError,
+			value: !value && detail?.renderType === EArticleRenderType.markdown,
+		});
+		changeDetail({
 			key: EArticleDetailKey.markdown,
 			value,
 		});

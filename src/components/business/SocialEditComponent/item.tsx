@@ -5,8 +5,6 @@ import UploadFileComponent from '@/components/common/UploadFileComponent';
 import FileShowComponent from '@/components/common/FileShowComponent';
 import Gap from '@/components/common/Gap';
 
-import { MAX_LENGTH_MD } from '@/utils/constant';
-
 const { Text } = Typography;
 
 export type ISocialEditItemPropType = {
@@ -47,13 +45,18 @@ const SocialEditItem: FC<ISocialEditItemPropType> = props => {
 	return (
 		<>
 			<Col span={2}>
-				{title || <Icon type="delete" onClick={onDeleteItem} />}
+				{title ? (
+					<label htmlFor={title}>{title}：</label>
+				) : (
+					<Icon type="delete" onClick={onDeleteItem} />
+				)}
 			</Col>
 			<Col span={6}>
 				<Input
+					id={title}
+					placeholder={type === 'file' ? '下载简历别名' : '社交链接'}
 					allowClear={true}
 					value={value}
-					maxLength={MAX_LENGTH_MD}
 					disabled={!isEditing}
 					onChange={onChangeInput}
 				/>

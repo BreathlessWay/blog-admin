@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { Icon, Upload } from 'antd';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
-import { FigureListType, FigureItemType } from '@/types/figure';
+import { ImageListType, ImageItemType } from '@/types/image';
 
 import { uploadFile } from '@/service/upload';
 
@@ -12,9 +12,9 @@ import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
 import './style.scss';
 
 export type IImageShowAndUploadComponentPropType = {
-	imageList: FigureListType;
-	onUploadImage: (params: FigureItemType) => void;
-	render: (params: { item: FigureItemType; index: number }) => ReactNode;
+	imageList: ImageListType;
+	onUploadImage: (params: Omit<ImageItemType, 'show'>) => void;
+	render: (params: { item: ImageItemType; index: number }) => ReactNode;
 
 	disabled?: boolean;
 	multiple?: boolean;
@@ -32,24 +32,20 @@ export default class ImageShowAndUploadComponent extends React.Component<
 		stateDisabled: false,
 	};
 
-	get imageListLength() {
-		return this.props.imageList.length;
-	}
-
 	handleCustomUpload = (options: RcCustomRequestOptions) => {
+		const { multiple, onUploadImage } = this.props;
 		this.setState({
 			stateDisabled: true,
 		});
-		if (this.props.multiple) {
+		if (multiple) {
 			console.log(options);
 			return;
 		}
 		uploadFile(options.file).then(({ url, title, objectId }) => {
-			this.props.onUploadImage({
+			onUploadImage({
 				url,
 				title,
 				objectId,
-				show: this.imageListLength === 0,
 			});
 			this.setState({
 				stateDisabled: false,

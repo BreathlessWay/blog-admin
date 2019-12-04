@@ -19,7 +19,7 @@
 	height: $image-size;
 	background-color: $color-gray-0;
 	@include flex($justify-content: center);
-	font-size: 24px;
+	font-size: $font-size-xl;
 	color: $color-gray-1;
 }
 
@@ -31,6 +31,6 @@
 		border-left: none;
 	}
 	.reward-code_icon {
-		font-size: 24px;
+		font-size: $font-size-xl;
 	}
 }

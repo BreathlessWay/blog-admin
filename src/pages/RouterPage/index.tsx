@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Layout, Row, Spin, BackTop } from 'antd';
+import { Layout, Row, Spin, BackTop, Icon } from 'antd';
 
 import { StoreType } from '@/store/store';
 
@@ -154,7 +154,9 @@ class RouterPage extends React.Component<IRouterPagePropType> {
 								/>
 							</Switch>
 							<BackTop>
-								<aside className="back-top">TOP</aside>
+								<aside className="back-top">
+									<Icon type="up" />
+								</aside>
 							</BackTop>
 						</Spin>
 					</Content>

@@ -96,6 +96,7 @@ class ArticleEditPage extends Component<IArticleEditPagePropType> {
 	componentWillUnmount(): void {
 		window.clearInterval(this.time);
 		this.time = null;
+		this.props.articleDetailStore.resetError();
 	}
 
 	get judgeCache() {

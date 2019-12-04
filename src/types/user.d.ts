@@ -1,4 +1,4 @@
-import { FigureListType } from '@/types/figure';
+import { ImageListType } from '@/types/image';
 
 export type SocialItemType = {
 	icon: string;
@@ -31,6 +31,7 @@ export type UserDetailType = {
 	personalInfo: string;
 	personalIntro: string;
 	personalSkill: PersonalSkillListType;
+	rewardEnable: boolean;
 	rewardTitle: string;
 	zfbCode: string;
 	wxCode: string;

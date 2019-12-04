@@ -1,2 +1,15 @@
 @import '../../../static/css/variables';
 @import '../../../static/css/mixins';
+
+.ant-typography.article-detail_label {
+	display: inline-block;
+}
+
+.article-detail_warning {
+	margin-left: $spacing-h-sm;
+	font-size: $font-size-sm;
+}
+
+.article-detail_intro {
+	font-size: $font-size-md;
+}

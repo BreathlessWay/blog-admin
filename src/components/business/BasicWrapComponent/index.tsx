@@ -63,7 +63,7 @@ const BasicWrapComponent: FC<IBasicWrapComponentPropType &
 						<Title level={4} className="common-wrap_title">
 							{title}
 						</Title>
-						<Text className="common-wrap_note" type="danger">
+						<Text className="common-wrap_note" type="warning">
 							{note}
 						</Text>
 					</Col>

@@ -8,7 +8,12 @@ import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
 import { EResumeChangeKey } from '@/store/UserStore/user.enum';
-import { UPLOAD_IMAGE_TYPE, UPLOAD_RESUME_TYPE } from '@/utils/constant';
+import {
+	MAX_RESUME_SIZE,
+	MAX_SOCIAL_SIZE,
+	UPLOAD_IMAGE_TYPE,
+	UPLOAD_RESUME_TYPE,
+} from '@/utils/constant';
 
 import './style.scss';
 
@@ -124,6 +129,7 @@ class SocialEditComponent extends React.Component<
 		return (
 			<BasicWrapComponent
 				title="社交"
+				note={`简历附件需小于${MAX_RESUME_SIZE}k，社交信息图标需小于${MAX_SOCIAL_SIZE}k`}
 				handleEdit={this.handleEdit}
 				render={isEditing => (
 					<Row type="flex" align="middle">

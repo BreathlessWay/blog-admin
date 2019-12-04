@@ -32,7 +32,7 @@
 
 .home-page_logo {
 	color: $theme-color;
-	font-size: 26px;
+	font-size: $font-size-xl;
 	font-weight: bolder;
 	font-style: italic;
 	@include text-align();
@@ -40,10 +40,11 @@
 }
 
 .back-top {
+	font-size: $font-size-lg;
 	height: 40px;
 	border-radius: 5px;
 	@include text-align();
 	line-height: 40px;
-	background: $theme-color;
-	color: $default-color;
+	border: $border-width $border-style $theme-color;
+	color: $theme-color;
 }

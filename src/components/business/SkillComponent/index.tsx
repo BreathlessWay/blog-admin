@@ -10,6 +10,8 @@ import SkillComponentItem from './item';
 import { StoreType } from '@/store/store';
 import { PersonalSkillItemType } from '@/types/user';
 
+import { MAX_LENGTH_MD } from '@/utils/constant';
+
 import './style.scss';
 
 export type ISkillComponentPropType = Pick<StoreType, 'userStore'>;
@@ -54,6 +56,7 @@ class SkillComponent extends Component<ISkillComponentPropType> {
 		return (
 			<BasicWrapComponent
 				title="个人技能"
+				note={`个人技能名称最长${MAX_LENGTH_MD}个字`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasSkills || isEditing ? (

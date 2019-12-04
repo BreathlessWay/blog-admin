@@ -4,9 +4,21 @@ import BraftEditor from 'braft-editor';
 
 import { ArticleDetailType } from '@/types/article';
 
-import { EArticleDetailKey, EArticleRenderType } from './article.enum';
+import {
+	EArticleDetailKey,
+	EArticleEditError,
+	EArticleRenderType,
+} from './article.enum';
 
 export default class ArticleDetailStore {
+	@observable
+	error = {
+		titleError: false,
+		introError: false,
+		tagError: false,
+		contentError: false,
+	};
+
 	@observable
 	detail: ArticleDetailType | null = null;
 
@@ -45,5 +57,20 @@ export default class ArticleDetailStore {
 		if (this.detail) {
 			(this.detail[key] as any) = value;
 		}
+	}
+
+	@action.bound
+	validError({ key, value }: { key: EArticleEditError; value: boolean }) {
+		this.error[key] = value;
+	}
+
+	@action.bound
+	resetError() {
+		this.error = {
+			titleError: false,
+			introError: false,
+			tagError: false,
+			contentError: false,
+		};
 	}
 }

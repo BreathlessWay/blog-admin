@@ -9,7 +9,7 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import { StoreType } from '@/store/store';
 import { MenuItemType } from '@/types/hompage';
 
-import { MAX_LENGTH_SM } from '@/utils/constant';
+import { MAX_LENGTH_XS } from '@/utils/constant';
 
 import './style.scss';
 
@@ -87,6 +87,7 @@ class MenuEditComponent extends React.Component<
 		return (
 			<BasicWrapComponent
 				title="菜单栏"
+				note={`菜单名最长${MAX_LENGTH_XS}个字`}
 				handleEdit={this.handleEdit}
 				render={isEditing => (
 					<DraggableComponent
@@ -100,7 +101,7 @@ class MenuEditComponent extends React.Component<
 									<Col span={10}>
 										<Input
 											value={item.name}
-											maxLength={MAX_LENGTH_SM}
+											maxLength={MAX_LENGTH_XS}
 											onChange={e => this.handleChangeInput(e, item)}
 											prefix={<Icon type={item.type} />}
 											allowClear={true}

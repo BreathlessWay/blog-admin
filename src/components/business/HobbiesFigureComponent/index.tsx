@@ -13,18 +13,18 @@ export type IHobbiesFigureComponentPropType = Pick<StoreType, 'userStore'>;
 
 const HobbiesFigureComponent: FC<IHobbiesFigureComponentPropType> = props => {
 	const {
-		removeFigure,
-		setShowFigure,
-		addFigure,
-		figureList,
+		removeImage,
+		setShowImage,
+		addImage,
+		ImageList,
 	} = props.userStore.hobbiesFigure;
 	return (
 		<FigureEditComponent
 			title="爱好卡通图"
-			imageList={toJS(figureList)}
-			onRemoveFigure={removeFigure}
-			onSetShowFigure={setShowFigure}
-			onAddFigure={addFigure}
+			imageList={toJS(ImageList)}
+			onRemoveFigure={removeImage}
+			onSetShowFigure={setShowImage}
+			onAddFigure={addImage}
 		/>
 	);
 };
