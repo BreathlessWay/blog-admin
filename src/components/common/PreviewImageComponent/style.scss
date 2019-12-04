@@ -49,11 +49,6 @@ $icon-size: 60px;
 			@extend .preview-image_icon;
 			right: $spacing-h-lg;
 		}
-
-		img {
-			max-width: 100%;
-			user-select: none;
-		}
 	}
 }
 

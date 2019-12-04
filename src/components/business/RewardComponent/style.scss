@@ -10,22 +10,10 @@
 	@include text-align();
 }
 
-.reward-code_image {
-	width: $image-size;
-}
-
-.reward-code_empty {
-	width: $image-size;
-	height: $image-size;
-	background-color: $color-gray-0;
-	@include flex($justify-content: center);
-	font-size: $font-size-xl;
-	color: $color-gray-1;
-}
-
 .reward-code_action {
 	@include text-align();
 	border: $border-normal;
+	border-top: none;
 	padding: $spacing-v-lg 0;
 	& + & {
 		border-left: none;

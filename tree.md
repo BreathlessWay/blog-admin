@@ -112,6 +112,9 @@
 │   │       ├── ImageCardComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
+│   │       ├── ImageLazyLoadComponent/
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
 │   │       ├── ImageShowAndUploadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -206,5 +209,5 @@
 ├── tree.md
 └── tsconfig.json
 
-68 directories, 137 files
+69 directories, 139 files
 ```

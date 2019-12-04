@@ -1,0 +1,27 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+img {
+	animation: fadeIn 400ms ease 0ms 1 normal;
+	max-width: 100%;
+	user-select: none;
+}
+
+.image-load_error {
+	background: $default-color;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.image-load_empty {
+	padding: $spacing-v-lg $spacing-h-lg;
+	margin: 0;
+	border: $border-normal;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Icon, Row, Col, Upload } from 'antd';
 import Gap from '@/components/common/Gap';
+import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
@@ -44,14 +45,7 @@ export default class RewardComponentItem extends React.Component<
 
 	renderContent = () => {
 		const { url, title } = this.props;
-		if (url) {
-			return <img src={url} alt={title} className="reward-code_image" />;
-		}
-		return (
-			<div className="reward-code_empty">
-				<span>暂无图片</span>
-			</div>
-		);
+		return <ImageLazyLoadComponent url={url} width={180} title={title} />;
 	};
 
 	renderAction = () => {
@@ -81,6 +75,7 @@ export default class RewardComponentItem extends React.Component<
 
 		return (
 			<Upload
+				showUploadList={false}
 				disabled={disabled}
 				customRequest={this.handleCustomUpload}
 				accept={UPLOAD_IMAGE_TYPE}>
