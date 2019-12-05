@@ -7,29 +7,30 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 import Gap from '@/components/common/Gap';
+import preview from '@/components/common/PreviewImageComponent';
 
 import { StoreType } from '@/store/store';
 import { ImageItemType } from '@/types/image';
 
 import {
+	ACTION_ICON_SIZE,
 	MAX_IMAGE_COUNT,
 	MAX_LENGTH_LG,
 	MAX_LENGTH_SM,
 } from '@/utils/constant';
-import preview from '@/components/common/PreviewImageComponent';
 
 const { TextArea } = Input;
 
 const iconStyle = {
-	fontSize: '24px',
+	fontSize: ACTION_ICON_SIZE,
 };
 
-export type ICatPictureListComponentPropType = Pick<
+export type CatPictureListComponentPropType = Pick<
 	StoreType,
 	'catStore' | 'homepageStore'
 >;
 
-export type ICatPictureListComponentStateType = Readonly<{
+export type CatPictureListComponentStateType = Readonly<{
 	visible: boolean;
 	confirmLoading: boolean;
 
@@ -44,10 +45,10 @@ export type ICatPictureListComponentStateType = Readonly<{
 }))
 @observer
 class CatPictureListComponent extends Component<
-	ICatPictureListComponentPropType,
-	ICatPictureListComponentStateType
+	CatPictureListComponentPropType,
+	CatPictureListComponentStateType
 > {
-	readonly state: ICatPictureListComponentStateType = {
+	readonly state: CatPictureListComponentStateType = {
 		visible: false,
 		confirmLoading: false,
 		editTitle: '',

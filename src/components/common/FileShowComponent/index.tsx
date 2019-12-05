@@ -6,13 +6,13 @@ import preview from '@/components/common/PreviewImageComponent';
 
 import './style.scss';
 
-export type IFileShowComponentPropType = {
+export type FileShowComponentPropType = {
 	type: 'file' | 'image';
 	value: string;
 	onDelete: () => void;
 };
 
-const FileShowComponent: FC<IFileShowComponentPropType> = props => {
+const FileShowComponent: FC<FileShowComponentPropType> = props => {
 	const { type, value, onDelete } = props;
 	let node = null;
 

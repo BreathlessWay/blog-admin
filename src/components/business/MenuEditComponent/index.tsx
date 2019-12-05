@@ -15,12 +15,12 @@ import './style.scss';
 
 const { Text } = Typography;
 
-export type IMenuEditComponentPropType = Pick<
+export type MenuEditComponentPropType = Pick<
 	StoreType,
 	'userStore' | 'homepageStore'
 >;
 
-export type IMenuEditComponentStateType = Readonly<{}>;
+export type MenuEditComponentStateType = Readonly<{}>;
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
@@ -28,8 +28,8 @@ export type IMenuEditComponentStateType = Readonly<{}>;
 }))
 @observer
 class MenuEditComponent extends React.Component<
-	IMenuEditComponentPropType,
-	IMenuEditComponentStateType
+	MenuEditComponentPropType,
+	MenuEditComponentStateType
 > {
 	get menuList() {
 		return this.props.homepageStore.menuList.map(item => ({

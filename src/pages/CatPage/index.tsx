@@ -18,9 +18,9 @@ const CatPictureListComponent = lazy(() =>
 	),
 );
 
-export type ICatPagePropType = Pick<StoreType, 'catStore'>;
+export type CatPagePropType = Pick<StoreType, 'catStore'>;
 
-const CatPage: FC<ICatPagePropType> = props => {
+const CatPage: FC<CatPagePropType> = props => {
 	const {
 		catStore: { getList },
 	} = props;

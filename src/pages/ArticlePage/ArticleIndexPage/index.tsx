@@ -19,9 +19,9 @@ const ArticleListComponent = lazy(() =>
 	),
 );
 
-export type IArticlePagePropType = Pick<StoreType, 'articleListStore'>;
+export type ArticlePagePropType = Pick<StoreType, 'articleListStore'>;
 
-const ArticlePage: FC<IArticlePagePropType> = props => {
+const ArticlePage: FC<ArticlePagePropType> = props => {
 	const {
 		articleListStore: { getList },
 	} = props;

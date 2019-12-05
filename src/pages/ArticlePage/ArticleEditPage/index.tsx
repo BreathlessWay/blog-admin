@@ -42,7 +42,7 @@ const ArticleDetailButtonComponent = lazy(() =>
 
 const { confirm, warning } = Modal;
 
-export type IArticleEditPagePropType = Pick<
+export type ArticleEditPagePropType = Pick<
 	StoreType,
 	'articleDetailStore' | 'tagStore'
 > &
@@ -53,7 +53,7 @@ export type IArticleEditPagePropType = Pick<
 	tagStore: allStore.tagStore,
 }))
 @observer
-class ArticleEditPage extends Component<IArticleEditPagePropType> {
+class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	time: any = null;
 
 	async componentDidMount() {

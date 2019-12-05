@@ -1,0 +1,8 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.background-lazy {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}

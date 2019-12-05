@@ -1,13 +1,6 @@
 @import '../../../static/css/variables';
 @import '../../../static/css/mixins';
 
-.image-card_picture {
-	width: 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
 .image-card_action {
 	@include text-align;
 	padding: $spacing-v-md 0;

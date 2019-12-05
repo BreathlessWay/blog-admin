@@ -11,20 +11,20 @@ import { uploadFile } from '@/service/upload';
 
 import './style.scss';
 
-export type IRewardComponentItemPropType = {
+export type RewardComponentItemPropType = {
 	url: string;
 	title: string;
 	onDeleteCode: () => void;
 	onUploadCode: (url: string) => void;
 };
 
-export type IRewardComponentItemStateType = Readonly<{
+export type RewardComponentItemStateType = Readonly<{
 	disabled: boolean;
 }>;
 
 export default class RewardComponentItem extends React.Component<
-	IRewardComponentItemPropType,
-	IRewardComponentItemStateType
+	RewardComponentItemPropType,
+	RewardComponentItemStateType
 > {
 	readonly state = {
 		disabled: false,

@@ -12,7 +12,7 @@ import {
 } from '@/store/ArticleDetailStore/article.enum';
 import { uploadFile } from '@/service/upload';
 
-export type IArticleDetailMarkdownComponentPropType = Pick<
+export type ArticleDetailMarkdownComponentPropType = Pick<
 	StoreType,
 	'articleDetailStore'
 >;
@@ -20,7 +20,7 @@ export type IArticleDetailMarkdownComponentPropType = Pick<
 @inject('articleDetailStore')
 @observer
 class ArticleDetailMarkdownComponent extends Component<
-	IArticleDetailMarkdownComponentPropType
+	ArticleDetailMarkdownComponentPropType
 > {
 	$vm = React.createRef<any>();
 

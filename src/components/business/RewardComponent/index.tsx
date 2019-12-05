@@ -7,20 +7,18 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
 
-import UserStore from '@/store/UserStore';
+import { StoreType } from '@/store/store';
 
 import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
 import './style.scss';
 
-export type IRewardComponentPropType = {
-	userStore: UserStore;
-};
+export type RewardComponentPropType = Pick<StoreType, 'userStore'>;
 
 @inject('userStore')
 @observer
-class RewardComponent extends Component<IRewardComponentPropType> {
+class RewardComponent extends Component<RewardComponentPropType> {
 	handleEdit = () => {
 		return new Promise((resolve, reject) => {
 			resolve();

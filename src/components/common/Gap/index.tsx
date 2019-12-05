@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
-export type ICommonGapPropType = {
+export type CommonGapPropType = {
 	size?: 'sm' | 'md' | 'lg' | 'xl';
 };
 
-const Gap: FC<ICommonGapPropType> = props => {
+const Gap: FC<CommonGapPropType> = props => {
 	let height = 0;
 
 	switch (props.size) {

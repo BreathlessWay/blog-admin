@@ -87,6 +87,9 @@
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
 │   │   └── common/
+│   │       ├── BackgroundLazyLoadComponent/
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
 │   │       ├── ColorPickerComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -164,6 +167,8 @@
 │   │   │   └── variables.scss
 │   │   ├── fonts/
 │   │   └── images/
+│   │       ├── background-loading.svg
+│   │       ├── image-loading.svg
 │   │       └── logo.svg
 │   ├── store/
 │   │   ├── ArticleDetailStore/
@@ -209,5 +214,5 @@
 ├── tree.md
 └── tsconfig.json
 
-69 directories, 139 files
+70 directories, 143 files
 ```

@@ -15,7 +15,7 @@ import { MAX_LENGTH_MD } from '@/utils/constant';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-export type IArticleFilterComponentPropType = Pick<
+export type ArticleFilterComponentPropType = Pick<
 	StoreType,
 	'tagStore' | 'articleListStore'
 > &
@@ -40,9 +40,7 @@ export type FormValueType = {
 	articleListStore: allStore.articleListStore,
 }))
 @observer
-class ArticleFilterComponent extends Component<
-	IArticleFilterComponentPropType
-> {
+class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 	handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values: FormValueType) => {

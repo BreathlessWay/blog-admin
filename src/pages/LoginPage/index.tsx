@@ -16,14 +16,11 @@ import './style.scss';
 
 const { confirm } = Modal;
 
-export type ILoginPagePropType = Pick<
-	StoreType,
-	'userStore' | 'homepageStore'
-> &
+export type LoginPagePropType = Pick<StoreType, 'userStore' | 'homepageStore'> &
 	RouteComponentProps &
 	FormComponentProps;
 
-export type ILoginPageStateType = Readonly<{
+export type LoginPageStateType = Readonly<{
 	second: number;
 	loading: boolean;
 	disabled: boolean;
@@ -34,13 +31,10 @@ export type ILoginPageStateType = Readonly<{
 	homepageStore: allStore.homepageStore,
 }))
 @observer
-class LoginPage extends React.Component<
-	ILoginPagePropType,
-	ILoginPageStateType
-> {
+class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 	time: any = null;
 
-	readonly state: ILoginPageStateType = {
+	readonly state: LoginPageStateType = {
 		second: TIME_COUNT_DOWN,
 		loading: false,
 		disabled: false,

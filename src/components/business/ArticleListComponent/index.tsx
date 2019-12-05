@@ -16,9 +16,9 @@ import { routeMapPath } from '@/route';
 
 import './style.scss';
 
-export type IArticleListComponentPropType = Pick<StoreType, 'articleListStore'>;
+export type ArticleListComponentPropType = Pick<StoreType, 'articleListStore'>;
 
-export type IArticleListComponentStateType = Readonly<{
+export type ArticleListComponentStateType = Readonly<{
 	selectedRowKeys: Array<string>;
 }>;
 
@@ -27,8 +27,8 @@ export type IArticleListComponentStateType = Readonly<{
 }))
 @observer
 class ArticleListComponent extends Component<
-	IArticleListComponentPropType,
-	IArticleListComponentStateType
+	ArticleListComponentPropType,
+	ArticleListComponentStateType
 > {
 	readonly state = {
 		selectedRowKeys: [],

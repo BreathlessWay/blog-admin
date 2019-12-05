@@ -14,11 +14,11 @@ import { MAX_LENGTH_MD } from '@/utils/constant';
 
 import './style.scss';
 
-export type ISkillComponentPropType = Pick<StoreType, 'userStore'>;
+export type SkillComponentPropType = Pick<StoreType, 'userStore'>;
 
 @inject('userStore')
 @observer
-class SkillComponent extends Component<ISkillComponentPropType> {
+class SkillComponent extends Component<SkillComponentPropType> {
 	get skills() {
 		return this.props.userStore.userDetail.personalSkill.map((item, index) => {
 			return { ...item, ...{ id: item.objectId || `${index}` } };

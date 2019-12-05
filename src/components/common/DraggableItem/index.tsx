@@ -5,7 +5,7 @@ import { XYCoord } from 'dnd-core';
 
 import './style.scss';
 
-export type IDraggableItemPropType = {
+export type DraggableItemPropType = {
 	index: number;
 	moveCard: (dragIndex: number, hoverIndex: number) => void;
 };
@@ -15,7 +15,7 @@ interface DraggableItem {
 	type: string;
 }
 
-const DraggableItem: FC<IDraggableItemPropType> = ({
+const DraggableItem: FC<DraggableItemPropType> = ({
 	index,
 	moveCard,
 	children,

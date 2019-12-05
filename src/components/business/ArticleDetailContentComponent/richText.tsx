@@ -19,7 +19,7 @@ import './style.scss';
 
 import './braft-extend';
 
-export type IArticleDetailUEditComponentPropType = Pick<
+export type ArticleDetailUEditComponentPropType = Pick<
 	StoreType,
 	'articleDetailStore'
 >;
@@ -51,7 +51,7 @@ export type UploadFileType = {
 @inject('articleDetailStore')
 @observer
 class ArticleDetailUEditComponent extends Component<
-	IArticleDetailUEditComponentPropType
+	ArticleDetailUEditComponentPropType
 > {
 	submitContent = () => {
 		// 在编辑器获得焦点时按下ctrl+s会执行此方法

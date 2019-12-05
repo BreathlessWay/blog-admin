@@ -1,10 +1,11 @@
 import React, { FC, ReactNode } from 'react';
 
 import { Col, Row } from 'antd';
+import BackgroundLazyLoadComponent from '@/components/common/BackgroundLazyLoadComponent';
 
 import './style.scss';
 
-export type IImageCardComponentPropType = {
+export type ImageCardComponentPropType = {
 	url: string;
 	title?: string;
 	intro?: string;
@@ -13,7 +14,7 @@ export type IImageCardComponentPropType = {
 	height?: number;
 };
 
-const ImageCardComponent: FC<IImageCardComponentPropType> = props => {
+const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 	const { url, actions, title, intro, width = 180, height = 180 } = props;
 	let span = 24;
 	if (actions && actions.length) {
@@ -21,10 +22,7 @@ const ImageCardComponent: FC<IImageCardComponentPropType> = props => {
 	}
 	return (
 		<article style={{ width }}>
-			<section
-				className="image-card_picture"
-				style={{ backgroundImage: `url("${url}")`, height }}
-			/>
+			<BackgroundLazyLoadComponent url={url} width="100%" height={height} />
 			<section className="image-card_info">
 				{title && <h5 className="image-card_title">{title}</h5>}
 				{intro && <p className="image-card_intro">{intro}</p>}

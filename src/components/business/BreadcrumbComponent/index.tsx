@@ -15,10 +15,10 @@ import './style.scss';
 
 const { Item } = Breadcrumb;
 
-export type IBreadcrumbComponentPropType = RouteComponentProps &
+export type BreadcrumbComponentPropType = RouteComponentProps &
 	Pick<StoreType, 'homepageStore' | 'userStore'>;
 
-const BreadcrumbComponent = (props: IBreadcrumbComponentPropType) => {
+const BreadcrumbComponent = (props: BreadcrumbComponentPropType) => {
 	const {
 		location,
 		homepageStore: { breadcrumbNameMap, setKeys, firstMenu, menuList },

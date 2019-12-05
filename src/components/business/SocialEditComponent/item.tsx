@@ -7,7 +7,7 @@ import Gap from '@/components/common/Gap';
 
 const { Text } = Typography;
 
-export type ISocialEditItemPropType = {
+export type SocialEditItemPropType = {
 	type: 'file' | 'image';
 	isEditing: boolean;
 	value: string;
@@ -26,7 +26,7 @@ export type ISocialEditItemPropType = {
 	onDeleteItem?: () => void;
 };
 
-const SocialEditItem: FC<ISocialEditItemPropType> = props => {
+const SocialEditItem: FC<SocialEditItemPropType> = props => {
 	const {
 		isEditing,
 		title,

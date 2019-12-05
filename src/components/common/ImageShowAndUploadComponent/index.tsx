@@ -11,7 +11,7 @@ import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
 
 import './style.scss';
 
-export type IImageShowAndUploadComponentPropType = {
+export type ImageShowAndUploadComponentPropType = {
 	imageList: ImageListType;
 	onUploadImage: (params: Omit<ImageItemType, 'show'>) => void;
 	render: (params: { item: ImageItemType; index: number }) => ReactNode;
@@ -20,13 +20,13 @@ export type IImageShowAndUploadComponentPropType = {
 	multiple?: boolean;
 };
 
-export type IImageShowAndUploadComponentStateType = Readonly<{
+export type ImageShowAndUploadComponentStateType = Readonly<{
 	stateDisabled: boolean;
 }>;
 
 export default class ImageShowAndUploadComponent extends React.Component<
-	IImageShowAndUploadComponentPropType,
-	IImageShowAndUploadComponentStateType
+	ImageShowAndUploadComponentPropType,
+	ImageShowAndUploadComponentStateType
 > {
 	readonly state = {
 		stateDisabled: false,

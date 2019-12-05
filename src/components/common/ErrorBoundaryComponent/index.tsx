@@ -2,22 +2,22 @@ import React, { Component, ErrorInfo, GetDerivedStateFromError } from 'react';
 
 import { Alert } from 'antd';
 
-export type IErrorBoundaryComponentPropType = {};
+export type ErrorBoundaryComponentPropType = {};
 
-export type IErrorBoundaryComponentStateType = {
+export type ErrorBoundaryComponentStateType = {
 	hasError: boolean;
 };
 
 export default class ErrorBoundaryComponent extends Component<
-	IErrorBoundaryComponentPropType,
-	IErrorBoundaryComponentStateType
+	ErrorBoundaryComponentPropType,
+	ErrorBoundaryComponentStateType
 > {
 	state = { hasError: false };
 
 	static getDerivedStateFromError(
 		error: GetDerivedStateFromError<
-			IErrorBoundaryComponentPropType,
-			IErrorBoundaryComponentStateType
+			ErrorBoundaryComponentPropType,
+			ErrorBoundaryComponentStateType
 		>,
 	) {
 		// 更新 state 使下一次渲染能够显示降级后的 UI

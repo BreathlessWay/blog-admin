@@ -6,7 +6,7 @@ import { uploadFile } from '@/service/upload';
 
 import './style.scss';
 
-export type IUploadFileComponentPropType = {
+export type UploadFileComponentPropType = {
 	label: string;
 
 	accept?: string;
@@ -15,14 +15,14 @@ export type IUploadFileComponentPropType = {
 	onUploadFile: (params: { fileUrl: string; fileName: string }) => void;
 };
 
-export type IUploadFileComponentStateType = Readonly<{
+export type UploadFileComponentStateType = Readonly<{
 	compLoading: boolean;
 	compDisabled: boolean;
 }>;
 
 export default class UploadFileComponent extends React.Component<
-	IUploadFileComponentPropType,
-	IUploadFileComponentStateType
+	UploadFileComponentPropType,
+	UploadFileComponentStateType
 > {
 	readonly state = {
 		compLoading: false,

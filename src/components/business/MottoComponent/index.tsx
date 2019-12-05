@@ -17,12 +17,12 @@ const { TextArea } = Input;
 
 const { Text } = Typography;
 
-export type IMottoComponentPropType = Pick<
+export type MottoComponentPropType = Pick<
 	StoreType,
 	'userStore' | 'globalStore'
 >;
 
-export type IMottoComponentStateType = Readonly<{
+export type MottoComponentStateType = Readonly<{
 	enError: boolean;
 	zhError: boolean;
 	introError: boolean;
@@ -34,8 +34,8 @@ export type IMottoComponentStateType = Readonly<{
 }))
 @observer
 class MottoComponent extends React.Component<
-	IMottoComponentPropType,
-	IMottoComponentStateType
+	MottoComponentPropType,
+	MottoComponentStateType
 > {
 	readonly state = {
 		enError: false,

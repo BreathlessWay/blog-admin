@@ -1,10 +1,12 @@
 import React, { Component, MouseEvent } from 'react';
 
-import { Row, Spin, Result, Empty } from 'antd';
+import { Row, Result, Empty } from 'antd';
+
+import Loading from '@/static/images/image-loading.svg';
 
 import './style.scss';
 
-export type IImageLazyLoadComponentPropType = {
+export type ImageLazyLoadComponentPropType = {
 	url: string;
 
 	title?: string;
@@ -14,16 +16,16 @@ export type IImageLazyLoadComponentPropType = {
 	onClick?: (params: { url: string; event: MouseEvent }) => void;
 };
 
-export type IImageLazyLoadComponentStateType = Readonly<{
+export type ImageLazyLoadComponentStateType = Readonly<{
 	error: boolean;
 	loading: boolean;
 }>;
 
 export default class ImageLazyLoadComponent extends Component<
-	IImageLazyLoadComponentPropType,
-	IImageLazyLoadComponentStateType
+	ImageLazyLoadComponentPropType,
+	ImageLazyLoadComponentStateType
 > {
-	readonly state: IImageLazyLoadComponentStateType = {
+	readonly state: ImageLazyLoadComponentStateType = {
 		error: false,
 		loading: true,
 	};
@@ -68,7 +70,7 @@ export default class ImageLazyLoadComponent extends Component<
 						title="图片加载失败"
 					/>
 				)}
-				{loading && url && <Spin size="large" />}
+				{loading && url && <img src={Loading} alt="loading" />}
 				{url ? (
 					<img
 						style={_style}

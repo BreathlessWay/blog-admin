@@ -9,9 +9,9 @@ import { StoreType } from '@/store/store';
 import { toJS } from 'mobx';
 import compose from '@/utils/compose';
 
-export type IHobbiesFigureComponentPropType = Pick<StoreType, 'userStore'>;
+export type HobbiesFigureComponentPropType = Pick<StoreType, 'userStore'>;
 
-const HobbiesFigureComponent: FC<IHobbiesFigureComponentPropType> = props => {
+const HobbiesFigureComponent: FC<HobbiesFigureComponentPropType> = props => {
 	const {
 		removeImage,
 		setShowImage,

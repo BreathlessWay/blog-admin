@@ -13,15 +13,16 @@ import { getPath } from '@/utils/path';
 
 const { Item, SubMenu } = Menu;
 
-export type IMenuComponentPropType = RouteComponentProps &
+export type MenuComponentPropType = RouteComponentProps &
 	Pick<StoreType, 'homepageStore'>;
-export type IMenuComponentStateType = Readonly<{}>;
+
+export type MenuComponentStateType = Readonly<{}>;
 
 @inject('homepageStore')
 @observer
 class MenuComponent extends React.Component<
-	IMenuComponentPropType,
-	IMenuComponentStateType
+	MenuComponentPropType,
+	MenuComponentStateType
 > {
 	componentDidMount(): void {
 		const { setKeys } = this.props.homepageStore;

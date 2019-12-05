@@ -14,9 +14,9 @@ import { MAX_LENGTH_LG, MAX_LENGTH_MD, MAX_LENGTH_XXL } from '@/utils/constant';
 const { Text } = Typography;
 const { TextArea } = Input;
 
-export type IPersonalInfoComponentPropType = Pick<StoreType, 'userStore'>;
+export type PersonalInfoComponentPropType = Pick<StoreType, 'userStore'>;
 
-export type IPersonalInfoComponentStateType = Readonly<{
+export type PersonalInfoComponentStateType = Readonly<{
 	titleError: boolean;
 	infoError: boolean;
 	introError: boolean;
@@ -25,8 +25,8 @@ export type IPersonalInfoComponentStateType = Readonly<{
 @inject('userStore')
 @observer
 class PersonalInfoComponent extends Component<
-	IPersonalInfoComponentPropType,
-	IPersonalInfoComponentStateType
+	PersonalInfoComponentPropType,
+	PersonalInfoComponentStateType
 > {
 	readonly state = {
 		titleError: false,

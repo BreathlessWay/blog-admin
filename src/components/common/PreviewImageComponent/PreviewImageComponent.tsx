@@ -7,7 +7,7 @@ import { close } from './close';
 import './style.scss';
 import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
 
-export type IPreviewImageComponentPropType = {
+export type PreviewImageComponentPropType = {
 	imageUrls: Array<string>;
 	maskClose: boolean;
 	index: number;
@@ -18,7 +18,7 @@ export enum EOperate {
 	minus = 'minus',
 }
 
-const PreviewImageComponent: FC<IPreviewImageComponentPropType> = props => {
+const PreviewImageComponent: FC<PreviewImageComponentPropType> = props => {
 	const { imageUrls, maskClose, index } = props;
 
 	const [current, setCurrent] = useState(index);

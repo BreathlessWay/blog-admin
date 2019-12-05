@@ -63,7 +63,7 @@ const CatPage = lazy(() =>
 	import(/* webpackChunkName: "CatPage" */ '@/pages/CatPage'),
 );
 
-export type IRouterPagePropType = Pick<
+export type RouterPagePropType = Pick<
 	StoreType,
 	'userStore' | 'homepageStore' | 'globalStore'
 > &
@@ -75,7 +75,7 @@ export type IRouterPagePropType = Pick<
 	globalStore: allStore.globalStore,
 }))
 @observer
-class RouterPage extends React.Component<IRouterPagePropType> {
+class RouterPage extends React.Component<RouterPagePropType> {
 	componentDidMount(): void {
 		const { userStore, history, homepageStore } = this.props;
 		login({ userStore, history, homepageStore });

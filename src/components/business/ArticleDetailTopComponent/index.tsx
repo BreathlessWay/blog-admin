@@ -23,7 +23,7 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
-export type IArticleDetailTopComponentPropType = Pick<
+export type ArticleDetailTopComponentPropType = Pick<
 	StoreType,
 	'userStore' | 'articleDetailStore' | 'tagStore'
 >;
@@ -35,7 +35,7 @@ export type IArticleDetailTopComponentPropType = Pick<
 }))
 @observer
 class ArticleDetailTopComponent extends Component<
-	IArticleDetailTopComponentPropType
+	ArticleDetailTopComponentPropType
 > {
 	handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;

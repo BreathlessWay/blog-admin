@@ -11,9 +11,9 @@ import compose from '@/utils/compose';
 
 import './style.scss';
 
-export type IPersonalFigureComponentPropType = Pick<StoreType, 'userStore'>;
+export type PersonalFigureComponentPropType = Pick<StoreType, 'userStore'>;
 
-const PersonalFigureComponent: FC<IPersonalFigureComponentPropType> = props => {
+const PersonalFigureComponent: FC<PersonalFigureComponentPropType> = props => {
 	const {
 		ImageList,
 		addImage,

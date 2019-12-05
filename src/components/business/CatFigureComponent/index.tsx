@@ -9,12 +9,12 @@ import { StoreType } from '@/store/store';
 import { toJS } from 'mobx';
 import compose from '@/utils/compose';
 
-export type ICatFigureComponentPropType = Pick<
+export type CatFigureComponentPropType = Pick<
 	StoreType,
 	'catStore' | 'homepageStore'
 >;
 
-const CatFigureComponent: FC<ICatFigureComponentPropType> = props => {
+const CatFigureComponent: FC<CatFigureComponentPropType> = props => {
 	const {
 		ImageList = [],
 		removeImage,

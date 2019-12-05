@@ -6,14 +6,14 @@ import { Col, Icon, Input, Row, Slider } from 'antd';
 import Gap from '@/components/common/Gap';
 import ColorPickerComponent from '@/components/common/ColorPickerComponent';
 
-import UserStore from '@/store/UserStore';
 import { SliderValue } from 'antd/lib/slider';
+import { StoreType } from '@/store/store';
 
 import { MAX_LENGTH_MD, SKILL_PERCENT_MID } from '@/utils/constant';
 
 import './style.scss';
 
-export type ISkillComponentItemPropType = {
+export type SkillComponentItemPropType = {
 	item: {
 		name: string;
 		percent: number;
@@ -26,7 +26,7 @@ export type ISkillComponentItemPropType = {
 @inject('userStore')
 @observer
 class SkillComponentItem extends Component<
-	ISkillComponentItemPropType & { userStore: UserStore }
+	SkillComponentItemPropType & Pick<StoreType, 'userStore'>
 > {
 	handleChangeSkillName = (
 		event: ChangeEvent<HTMLInputElement>,
@@ -109,5 +109,5 @@ class SkillComponentItem extends Component<
 }
 
 export default (SkillComponentItem as unknown) as ComponentClass<
-	ISkillComponentItemPropType
+	SkillComponentItemPropType
 >;

@@ -23,7 +23,7 @@ import { routeMapPath } from '@/route';
 const { Text } = Typography;
 const { error } = Modal;
 
-export type IArticleDetailButtonComponentPropType = Pick<
+export type ArticleDetailButtonComponentPropType = Pick<
 	StoreType,
 	'articleDetailStore'
 > &
@@ -32,7 +32,7 @@ export type IArticleDetailButtonComponentPropType = Pick<
 @inject('articleDetailStore')
 @observer
 class ArticleDetailButtonComponent extends Component<
-	IArticleDetailButtonComponentPropType
+	ArticleDetailButtonComponentPropType
 > {
 	handleCancel = () => {
 		this.props.history.replace(routeMapPath.article.home);

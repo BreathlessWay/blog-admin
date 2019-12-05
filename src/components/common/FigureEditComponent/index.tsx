@@ -8,13 +8,17 @@ import preview from '@/components/common/PreviewImageComponent';
 
 import { ImageItemType } from '@/types/image';
 
-import { MAX_IMAGE_COUNT, MAX_IMAGE_SIZE } from '@/utils/constant';
+import {
+	ACTION_ICON_SIZE,
+	MAX_IMAGE_COUNT,
+	MAX_IMAGE_SIZE,
+} from '@/utils/constant';
 
 const iconStyle = {
-	fontSize: '24px',
+	fontSize: ACTION_ICON_SIZE,
 };
 
-export type IFigureEditComponentPropType = {
+export type FigureEditComponentPropType = {
 	title: string;
 	onRemoveFigure: (index: number) => void;
 	onSetShowFigure: (index: number) => void;
@@ -23,7 +27,7 @@ export type IFigureEditComponentPropType = {
 };
 
 export default class FigureEditComponent extends Component<
-	IFigureEditComponentPropType
+	FigureEditComponentPropType
 > {
 	get urls() {
 		return this.props.imageList.map(item => item.url);

@@ -17,9 +17,9 @@ import {
 
 import './style.scss';
 
-export type ISocialEditComponentPropType = Pick<StoreType, 'userStore'>;
+export type SocialEditComponentPropType = Pick<StoreType, 'userStore'>;
 
-export type ISocialEditComponentStateType = {
+export type SocialEditComponentStateType = {
 	resumeError: boolean;
 };
 
@@ -28,8 +28,8 @@ export type ISocialEditComponentStateType = {
 }))
 @observer
 class SocialEditComponent extends React.Component<
-	ISocialEditComponentPropType,
-	ISocialEditComponentStateType
+	SocialEditComponentPropType,
+	SocialEditComponentStateType
 > {
 	handleEdit = () => {
 		this.props.userStore.filterSocial();

@@ -26,10 +26,7 @@ import './style.scss';
 
 const { Text } = Typography;
 
-export type IArticleTagPagePropType = Pick<
-	StoreType,
-	'userStore' | 'tagStore'
-> &
+export type ArticleTagPagePropType = Pick<StoreType, 'userStore' | 'tagStore'> &
 	RouteComponentProps;
 
 @inject((allStore: StoreType) => ({
@@ -37,7 +34,7 @@ export type IArticleTagPagePropType = Pick<
 	tagStore: allStore.tagStore,
 }))
 @observer
-class ArticleTagPage extends Component<IArticleTagPagePropType> {
+class ArticleTagPage extends Component<ArticleTagPagePropType> {
 	handleEdit = () => {
 		return new Promise((resolve, reject) => {
 			const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;

@@ -5,7 +5,7 @@ import { Popover, Button, Row, Col } from 'antd';
 
 import './style.scss';
 
-export type IColorPickerComponentPropType = {
+export type ColorPickerComponentPropType = {
 	color: string;
 
 	disabled?: boolean;
@@ -14,14 +14,14 @@ export type IColorPickerComponentPropType = {
 	onCancel?: () => void;
 };
 
-export type IColorPickerComponentStateType = Readonly<{
+export type ColorPickerComponentStateType = Readonly<{
 	value: string;
 	visible: boolean;
 }>;
 
 export default class ColorPickerComponent extends Component<
-	IColorPickerComponentPropType,
-	IColorPickerComponentStateType
+	ColorPickerComponentPropType,
+	ColorPickerComponentStateType
 > {
 	readonly state = {
 		value: this.props.color,
@@ -29,8 +29,8 @@ export default class ColorPickerComponent extends Component<
 	};
 
 	static getDerivedStateFromProps(
-		props: IColorPickerComponentPropType,
-		state: IColorPickerComponentStateType,
+		props: ColorPickerComponentPropType,
+		state: ColorPickerComponentStateType,
 	) {
 		if (!state.visible) {
 			return {
