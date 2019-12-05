@@ -121,7 +121,6 @@ class CatPictureListComponent extends Component<
 		const { list } = this.props.catStore;
 
 		const { catAlias } = this.props.homepageStore;
-
 		return (
 			<>
 				<BasicWrapComponent
@@ -129,7 +128,7 @@ class CatPictureListComponent extends Component<
 					title={`${catAlias}图片`}
 					note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}>
 					<ImageShowAndUploadComponent
-						multiple={true}
+						multiple={false}
 						imageList={list}
 						onUploadImage={this.onAddCatPicture}
 						render={({ item, index }) => (

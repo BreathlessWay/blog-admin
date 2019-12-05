@@ -1,6 +1,10 @@
 import React, { Component, ErrorInfo, GetDerivedStateFromError } from 'react';
 
-import { Alert } from 'antd';
+import { Alert, Modal } from 'antd';
+
+import { SUPPORT_INTERSECTION_OBSERVER } from '@/utils/constant';
+
+const { error } = Modal;
 
 export type ErrorBoundaryComponentPropType = {};
 
@@ -22,6 +26,16 @@ export default class ErrorBoundaryComponent extends Component<
 	) {
 		// 更新 state 使下一次渲染能够显示降级后的 UI
 		return { hasError: true };
+	}
+
+	componentDidMount(): void {
+		if (SUPPORT_INTERSECTION_OBSERVER) {
+			error({
+				title: '警告',
+				content:
+					'您的浏览器不支持IntersectionObserver方法，会导致网址无法正常运行,请更换浏览器！',
+			});
+		}
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {

@@ -45,7 +45,11 @@ export default class RewardComponentItem extends React.Component<
 
 	renderContent = () => {
 		const { url, title } = this.props;
-		return <ImageLazyLoadComponent url={url} width={180} title={title} />;
+		return (
+			<div className="reward-code_image">
+				<ImageLazyLoadComponent url={url} height={180} title={title} />
+			</div>
+		);
 	};
 
 	renderAction = () => {

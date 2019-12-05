@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
 import { Col, Row } from 'antd';
-import BackgroundLazyLoadComponent from '@/components/common/BackgroundLazyLoadComponent';
+import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
 
 import './style.scss';
 
@@ -22,7 +22,9 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 	}
 	return (
 		<article style={{ width }}>
-			<BackgroundLazyLoadComponent url={url} width="100%" height={height} />
+			<section className="image-card_image">
+				<ImageLazyLoadComponent url={url} height={height} />
+			</section>
 			<section className="image-card_info">
 				{title && <h5 className="image-card_title">{title}</h5>}
 				{intro && <p className="image-card_intro">{intro}</p>}

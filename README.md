@@ -26,6 +26,7 @@
 
 1. 装饰器需要在`tsconfig`中开启`experimentalDecorators: true`, 编译配置
 2. 要使用自判断属性链 [Optional_chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining), 需要添加`@babel/plugin-proposal-nullish-coalescing-operator`和`@babel/plugin-proposal-optional-chaining`两个 babel 插件
+3. 图片懒加载使用的[IntersectionObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver)
 
 > 其他
 

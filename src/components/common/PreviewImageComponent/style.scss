@@ -5,14 +5,13 @@ $icon-size: 60px;
 
 .preview-image_icon {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+	top: 50%;
 	width: $icon-size;
 	height: $icon-size;
 	font-size: $icon-size;
 	opacity: 0.5;
 	transition: opacity 0.2s ease;
+	transform: translate(0, -50%);
 	color: $default-color;
 	&:hover {
 		opacity: 1;
@@ -34,7 +33,6 @@ $icon-size: 60px;
 		width: 80%;
 		height: 100%;
 		overflow-y: auto;
-		position: relative;
 		@include flex($justify-content: center);
 
 		&::-webkit-scrollbar {
@@ -43,11 +41,11 @@ $icon-size: 60px;
 
 		.preview-image_left {
 			@extend .preview-image_icon;
-			left: $spacing-h-lg;
+			left: 12%;
 		}
 		.preview-image_right {
 			@extend .preview-image_icon;
-			right: $spacing-h-lg;
+			right: 12%;
 		}
 	}
 }

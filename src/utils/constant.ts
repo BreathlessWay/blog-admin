@@ -60,3 +60,6 @@ export const MAX_RESUME_SIZE = 2048;
 export const MAX_SOCIAL_SIZE = 20;
 
 export const ACTION_ICON_SIZE = 24;
+
+export const SUPPORT_INTERSECTION_OBSERVER =
+	(typeof window.IntersectionObserver).toLowerCase() !== 'function';
