@@ -55,6 +55,8 @@
 │   │   │   │   └── style.scss
 │   │   │   ├── CatFigureComponent/
 │   │   │   │   └── index.tsx
+│   │   │   ├── CatPaginationComponent/
+│   │   │   │   └── index.tsx
 │   │   │   ├── CatPictureListComponent/
 │   │   │   │   └── index.tsx
 │   │   │   ├── HobbiesFigureComponent/
@@ -87,9 +89,6 @@
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
 │   │   └── common/
-│   │       ├── BackgroundLazyLoadComponent/
-│   │       │   ├── index.tsx
-│   │       │   └── style.scss
 │   │       ├── ColorPickerComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -116,6 +115,8 @@
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── ImageLazyLoadComponent/
+│   │       │   └── index.tsx
+│   │       ├── ImageLoadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── ImageShowAndUploadComponent/
@@ -178,6 +179,7 @@
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── CatStore/
+│   │   │   ├── data.ts
 │   │   │   └── index.tsx
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
@@ -214,5 +216,5 @@
 ├── tree.md
 └── tsconfig.json
 
-70 directories, 143 files
+71 directories, 144 files
 ```

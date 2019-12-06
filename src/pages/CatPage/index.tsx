@@ -18,6 +18,12 @@ const CatPictureListComponent = lazy(() =>
 	),
 );
 
+const CatPaginationComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "CatPictureListComponent" */ '@/components/business/CatPaginationComponent'
+	),
+);
+
 export type CatPagePropType = Pick<StoreType, 'catStore'>;
 
 const CatPage: FC<CatPagePropType> = props => {
@@ -33,6 +39,7 @@ const CatPage: FC<CatPagePropType> = props => {
 		<>
 			<CatFigureComponent />
 			<CatPictureListComponent />
+			<CatPaginationComponent />
 		</>
 	);
 };

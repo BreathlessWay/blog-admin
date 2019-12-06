@@ -10,8 +10,8 @@ import Gap from '@/components/common/Gap';
 import preview from '@/components/common/PreviewImageComponent';
 
 import { StoreType } from '@/store/store';
-import { ImageItemType } from '@/types/image';
-import { CatItemType } from '@/types/cat';
+import { ImageItemType, ImageListType } from '@/types/image';
+import { CatItemType, CatListType } from '@/types/cat';
 
 import {
 	ACTION_ICON_SIZE,
@@ -57,8 +57,12 @@ class CatPictureListComponent extends Component<
 		return this.props.catStore.list.map(item => item.url);
 	}
 
-	onAddCatPicture = () => {
-		// const {pageSize, listLength} = this.props.catStore
+	onAddCatPicture = (imageList: ImageListType) => {
+		const len = imageList.length;
+		const { pageSize, listLength, addList } = this.props.catStore;
+		if (listLength + len <= pageSize) {
+			addList(imageList as CatListType);
+		}
 	};
 
 	handlePreview = (index: number) => () => {
@@ -154,6 +158,7 @@ class CatPictureListComponent extends Component<
 							<ImageCardComponent
 								width={300}
 								height={200}
+								showInfo={true}
 								title={item.title}
 								intro={item.intro}
 								url={item.url}

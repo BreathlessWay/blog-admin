@@ -25,7 +25,7 @@ const { Text } = Typography;
 
 export type ImageShowAndUploadComponentPropType = {
 	imageList: ImageListType;
-	onUploadImage: (params: Array<Omit<ImageItemType, 'show'>>) => void;
+	onUploadImage: (params: ImageListType) => void;
 	render: (params: { item: ImageItemType; index: number }) => ReactNode;
 
 	disabled?: boolean;
@@ -81,7 +81,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 					url,
 					title,
 					objectId,
-				},
+				} as ImageItemType,
 			]);
 			this.setState({
 				stateDisabled: false,
@@ -107,7 +107,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 			Promise.all(uploadFilePromise)
 				.then(res => {
 					if (res && res.length) {
-						this.props.onUploadImage(res as Array<Omit<ImageItemType, 'show'>>);
+						this.props.onUploadImage(res as ImageListType);
 						this.setState({
 							showModal: false,
 							fileList: [],

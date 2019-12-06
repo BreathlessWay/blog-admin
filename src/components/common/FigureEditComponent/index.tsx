@@ -6,7 +6,7 @@ import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadC
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import preview from '@/components/common/PreviewImageComponent';
 
-import { ImageItemType } from '@/types/image';
+import { ImageItemType, ImageListType } from '@/types/image';
 
 import {
 	ACTION_ICON_SIZE,
@@ -23,7 +23,7 @@ export type FigureEditComponentPropType = {
 	onRemoveFigure: (item: ImageItemType) => void;
 	onSetShowFigure: (item: ImageItemType) => void;
 	onAddFigure: (params: ImageItemType) => void;
-	imageList: Array<ImageItemType>;
+	imageList: ImageListType;
 };
 
 export default class FigureEditComponent extends Component<

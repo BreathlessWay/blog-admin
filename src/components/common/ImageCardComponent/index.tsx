@@ -7,6 +7,8 @@ import './style.scss';
 
 export type ImageCardComponentPropType = {
 	url: string;
+
+	showInfo?: boolean;
 	title?: string;
 	intro?: string;
 	actions?: Array<ReactNode>;
@@ -25,6 +27,7 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 		width = 180,
 		height = 180,
 		onClick,
+		showInfo = false,
 	} = props;
 	let span = 24;
 	if (actions && actions.length) {
@@ -35,14 +38,15 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 			<section className="image-card_image">
 				<ImageLazyLoadComponent url={url} height={height} />
 			</section>
-			<section className="image-card_info">
-				{title && <h5 className="image-card_title">{title}</h5>}
-				{intro && (
+			{showInfo && (
+				<section className="image-card_info">
+					<h5 className="image-card_title">{title}</h5>
 					<aside className="image-card_intro">
 						<p className="image-card_intro__content">{intro}</p>
 					</aside>
-				)}
-			</section>
+				</section>
+			)}
+
 			{actions && (
 				<Row
 					type="flex"

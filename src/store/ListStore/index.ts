@@ -74,6 +74,11 @@ export default class ListStore<T extends { objectId: string }> {
 		});
 	}
 
+	@action.bound
+	addList(list: Array<T>) {
+		this.list = this.list.concat(list);
+	}
+
 	@computed
 	get currentCount() {
 		return this.pageSize * this.pageIndex;
