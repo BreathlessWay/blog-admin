@@ -5,7 +5,7 @@ import { Icon } from 'antd';
 import { close } from './close';
 
 import './style.scss';
-import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 export type PreviewImageComponentPropType = {
 	imageUrls: Array<string>;
@@ -55,7 +55,7 @@ const PreviewImageComponent: FC<PreviewImageComponentPropType> = props => {
 						onClick={e => changeCurrent(e, EOperate.minus)}
 					/>
 				)}
-				<ImageLazyLoadComponent url={image} />
+				<ImageLoadComponent url={image} />
 				{showRight && (
 					<Icon
 						type="right-circle"

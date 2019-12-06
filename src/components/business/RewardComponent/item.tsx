@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Icon, Row, Col, Upload } from 'antd';
 import Gap from '@/components/common/Gap';
-import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
@@ -47,7 +47,7 @@ export default class RewardComponentItem extends React.Component<
 		const { url, title } = this.props;
 		return (
 			<div className="reward-code_image">
-				<ImageLazyLoadComponent url={url} height={180} title={title} />
+				<ImageLoadComponent url={url} height={180} title={title} />
 			</div>
 		);
 	};
