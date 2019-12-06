@@ -37,7 +37,7 @@ class MottoComponent extends React.Component<
 	MottoComponentPropType,
 	MottoComponentStateType
 > {
-	readonly state = {
+	readonly state: MottoComponentStateType = {
 		enError: false,
 		zhError: false,
 		introError: false,

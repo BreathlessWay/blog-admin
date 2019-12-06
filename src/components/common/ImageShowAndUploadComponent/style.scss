@@ -20,3 +20,36 @@
 		opacity: 0.8;
 	}
 }
+
+.image-upload-preview__list {
+	@include flex();
+	flex-wrap: wrap;
+	max-height: 500px;
+	overflow: auto;
+}
+
+.image-upload-preview__item {
+	border: $border-normal;
+	margin-bottom: $spacing-v-xl;
+	@include text-align();
+}
+
+.image-upload-preview__list::-webkit-scrollbar-track {
+	border-radius: $border-radius;
+}
+.image-upload-preview__list::-webkit-scrollbar {
+	width: 6px;
+}
+.image-upload-preview__list::-webkit-scrollbar-thumb {
+	background: #ffb6bb;
+	border-radius: $border-radius;
+}
+
+.image-load-modal_title {
+	margin-bottom: 0;
+	display: inline-block;
+	margin-right: $spacing-h-md;
+}
+.image-load-modal_tip {
+	font-size: $font-size-sm;
+}

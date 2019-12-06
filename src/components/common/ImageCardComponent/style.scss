@@ -17,10 +17,13 @@
 		@include ellipsis;
 	}
 	.image-card_intro {
-		padding: 0 $spacing-h-lg $spacing-v-lg;
-		font-size: $font-size-sm;
-		margin-bottom: 0;
-		@include ellipsis(3);
+		height: 66px;
+		&__content {
+			padding: 0 $spacing-h-lg;
+			font-size: $font-size-sm;
+			margin-bottom: 0;
+			@include ellipsis(3);
+		}
 	}
 }
 

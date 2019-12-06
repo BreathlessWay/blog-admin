@@ -26,7 +26,7 @@ export default class RewardComponentItem extends React.Component<
 	RewardComponentItemPropType,
 	RewardComponentItemStateType
 > {
-	readonly state = {
+	readonly state: RewardComponentItemStateType = {
 		disabled: false,
 	};
 

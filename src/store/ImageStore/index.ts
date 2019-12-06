@@ -3,34 +3,36 @@ import { ImageItemType, ImageListType } from '@/types/image';
 
 export default class ImageStore {
 	@observable
-	ImageList: ImageListType = [];
+	imageList: ImageListType = [];
 
 	@action.bound
 	setImageList(list: ImageListType) {
 		if (list) {
-			this.ImageList = list;
+			this.imageList = list;
 		}
 	}
 
 	@action.bound
-	removeImage(index: number) {
-		this.ImageList.splice(index, 1);
+	removeImage(item: ImageItemType) {
+		this.imageList = this.imageList.filter(
+			image => image.objectId !== item.objectId,
+		);
 	}
 
 	@action.bound
-	addImage(params: ImageItemType) {
-		this.ImageList.push(params);
+	addImage(item: ImageItemType) {
+		this.imageList.push(item);
 	}
 
 	@action.bound
-	setShowImage(index: number) {
-		this.ImageList.forEach((item, i) => {
-			item.show = i === index;
+	setShowImage(item: ImageItemType) {
+		this.imageList.forEach(image => {
+			image.show = image.objectId === item.objectId;
 		});
 	}
 
 	@computed
 	get imageListLength() {
-		return this.ImageList.length;
+		return this.imageList.length;
 	}
 }

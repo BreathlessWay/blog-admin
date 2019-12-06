@@ -4,7 +4,8 @@ import ListStore from '@/store/ListStore';
 import ImageStore from '@/store/ImageStore';
 
 import { CatItemType } from '@/types/cat';
-import array from './data';
+
+// import array from './data';
 
 export default class CatStore extends ListStore<CatItemType> {
 	@observable
@@ -12,17 +13,14 @@ export default class CatStore extends ListStore<CatItemType> {
 
 	@action.bound
 	getList() {
-		this.setList({
-			results: array,
-			count: array.length,
-		});
+		// this.setList({
+		// 	results: array,
+		// 	count: array.length,
+		// });
 	}
 
 	@action.bound
 	setCatFigure() {
 		this.catFigure.setImageList([]);
 	}
-
-	@action.bound
-	changeImageInfo() {}
 }

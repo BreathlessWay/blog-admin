@@ -23,7 +23,7 @@ export default class ColorPickerComponent extends Component<
 	ColorPickerComponentPropType,
 	ColorPickerComponentStateType
 > {
-	readonly state = {
+	readonly state: ColorPickerComponentStateType = {
 		value: this.props.color,
 		visible: false,
 	};

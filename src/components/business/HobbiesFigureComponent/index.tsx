@@ -16,12 +16,12 @@ const HobbiesFigureComponent: FC<HobbiesFigureComponentPropType> = props => {
 		removeImage,
 		setShowImage,
 		addImage,
-		ImageList,
+		imageList,
 	} = props.userStore.hobbiesFigure;
 	return (
 		<FigureEditComponent
 			title="爱好卡通图"
-			imageList={toJS(ImageList)}
+			imageList={toJS(imageList)}
 			onRemoveFigure={removeImage}
 			onSetShowFigure={setShowImage}
 			onAddFigure={addImage}

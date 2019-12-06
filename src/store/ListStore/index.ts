@@ -2,7 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 import { PAGE_LIMIT } from '@/utils/constant';
 
-export default class ListStore<T> {
+export default class ListStore<T extends { objectId: string }> {
 	@observable
 	list: Array<T> = [];
 
@@ -57,6 +57,21 @@ export default class ListStore<T> {
 	setList({ results, count }: { results: Array<T>; count: number }) {
 		this.list = results;
 		this.count = count;
+	}
+
+	@action.bound
+	removeItem(item: T) {
+		this.list = this.list.filter(value => value.objectId !== item.objectId);
+	}
+
+	@action.bound
+	setItem(item: T) {
+		this.list = this.list.map(_ => {
+			if (_.objectId === item.objectId) {
+				return item;
+			}
+			return _;
+		});
 	}
 
 	@computed

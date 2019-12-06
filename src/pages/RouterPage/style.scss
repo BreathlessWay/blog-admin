@@ -42,7 +42,7 @@
 .back-top {
 	font-size: $font-size-lg;
 	height: 40px;
-	border-radius: 5px;
+	border-radius: $border-radius;
 	@include text-align();
 	line-height: 40px;
 	border: $border-width $border-style $theme-color;

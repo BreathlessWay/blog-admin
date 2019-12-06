@@ -20,8 +20,8 @@ const iconStyle = {
 
 export type FigureEditComponentPropType = {
 	title: string;
-	onRemoveFigure: (index: number) => void;
-	onSetShowFigure: (index: number) => void;
+	onRemoveFigure: (item: ImageItemType) => void;
+	onSetShowFigure: (item: ImageItemType) => void;
 	onAddFigure: (params: ImageItemType) => void;
 	imageList: Array<ImageItemType>;
 };
@@ -37,11 +37,11 @@ export default class FigureEditComponent extends Component<
 		return this.props.imageList.length;
 	}
 
-	handleRemove = (index: number, item: ImageItemType) => () => {
+	handleRemove = (item: ImageItemType) => () => {
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {
-			this.props.onRemoveFigure(index);
+			this.props.onRemoveFigure(item);
 		}
 	};
 
@@ -49,9 +49,9 @@ export default class FigureEditComponent extends Component<
 		preview.show({ urls: this.urls, index });
 	};
 
-	handleAddFigure = (item: Omit<ImageItemType, 'show'>) => {
+	handleAddFigure = (item: Array<Omit<ImageItemType, 'show'>>) => {
 		this.props.onAddFigure({
-			...item,
+			...item[0],
 			...{ show: this.imageListLength === 0 },
 		});
 	};
@@ -79,7 +79,7 @@ export default class FigureEditComponent extends Component<
 								<Icon
 									type="delete"
 									style={iconStyle}
-									onClick={this.handleRemove(index, item)}
+									onClick={this.handleRemove(item)}
 								/>,
 								<Icon
 									type="check-circle"
@@ -87,7 +87,7 @@ export default class FigureEditComponent extends Component<
 										...iconStyle,
 										...{ color: item.show ? '#1890ff' : '' },
 									}}
-									onClick={() => onSetShowFigure(index)}
+									onClick={() => onSetShowFigure(item)}
 								/>,
 							]}
 						/>

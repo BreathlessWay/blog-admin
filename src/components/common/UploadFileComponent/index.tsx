@@ -24,7 +24,7 @@ export default class UploadFileComponent extends React.Component<
 	UploadFileComponentPropType,
 	UploadFileComponentStateType
 > {
-	readonly state = {
+	readonly state: UploadFileComponentStateType = {
 		compLoading: false,
 		compDisabled: false,
 	};

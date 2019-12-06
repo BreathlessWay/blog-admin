@@ -16,7 +16,7 @@ export type CatFigureComponentPropType = Pick<
 
 const CatFigureComponent: FC<CatFigureComponentPropType> = props => {
 	const {
-		ImageList = [],
+		imageList = [],
 		removeImage,
 		addImage,
 		setShowImage,
@@ -27,7 +27,7 @@ const CatFigureComponent: FC<CatFigureComponentPropType> = props => {
 	return (
 		<FigureEditComponent
 			title={`${catAlias}卡通图`}
-			imageList={toJS(ImageList)}
+			imageList={toJS(imageList)}
 			onRemoveFigure={removeImage}
 			onSetShowFigure={setShowImage}
 			onAddFigure={addImage}

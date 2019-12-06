@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Icon, Input, Modal, Row } from 'antd';
+import { Col, Icon, Input, Modal, Row, Switch } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
@@ -11,6 +11,7 @@ import preview from '@/components/common/PreviewImageComponent';
 
 import { StoreType } from '@/store/store';
 import { ImageItemType } from '@/types/image';
+import { CatItemType } from '@/types/cat';
 
 import {
 	ACTION_ICON_SIZE,
@@ -34,9 +35,7 @@ export type CatPictureListComponentStateType = Readonly<{
 	visible: boolean;
 	confirmLoading: boolean;
 
-	editTitle: string;
-	editIntro: string;
-	editObjectId: string;
+	editItem: CatItemType | null;
 }>;
 
 @inject((allStore: StoreType) => ({
@@ -51,9 +50,7 @@ class CatPictureListComponent extends Component<
 	readonly state: CatPictureListComponentStateType = {
 		visible: false,
 		confirmLoading: false,
-		editTitle: '',
-		editIntro: '',
-		editObjectId: '',
+		editItem: null,
 	};
 
 	get urls() {
@@ -68,17 +65,19 @@ class CatPictureListComponent extends Component<
 		preview.show({ urls: this.urls, index });
 	};
 
-	handleRemove = (index: number, item: ImageItemType) => () => {};
+	handleRemove = (item: ImageItemType) => () => {
+		this.props.catStore.removeItem(item as CatItemType);
+	};
 
-	handleSetShowFigure = (index: number) => () => {};
+	handleSetShowFigure = (item: ImageItemType) => () => {
+		item.show = !item.show;
+		this.props.catStore.setItem(item as CatItemType);
+	};
 
 	handleEdit = (item: ImageItemType) => () => {
-		const { title = '', intro = '', objectId } = item;
 		this.setState({
 			visible: true,
-			editTitle: title,
-			editIntro: intro,
-			editObjectId: objectId,
+			editItem: { ...item } as CatItemType,
 		});
 	};
 
@@ -86,41 +85,61 @@ class CatPictureListComponent extends Component<
 		this.setState({
 			confirmLoading: true,
 		});
+		const { editItem } = this.state;
 		setTimeout(() => {
+			editItem && this.props.catStore.setItem(editItem);
 			this.setState({
 				confirmLoading: false,
 				visible: false,
 			});
-		}, 5000);
+		}, 300);
 	};
 
 	handleCancel = () => {
-		this.setState({
-			visible: false,
-			editTitle: '',
-			editIntro: '',
-			editObjectId: '',
-		});
+		if (!this.state.confirmLoading) {
+			this.setState({
+				visible: false,
+			});
+		}
 	};
 
 	handleEditIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		this.setState({
-			editIntro: e.target.value,
-		});
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.intro = e.target.value;
+			this.setState({
+				editItem,
+			});
+		}
 	};
 
 	handleEditTitle = (e: ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			editTitle: e.target.value,
-		});
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.title = e.target.value;
+			this.setState({
+				editItem,
+			});
+		}
+	};
+
+	handleChangeSwitch = () => {
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.show = !editItem.show;
+			this.setState({
+				editItem,
+			});
+		}
 	};
 
 	render() {
-		const { visible, confirmLoading, editIntro, editTitle } = this.state;
+		const { visible, confirmLoading, editItem } = this.state;
 
 		const { list } = this.props.catStore;
 
 		const { catAlias } = this.props.homepageStore;
+
 		return (
 			<>
 				<BasicWrapComponent
@@ -128,7 +147,7 @@ class CatPictureListComponent extends Component<
 					title={`${catAlias}图片`}
 					note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}>
 					<ImageShowAndUploadComponent
-						multiple={false}
+						multiple={true}
 						imageList={list}
 						onUploadImage={this.onAddCatPicture}
 						render={({ item, index }) => (
@@ -147,7 +166,7 @@ class CatPictureListComponent extends Component<
 									<Icon
 										type="delete"
 										style={iconStyle}
-										onClick={this.handleRemove(index, item)}
+										onClick={this.handleRemove(item)}
 									/>,
 									<Icon
 										type="edit"
@@ -160,7 +179,7 @@ class CatPictureListComponent extends Component<
 											...iconStyle,
 											...{ color: item.show ? '#1890ff' : '' },
 										}}
-										onClick={this.handleSetShowFigure(index)}
+										onClick={this.handleSetShowFigure(item)}
 									/>,
 								]}
 							/>
@@ -177,12 +196,21 @@ class CatPictureListComponent extends Component<
 					onCancel={this.handleCancel}>
 					<Row>
 						<Col>
+							<label htmlFor="title">显示图片</label>
+							&nbsp; &nbsp;
+							<Switch
+								checked={editItem?.show}
+								onChange={this.handleChangeSwitch}
+							/>
+						</Col>
+						<Gap />
+						<Col>
 							<label htmlFor="title">图片标题</label>
 							<Gap />
 							<Input
 								placeholder="请输入图片标题"
 								id="title"
-								value={editTitle}
+								value={editItem?.title}
 								allowClear={true}
 								maxLength={MAX_LENGTH_SM}
 								onChange={this.handleEditTitle}
@@ -195,7 +223,7 @@ class CatPictureListComponent extends Component<
 							<TextArea
 								placeholder="请输入图片简介"
 								id="intro"
-								value={editIntro}
+								value={editItem?.intro}
 								allowClear={true}
 								maxLength={MAX_LENGTH_LG}
 								onChange={this.handleEditIntro}

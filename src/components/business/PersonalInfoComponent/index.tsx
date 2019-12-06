@@ -28,7 +28,7 @@ class PersonalInfoComponent extends Component<
 	PersonalInfoComponentPropType,
 	PersonalInfoComponentStateType
 > {
-	readonly state = {
+	readonly state: PersonalInfoComponentStateType = {
 		titleError: false,
 		infoError: false,
 		introError: false,

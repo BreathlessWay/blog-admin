@@ -30,7 +30,7 @@ class ArticleListComponent extends Component<
 	ArticleListComponentPropType,
 	ArticleListComponentStateType
 > {
-	readonly state = {
+	readonly state: ArticleListComponentStateType = {
 		selectedRowKeys: [],
 	};
 

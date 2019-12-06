@@ -18,9 +18,10 @@ export const uploadFile = (
 				resolve({
 					url: e.target.result as string,
 					title: file.name,
-					objectId: 'objectId',
+					objectId: Date.now() + '',
 				});
 			} else {
+				message.error(`${file.name}文件上传失败`);
 				reject();
 			}
 		};

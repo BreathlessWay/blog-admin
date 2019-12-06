@@ -10,24 +10,38 @@ export type ImageCardComponentPropType = {
 	title?: string;
 	intro?: string;
 	actions?: Array<ReactNode>;
-	width?: number;
-	height?: number;
+	width?: number | string;
+	height?: number | string;
+
+	onClick?: () => void;
 };
 
 const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
-	const { url, actions, title, intro, width = 180, height = 180 } = props;
+	const {
+		url,
+		actions,
+		title,
+		intro,
+		width = 180,
+		height = 180,
+		onClick,
+	} = props;
 	let span = 24;
 	if (actions && actions.length) {
 		span = 24 / actions.length;
 	}
 	return (
-		<article style={{ width }}>
+		<article style={{ width }} onClick={() => onClick && onClick()}>
 			<section className="image-card_image">
 				<ImageLazyLoadComponent url={url} height={height} />
 			</section>
 			<section className="image-card_info">
 				{title && <h5 className="image-card_title">{title}</h5>}
-				{intro && <p className="image-card_intro">{intro}</p>}
+				{intro && (
+					<aside className="image-card_intro">
+						<p className="image-card_intro__content">{intro}</p>
+					</aside>
+				)}
 			</section>
 			{actions && (
 				<Row
