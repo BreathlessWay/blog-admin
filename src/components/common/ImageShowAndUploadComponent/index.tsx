@@ -54,7 +54,8 @@ export default class ImageShowAndUploadComponent extends React.Component<
 		const { multiple, onUploadImage } = this.props;
 		const { file } = options;
 		if (multiple) {
-			const { fileList } = this.state;
+			const { fileList, showModal } = this.state;
+
 			const fileReader = new FileReader();
 			fileReader.readAsDataURL(file);
 			fileReader.onload = e => {
@@ -64,9 +65,13 @@ export default class ImageShowAndUploadComponent extends React.Component<
 						checked: file.size < MAX_IMAGE_SIZE * 1024,
 						data: e.target.result as string,
 					});
+					if (fileList.length && !showModal) {
+						this.setState({
+							showModal: true,
+						});
+					}
 					this.setState({
 						fileList,
-						showModal: true,
 					});
 				}
 			};
