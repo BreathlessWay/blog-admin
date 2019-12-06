@@ -37,6 +37,7 @@ export const TAG_COLOR = [
 	'purple',
 ];
 
+// 文本输入字数限制
 export const MAX_LENGTH_XS = 4;
 
 export const MAX_LENGTH_SM = 10;
@@ -49,17 +50,27 @@ export const MAX_LENGTH_XL = 200;
 
 export const MAX_LENGTH_XXL = 400;
 
+// 文章草稿键值
 export const ARTICLE_CACHE_KEY = 'article_cache_key';
 
+// 文章自动保存定时时间
 export const ARTICLE_CACHE_TIME = 3000;
 
+// 文章详情图片大小
+export const ARTICLE_IMAGE_SIZE = 100;
+
+// 图片大小
 export const MAX_IMAGE_SIZE = 500;
 
+// 简历文件大小
 export const MAX_RESUME_SIZE = 2048;
 
+// 社交icon大小
 export const MAX_SOCIAL_SIZE = 20;
 
+// icon的font-size
 export const ACTION_ICON_SIZE = 24;
 
+// 是否支持IntersectionObserver
 export const SUPPORT_INTERSECTION_OBSERVER =
 	(typeof window.IntersectionObserver).toLowerCase() !== 'function';

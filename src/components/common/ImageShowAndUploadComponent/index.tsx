@@ -16,6 +16,8 @@ import {
 	UPLOAD_IMAGE_TYPE,
 } from '@/utils/constant';
 
+import { formatSize } from '@/utils/format';
+
 import './style.scss';
 
 const iconStyle = {
@@ -233,7 +235,7 @@ export default class ImageShowAndUploadComponent extends React.Component<
 											<>
 												<Gap />
 												<Text type="danger">
-													该图片大小为{Math.ceil(file.size / 1024)}k，超过
+													该图片大小为{formatSize(file.size)}，超过
 													{MAX_IMAGE_SIZE}k，请压缩后上传
 												</Text>{' '}
 												<Gap />

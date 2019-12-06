@@ -27,7 +27,6 @@
 │   ├── start.js
 │   └── test.js
 ├── src/
-│   ├── apis/
 │   ├── components/
 │   │   ├── business/
 │   │   │   ├── ArticleDetailButtonComponent/
@@ -56,7 +55,8 @@
 │   │   │   ├── CatFigureComponent/
 │   │   │   │   └── index.tsx
 │   │   │   ├── CatPaginationComponent/
-│   │   │   │   └── index.tsx
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── CatPictureListComponent/
 │   │   │   │   └── index.tsx
 │   │   │   ├── HobbiesFigureComponent/
@@ -166,7 +166,6 @@
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
-│   │   ├── fonts/
 │   │   └── images/
 │   │       ├── background-loading.svg
 │   │       ├── image-loading.svg
@@ -210,11 +209,12 @@
 │       ├── compose.ts
 │       ├── config.ts
 │       ├── constant.ts
+│       ├── format.ts
 │       ├── parseSearch.ts
 │       ├── path.ts
 │       └── storage.ts
 ├── tree.md
 └── tsconfig.json
 
-71 directories, 144 files
+69 directories, 146 files
 ```
