@@ -1,0 +1,6 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.cat-pagination {
+	@include text-align(right);
+}
