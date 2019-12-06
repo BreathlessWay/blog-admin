@@ -61,6 +61,7 @@ class CatPictureListComponent extends Component<
 		const len = imageList.length;
 		const { pageSize, listLength, addList } = this.props.catStore;
 		if (listLength + len <= pageSize) {
+			imageList.forEach(image => (image.show = true));
 			addList(imageList as CatListType);
 		}
 	};
