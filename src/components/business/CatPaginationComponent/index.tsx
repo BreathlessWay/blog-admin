@@ -25,18 +25,20 @@ class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 		const { pageSize, pageIndex, count } = this.props.catStore;
 
 		return (
-			<section className="cat-pagination">
-				<Pagination
-					pageSize={pageSize}
-					current={pageIndex}
-					showQuickJumper={true}
-					showTotal={total => <span>共{total}张图片</span>}
-					total={count}
-					showSizeChanger={true}
-					onChange={this.handlePaginationChange}
-					onShowSizeChange={this.handleShowSizeChange}
-				/>
-			</section>
+			count > 0 && (
+				<section className="cat-pagination">
+					<Pagination
+						pageSize={pageSize}
+						current={pageIndex}
+						showQuickJumper={true}
+						showTotal={total => <span>共{total}张图片</span>}
+						total={count}
+						showSizeChanger={true}
+						onChange={this.handlePaginationChange}
+						onShowSizeChange={this.handleShowSizeChange}
+					/>
+				</section>
+			)
 		);
 	}
 }

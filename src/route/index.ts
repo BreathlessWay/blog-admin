@@ -12,7 +12,11 @@ export const routeMapPath = {
 		edit: '/article/edit',
 	},
 	cat: '/cat',
-	photography: '/photography',
+	photography: {
+		index: '/photography',
+		home: '/photography/index',
+		edit: '/photography/edit',
+	},
 };
 
 export const baseRoute = [
@@ -47,7 +51,7 @@ export const baseRoute = [
 	{
 		name: '摄影',
 		type: EMenuType.camera,
-		path: routeMapPath.photography,
+		path: routeMapPath.photography.index,
 		show: true,
 		objectId: 'camera',
 	},
@@ -61,5 +65,6 @@ export const articleRoute = [
 ];
 
 export const photographyRoute = [
-	{ name: '摄影', path: routeMapPath.photography, show: true },
+	{ name: '相册管理', path: routeMapPath.photography.home, show: true },
+	{ name: '相片管理', path: routeMapPath.photography.edit, show: false },
 ];

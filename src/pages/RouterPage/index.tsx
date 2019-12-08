@@ -144,9 +144,29 @@ class RouterPage extends React.Component<RouterPagePropType> {
 									component={CatPage}
 								/>
 								<Route
-									path={routeMapPath.photography}
-									exact={true}
-									children={<div>photography</div>}
+									path={routeMapPath.photography.index}
+									render={() => (
+										<Switch>
+											<Route
+												exact={true}
+												path={routeMapPath.photography.home}
+												children={<div>photography</div>}
+											/>
+											<Route
+												exact={true}
+												path={routeMapPath.photography.edit}
+												children={<div>photography</div>}
+											/>
+											<Route
+												path="*"
+												render={() => {
+													return (
+														<Redirect to={routeMapPath.photography.home} />
+													);
+												}}
+											/>
+										</Switch>
+									)}
 								/>
 								<Route
 									path="*"
