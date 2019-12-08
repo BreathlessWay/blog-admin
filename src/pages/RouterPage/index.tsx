@@ -63,6 +63,18 @@ const CatPage = lazy(() =>
 	import(/* webpackChunkName: "CatPage" */ '@/pages/CatPage'),
 );
 
+const PhotographyIndexPage = lazy(() =>
+	import(
+		/* webpackChunkName: "PhotographyIndexPage" */ '@/pages/PhotographyPage/PhotographyIndexPage'
+	),
+);
+
+const PhotographyEditPage = lazy(() =>
+	import(
+		/* webpackChunkName: "PhotographyEditPage" */ '@/pages/PhotographyPage/PhotographyEditPage'
+	),
+);
+
 export type RouterPagePropType = Pick<
 	StoreType,
 	'userStore' | 'homepageStore' | 'globalStore'
@@ -150,12 +162,12 @@ class RouterPage extends React.Component<RouterPagePropType> {
 											<Route
 												exact={true}
 												path={routeMapPath.photography.home}
-												children={<div>photography</div>}
+												component={PhotographyIndexPage}
 											/>
 											<Route
 												exact={true}
 												path={routeMapPath.photography.edit}
-												children={<div>photography</div>}
+												component={PhotographyEditPage}
 											/>
 											<Route
 												path="*"
