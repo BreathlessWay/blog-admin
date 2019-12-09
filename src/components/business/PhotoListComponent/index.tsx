@@ -17,7 +17,7 @@ export type PhotoListComponentPropType = Pick<StoreType, 'photoListStore'>;
 @inject('photoListStore')
 @observer
 class PhotoListComponent extends Component<PhotoListComponentPropType> {
-	handleCustomUpload = (item: ImageListType) => {};
+	handleUploadImage = (item: ImageListType) => {};
 
 	render() {
 		const { isEmpty, list } = this.props.photoListStore;
@@ -28,7 +28,7 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 				note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}
 				operation={
 					<ImageUploadAndPickComponent
-						onUploadImage={this.handleCustomUpload}
+						onUploadImage={this.handleUploadImage}
 						multiple={true}
 						disabled={false}
 						accept={UPLOAD_IMAGE_TYPE}

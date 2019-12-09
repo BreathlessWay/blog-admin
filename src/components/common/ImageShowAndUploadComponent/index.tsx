@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, FC } from 'react';
 
 import { Icon } from 'antd';
 import ImageUploadAndPickComponent from '@/components/common/ImageUploadAndPickComponent';
@@ -18,38 +18,37 @@ export type ImageShowAndUploadComponentPropType = {
 	multiple?: boolean;
 };
 
-export default class ImageShowAndUploadComponent extends React.Component<
-	ImageShowAndUploadComponentPropType
-> {
-	render() {
-		const {
-			imageList,
-			disabled = false,
-			render,
-			multiple = false,
-		} = this.props;
-		return (
-			<ul className="image-upload_list">
-				{imageList.map((item, index) => (
-					<li key={item.objectId} className="image-upload_item">
-						{render({ item, index })}
-					</li>
-				))}
-				<li className="image-upload_input">
-					<ImageUploadAndPickComponent
-						onUploadImage={this.props.onUploadImage}
-						multiple={multiple}
-						disabled={disabled}
-						accept={UPLOAD_IMAGE_TYPE}
-						listType="picture-card"
-						showUploadList={false}>
-						<div>
-							<Icon type="plus" />
-							<div className="ant-upload-text">上传图片</div>
-						</div>
-					</ImageUploadAndPickComponent>
+const ImageShowAndUploadComponent: FC<ImageShowAndUploadComponentPropType> = props => {
+	const {
+		imageList,
+		disabled = false,
+		render,
+		multiple = false,
+		onUploadImage,
+	} = props;
+	return (
+		<ul className="image-upload_list">
+			{imageList.map((item, index) => (
+				<li key={item.objectId} className="image-upload_item">
+					{render({ item, index })}
 				</li>
-			</ul>
-		);
-	}
-}
+			))}
+			<li className="image-upload_input">
+				<ImageUploadAndPickComponent
+					onUploadImage={onUploadImage}
+					multiple={multiple}
+					disabled={disabled}
+					accept={UPLOAD_IMAGE_TYPE}
+					listType="picture-card"
+					showUploadList={false}>
+					<div>
+						<Icon type="plus" />
+						<div className="ant-upload-text">上传图片</div>
+					</div>
+				</ImageUploadAndPickComponent>
+			</li>
+		</ul>
+	);
+};
+
+export default ImageShowAndUploadComponent;
