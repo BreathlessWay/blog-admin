@@ -202,7 +202,7 @@ class CatPictureListComponent extends Component<
 					onCancel={this.handleCancel}>
 					<Row>
 						<Col>
-							<label htmlFor="title">显示图片</label>
+							<label htmlFor="title">显示图片：</label>
 							&nbsp; &nbsp;
 							<Switch
 								checked={editItem?.show}
@@ -211,7 +211,7 @@ class CatPictureListComponent extends Component<
 						</Col>
 						<Gap />
 						<Col>
-							<label htmlFor="title">图片标题</label>
+							<label htmlFor="title">图片标题：</label>
 							<Gap />
 							<Input
 								placeholder="请输入图片标题"
@@ -224,7 +224,7 @@ class CatPictureListComponent extends Component<
 						</Col>
 						<Gap />
 						<Col>
-							<label htmlFor="intro">图片简介</label>
+							<label htmlFor="intro">图片简介：</label>
 							<Gap />
 							<TextArea
 								placeholder="请输入图片简介"

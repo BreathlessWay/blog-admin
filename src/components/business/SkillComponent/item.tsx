@@ -61,6 +61,7 @@ class SkillComponentItem extends Component<
 				</Col>
 				<Col span={24}>
 					<Input
+						placeholder="请输入技能名称"
 						id={`${index}`}
 						allowClear={true}
 						value={name}

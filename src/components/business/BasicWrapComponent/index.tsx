@@ -21,6 +21,8 @@ export type BasicWrapComponentPropType = {
 
 	render?: (isEditing: boolean) => ReactNode;
 	handleEdit?: () => Promise<any>;
+
+	operation?: ReactNode;
 };
 
 const BasicWrapComponent: FC<BasicWrapComponentPropType &
@@ -36,6 +38,7 @@ const BasicWrapComponent: FC<BasicWrapComponentPropType &
 		render,
 		note,
 		globalStore,
+		operation,
 	} = props;
 
 	const handleClickEdit = () => {
@@ -67,6 +70,7 @@ const BasicWrapComponent: FC<BasicWrapComponentPropType &
 							{note}
 						</Text>
 					</Col>
+					{operation}
 					{needEdit && (
 						<Button type="link" onClick={handleClickEdit}>
 							{isEditing ? '完成' : '编辑'}

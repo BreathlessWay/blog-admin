@@ -1,9 +1,17 @@
-import React, { Component } from 'react';
+import React, { lazy } from 'react';
 
-class PhotographyIndexPage extends Component {
-	render() {
-		return <div>PhotographyIndexPage</div>;
-	}
-}
+const PhotoAlbumComponent = lazy(() =>
+	import(
+		/* webpackChunkName: "PhotoAlbumComponent" */ '@/components/business/PhotoAlbumComponent'
+	),
+);
+
+const PhotographyIndexPage = () => {
+	return (
+		<>
+			<PhotoAlbumComponent />
+		</>
+	);
+};
 
 export default PhotographyIndexPage;

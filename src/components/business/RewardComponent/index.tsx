@@ -85,6 +85,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 						<Gap />
 						<Col span={12}>
 							<Input
+								placeholder="请输入打赏标题"
 								id="rewardTitle"
 								disabled={!isEditing}
 								value={rewardTitle}

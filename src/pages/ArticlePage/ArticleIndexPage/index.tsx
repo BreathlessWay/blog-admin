@@ -19,14 +19,19 @@ const ArticleListComponent = lazy(() =>
 	),
 );
 
-export type ArticlePagePropType = Pick<StoreType, 'articleListStore'>;
+export type ArticlePagePropType = Pick<
+	StoreType,
+	'articleListStore' | 'tagStore'
+>;
 
 const ArticlePage: FC<ArticlePagePropType> = props => {
 	const {
 		articleListStore: { getList },
+		tagStore: { getTags },
 	} = props;
 
 	useEffect(() => {
+		getTags();
 		getList();
 	}, [getList]);
 
@@ -39,4 +44,10 @@ const ArticlePage: FC<ArticlePagePropType> = props => {
 	);
 };
 
-export default compose<FC>(inject('articleListStore'), observer)(ArticlePage);
+export default compose<FC>(
+	inject((allStore: StoreType) => ({
+		articleListStore: allStore.articleListStore,
+		tagStore: allStore.tagStore,
+	})),
+	observer,
+)(ArticlePage);
