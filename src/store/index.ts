@@ -7,6 +7,7 @@ import ArticleListStore from '@/store/ArticleListStore';
 import ArticleDetailStore from '@/store/ArticleDetailStore';
 import CatStore from '@/store/CatStore';
 import PhotoAlbumStore from '@/store/PhotoAlbumStore';
+import PhotoListStore from '@/store/PhotoListStore';
 
 import { StoreType } from './store';
 
@@ -19,6 +20,7 @@ const store: StoreType = {
 	articleDetailStore: new ArticleDetailStore(),
 	catStore: new CatStore(),
 	photoAlbumStore: new PhotoAlbumStore(),
+	photoListStore: new PhotoListStore(),
 };
 
 export default store;

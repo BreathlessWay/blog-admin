@@ -81,6 +81,8 @@
 │   │   │   │   ├── index.tsx
 │   │   │   │   ├── item.tsx
 │   │   │   │   └── style.scss
+│   │   │   ├── PhotoListComponent/
+│   │   │   │   └── index.tsx
 │   │   │   ├── RewardComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   ├── item.tsx
@@ -125,6 +127,9 @@
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── ImageShowAndUploadComponent/
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
+│   │       ├── ImageUploadAndPickComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── PreviewImageComponent/
@@ -203,6 +208,8 @@
 │   │   ├── PhotoAlbumStore/
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
+│   │   ├── PhotoListStore/
+│   │   │   └── index.ts
 │   │   ├── TagStore/
 │   │   │   └── index.ts
 │   │   ├── UserStore/
@@ -217,6 +224,7 @@
 │   │   ├── cat.d.ts
 │   │   ├── hompage.d.ts
 │   │   ├── image.d.ts
+│   │   ├── photo.d.ts
 │   │   ├── tag.d.ts
 │   │   └── user.d.ts
 │   └── utils/
@@ -231,5 +239,5 @@
 ├── tree.md
 └── tsconfig.json
 
-76 directories, 154 files
+79 directories, 159 files
 ```

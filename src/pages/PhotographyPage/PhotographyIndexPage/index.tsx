@@ -19,11 +19,7 @@ const PhotographyIndexPage: FC<Pick<StoreType, 'photoAlbumStore'>> = props => {
 		getList();
 	}, [getList]);
 
-	return (
-		<>
-			<PhotoAlbumComponent />
-		</>
-	);
+	return <PhotoAlbumComponent />;
 };
 
 export default compose<FC>(

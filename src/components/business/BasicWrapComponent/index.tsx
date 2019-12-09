@@ -71,7 +71,7 @@ const BasicWrapComponent: FC<BasicWrapComponentPropType &
 						</Text>
 					</Col>
 					{operation}
-					{needEdit && (
+					{Boolean(!operation && needEdit) && (
 						<Button type="link" onClick={handleClickEdit}>
 							{isEditing ? '完成' : '编辑'}
 						</Button>
