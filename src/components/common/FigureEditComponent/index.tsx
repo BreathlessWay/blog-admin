@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Icon, message } from 'antd';
+import { Icon, message, Modal } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
@@ -13,6 +13,8 @@ import {
 	MAX_IMAGE_COUNT,
 	MAX_IMAGE_SIZE,
 } from '@/utils/constant';
+
+const { confirm } = Modal;
 
 const iconStyle = {
 	fontSize: ACTION_ICON_SIZE,
@@ -41,7 +43,17 @@ export default class FigureEditComponent extends Component<
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {
-			this.props.onRemoveFigure(item);
+			const _this = this;
+			confirm({
+				title: '是否确认删除该图片？',
+				okType: 'danger',
+				onOk() {
+					_this.props.onRemoveFigure(item);
+				},
+				onCancel() {
+					console.log('Cancel');
+				},
+			});
 		}
 	};
 

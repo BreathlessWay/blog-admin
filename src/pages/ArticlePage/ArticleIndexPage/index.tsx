@@ -33,7 +33,7 @@ const ArticlePage: FC<ArticlePagePropType> = props => {
 	useEffect(() => {
 		getTags();
 		getList();
-	}, [getList]);
+	}, [getList, getTags]);
 
 	return (
 		<>

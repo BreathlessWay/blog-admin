@@ -12,6 +12,7 @@ import {
 	Typography,
 	Button,
 	message,
+	Modal,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
@@ -25,6 +26,7 @@ import { MAX_LENGTH_SM } from '@/utils/constant';
 import './style.scss';
 
 const { Text } = Typography;
+const { confirm } = Modal;
 
 export type ArticleTagPagePropType = Pick<StoreType, 'userStore' | 'tagStore'> &
 	RouteComponentProps;
@@ -62,7 +64,17 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 			message.error('当前标签下存在文章，不可删除');
 			return;
 		}
-		this.props.tagStore.removeTag(index);
+		const _this = this;
+		confirm({
+			title: '是否确认删除该标签',
+			okType: 'danger',
+			onOk() {
+				_this.props.tagStore.removeTag(index);
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 
 	handleChangeInput = ({ value, index }: { value: string; index: number }) => {

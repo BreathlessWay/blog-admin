@@ -12,6 +12,7 @@ export type ImageLoadComponentPropType = {
 	url: string;
 
 	title?: string;
+	empty?: string;
 	width?: number | string;
 	height?: number | string;
 
@@ -69,13 +70,12 @@ export default class ImageLoadComponent extends Component<
 	};
 
 	handleClick = (event: MouseEvent) => {
-		event.stopPropagation();
 		const { url, onClick } = this.props;
 		onClick && onClick({ url, event });
 	};
 
 	renderContent = () => {
-		const { title = '' } = this.props;
+		const { title = '', empty = '暂无图片' } = this.props;
 
 		const { error, loading, src } = this.state;
 
@@ -84,7 +84,7 @@ export default class ImageLoadComponent extends Component<
 		switch (true) {
 			case SUPPORT_INTERSECTION_OBSERVER: {
 				return (
-					<div onClick={event => event.stopPropagation()}>
+					<div>
 						<Result
 							className="image-load_error"
 							status="error"
@@ -96,7 +96,7 @@ export default class ImageLoadComponent extends Component<
 			}
 			case error: {
 				return (
-					<div onClick={event => event.stopPropagation()}>
+					<div>
 						<Result
 							className="image-load_error"
 							status="error"
@@ -114,14 +114,13 @@ export default class ImageLoadComponent extends Component<
 						alt={title}
 						onLoad={this.handleLoad}
 						onError={this.handleError}
-						onClick={this.handleClick}
 					/>
 				);
 			}
 			default:
 				return (
-					<div onClick={event => event.stopPropagation()}>
-						<Empty description="暂无图片" className="image-load_empty" />
+					<div>
+						<Empty description={empty} className="image-load_empty" />
 					</div>
 				);
 		}
@@ -144,7 +143,10 @@ export default class ImageLoadComponent extends Component<
 		}
 
 		return (
-			<article className="image-load_wrap" style={backgroundStyle}>
+			<article
+				className="image-load_wrap"
+				style={backgroundStyle}
+				onClick={this.handleClick}>
 				{this.renderContent()}
 			</article>
 		);

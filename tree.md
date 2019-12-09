@@ -27,6 +27,7 @@
 │   ├── start.js
 │   └── test.js
 ├── src/
+│   ├── apis/
 │   ├── components/
 │   │   ├── business/
 │   │   │   ├── ArticleDetailButtonComponent/
@@ -76,6 +77,10 @@
 │   │   │   │   └── style.scss
 │   │   │   ├── PersonalInfoComponent/
 │   │   │   │   └── index.tsx
+│   │   │   ├── PhotoAlbumComponent/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── item.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── RewardComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   ├── item.tsx
@@ -152,6 +157,11 @@
 │   │   ├── MePage/
 │   │   │   ├── index.tsx
 │   │   │   └── style.scss
+│   │   ├── PhotographyPage/
+│   │   │   ├── PhotographyEditPage/
+│   │   │   │   └── index.tsx
+│   │   │   └── PhotographyIndexPage/
+│   │   │       └── index.tsx
 │   │   └── RouterPage/
 │   │       ├── index.tsx
 │   │       └── style.scss
@@ -166,6 +176,7 @@
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
+│   │   ├── fonts/
 │   │   └── images/
 │   │       ├── background-loading.svg
 │   │       ├── image-loading.svg
@@ -189,6 +200,9 @@
 │   │   │   └── index.ts
 │   │   ├── ListStore/
 │   │   │   └── index.ts
+│   │   ├── PhotoAlbumStore/
+│   │   │   ├── data.ts
+│   │   │   └── index.ts
 │   │   ├── TagStore/
 │   │   │   └── index.ts
 │   │   ├── UserStore/
@@ -198,6 +212,7 @@
 │   │   └── store.d.ts
 │   ├── style.scss
 │   ├── types/
+│   │   ├── album.d.ts
 │   │   ├── article.d.ts
 │   │   ├── cat.d.ts
 │   │   ├── hompage.d.ts
@@ -216,5 +231,5 @@
 ├── tree.md
 └── tsconfig.json
 
-69 directories, 146 files
+76 directories, 154 files
 ```

@@ -22,10 +22,10 @@ class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 	};
 
 	render() {
-		const { pageSize, pageIndex, count } = this.props.catStore;
+		const { pageSize, pageIndex, isEmpty, count } = this.props.catStore;
 
 		return (
-			count > 0 && (
+			!isEmpty && (
 				<section className="cat-pagination">
 					<Pagination
 						pageSize={pageSize}

@@ -55,7 +55,10 @@ const PreviewImageComponent: FC<PreviewImageComponentPropType> = props => {
 						onClick={e => changeCurrent(e, EOperate.minus)}
 					/>
 				)}
-				<ImageLoadComponent url={image} />
+				<ImageLoadComponent
+					url={image}
+					onClick={({ event }) => event.stopPropagation()}
+				/>
 				{showRight && (
 					<Icon
 						type="right-circle"

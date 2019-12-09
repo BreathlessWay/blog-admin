@@ -2,7 +2,7 @@ import React, { ChangeEvent, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Button, Row } from 'antd';
+import { Button, Row, Modal } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
@@ -16,6 +16,8 @@ import {
 } from '@/utils/constant';
 
 import './style.scss';
+
+const { confirm } = Modal;
 
 export type SocialEditComponentPropType = Pick<StoreType, 'userStore'>;
 
@@ -76,13 +78,23 @@ class SocialEditComponent extends React.Component<
 	};
 
 	handleDeleteResume = () => {
-		this.props.userStore.setPersonalInfo({
-			key: EResumeChangeKey.resumeName,
-			value: '',
-		});
-		this.props.userStore.setPersonalInfo({
-			key: EResumeChangeKey.resumeUrl,
-			value: '',
+		const _this = this;
+		confirm({
+			title: '是否确认删除简历？',
+			okType: 'danger',
+			onOk() {
+				_this.props.userStore.setPersonalInfo({
+					key: EResumeChangeKey.resumeName,
+					value: '',
+				});
+				_this.props.userStore.setPersonalInfo({
+					key: EResumeChangeKey.resumeUrl,
+					value: '',
+				});
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
 		});
 	};
 
@@ -109,7 +121,17 @@ class SocialEditComponent extends React.Component<
 	};
 
 	handleDeleteItem = (index: number) => () => {
-		this.props.userStore.deleteSocial(index);
+		const _this = this;
+		confirm({
+			title: '是否确认删除该条社交信息？',
+			okType: 'danger',
+			onOk() {
+				_this.props.userStore.deleteSocial(index);
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 
 	handleChangeSocialInput = (

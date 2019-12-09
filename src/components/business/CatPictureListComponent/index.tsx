@@ -21,6 +21,7 @@ import {
 } from '@/utils/constant';
 
 const { TextArea } = Input;
+const { confirm } = Modal;
 
 const iconStyle = {
 	fontSize: ACTION_ICON_SIZE,
@@ -71,7 +72,17 @@ class CatPictureListComponent extends Component<
 	};
 
 	handleRemove = (item: ImageItemType) => () => {
-		this.props.catStore.removeItem(item as CatItemType);
+		const _this = this;
+		confirm({
+			title: '是否确认删除该图片？',
+			okType: 'danger',
+			onOk() {
+				_this.props.catStore.removeItem(item as CatItemType);
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 
 	handleSetShowFigure = (item: ImageItemType) => () => {

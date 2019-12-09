@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Icon, Tag } from 'antd';
+import { Icon, Tag, Modal } from 'antd';
 
 import store from '@/store';
 
@@ -18,6 +18,8 @@ import moment from 'moment';
 import { routeMapPath } from '@/route';
 
 import './style.scss';
+
+const { confirm } = Modal;
 
 const columns: ColumnProps<ArticleItemType>[] = [
 	{
@@ -101,7 +103,16 @@ const handleChangeStatus = (article: ArticleItemType) => () => {
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
-	store.articleListStore.deleteArticle([article.objectId]);
+	confirm({
+		title: '确认删除该文章？',
+		okType: 'danger',
+		onOk() {
+			store.articleListStore.deleteArticle([article.objectId]);
+		},
+		onCancel() {
+			console.log('Cancel');
+		},
+	});
 };
 
 export default columns;

@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Input, Row, Switch } from 'antd';
+import { Col, Input, Row, Switch, Modal } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
@@ -13,6 +13,8 @@ import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
 import './style.scss';
+
+const { confirm } = Modal;
 
 export type RewardComponentPropType = Pick<StoreType, 'userStore'>;
 
@@ -44,9 +46,19 @@ class RewardComponent extends Component<RewardComponentPropType> {
 	};
 
 	handleDelete = ({ key }: { key: ERewardChangeKey }) => () => {
-		this.props.userStore.setPersonalInfo({
-			key: key,
-			value: '',
+		const _this = this;
+		confirm({
+			title: '是否确认删除该二维码',
+			okType: 'danger',
+			onOk() {
+				_this.props.userStore.setPersonalInfo({
+					key: key,
+					value: '',
+				});
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
 		});
 	};
 
