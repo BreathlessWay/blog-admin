@@ -82,7 +82,8 @@
 │   │   │   │   ├── item.tsx
 │   │   │   │   └── style.scss
 │   │   │   ├── PhotoListComponent/
-│   │   │   │   └── index.tsx
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── RewardComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   ├── item.tsx
@@ -209,6 +210,7 @@
 │   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── PhotoListStore/
+│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── TagStore/
 │   │   │   └── index.ts
@@ -233,11 +235,12 @@
 │       ├── config.ts
 │       ├── constant.ts
 │       ├── format.ts
+│       ├── intersectionObserver.ts
 │       ├── parseSearch.ts
 │       ├── path.ts
 │       └── storage.ts
 ├── tree.md
 └── tsconfig.json
 
-79 directories, 159 files
+79 directories, 162 files
 ```

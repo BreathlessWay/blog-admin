@@ -1,17 +1,20 @@
-export const lazyLoad = (params?: { id?: string; callback?: Function }) => {
+import { IMAGE_DATA_SRC } from '@/utils/constant';
+
+export const lazyLoad = (id?: string) => {
 	let root = null;
 
-	if (params && params.id) {
-		root = document.getElementById(params.id);
+	if (id) {
+		root = document.getElementById(id);
 	}
-
 	const observer = new IntersectionObserver(
 		entries => {
 			entries.forEach(item => {
 				// 当前元素可见
 				if (item.isIntersecting) {
-					console.log(params!.callback!());
-					params && params.callback && params.callback();
+					const oImage = item.target.getElementsByTagName('img')[0];
+					if (oImage) {
+						oImage.src = oImage.getAttribute(IMAGE_DATA_SRC) || '';
+					}
 					observer.unobserve(item.target); // 停止观察当前元素 避免不可见时候再次调用callback函数
 				}
 			});

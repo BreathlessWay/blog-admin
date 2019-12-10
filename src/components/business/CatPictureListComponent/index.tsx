@@ -166,8 +166,9 @@ class CatPictureListComponent extends Component<
 						multiple={true}
 						imageList={list}
 						onUploadImage={this.onAddCatPicture}
-						render={({ item, index }) => (
+						render={({ item, index, observer }) => (
 							<ImageCardComponent
+								observer={observer as IntersectionObserver}
 								width={300}
 								height={200}
 								showInfo={true}

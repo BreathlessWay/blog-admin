@@ -74,3 +74,6 @@ export const ACTION_ICON_SIZE = 24;
 // 是否支持IntersectionObserver
 export const SUPPORT_INTERSECTION_OBSERVER =
 	(typeof window.IntersectionObserver).toLowerCase() !== 'function';
+
+// 图片src存储key
+export const IMAGE_DATA_SRC = 'data-src';

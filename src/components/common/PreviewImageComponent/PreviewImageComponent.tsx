@@ -1,11 +1,11 @@
 import React, { FC, useState, MouseEvent } from 'react';
 
 import { Icon } from 'antd';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 import { close } from './close';
 
 import './style.scss';
-import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 export type PreviewImageComponentPropType = {
 	imageUrls: Array<string>;

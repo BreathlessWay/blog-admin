@@ -1,34 +1,56 @@
-import React, { FC, createRef, useState, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 
-import ImageLoadComponent, {
-	ImageLoadComponentPropType,
-} from '@/components/common/ImageLoadComponent';
+import { ImageItemType, ImageListType } from '@/types/image';
 
 import { lazyLoad } from '@/utils/intersectionObserver';
 
-export type ImageLazyLoadComponentPropType = ImageLoadComponentPropType & {
+export type ImageLazyLoadComponentRenderImageListPropType = {
+	imageList: ImageListType;
+	render: (params: {
+		item: ImageItemType;
+		index: number;
+		observer: IntersectionObserver | null;
+	}) => ReactNode;
+};
+
+export type ImageLazyLoadComponentPropType = {
 	id?: string;
-};
+	listClassName?: string;
+	itemClassName?: string;
+	childClassName?: string;
+} & ImageLazyLoadComponentRenderImageListPropType;
 
-const changeShow = (func: Function) => {
-	console.log(func);
-	return func(true);
-};
-
-const observer = lazyLoad({ callback: changeShow });
+let observer: IntersectionObserver | null = null;
 
 const ImageLazyLoadComponent: FC<ImageLazyLoadComponentPropType> = props => {
-	const [show, setShow] = useState(false);
-
-	const wrap = createRef<HTMLElement>();
+	const {
+		id,
+		imageList,
+		render,
+		children,
+		listClassName,
+		itemClassName,
+		childClassName,
+	} = props;
 
 	useEffect(() => {
-		changeShow(setShow);
-		wrap.current && observer.observe(wrap.current);
-	}, [wrap]);
+		observer = lazyLoad(id);
+		return () => {
+			// 卸载时释放IntersectionObserver
+			observer?.disconnect();
+			observer = null;
+		};
+	}, [id]);
 
 	return (
-		<section ref={wrap}>{show && <ImageLoadComponent {...props} />}</section>
+		<ul className={listClassName} id={id}>
+			{imageList.map((item, index) => (
+				<li key={item.objectId} className={itemClassName}>
+					{render({ item, index, observer })}
+				</li>
+			))}
+			<li className={childClassName}>{children}</li>
+		</ul>
 	);
 };
 

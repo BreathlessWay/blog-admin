@@ -1,10 +1,13 @@
-import React, { Component, CSSProperties, MouseEvent } from 'react';
+import React, { Component, createRef, CSSProperties, MouseEvent } from 'react';
 
 import { Result, Empty } from 'antd';
 
 import Loading from '@/static/images/image-loading.svg';
 
-import { SUPPORT_INTERSECTION_OBSERVER } from '@/utils/constant';
+import {
+	IMAGE_DATA_SRC,
+	SUPPORT_INTERSECTION_OBSERVER,
+} from '@/utils/constant';
 
 import './style.scss';
 
@@ -15,6 +18,7 @@ export type ImageLoadComponentPropType = {
 	empty?: string;
 	width?: number | string;
 	height?: number | string;
+	observer?: IntersectionObserver | null;
 
 	onClick?: (params: { url: string; event: MouseEvent }) => void;
 };
@@ -29,19 +33,41 @@ export default class ImageLoadComponent extends Component<
 	ImageLoadComponentPropType,
 	ImageLoadComponentStateType
 > {
-	static getDerivedStateFromProps(
-		props: ImageLoadComponentPropType,
-		state: ImageLoadComponentStateType,
-	): ImageLoadComponentStateType | null {
-		if (props.url !== state.src) {
-			return {
-				src: props.url,
-				error: false,
-				loading: true,
-			};
-		}
-		return state;
+	wrap = createRef<HTMLElement>();
+
+	componentDidMount(): void {
+		this.showImage();
 	}
+
+	componentDidUpdate(prevProps: Readonly<ImageLoadComponentPropType>): void {
+		if (this.state.src !== this.props.url) {
+			this.setState(
+				{
+					src: this.props.url,
+					error: false,
+					loading: true,
+				},
+				() => {
+					this.showImage();
+				},
+			);
+		}
+	}
+
+	showImage = () => {
+		if (this.wrap.current) {
+			const { observer } = this.props;
+			if (observer) {
+				observer.unobserve(this.wrap.current);
+				observer.observe(this.wrap.current);
+			} else {
+				const oImg = this.wrap.current.getElementsByTagName('img')[0];
+				if (oImg) {
+					oImg.src = oImg.getAttribute(IMAGE_DATA_SRC) || '';
+				}
+			}
+		}
+	};
 
 	readonly state: ImageLoadComponentStateType = {
 		src: this.props.url,
@@ -79,7 +105,7 @@ export default class ImageLoadComponent extends Component<
 
 		const { error, loading, src } = this.state;
 
-		const imageStyle = { display: loading ? 'none' : 'block' };
+		const imageStyle = !loading ? { display: 'block' } : {};
 
 		switch (true) {
 			case SUPPORT_INTERSECTION_OBSERVER: {
@@ -110,7 +136,7 @@ export default class ImageLoadComponent extends Component<
 					<img
 						className="image-load_img"
 						style={imageStyle}
-						src={src}
+						data-src={src}
 						alt={title}
 						onLoad={this.handleLoad}
 						onError={this.handleError}
@@ -144,6 +170,7 @@ export default class ImageLoadComponent extends Component<
 
 		return (
 			<article
+				ref={this.wrap}
 				className="image-load_wrap"
 				style={backgroundStyle}
 				onClick={this.handleClick}>

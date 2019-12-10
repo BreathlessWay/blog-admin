@@ -14,6 +14,7 @@ export type ImageCardComponentPropType = {
 	actions?: Array<ReactNode>;
 	width?: number | string;
 	height?: number | string;
+	observer?: IntersectionObserver;
 
 	onClick?: () => void;
 };
@@ -28,15 +29,18 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 		height = 180,
 		onClick,
 		showInfo = false,
+		observer,
 	} = props;
 	let span = 24;
+
 	if (actions && actions.length) {
 		span = 24 / actions.length;
 	}
+
 	return (
 		<article style={{ width }} onClick={() => onClick && onClick()}>
 			<section className="image-card_image">
-				<ImageLoadComponent url={url} height={height} />
+				<ImageLoadComponent url={url} height={height} observer={observer} />
 			</section>
 			{showInfo && (
 				<section className="image-card_info">

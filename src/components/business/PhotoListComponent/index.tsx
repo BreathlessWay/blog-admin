@@ -6,6 +6,7 @@ import { Empty, Button, Icon } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import ImageUploadComponent from '@/components/common/ImageUploadComponent';
+import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
 
 import { StoreType } from '@/store/store';
 import { ImageListType } from '@/types/image';
@@ -51,17 +52,20 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 				{isEmpty ? (
 					<Empty description="暂无图片" />
 				) : (
-					<ul className="picture-list" id="list-wrap">
-						{list.map(item => (
-							<li key={item.objectId} className="picture-list_item">
-								<ImageLoadComponent
-									url={item.url}
-									title={item.title}
-									width={300}
-								/>
-							</li>
-						))}
-					</ul>
+					<ImageLazyLoadComponent
+						id="list-view"
+						listClassName="picture-list"
+						itemClassName="picture-list_item"
+						imageList={list}
+						render={({ item, observer }) => (
+							<ImageLoadComponent
+								observer={observer}
+								url={item.url}
+								title={item.title}
+								width={300}
+							/>
+						)}
+					/>
 				)}
 			</BasicWrapComponent>
 		);
