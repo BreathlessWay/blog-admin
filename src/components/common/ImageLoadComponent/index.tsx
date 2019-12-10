@@ -27,7 +27,6 @@ export type ImageLoadComponentStateType = Readonly<{
 	src: string;
 	error: boolean;
 	loading: boolean;
-	height: number | string;
 }>;
 
 export default class ImageLoadComponent extends Component<
@@ -47,7 +46,6 @@ export default class ImageLoadComponent extends Component<
 					src: this.props.url,
 					error: false,
 					loading: true,
-					height: this.props.height || 0,
 				},
 				() => {
 					this.showImage();
@@ -60,7 +58,6 @@ export default class ImageLoadComponent extends Component<
 		src: this.props.url,
 		error: false,
 		loading: true,
-		height: this.props.height || 0,
 	};
 
 	get showLoading() {
@@ -90,12 +87,11 @@ export default class ImageLoadComponent extends Component<
 				loading: false,
 			},
 			() => {
-				if (this.wrap.current) {
+				if (this.wrap.current && !this.props.height) {
 					const oImg = this.wrap.current.getElementsByTagName('img')[0];
 					if (oImg) {
-						this.setState({
-							height: oImg.getBoundingClientRect().height,
-						});
+						this.wrap.current.style.height =
+							oImg.getBoundingClientRect().height + 'px';
 					}
 				}
 			},
@@ -167,8 +163,7 @@ export default class ImageLoadComponent extends Component<
 	};
 
 	render() {
-		const { width = 0 } = this.props;
-		const { height } = this.state;
+		const { width = 0, height = 300 } = this.props;
 		const backgroundStyle: CSSProperties = this.showLoading
 			? {
 					backgroundImage: `url("${Loading}")`,
