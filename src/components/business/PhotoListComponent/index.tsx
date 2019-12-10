@@ -52,20 +52,22 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 				{isEmpty ? (
 					<Empty description="暂无图片" />
 				) : (
-					<ImageLazyLoadComponent
-						id="list-view"
-						listClassName="picture-list"
-						itemClassName="picture-list_item"
-						imageList={list}
-						render={({ item, observer }) => (
-							<ImageLoadComponent
-								observer={observer}
-								url={item.url}
-								title={item.title}
-								width={300}
-							/>
-						)}
-					/>
+					<section id="list-view">
+						<ImageLazyLoadComponent
+							listClassName="picture-list"
+							itemClassName="picture-list_item"
+							imageList={list}
+							render={({ item, observer }) => (
+								<ImageLoadComponent
+									observer={observer}
+									url={item.url}
+									title={item.title}
+									width={300}
+									height={300}
+								/>
+							)}
+						/>
+					</section>
 				)}
 			</BasicWrapComponent>
 		);

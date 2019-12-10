@@ -26,6 +26,5 @@ export const lazyLoad = (id?: string) => {
 			rootMargin: '0px 0px 0px 0px', //计算交叉时添加到根(root)边界盒bounding box的矩形偏移量
 		},
 	);
-
 	return observer;
 };

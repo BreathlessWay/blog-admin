@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 
 import { ImageItemType, ImageListType } from '@/types/image';
 
@@ -20,9 +20,9 @@ export type ImageLazyLoadComponentPropType = {
 	childClassName?: string;
 } & ImageLazyLoadComponentRenderImageListPropType;
 
-let observer: IntersectionObserver | null = null;
-
 const ImageLazyLoadComponent: FC<ImageLazyLoadComponentPropType> = props => {
+	const [observer, setObserver] = useState<IntersectionObserver | null>(null);
+
 	const {
 		id,
 		imageList,
@@ -34,21 +34,21 @@ const ImageLazyLoadComponent: FC<ImageLazyLoadComponentPropType> = props => {
 	} = props;
 
 	useEffect(() => {
-		observer = lazyLoad(id);
+		setObserver(lazyLoad(id));
 		return () => {
 			// 卸载时释放IntersectionObserver
-			observer?.disconnect();
-			observer = null;
+			setObserver(null);
 		};
 	}, [id]);
 
 	return (
-		<ul className={listClassName} id={id}>
-			{imageList.map((item, index) => (
-				<li key={item.objectId} className={itemClassName}>
-					{render({ item, index, observer })}
-				</li>
-			))}
+		<ul className={listClassName}>
+			{observer &&
+				imageList.map((item, index) => (
+					<li key={item.objectId} className={itemClassName}>
+						{render({ item, index, observer })}
+					</li>
+				))}
 			<li className={childClassName}>{children}</li>
 		</ul>
 	);

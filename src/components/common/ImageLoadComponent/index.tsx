@@ -27,6 +27,7 @@ export type ImageLoadComponentStateType = Readonly<{
 	src: string;
 	error: boolean;
 	loading: boolean;
+	height: number | string;
 }>;
 
 export default class ImageLoadComponent extends Component<
@@ -46,12 +47,25 @@ export default class ImageLoadComponent extends Component<
 					src: this.props.url,
 					error: false,
 					loading: true,
+					height: this.props.height || 0,
 				},
 				() => {
 					this.showImage();
 				},
 			);
 		}
+	}
+
+	readonly state: ImageLoadComponentStateType = {
+		src: this.props.url,
+		error: false,
+		loading: true,
+		height: this.props.height || 0,
+	};
+
+	get showLoading() {
+		const { error, loading, src } = this.state;
+		return src && loading && !error && !SUPPORT_INTERSECTION_OBSERVER;
 	}
 
 	showImage = () => {
@@ -69,23 +83,23 @@ export default class ImageLoadComponent extends Component<
 		}
 	};
 
-	readonly state: ImageLoadComponentStateType = {
-		src: this.props.url,
-		error: false,
-		loading: true,
-	};
-
-	get showLoading() {
-		const { url } = this.props;
-		const { error, loading } = this.state;
-		return url && loading && !error && !SUPPORT_INTERSECTION_OBSERVER;
-	}
-
 	handleLoad = () => {
-		this.setState({
-			error: false,
-			loading: false,
-		});
+		this.setState(
+			{
+				error: false,
+				loading: false,
+			},
+			() => {
+				if (this.wrap.current) {
+					const oImg = this.wrap.current.getElementsByTagName('img')[0];
+					if (oImg) {
+						this.setState({
+							height: oImg.getBoundingClientRect().height,
+						});
+					}
+				}
+			},
+		);
 	};
 
 	handleError = () => {
@@ -153,7 +167,8 @@ export default class ImageLoadComponent extends Component<
 	};
 
 	render() {
-		const { width = 0, height = 0 } = this.props;
+		const { width = 0 } = this.props;
+		const { height } = this.state;
 		const backgroundStyle: CSSProperties = this.showLoading
 			? {
 					backgroundImage: `url("${Loading}")`,
