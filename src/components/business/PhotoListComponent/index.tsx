@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 
 import { Empty, Button, Icon } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
-import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import ImageUploadComponent from '@/components/common/ImageUploadComponent';
 
 import { StoreType } from '@/store/store';
@@ -12,6 +12,8 @@ import { ImageListType } from '@/types/image';
 import { PhotoListType } from '@/types/photo';
 
 import { MAX_IMAGE_COUNT, UPLOAD_IMAGE_TYPE } from '@/utils/constant';
+
+import './style.scss';
 
 export type PhotoListComponentPropType = Pick<StoreType, 'photoListStore'>;
 
@@ -49,16 +51,16 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 				{isEmpty ? (
 					<Empty description="暂无图片" />
 				) : (
-					<ul>
-						<li>
-							{list.map(item => (
-								<ImageLazyLoadComponent
+					<ul className="picture-list" id="list-wrap">
+						{list.map(item => (
+							<li key={item.objectId} className="picture-list_item">
+								<ImageLoadComponent
 									url={item.url}
 									title={item.title}
-									key={item.objectId}
+									width={300}
 								/>
-							))}
-						</li>
+							</li>
+						))}
 					</ul>
 				)}
 			</BasicWrapComponent>

@@ -1,0 +1,24 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.picture-list {
+	margin: 0;
+	height: calc(100vh - 64px - 85px - 52px - 24px - 24px - 20px - 5px);
+	overflow: auto;
+}
+
+.picture-list::-webkit-scrollbar-track {
+	border-radius: $border-radius;
+}
+
+.picture-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.picture-list::-webkit-scrollbar-thumb {
+	background: #ffb6bb;
+	border-radius: $border-radius;
+}
+
+.picture-list_item {
+}

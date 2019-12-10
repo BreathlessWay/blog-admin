@@ -3,7 +3,7 @@ import React, { Component, ComponentClass, MouseEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { Icon, Modal } from 'antd';
-import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 import { AlbumItemType } from '@/types/album';
 
@@ -72,7 +72,7 @@ class PhotoAlbumItem extends Component<
 			<li className="photo-album_item" onClick={this.handleEditAlbum}>
 				<section className="photo-album_item__img">
 					<div style={{ overflow: 'hidden' }}>
-						<ImageLazyLoadComponent
+						<ImageLoadComponent
 							url={cover}
 							title={title}
 							width={200}

@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
 import { Col, Row } from 'antd';
-import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 
 import './style.scss';
 
@@ -36,7 +36,7 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 	return (
 		<article style={{ width }} onClick={() => onClick && onClick()}>
 			<section className="image-card_image">
-				<ImageLazyLoadComponent url={url} height={height} />
+				<ImageLoadComponent url={url} height={height} />
 			</section>
 			{showInfo && (
 				<section className="image-card_info">
