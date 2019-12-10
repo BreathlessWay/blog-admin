@@ -1,7 +1,7 @@
 import React, { ReactNode, FC } from 'react';
 
 import { Icon } from 'antd';
-import ImageUploadAndPickComponent from '@/components/common/ImageUploadAndPickComponent';
+import ImageUploadComponent from '@/components/common/ImageUploadComponent';
 
 import { ImageListType, ImageItemType } from '@/types/image';
 
@@ -34,7 +34,7 @@ const ImageShowAndUploadComponent: FC<ImageShowAndUploadComponentPropType> = pro
 				</li>
 			))}
 			<li className="image-upload_input">
-				<ImageUploadAndPickComponent
+				<ImageUploadComponent
 					onUploadImage={onUploadImage}
 					multiple={multiple}
 					disabled={disabled}
@@ -45,7 +45,7 @@ const ImageShowAndUploadComponent: FC<ImageShowAndUploadComponentPropType> = pro
 						<Icon type="plus" />
 						<div className="ant-upload-text">上传图片</div>
 					</div>
-				</ImageUploadAndPickComponent>
+				</ImageUploadComponent>
 			</li>
 		</ul>
 	);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Icon, Modal, Typography, Upload } from 'antd';
+import { Icon, Modal, Typography, Upload, message } from 'antd';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import Gap from '@/components/common/Gap';
 
@@ -25,22 +25,22 @@ const iconStyle = {
 	fontSize: ACTION_ICON_SIZE,
 };
 
-export type ImageUploadAndPickComponentPropType = {
+export type ImageUploadComponentPropType = {
 	onUploadImage: (params: ImageListType) => void;
 } & UploadProps;
 
-export type ImageUploadAndPickComponentStateType = Readonly<{
+export type ImageUploadComponentStateType = Readonly<{
 	showModal: boolean;
 	fileList: Array<{ file: File; checked: boolean; data: string }>;
 	confirmLoading: boolean;
 	stateDisabled: boolean;
 }>;
 
-export default class ImageUploadAndPickComponent extends Component<
-	ImageUploadAndPickComponentPropType,
-	ImageUploadAndPickComponentStateType
+export default class ImageUploadComponent extends Component<
+	ImageUploadComponentPropType,
+	ImageUploadComponentStateType
 > {
-	readonly state: ImageUploadAndPickComponentStateType = {
+	readonly state: ImageUploadComponentStateType = {
 		fileList: [],
 		showModal: false,
 		confirmLoading: false,
@@ -111,6 +111,8 @@ export default class ImageUploadAndPickComponent extends Component<
 	};
 
 	handleCustomUpload = (options: RcCustomRequestOptions) => {
+		message.destroy();
+		const hide = message.loading('图片转码中...', 0);
 		const { multiple, onUploadImage } = this.props;
 		const { file } = options;
 		if (multiple) {
@@ -130,6 +132,7 @@ export default class ImageUploadAndPickComponent extends Component<
 							showModal: true,
 						});
 					}
+					hide();
 					this.setState({
 						fileList,
 					});
@@ -216,7 +219,7 @@ export default class ImageUploadAndPickComponent extends Component<
 											<Text type="danger">
 												该图片大小为{formatSize(file.size)}，超过
 												{MAX_IMAGE_SIZE}k，请压缩后上传
-											</Text>{' '}
+											</Text>
 											<Gap />
 										</>
 									)}

@@ -129,7 +129,7 @@
 │   │       ├── ImageShowAndUploadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
-│   │       ├── ImageUploadAndPickComponent/
+│   │       ├── ImageUploadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
 │   │       ├── PreviewImageComponent/
