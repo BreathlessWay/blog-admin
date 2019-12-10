@@ -26,7 +26,7 @@
 
 .photo-album_item__img {
 	position: relative;
-	border-radius: $border-radius * 3;
+	border-radius: $border-radius-md;
 	padding: $spacing-v-xl;
 	box-shadow: 5px 5px 16px $color-gray-1;
 	overflow: hidden;

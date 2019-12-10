@@ -19,14 +19,14 @@
 }
 
 .image-upload-preview__list::-webkit-scrollbar-track {
-	border-radius: $border-radius;
+	border-radius: $border-radius-sm;
 }
 .image-upload-preview__list::-webkit-scrollbar {
 	width: 6px;
 }
 .image-upload-preview__list::-webkit-scrollbar-thumb {
 	background: #ffb6bb;
-	border-radius: $border-radius;
+	border-radius: $border-radius-sm;
 }
 
 .image-upload-preview__item {

@@ -63,7 +63,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 		});
 	};
 
-	handleDisableDate = (current: moment.Moment | undefined) => {
+	handleDisableDate = (current: moment.Moment | null) => {
 		return Boolean(current && current > moment().endOf('day'));
 	};
 

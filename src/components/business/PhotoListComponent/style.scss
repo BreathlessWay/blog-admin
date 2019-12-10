@@ -2,13 +2,14 @@
 @import '../../../static/css/mixins';
 
 .picture-list {
-	margin: 0;
+	margin: 0 auto;
 	height: calc(100vh - 64px - 85px - 52px - 24px - 24px - 20px - 5px);
 	overflow: auto;
+	position: relative;
 }
 
 .picture-list::-webkit-scrollbar-track {
-	border-radius: $border-radius;
+	border-radius: $border-radius-sm;
 }
 
 .picture-list::-webkit-scrollbar {
@@ -17,8 +18,18 @@
 
 .picture-list::-webkit-scrollbar-thumb {
 	background: #ffb6bb;
-	border-radius: $border-radius;
+	border-radius: $border-radius-sm;
 }
 
 .picture-list_item {
+	//position: absolute;
+	display: inline-block;
+	margin: 10px;
+	.image-load_img {
+		border-radius: $border-radius-md;
+		box-shadow: 0 0 14px $color-gray-2;
+	}
+}
+
+.picture-list_image {
 }
