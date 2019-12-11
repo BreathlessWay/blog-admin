@@ -26,7 +26,7 @@ export type PhotographyEditPagePropType = Pick<StoreType, 'photoListStore'> &
 @observer
 class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 	get albumId() {
-		return parseSearch<{ id: string }>(this.props.location.search)?.id ?? null;
+		return parseSearch<{ id: string }>(this.props.location.search)?.id ?? '';
 	}
 
 	componentDidMount() {
@@ -43,12 +43,12 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 			});
 			return;
 		}
-
+		this.props.photoListStore.resetStore();
 		this.props.photoListStore.getList();
 	}
 
 	render() {
-		return <PhotoListComponent />;
+		return <PhotoListComponent albumId={this.albumId} />;
 	}
 }
 

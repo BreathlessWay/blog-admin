@@ -79,6 +79,17 @@ export default class ListStore<T extends { objectId: string }> {
 		this.list = this.list.concat(list);
 	}
 
+	@action.bound
+	resetStore() {
+		this.list = [];
+		this.pageIndex = 1;
+		this.count = 0;
+		this.loading = false;
+		this.error = false;
+		this.errMsg = '';
+		this.pageSize = PAGE_LIMIT;
+	}
+
 	@computed
 	get currentCount() {
 		return this.pageSize * this.pageIndex;

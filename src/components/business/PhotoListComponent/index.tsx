@@ -12,6 +12,7 @@ import {
 	Input,
 	Modal,
 	Typography,
+	Select,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
@@ -37,11 +38,21 @@ const { Text } = Typography;
 
 const { TextArea } = Input;
 
+const { Option } = Select;
+
 const elementId = 'list-view';
 
 const imageWidth = 300;
 
-export type PhotoListComponentPropType = Pick<StoreType, 'photoListStore'>;
+export type PhotoListComponentPropType = {
+	albumId: string;
+};
+
+export type PhotoListComponentStorePropType = Pick<
+	StoreType,
+	'photoListStore' | 'photoAlbumStore'
+> &
+	PhotoListComponentPropType;
 
 export type PhotoListComponentStateType = Readonly<{
 	titleError: boolean;
@@ -50,10 +61,13 @@ export type PhotoListComponentStateType = Readonly<{
 	editItem: PhotoItemType | null;
 }>;
 
-@inject('photoListStore')
+@inject((allStore: StoreType) => ({
+	photoListStore: allStore.photoListStore,
+	photoAlbumStore: allStore.photoAlbumStore,
+}))
 @observer
 class PhotoListComponent extends Component<
-	PhotoListComponentPropType,
+	PhotoListComponentStorePropType,
 	PhotoListComponentStateType
 > {
 	readonly state: PhotoListComponentStateType = {
@@ -180,6 +194,14 @@ class PhotoListComponent extends Component<
 		}
 	};
 
+	handleExChangePhoto = (value: string) => {
+		console.log(value);
+		const { editItem } = this.state;
+		if (editItem) {
+			this.props.photoListStore.removeItem(editItem);
+		}
+	};
+
 	renderPhotoList = () => {
 		const { spliceList } = this.props.photoListStore;
 		return (
@@ -226,6 +248,8 @@ class PhotoListComponent extends Component<
 
 	render() {
 		const { isEmpty } = this.props.photoListStore;
+		const { list } = this.props.photoAlbumStore;
+		const { albumId } = this.props;
 		const { visible, confirmLoading, editItem, titleError } = this.state;
 
 		return (
@@ -291,6 +315,24 @@ class PhotoListComponent extends Component<
 								onChange={this.handleChangeIntro}
 							/>
 						</Col>
+						<Gap size="lg" />
+						<Col>
+							<label htmlFor="intro">移动图片：</label>
+							<Gap />
+							<Select
+								value={albumId}
+								style={{ width: '100%' }}
+								onChange={this.handleExChangePhoto}>
+								{list.map(item => (
+									<Option
+										key={item.objectId}
+										value={item.objectId}
+										disabled={item.objectId === albumId}>
+										{item.title}
+									</Option>
+								))}
+							</Select>
+						</Col>
 					</Row>
 				</Modal>
 			</BasicWrapComponent>
@@ -298,4 +340,6 @@ class PhotoListComponent extends Component<
 	}
 }
 
-export default (PhotoListComponent as unknown) as ComponentClass;
+export default (PhotoListComponent as unknown) as ComponentClass<
+	PhotoListComponentPropType
+>;
