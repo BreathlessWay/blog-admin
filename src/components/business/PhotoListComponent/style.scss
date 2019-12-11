@@ -21,15 +21,58 @@
 	border-radius: $border-radius-sm;
 }
 
+.picture-list_column {
+	flex: 1;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
 .picture-list_item {
-	margin: $spacing-v-xl $spacing-h-md;
-	.image-load_img {
-		border-radius: $border-radius-md;
-		box-shadow: 0 0 14px $color-gray-2;
-		width: 100%;
-	}
+	margin: $spacing-v-xl $spacing-h-md $spacing-v-xl * 2;
 }
 
 .picture-list_image {
 	position: relative;
+	border-radius: $border-radius-md;
+	box-shadow: 0 0 14px $color-gray-2;
+	width: 100%;
+	overflow: hidden;
+	.picture-list_image__action {
+		transition: height 200ms ease;
+		@include flex($justify-content: space-around);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		background: rgba(0, 0, 0, 0.4);
+		&::after {
+			color: $default-color;
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			border-left: $border-width $border-style $default-color;
+			width: 1px;
+			height: 50%;
+		}
+		.picture-list_action {
+			font-size: $font-size-xl;
+			color: $default-color;
+		}
+	}
+	&:hover {
+		.picture-list_image__action {
+			height: $tab-height;
+		}
+	}
+}
+
+.picture-list_image__title {
+	margin: $spacing-v-xl auto;
+	width: 90%;
 }

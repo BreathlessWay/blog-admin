@@ -68,7 +68,9 @@ class CatPictureListComponent extends Component<
 	};
 
 	handlePreview = (index: number) => () => {
-		preview.show({ urls: this.urls, index });
+		if (this.urls[index]) {
+			preview.show({ urls: this.urls, index });
+		}
 	};
 
 	handleRemove = (item: ImageItemType) => () => {

@@ -29,7 +29,9 @@ const FileShowComponent: FC<FileShowComponentPropType> = props => {
 	}
 
 	const handlePreview = () => {
-		preview.show({ urls: [value] });
+		if (value) {
+			preview.show({ urls: [value] });
+		}
 	};
 
 	return value ? (

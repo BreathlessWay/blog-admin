@@ -58,7 +58,9 @@ export default class FigureEditComponent extends Component<
 	};
 
 	handlePreview = (index: number) => () => {
-		preview.show({ urls: this.urls, index });
+		if (this.urls[index]) {
+			preview.show({ urls: this.urls, index });
+		}
 	};
 
 	handleAddFigure = (item: Array<Omit<ImageItemType, 'show'>>) => {

@@ -1,20 +1,41 @@
-import React, { Component, ComponentClass } from 'react';
+import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Empty, Button, Icon } from 'antd';
+import {
+	Empty,
+	Button,
+	Icon,
+	Row,
+	Col,
+	Switch,
+	Input,
+	Modal,
+	Typography,
+} from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import ImageUploadComponent from '@/components/common/ImageUploadComponent';
 import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
+import preview from '@/components/common/PreviewImageComponent';
+import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
-import { ImageListType } from '@/types/image';
-import { PhotoListType } from '@/types/photo';
+import { ImageItemType, ImageListType } from '@/types/image';
+import { PhotoItemType, PhotoListType } from '@/types/photo';
 
-import { MAX_IMAGE_COUNT, UPLOAD_IMAGE_TYPE } from '@/utils/constant';
+import {
+	MAX_IMAGE_COUNT,
+	MAX_LENGTH_LG,
+	MAX_LENGTH_SM,
+	UPLOAD_IMAGE_TYPE,
+} from '@/utils/constant';
 
 import './style.scss';
+
+const { Text } = Typography;
+
+const { TextArea } = Input;
 
 const elementId = 'list-view';
 
@@ -22,9 +43,26 @@ const imageWidth = 300;
 
 export type PhotoListComponentPropType = Pick<StoreType, 'photoListStore'>;
 
+export type PhotoListComponentStateType = Readonly<{
+	titleError: boolean;
+	visible: boolean;
+	confirmLoading: boolean;
+	editItem: PhotoItemType | null;
+}>;
+
 @inject('photoListStore')
 @observer
-class PhotoListComponent extends Component<PhotoListComponentPropType> {
+class PhotoListComponent extends Component<
+	PhotoListComponentPropType,
+	PhotoListComponentStateType
+> {
+	readonly state: PhotoListComponentStateType = {
+		titleError: false,
+		visible: false,
+		confirmLoading: false,
+		editItem: null,
+	};
+
 	componentDidMount(): void {
 		this.waterFall();
 		window.onresize = () => {
@@ -55,25 +93,129 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 		}
 	};
 
+	handleClickImage = ({ objectId, url }: { objectId: string; url: string }) => {
+		if (url) {
+			const { list, imageUrls } = this.props.photoListStore;
+			const _index = list.findIndex(item => item.objectId === objectId);
+
+			preview.show({ urls: imageUrls, index: _index });
+		}
+	};
+
+	handleEditPhoto = (item: ImageItemType) => () => {
+		this.setState({
+			visible: true,
+			titleError: false,
+			confirmLoading: false,
+			editItem: { ...item } as PhotoItemType,
+		});
+	};
+
+	handleDeletePhoto = (item: ImageItemType) => () => {
+		this.props.photoListStore.removeItem(item as PhotoItemType);
+	};
+
+	handleOk = () => {
+		const { editItem } = this.state;
+		if (editItem) {
+			if (!editItem.title?.trim()) {
+				this.setState({
+					titleError: true,
+				});
+				return;
+			}
+			this.setState({
+				confirmLoading: true,
+			});
+			this.props.photoListStore.setItem(editItem as PhotoItemType);
+			this.setState({
+				confirmLoading: false,
+				visible: false,
+				titleError: false,
+				editItem: null,
+			});
+		}
+	};
+
+	handleCancel = () => {
+		if (!this.state.confirmLoading) {
+			this.setState({
+				visible: false,
+			});
+		}
+	};
+
+	handleChangeShow = () => {
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.show = !editItem.show;
+			this.setState({
+				editItem: editItem,
+			});
+		}
+	};
+
+	handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target;
+
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.title = value;
+			this.setState({
+				editItem,
+				titleError: !value.trim(),
+			});
+		}
+	};
+
+	handleChangeIntro = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		const { value } = e.target;
+
+		const { editItem } = this.state;
+		if (editItem) {
+			editItem.intro = value;
+			this.setState({
+				editItem,
+			});
+		}
+	};
+
 	renderPhotoList = () => {
 		const { spliceList } = this.props.photoListStore;
 		return (
 			<ul className="picture-list" id={elementId}>
 				{spliceList.map((photoList, index) => (
-					<li key={index}>
+					<li key={index} className="picture-list_column">
 						<ImageLazyLoadComponent
 							itemClassName="picture-list_item"
 							imageList={photoList}
 							render={({ item, observer }) => (
-								<section className="picture-list_image">
-									<ImageLoadComponent
-										observer={observer}
-										url={item.url}
-										title={item.title}
-										width={imageWidth}
-									/>
-									<aside></aside>
-								</section>
+								<>
+									<section className="picture-list_image">
+										<ImageLoadComponent
+											onClick={({ url }) =>
+												this.handleClickImage({ objectId: item.objectId, url })
+											}
+											observer={observer}
+											url={item.url}
+											title={item.title}
+											width={imageWidth}
+										/>
+										<aside className="picture-list_image__action">
+											<Icon
+												type="edit"
+												className="picture-list_action"
+												onClick={this.handleEditPhoto(item)}
+											/>
+											<Icon
+												type="delete"
+												className="picture-list_action"
+												onClick={this.handleDeletePhoto(item)}
+											/>
+										</aside>
+									</section>
+									<p className="picture-list_image__title">{item.title}</p>
+								</>
 							)}
 						/>
 					</li>
@@ -84,6 +226,8 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 
 	render() {
 		const { isEmpty } = this.props.photoListStore;
+		const { visible, confirmLoading, editItem, titleError } = this.state;
+
 		return (
 			<BasicWrapComponent
 				title={'相册名'}
@@ -102,6 +246,53 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 					</ImageUploadComponent>
 				}>
 				{isEmpty ? <Empty description="暂无图片" /> : this.renderPhotoList()}
+
+				<Modal
+					maskClosable={false}
+					confirmLoading={confirmLoading}
+					keyboard={false}
+					title="编辑相册"
+					visible={visible}
+					onOk={this.handleOk}
+					onCancel={this.handleCancel}>
+					<Row>
+						<Col>
+							<label htmlFor="show">显示图片：</label>
+							<Switch
+								checked={editItem?.show ?? true}
+								onChange={this.handleChangeShow}
+							/>
+						</Col>
+						<Gap size="lg" />
+						<Col>
+							<label htmlFor="title">图片标题：</label>
+							<Gap />
+							<Input
+								id="title"
+								value={editItem?.title ?? ''}
+								placeholder="请输入图片标题"
+								allowClear={true}
+								maxLength={MAX_LENGTH_SM}
+								onChange={this.handleChangeTitle}
+							/>
+							{titleError && <Text type="danger">图片标题不能为空</Text>}
+						</Col>
+						<Gap size="lg" />
+						<Col>
+							<label htmlFor="intro">图片描述：</label>
+							<Gap />
+							<TextArea
+								id="intro"
+								value={editItem?.intro ?? ''}
+								placeholder="请输入图片描述"
+								allowClear={true}
+								maxLength={MAX_LENGTH_LG}
+								rows={4}
+								onChange={this.handleChangeIntro}
+							/>
+						</Col>
+					</Row>
+				</Modal>
 			</BasicWrapComponent>
 		);
 	}

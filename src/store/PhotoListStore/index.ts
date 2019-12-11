@@ -42,4 +42,9 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 
 		return spliceList;
 	}
+
+	@computed
+	get imageUrls() {
+		return this.list.map(item => item.url).filter(value => value);
+	}
 }
