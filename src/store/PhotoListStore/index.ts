@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
@@ -26,5 +26,20 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 	setList({ results, count }: { results: PhotoListType; count: number }) {
 		this.list = this.list.concat(results);
 		this.count = count;
+	}
+
+	@computed
+	get spliceList() {
+		const { list, column } = this;
+		const spliceList: Array<PhotoListType> = new Array<PhotoListType>(column);
+
+		list.forEach((item, index) => {
+			if (!spliceList[index % column]) {
+				spliceList[index % column] = [];
+			}
+			spliceList[index % column].push(item);
+		});
+
+		return spliceList;
 	}
 }

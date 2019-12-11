@@ -5,7 +5,8 @@ const array = [
 		createAt: 1575372223416,
 		objectId: 'objectId',
 		show: true,
-		url: '',
+		url:
+			'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
 	},
 	{
 		title: '图片图片图片图片图片图片图片图片图片图片图片图片图片图片',
@@ -15,7 +16,7 @@ const array = [
 		objectId: 'objectId',
 		show: true,
 		url:
-			'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png1111',
+			'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
 	},
 	{
 		title:

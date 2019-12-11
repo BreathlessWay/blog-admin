@@ -5,7 +5,7 @@
 	margin: 0 auto;
 	height: calc(100vh - 64px - 85px - 52px - 24px - 24px - 20px - 5px);
 	overflow: auto;
-	position: relative;
+	@include flex($align-items: flex-start, $justify-content: center);
 }
 
 .picture-list::-webkit-scrollbar-track {
@@ -22,14 +22,14 @@
 }
 
 .picture-list_item {
-	//position: absolute;
-	display: inline-block;
-	margin: 10px;
+	margin: $spacing-v-xl $spacing-h-md;
 	.image-load_img {
 		border-radius: $border-radius-md;
 		box-shadow: 0 0 14px $color-gray-2;
+		width: 100%;
 	}
 }
 
 .picture-list_image {
+	position: relative;
 }

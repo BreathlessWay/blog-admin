@@ -27,6 +27,9 @@ export type PhotoListComponentPropType = Pick<StoreType, 'photoListStore'>;
 class PhotoListComponent extends Component<PhotoListComponentPropType> {
 	componentDidMount(): void {
 		this.waterFall();
+		window.onresize = () => {
+			this.waterFall();
+		};
 	}
 
 	componentDidUpdate(): void {
@@ -35,14 +38,11 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 
 	waterFall = () => {
 		const oWarp = document.getElementById(elementId);
-		const { column, setColumn } = this.props.photoListStore;
+		const { setColumn } = this.props.photoListStore;
 		if (oWarp) {
 			const column = Math.floor(
 				oWarp.getBoundingClientRect().width / (imageWidth + 20),
 			);
-			// 要算上scroll bar的宽度6px
-			const _width = column * (imageWidth + 26);
-			oWarp.style.width = _width + 'px';
 			setColumn(column);
 		}
 	};
@@ -55,9 +55,35 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 		}
 	};
 
-	render() {
-		const { isEmpty, list } = this.props.photoListStore;
+	renderPhotoList = () => {
+		const { spliceList } = this.props.photoListStore;
+		return (
+			<ul className="picture-list" id={elementId}>
+				{spliceList.map((photoList, index) => (
+					<li key={index}>
+						<ImageLazyLoadComponent
+							itemClassName="picture-list_item"
+							imageList={photoList}
+							render={({ item, observer }) => (
+								<section className="picture-list_image">
+									<ImageLoadComponent
+										observer={observer}
+										url={item.url}
+										title={item.title}
+										width={imageWidth}
+									/>
+									<aside></aside>
+								</section>
+							)}
+						/>
+					</li>
+				))}
+			</ul>
+		);
+	};
 
+	render() {
+		const { isEmpty } = this.props.photoListStore;
 		return (
 			<BasicWrapComponent
 				title={'相册名'}
@@ -75,26 +101,7 @@ class PhotoListComponent extends Component<PhotoListComponentPropType> {
 						</Button>
 					</ImageUploadComponent>
 				}>
-				{isEmpty ? (
-					<Empty description="暂无图片" />
-				) : (
-					<ImageLazyLoadComponent
-						id={elementId}
-						listClassName="picture-list"
-						itemClassName="picture-list_item"
-						imageList={list}
-						render={({ item, observer }) => (
-							<section className="picture-list_image">
-								<ImageLoadComponent
-									observer={observer}
-									url={item.url}
-									title={item.title}
-									width={imageWidth}
-								/>
-							</section>
-						)}
-					/>
-				)}
+				{isEmpty ? <Empty description="暂无图片" /> : this.renderPhotoList()}
 			</BasicWrapComponent>
 		);
 	}

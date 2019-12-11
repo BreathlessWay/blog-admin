@@ -42,7 +42,7 @@ const ImageLazyLoadComponent: FC<ImageLazyLoadComponentPropType> = props => {
 	}, [id]);
 
 	return (
-		<ul className={listClassName} id={id}>
+		<ul className={listClassName}>
 			{observer &&
 				imageList.map((item, index) => (
 					<li key={item.objectId} className={itemClassName}>
