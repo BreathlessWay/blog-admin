@@ -1,7 +1,0 @@
-@import "../../../static/css/mixins";
-
-.full-loading {
-  width: 100%;
-  height: 100%;
-  @include flex($justify-content: center);
-}

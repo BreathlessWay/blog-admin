@@ -1,8 +1,0 @@
-@import '../../../static/css/variables';
-@import '../../../static/css/mixins';
-
-.article-tag_item {
-	& + & {
-		margin-left: $spacing-h-md;
-	}
-}
