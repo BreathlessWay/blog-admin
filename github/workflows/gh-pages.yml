@@ -9,17 +9,17 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@master
 
-        # with:
-        #   submodules: true
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.59.1'
+      - name: Echo Step
+        run: echo Start build
 
       - name: Build
-        run: hugo --minify
+        run: npm install && npm run build
+
+      - name: Echo Step
+        run: echo build end and start deploy
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2
