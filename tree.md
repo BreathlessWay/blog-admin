@@ -14,7 +14,7 @@
 │   └── webpackDevServer.config.js
 ├── github/
 │   └── workflows/
-│       └── gh-pages.yml
+│       └── main.yml
 ├── jest.config.js
 ├── package-lock.json
 ├── package.json
