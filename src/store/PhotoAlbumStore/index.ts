@@ -4,7 +4,7 @@ import ListStore from '@/store/ListStore';
 
 import { AlbumItemType } from '@/types/album';
 
-import { data } from './data';
+// import { data } from './data';
 
 export default class PhotoAlbumStore extends ListStore<AlbumItemType> {
 	@action.bound

@@ -3,7 +3,7 @@ import React, { Component, ComponentClass, MouseEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Icon, Modal } from 'antd';
+import { Modal } from 'antd';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
