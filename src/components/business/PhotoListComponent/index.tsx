@@ -33,12 +33,15 @@ import {
 } from '@/utils/constant';
 
 import './style.scss';
+import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
 const { Text } = Typography;
 
 const { TextArea } = Input;
 
 const { Option } = Select;
+
+const { confirm } = Modal;
 
 const elementId = 'list-view';
 
@@ -116,7 +119,7 @@ class PhotoListComponent extends Component<
 		}
 	};
 
-	handleEditPhoto = (item: ImageItemType) => () => {
+	handleEditPhoto = (item: ImageItemType) => {
 		this.setState({
 			visible: true,
 			titleError: false,
@@ -125,8 +128,18 @@ class PhotoListComponent extends Component<
 		});
 	};
 
-	handleDeletePhoto = (item: ImageItemType) => () => {
-		this.props.photoListStore.removeItem(item as PhotoItemType);
+	handleDeletePhoto = (item: ImageItemType) => {
+		const { removeItem } = this.props.photoListStore;
+		confirm({
+			title: '是否确认删除该图片？',
+			okType: 'danger',
+			onOk() {
+				removeItem(item as PhotoItemType);
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 
 	handleOk = () => {
@@ -213,7 +226,12 @@ class PhotoListComponent extends Component<
 							imageList={photoList}
 							render={({ item, observer }) => (
 								<>
-									<section className="picture-list_image">
+									<PhotoActionComponent
+										classNameWrap="picture-list_image"
+										classNameTitle="picture-list_image__title"
+										onEdit={() => this.handleEditPhoto(item)}
+										onDelete={() => this.handleDeletePhoto(item)}
+										title={item.title}>
 										<ImageLoadComponent
 											onClick={({ url }) =>
 												this.handleClickImage({ objectId: item.objectId, url })
@@ -223,20 +241,7 @@ class PhotoListComponent extends Component<
 											title={item.title}
 											width={imageWidth}
 										/>
-										<aside className="picture-list_image__action">
-											<Icon
-												type="edit"
-												className="picture-list_action"
-												onClick={this.handleEditPhoto(item)}
-											/>
-											<Icon
-												type="delete"
-												className="picture-list_action"
-												onClick={this.handleDeletePhoto(item)}
-											/>
-										</aside>
-									</section>
-									<p className="picture-list_image__title">{item.title}</p>
+									</PhotoActionComponent>
 								</>
 							)}
 						/>

@@ -133,6 +133,9 @@
 │   │       ├── ImageUploadComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
+│   │       ├── PhotoActionComponent/
+│   │       │   ├── index.tsx
+│   │       │   └── style.scss
 │   │       ├── PreviewImageComponent/
 │   │       │   ├── PreviewImageComponent.tsx
 │   │       │   ├── close.ts
@@ -242,5 +245,5 @@
 ├── tree.md
 └── tsconfig.json
 
-79 directories, 162 files
+80 directories, 164 files
 ```

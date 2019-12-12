@@ -1,17 +1,18 @@
 import React, { Component, ComponentClass, MouseEvent } from 'react';
 
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
 import { Icon, Modal } from 'antd';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
+import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
+import { StoreType } from '@/store/store';
 import { AlbumItemType } from '@/types/album';
 
 import { routeMapPath } from '@/route';
 
 import './style.scss';
-import { inject, observer } from 'mobx-react';
-import { StoreType } from '@/store/store';
 
 const { confirm } = Modal;
 
@@ -70,7 +71,13 @@ class PhotoAlbumItem extends Component<
 
 		return (
 			<li className="photo-album_item" onClick={this.handleEditAlbum}>
-				<section className="photo-album_item__img">
+				<PhotoActionComponent
+					classNameWrap="photo-album_item__img"
+					classNameTitle="photo-album_item__title"
+					onClick={this.handleStop}
+					onEdit={this.handleEdit}
+					onDelete={this.handleDelete}
+					title={title}>
 					<div style={{ overflow: 'hidden' }}>
 						<ImageLoadComponent
 							url={cover}
@@ -80,20 +87,7 @@ class PhotoAlbumItem extends Component<
 							empty="暂无封面"
 						/>
 					</div>
-					<div className="photo-album_item__action" onClick={this.handleStop}>
-						<Icon
-							type="delete"
-							className="photo-album_action"
-							onClick={this.handleDelete}
-						/>
-						<Icon
-							type="edit"
-							className="photo-album_action"
-							onClick={this.handleEdit}
-						/>
-					</div>
-				</section>
-				<p className="photo-album_item__title">{title}</p>
+				</PhotoActionComponent>
 			</li>
 		);
 	}
