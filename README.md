@@ -93,3 +93,5 @@
 9. 在 p 标签上使用多行省略号还是可以看的超出的文字问题，需要使用一个 block 标签将 p 标签包裹，并且不能设置 p 标签的高度/padding，只能用内容撑高
 
 10. IntersectionObserver 所观察的子元素需要有初始高度，否则默认都在可观察区内，会都加载
+
+11. [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages), 结合 github action 发布 gh-page
