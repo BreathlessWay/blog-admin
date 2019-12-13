@@ -14,6 +14,7 @@ import './style.scss';
 export type RewardComponentItemPropType = {
 	url: string;
 	title: string;
+	disabled?: boolean;
 	onDeleteCode: () => void;
 	onUploadCode: (url: string) => void;
 };
@@ -89,12 +90,12 @@ export default class RewardComponentItem extends React.Component<
 	};
 
 	render() {
-		const { title } = this.props;
+		const { title, disabled } = this.props;
 
 		return (
 			<li className="reward-code_item">
 				{this.renderContent()}
-				<Row type="flex">{this.renderAction()}</Row>
+				{!disabled && <Row type="flex">{this.renderAction()}</Row>}
 				<Gap />
 				<span>{title}</span>
 			</li>

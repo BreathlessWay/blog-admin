@@ -1,4 +1,4 @@
-### [博客管理后台](https://breathlessway.github.io/blog-admin/)
+### 博客管理后台
 
 > 技术选择
 

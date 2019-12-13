@@ -62,12 +62,14 @@ const SocialEditItem: FC<SocialEditItemPropType> = props => {
 				/>
 			</Col>
 			<Col span={5} offset={1}>
-				<UploadFileComponent
-					accept={accept}
-					label={label}
-					disabled={!isEditing}
-					onUploadFile={onUploadFile}
-				/>
+				{isEditing && (
+					<UploadFileComponent
+						accept={accept}
+						label={label}
+						disabled={!isEditing}
+						onUploadFile={onUploadFile}
+					/>
+				)}
 			</Col>
 			<Col span={10}>
 				<FileShowComponent type={type} value={file} onDelete={onDeleteFile} />

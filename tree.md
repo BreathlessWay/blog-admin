@@ -12,9 +12,6 @@
 │   ├── pnpTs.js
 │   ├── webpack.config.js
 │   └── webpackDevServer.config.js
-├── github/
-│   └── workflows/
-│       └── main.yml
 ├── jest.config.js
 ├── package-lock.json
 ├── package.json
@@ -248,5 +245,5 @@
 ├── tree.md
 └── tsconfig.json
 
-82 directories, 165 files
+80 directories, 164 files
 ```

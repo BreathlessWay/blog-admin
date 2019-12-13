@@ -86,6 +86,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 						<Col>
 							{rewardEnable ? '关闭' : '开启'}打赏功能：{' '}
 							<Switch
+								disabled={!isEditing}
 								checked={rewardEnable}
 								onChange={this.handleChangeSwitch}
 							/>
@@ -112,6 +113,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 						<Col>
 							<ul className="reward-code_list">
 								<RewardComponentItem
+									disabled={!isEditing}
 									url={zfbCode}
 									title={'支付宝二维码'}
 									onDeleteCode={this.handleDelete({
@@ -125,6 +127,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 									}
 								/>
 								<RewardComponentItem
+									disabled={!isEditing}
 									url={wxCode}
 									title={'微信二维码'}
 									onDeleteCode={this.handleDelete({
