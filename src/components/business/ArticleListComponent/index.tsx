@@ -16,7 +16,10 @@ import { routeMapPath } from '@/route';
 
 import './style.scss';
 
-export type ArticleListComponentPropType = Pick<StoreType, 'articleListStore'>;
+export type ArticleListComponentPropType = Pick<
+	StoreType,
+	'articleListStore' | 'homepageStore'
+>;
 
 export type ArticleListComponentStateType = Readonly<{
 	selectedRowKeys: Array<string>;
@@ -24,6 +27,7 @@ export type ArticleListComponentStateType = Readonly<{
 
 @inject((allStore: StoreType) => ({
 	articleListStore: allStore.articleListStore,
+	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleListComponent extends Component<
@@ -75,7 +79,9 @@ class ArticleListComponent extends Component<
 			count,
 			isEmpty,
 		} = this.props.articleListStore;
+		const { articleAlias } = this.props.homepageStore;
 		const { selectedRowKeys } = this.state;
+
 		return (
 			<>
 				<Table
@@ -103,7 +109,7 @@ class ArticleListComponent extends Component<
 							</>
 						)}
 						<Button type="link">
-							<Link to={routeMapPath.article.create}>新建文章</Link>
+							<Link to={routeMapPath.article.create}>新建{articleAlias}</Link>
 						</Button>
 					</Col>
 					{!isEmpty && (
@@ -112,7 +118,11 @@ class ArticleListComponent extends Component<
 								pageSize={pageSize}
 								current={pageIndex}
 								showQuickJumper={true}
-								showTotal={total => <span>共{total}篇文章</span>}
+								showTotal={total => (
+									<span>
+										共{total}篇{articleAlias}
+									</span>
+								)}
 								total={count}
 								showSizeChanger={true}
 								onChange={this.handlePaginationChange}

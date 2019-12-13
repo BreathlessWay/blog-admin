@@ -44,13 +44,14 @@ const { confirm, warning } = Modal;
 
 export type ArticleEditPagePropType = Pick<
 	StoreType,
-	'articleDetailStore' | 'tagStore'
+	'articleDetailStore' | 'tagStore' | 'homepageStore'
 > &
 	RouteComponentProps;
 
 @inject((allStore: StoreType) => ({
 	articleDetailStore: allStore.articleDetailStore,
 	tagStore: allStore.tagStore,
+	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleEditPage extends Component<ArticleEditPagePropType> {
@@ -59,11 +60,12 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	async componentDidMount() {
 		const _this = this;
 		const { pathname } = _this.props.location;
+		const { articleAlias } = _this.props.homepageStore;
 
 		if (pathname === routeMapPath.article.edit && !_this.articleId) {
 			warning({
 				title: '提示',
-				content: '编辑文章缺失文章id参数！',
+				content: `编辑${articleAlias}缺少${articleAlias}id参数！`,
 				okText: '确定',
 				onOk() {
 					_this.props.history.replace(routeMapPath.article.home);

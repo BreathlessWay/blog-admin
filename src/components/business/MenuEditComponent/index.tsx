@@ -109,12 +109,16 @@ class MenuEditComponent extends React.Component<
 										/>
 									</Col>
 									<Col span={6} offset={1}>
-										<Checkbox
-											checked={item.show}
-											onChange={this.handleChangeCheckbox(item)}
-											disabled={!isEditing}>
-											是否显示
-										</Checkbox>
+										{item.onlyAdmin ? (
+											<Text type="warning">该项只在管理后台展示</Text>
+										) : (
+											<Checkbox
+												checked={item.show}
+												onChange={this.handleChangeCheckbox(item)}
+												disabled={!isEditing}>
+												是否显示
+											</Checkbox>
+										)}
 									</Col>
 									<Col span={24}>
 										{item.error && <Text type="danger">菜单名称不能为空</Text>}

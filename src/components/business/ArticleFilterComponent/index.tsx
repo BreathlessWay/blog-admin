@@ -17,7 +17,7 @@ const { Option } = Select;
 
 export type ArticleFilterComponentPropType = Pick<
 	StoreType,
-	'tagStore' | 'articleListStore'
+	'tagStore' | 'articleListStore' | 'homepageStore'
 > &
 	FormComponentProps;
 
@@ -38,6 +38,7 @@ export type FormValueType = {
 @inject((allStore: StoreType) => ({
 	tagStore: allStore.tagStore,
 	articleListStore: allStore.articleListStore,
+	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
@@ -68,11 +69,13 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 	};
 
 	render() {
-		const { tags } = this.props.tagStore;
+		const { usefulTag } = this.props.tagStore;
 		const {
 			query: { status },
 		} = this.props.articleListStore;
 		const { getFieldDecorator } = this.props.form;
+		const { articleAlias } = this.props.homepageStore;
+
 		return (
 			<Form layout="inline" onSubmit={this.handleSubmit}>
 				<Form.Item label="关键字" htmlFor={EFormKey.keyword}>
@@ -99,7 +102,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 						/>,
 					)}
 				</Form.Item>
-				<Form.Item label="文章状态" htmlFor={EFormKey.status}>
+				<Form.Item label={`${articleAlias}状态`} htmlFor={EFormKey.status}>
 					{getFieldDecorator(EFormKey.status, {
 						initialValue: status,
 					})(
@@ -109,7 +112,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 						</Select>,
 					)}
 				</Form.Item>
-				<Form.Item label="文章标签" htmlFor={EFormKey.tag}>
+				<Form.Item label={`${articleAlias}标签`} htmlFor={EFormKey.tag}>
 					{getFieldDecorator(
 						EFormKey.tag,
 						{},
@@ -118,7 +121,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 							id={EFormKey.tag}
 							style={{ width: '200px' }}
 							mode="multiple">
-							{tags.map(tag => (
+							{usefulTag.map(tag => (
 								<Option key={tag.objectId}>{tag.name}</Option>
 							))}
 						</Select>,

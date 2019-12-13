@@ -117,8 +117,8 @@ export default class HomePageStore {
 	}
 
 	@computed
-	get cameraAlias() {
-		const item = this.menuList.find(menu => menu.type === EMenuType.camera);
+	get articleAlias() {
+		const item = this.menuList.find(menu => menu.type === EMenuType.read);
 		return item?.name ?? '';
 	}
 }

@@ -14,10 +14,13 @@ import { uploadFile } from '@/service/upload';
 
 export type ArticleDetailMarkdownComponentPropType = Pick<
 	StoreType,
-	'articleDetailStore'
+	'articleDetailStore' | 'homepageStore'
 >;
 
-@inject('articleDetailStore')
+@inject((allStore: StoreType) => ({
+	articleDetailStore: allStore.articleDetailStore,
+	homepageStore: allStore.homepageStore,
+}))
 @observer
 class ArticleDetailMarkdownComponent extends Component<
 	ArticleDetailMarkdownComponentPropType
@@ -44,14 +47,14 @@ class ArticleDetailMarkdownComponent extends Component<
 
 	render() {
 		const { detail } = this.props.articleDetailStore;
-
+		const { articleAlias } = this.props.homepageStore;
 		return (
 			<Editor
 				ref={this.$vm}
 				value={detail?.markdown}
 				onChange={this.handleChange}
 				addImg={this.handleUploadFile}
-				placeholder="请输入文章内容..."
+				placeholder={`请输入${articleAlias}内容...`}
 				preview={true}
 				subfield={true}
 				toolbar={{

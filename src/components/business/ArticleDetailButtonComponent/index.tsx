@@ -25,11 +25,14 @@ const { error } = Modal;
 
 export type ArticleDetailButtonComponentPropType = Pick<
 	StoreType,
-	'articleDetailStore'
+	'articleDetailStore' | 'homepageStore'
 > &
 	RouteComponentProps;
 
-@inject('articleDetailStore')
+@inject((allStore: StoreType) => ({
+	articleDetailStore: allStore.articleDetailStore,
+	homepageStore: allStore.homepageStore,
+}))
 @observer
 class ArticleDetailButtonComponent extends Component<
 	ArticleDetailButtonComponentPropType
@@ -40,26 +43,27 @@ class ArticleDetailButtonComponent extends Component<
 
 	handleSubmitContent = () => {
 		const { detail, changeDetail, validError } = this.props.articleDetailStore;
+		const { articleAlias } = this.props.homepageStore;
 		// 校验
 		if (detail) {
 			const errorMsg: Array<string> = [];
 			const { draftDetail, title, intro, tags, markdown, renderType } = detail;
 			if (!title.trim()) {
-				errorMsg.push('文章标题');
+				errorMsg.push(`${articleAlias}标题`);
 				validError({
 					key: EArticleEditError.titleError,
 					value: true,
 				});
 			}
 			if (!intro.trim()) {
-				errorMsg.push('文章简介');
+				errorMsg.push(`${articleAlias}简介`);
 				validError({
 					key: EArticleEditError.introError,
 					value: true,
 				});
 			}
 			if (!tags.length) {
-				errorMsg.push('文章标签');
+				errorMsg.push(`${articleAlias}标签`);
 				validError({
 					key: EArticleEditError.tagError,
 					value: true,
@@ -70,7 +74,7 @@ class ArticleDetailButtonComponent extends Component<
 				(renderType === EArticleRenderType.markdown && !markdown.trim()) ||
 				(renderType === EArticleRenderType.richText && !draftDetail.toText())
 			) {
-				errorMsg.push('文章内容');
+				errorMsg.push(`${articleAlias}内容`);
 				validError({
 					key: EArticleEditError.contentError,
 					value: true,
@@ -113,9 +117,10 @@ class ArticleDetailButtonComponent extends Component<
 		const {
 			error: { contentError },
 		} = this.props.articleDetailStore;
+		const { articleAlias } = this.props.homepageStore;
 		return (
 			<>
-				{contentError && <Text type="danger">文章内容不能为空</Text>}
+				{contentError && <Text type="danger">{articleAlias}内容不能为空</Text>}
 				<Gap size="lg" />
 				<Col span={24}>
 					<Row type="flex" align="middle" justify="end">

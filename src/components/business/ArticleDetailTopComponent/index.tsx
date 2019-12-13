@@ -25,13 +25,14 @@ const { Option } = Select;
 
 export type ArticleDetailTopComponentPropType = Pick<
 	StoreType,
-	'userStore' | 'articleDetailStore' | 'tagStore'
+	'userStore' | 'articleDetailStore' | 'tagStore' | 'homepageStore'
 >;
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	articleDetailStore: allStore.articleDetailStore,
 	tagStore: allStore.tagStore,
+	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleDetailTopComponent extends Component<
@@ -112,18 +113,20 @@ class ArticleDetailTopComponent extends Component<
 			error: { titleError, introError, tagError },
 		} = this.props.articleDetailStore;
 		const { tags } = this.props.tagStore;
+		const { articleAlias } = this.props.homepageStore;
+
 		return (
 			<Row type="flex">
 				<Col span={24}>
 					<Title level={4} className="article-detail_label">
-						<label htmlFor="title">文章标题</label>
+						<label htmlFor="title">{articleAlias}标题</label>
 					</Title>
 					<Text type="warning" className="article-detail_warning">
-						文章标题最多{MAX_LENGTH_MD}个字
+						{articleAlias}标题最多{MAX_LENGTH_MD}个字
 					</Text>
 					<Input
 						id="title"
-						placeholder="请输入文章标题"
+						placeholder={`请输入${articleAlias}标题`}
 						maxLength={MAX_LENGTH_MD}
 						size="large"
 						allowClear={true}
@@ -132,21 +135,21 @@ class ArticleDetailTopComponent extends Component<
 					/>
 					{titleError && (
 						<Text type="danger" className="article-detail_warning">
-							文章标题不能为空
+							{articleAlias}标题不能为空
 						</Text>
 					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4} className="article-detail_label">
-						<label htmlFor="intro">文章描述</label>
+						<label htmlFor="intro">{articleAlias}描述</label>
 					</Title>
 					<Text type="warning" className="article-detail_warning">
-						文章描述最多{MAX_LENGTH_LG}个字
+						{articleAlias}描述最多{MAX_LENGTH_LG}个字
 					</Text>
 					<TextArea
 						id="intro"
-						placeholder="请输入文章描述"
+						placeholder={`请输入${articleAlias}描述`}
 						allowClear={true}
 						rows={3}
 						maxLength={MAX_LENGTH_LG}
@@ -156,14 +159,14 @@ class ArticleDetailTopComponent extends Component<
 					/>
 					{introError && (
 						<Text type="danger" className="article-detail_warning">
-							文章描述不能为空
+							{articleAlias}描述不能为空
 						</Text>
 					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>
-						<label htmlFor="status">文章状态</label>
+						<label htmlFor="status">{articleAlias}状态</label>
 					</Title>
 					<Radio.Group
 						id="status"
@@ -176,14 +179,14 @@ class ArticleDetailTopComponent extends Component<
 				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>
-						<label htmlFor="tag">文章标签</label>
+						<label htmlFor="tag">{articleAlias}标签</label>
 					</Title>
 					<Select
 						id="tag"
 						size="large"
 						style={{ width: '100%' }}
 						mode="multiple"
-						placeholder="请选择文章标签"
+						placeholder={`请选择${articleAlias}标签`}
 						allowClear={true}
 						value={this.selectTag}
 						onChange={this.handleChangeTag}>
@@ -193,14 +196,14 @@ class ArticleDetailTopComponent extends Component<
 					</Select>
 					{tagError && (
 						<Text type="danger" className="article-detail_warning">
-							文章标签不能为空
+							{articleAlias}标签不能为空
 						</Text>
 					)}
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>
 					<Title level={4}>
-						<label htmlFor="renderType">文章编辑方式</label>
+						<label htmlFor="renderType">{articleAlias}编辑方式</label>
 					</Title>
 					<Radio.Group
 						id="renderType"
@@ -218,7 +221,7 @@ class ArticleDetailTopComponent extends Component<
 				<Col span={24}>
 					<Row type="flex" align="middle" justify="space-between">
 						<Title level={4}>
-							<label htmlFor="content">文章内容</label>
+							<label htmlFor="content">{articleAlias}内容</label>
 						</Title>
 					</Row>
 				</Col>

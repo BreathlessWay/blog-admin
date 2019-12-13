@@ -69,4 +69,9 @@ export default class TagStore {
 		}
 		return false;
 	}
+
+	@computed
+	get usefulTag() {
+		return this.tags.filter(tag => tag.objectId);
+	}
 }

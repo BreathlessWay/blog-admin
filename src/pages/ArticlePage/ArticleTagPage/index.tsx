@@ -28,12 +28,16 @@ import './style.scss';
 const { Text } = Typography;
 const { confirm } = Modal;
 
-export type ArticleTagPagePropType = Pick<StoreType, 'userStore' | 'tagStore'> &
+export type ArticleTagPagePropType = Pick<
+	StoreType,
+	'userStore' | 'tagStore' | 'homepageStore'
+> &
 	RouteComponentProps;
 
 @inject((allStore: StoreType) => ({
 	userStore: allStore.userStore,
 	tagStore: allStore.tagStore,
+	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleTagPage extends Component<ArticleTagPagePropType> {
@@ -61,9 +65,10 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		index: number;
 	}) => () => {
 		const _this = this;
+		const { articleAlias } = _this.props.homepageStore;
 
 		if (tag.count) {
-			message.error('当前标签下存在文章，不可删除');
+			message.error(`当前标签下存在${articleAlias}，不可删除`);
 			return;
 		}
 		confirm({
@@ -95,6 +100,8 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		index: number;
 		isEditing: boolean;
 	}) => {
+		const { articleAlias } = this.props.homepageStore;
+
 		return (
 			<Row type="flex" align="middle">
 				{isEditing && (
@@ -125,7 +132,9 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 					/>
 				</Col>
 				<Col className="article-tag_item">
-					<Text type="warning">当前标签下有{tag.count}篇文章</Text>
+					<Text type="warning">
+						当前标签下有{tag.count}篇{articleAlias}
+					</Text>
 				</Col>
 			</Row>
 		);
@@ -154,10 +163,11 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 
 	render() {
 		const { hasTag } = this.props.tagStore;
+
 		return (
 			<BasicWrapComponent
-				title="文章标签管理"
-				note={`文章标签名最长${MAX_LENGTH_SM}个字`}
+				title={`标签管理`}
+				note={`标签名最长${MAX_LENGTH_SM}个字`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasTag || isEditing ? (

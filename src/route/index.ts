@@ -21,6 +21,7 @@ export const routeMapPath = {
 		home: `${prePath}/photography/index`,
 		edit: `${prePath}/photography/edit`,
 	},
+	statistics: `${prePath}/statistics`,
 };
 
 export const baseRoute = [
@@ -59,10 +60,18 @@ export const baseRoute = [
 		show: true,
 		objectId: 'camera',
 	},
+	{
+		name: '网站统计',
+		type: EMenuType.fund,
+		path: routeMapPath.statistics,
+		show: false,
+		objectId: 'fund',
+		onlyAdmin: true,
+	},
 ];
 
 export const articleRoute = [
-	{ name: '文章管理', path: routeMapPath.article.home, show: true },
+	{ name: `文章管理`, path: routeMapPath.article.home, show: true },
 	{ name: '标签管理', path: routeMapPath.article.tag, show: true },
 	{ name: '新建文章', path: routeMapPath.article.create, show: false },
 	{ name: '编辑文章', path: routeMapPath.article.edit, show: false },

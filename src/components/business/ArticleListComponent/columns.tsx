@@ -103,8 +103,9 @@ const handleChangeStatus = (article: ArticleItemType) => () => {
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
+	const { articleAlias } = store.homepageStore;
 	confirm({
-		title: '确认删除该文章？',
+		title: `确认删除该${articleAlias}？`,
 		okType: 'danger',
 		onOk() {
 			store.articleListStore.deleteArticle([article.objectId]);

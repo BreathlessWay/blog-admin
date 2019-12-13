@@ -21,7 +21,7 @@ import './braft-extend';
 
 export type ArticleDetailUEditComponentPropType = Pick<
 	StoreType,
-	'articleDetailStore'
+	'articleDetailStore' | 'homepageStore'
 >;
 
 // 通过param.file获取到要上传的文件，
@@ -48,7 +48,10 @@ export type UploadFileType = {
 	error: (err: { msg: string }) => void;
 };
 
-@inject('articleDetailStore')
+@inject((allStore: StoreType) => ({
+	articleDetailStore: allStore.articleDetailStore,
+	homepageStore: allStore.homepageStore,
+}))
 @observer
 class ArticleDetailUEditComponent extends Component<
 	ArticleDetailUEditComponentPropType
@@ -106,10 +109,12 @@ class ArticleDetailUEditComponent extends Component<
 
 	render() {
 		const { detail } = this.props.articleDetailStore;
+		const { articleAlias } = this.props.homepageStore;
+
 		return (
 			<BraftEditor
 				className="rich-text"
-				placeholder="请输入文章内容..."
+				placeholder={`请输入${articleAlias}内容...`}
 				value={detail?.draftDetail}
 				onChange={this.handleEditorChange}
 				onSave={this.submitContent}

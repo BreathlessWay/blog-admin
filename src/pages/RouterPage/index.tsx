@@ -181,6 +181,11 @@ class RouterPage extends React.Component<RouterPagePropType> {
 									)}
 								/>
 								<Route
+									path={routeMapPath.statistics}
+									exact={true}
+									children={<div>网站统计</div>}
+								/>
+								<Route
 									path="*"
 									render={() => <Redirect to={firstMenu.path} />}
 								/>
