@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "029f96ec38ab61fe27ffe72a435b2cc6",
+    "revision": "46f7ef540f800f62ac6faa16201feaeb",
     "url": "/blog-admin/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/3.d8890531.chunk.css"
   },
   {
-    "revision": "7bf6b4b4d6d77b9de45b",
+    "revision": "cda55f3e77587246b30c",
     "url": "/blog-admin/static/css/41.d0e45b61.chunk.css"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/ArticleFilterComponent.9ff1e61e.chunk.css"
   },
   {
-    "revision": "c07ead2c80f18c9f9f6d",
+    "revision": "05515452b408a0eaeac7",
     "url": "/blog-admin/static/css/ArticleListComponent.1e540747.chunk.css"
   },
   {
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/ArticleTagPage.dc0a1e5f.chunk.css"
   },
   {
-    "revision": "9ae41dcf9abeb5ae77d4",
+    "revision": "549acf3cdc5a184693c8",
     "url": "/blog-admin/static/css/BreadcrumbComponent.d98ca879.chunk.css"
   },
   {
@@ -68,7 +68,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/HobbiesFigureComponent.3acf7c5c.chunk.css"
   },
   {
-    "revision": "b162b16cfe61ce3d9e45",
+    "revision": "a8744efaed61f694cdc3",
     "url": "/blog-admin/static/css/LoginPage.a63a003a.chunk.css"
   },
   {
@@ -96,7 +96,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/PersonalInfoComponent.ad90963b.chunk.css"
   },
   {
-    "revision": "ffdfaec068ddc11466d5",
+    "revision": "6f94e02fb2119ee9b131",
     "url": "/blog-admin/static/css/PhotoAlbumComponent.4b56d267.chunk.css"
   },
   {
@@ -108,7 +108,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/RewardComponent.4763a38c.chunk.css"
   },
   {
-    "revision": "d8f6c502cc9132440e29",
+    "revision": "0abbe51cdf282aaeae7d",
     "url": "/blog-admin/static/css/RouterPage.426d38ce.chunk.css"
   },
   {
@@ -120,7 +120,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/SocialEditComponent.a9fe4a86.chunk.css"
   },
   {
-    "revision": "60b90a9a12b5fcd1e682",
+    "revision": "ee5cb8fb9e144a2222a8",
     "url": "/blog-admin/static/css/main.c0b7c642.chunk.css"
   },
   {
@@ -144,8 +144,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/4.9d2f8cad.chunk.js"
   },
   {
-    "revision": "7bf6b4b4d6d77b9de45b",
-    "url": "/blog-admin/static/js/41.cf68c196.chunk.js"
+    "revision": "cda55f3e77587246b30c",
+    "url": "/blog-admin/static/js/41.6ebc5767.chunk.js"
   },
   {
     "revision": "ad5eec04478bbc65f4e4",
@@ -172,8 +172,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/7.def7d97d.chunk.js"
   },
   {
-    "revision": "3abddf6cc11a1291b107",
-    "url": "/blog-admin/static/js/ArticleDetailButtonComponent.91300ede.chunk.js"
+    "revision": "2abe72031efac2b440af",
+    "url": "/blog-admin/static/js/ArticleDetailButtonComponent.26474464.chunk.js"
   },
   {
     "revision": "66f7dcdeae5cdbbf574b",
@@ -188,8 +188,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/ArticleDetailTopComponent.44a4f966.chunk.js"
   },
   {
-    "revision": "02d6579f78c055380c09",
-    "url": "/blog-admin/static/js/ArticleEditPage.9f2d2310.chunk.js"
+    "revision": "0fa4f50ee25ed3dc3d5c",
+    "url": "/blog-admin/static/js/ArticleEditPage.99e3ba94.chunk.js"
   },
   {
     "revision": "3fd7b3cc899ceb8a8a98",
@@ -200,16 +200,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/ArticleIndexPage.d6e7c20a.chunk.js"
   },
   {
-    "revision": "c07ead2c80f18c9f9f6d",
-    "url": "/blog-admin/static/js/ArticleListComponent.ae81d8e3.chunk.js"
+    "revision": "05515452b408a0eaeac7",
+    "url": "/blog-admin/static/js/ArticleListComponent.8d5917c0.chunk.js"
   },
   {
     "revision": "019059d8c5c26c01cea4",
     "url": "/blog-admin/static/js/ArticleTagPage.6d878ff2.chunk.js"
   },
   {
-    "revision": "9ae41dcf9abeb5ae77d4",
-    "url": "/blog-admin/static/js/BreadcrumbComponent.40a7bba7.chunk.js"
+    "revision": "549acf3cdc5a184693c8",
+    "url": "/blog-admin/static/js/BreadcrumbComponent.943469e1.chunk.js"
   },
   {
     "revision": "7d4057f7403eb2dbb643",
@@ -236,8 +236,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/HomePage.b5213bce.chunk.js"
   },
   {
-    "revision": "b162b16cfe61ce3d9e45",
-    "url": "/blog-admin/static/js/LoginPage.b6559900.chunk.js"
+    "revision": "a8744efaed61f694cdc3",
+    "url": "/blog-admin/static/js/LoginPage.58721f52.chunk.js"
   },
   {
     "revision": "3b7ba7e1d73688baa5e0",
@@ -264,16 +264,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/PersonalInfoComponent.be61a2c1.chunk.js"
   },
   {
-    "revision": "ffdfaec068ddc11466d5",
-    "url": "/blog-admin/static/js/PhotoAlbumComponent.3a989738.chunk.js"
+    "revision": "6f94e02fb2119ee9b131",
+    "url": "/blog-admin/static/js/PhotoAlbumComponent.7e43ee2c.chunk.js"
   },
   {
     "revision": "29ddbd0abef92a43595b",
     "url": "/blog-admin/static/js/PhotoListComponent.3a984cd5.chunk.js"
   },
   {
-    "revision": "b7da52529604ce8dc921",
-    "url": "/blog-admin/static/js/PhotographyEditPage.0facc571.chunk.js"
+    "revision": "c6942eceaa657e8384d0",
+    "url": "/blog-admin/static/js/PhotographyEditPage.8007016e.chunk.js"
   },
   {
     "revision": "b1c20b9c615903b98f7a",
@@ -284,8 +284,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/RewardComponent.efb23b1a.chunk.js"
   },
   {
-    "revision": "d8f6c502cc9132440e29",
-    "url": "/blog-admin/static/js/RouterPage.eb463954.chunk.js"
+    "revision": "0abbe51cdf282aaeae7d",
+    "url": "/blog-admin/static/js/RouterPage.1a0bc4af.chunk.js"
   },
   {
     "revision": "70d27d204045cdece16d",
@@ -296,12 +296,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/SocialEditComponent.de00a451.chunk.js"
   },
   {
-    "revision": "60b90a9a12b5fcd1e682",
-    "url": "/blog-admin/static/js/main.c212513e.chunk.js"
+    "revision": "ee5cb8fb9e144a2222a8",
+    "url": "/blog-admin/static/js/main.21ea676e.chunk.js"
   },
   {
-    "revision": "65eb5997f1119baef37a",
-    "url": "/blog-admin/static/js/runtime-main.44c4370b.js"
+    "revision": "ec7d6d99dcd86828356f",
+    "url": "/blog-admin/static/js/runtime-main.6b668316.js"
   },
   {
     "revision": "b2c6951fad149f079cdd8605b5573468",
