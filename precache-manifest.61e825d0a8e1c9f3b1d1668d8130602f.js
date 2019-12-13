@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "edc41d399f50492e9bac94555f83d9a2",
+    "revision": "fd6b52bf2d6a1c9384687cc94136730b",
     "url": "/blog-admin/index.html"
   },
   {
@@ -104,7 +104,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/PhotoListComponent.8f3d5c5a.chunk.css"
   },
   {
-    "revision": "4eae00c5cc6e602acfba",
+    "revision": "d5977f49200b5f648264",
     "url": "/blog-admin/static/css/RewardComponent.4763a38c.chunk.css"
   },
   {
@@ -116,7 +116,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/SkillComponent.20fd6286.chunk.css"
   },
   {
-    "revision": "0a91f666c6e403c7fcc8",
+    "revision": "9060e05953ee79356db3",
     "url": "/blog-admin/static/css/SocialEditComponent.a9fe4a86.chunk.css"
   },
   {
@@ -280,8 +280,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/PhotographyIndexPage.e661d22e.chunk.js"
   },
   {
-    "revision": "4eae00c5cc6e602acfba",
-    "url": "/blog-admin/static/js/RewardComponent.efb23b1a.chunk.js"
+    "revision": "d5977f49200b5f648264",
+    "url": "/blog-admin/static/js/RewardComponent.996868f6.chunk.js"
   },
   {
     "revision": "0abbe51cdf282aaeae7d",
@@ -292,16 +292,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/SkillComponent.f3a9c930.chunk.js"
   },
   {
-    "revision": "0a91f666c6e403c7fcc8",
-    "url": "/blog-admin/static/js/SocialEditComponent.de00a451.chunk.js"
+    "revision": "9060e05953ee79356db3",
+    "url": "/blog-admin/static/js/SocialEditComponent.dc969ea8.chunk.js"
   },
   {
     "revision": "019c17475221917e8c53",
     "url": "/blog-admin/static/js/main.42ada4f5.chunk.js"
   },
   {
-    "revision": "9cca81e1cd428e2e714a",
-    "url": "/blog-admin/static/js/runtime-main.61fff7df.js"
+    "revision": "aabb4fad74fa2795ca52",
+    "url": "/blog-admin/static/js/runtime-main.0b55a9e7.js"
   },
   {
     "revision": "b2c6951fad149f079cdd8605b5573468",
