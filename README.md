@@ -28,6 +28,21 @@
 2. 要使用自判断属性链 [Optional_chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining), 需要添加`@babel/plugin-proposal-nullish-coalescing-operator`和`@babel/plugin-proposal-optional-chaining`两个 babel 插件
 3. 图片懒加载使用的[IntersectionObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver)
 
+> 构建
+
+1. 不生成 source-map: `"build": "GENERATE_SOURCEMAP=false node scripts/build.js",`
+2. 为了减小打包文件体积，将公共模块抽离为外链 CDN, 使用 webpack 的 e 提供全局变量
+   ```
+   externals: {
+       "react": "React",
+       "react-dom": "ReactDOM",
+       'react-dom/server': 'ReactDOMServer',
+       'qs': 'Qs',
+       'react-router-dom': 'ReactRouterDOM',
+   },
+   ```
+3. 没有@types 的插件例如`axios mobx mobx-react`, 暂时无法抽离 CDN, 会报无法找到模块错误
+
 > 其他
 
 1. typescript 的 alias 要先配置`baseUrl`:

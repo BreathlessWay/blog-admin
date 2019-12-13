@@ -331,6 +331,16 @@ module.exports = function(webpackEnv) {
 				PnpWebpackPlugin.moduleLoader(module),
 			],
 		},
+		externals: {
+			react: 'React',
+			'react-dom': 'ReactDOM',
+			'react-dom/server': 'ReactDOMServer',
+			'react-router-dom': 'ReactRouterDOM',
+			// 'axios': 'axios',
+			qs: 'Qs',
+			// 'mobx':'mobx',
+			// 'mobx-react':'mobxReact',
+		},
 		module: {
 			strictExportPresence: true,
 			rules: [

@@ -67,15 +67,11 @@
 		"postcss-safe-parser": "4.0.1",
 		"prettier": "^1.19.1",
 		"pretty-quick": "^2.0.1",
-		"qs": "^6.9.1",
-		"react": "^16.12.0",
 		"react-app-polyfill": "^1.0.5",
 		"react-color": "^2.17.3",
 		"react-dev-utils": "^9.1.0",
 		"react-dnd": "^9.4.0",
 		"react-dnd-html5-backend": "^9.4.0",
-		"react-dom": "^16.12.0",
-		"react-router-dom": "^5.1.2",
 		"resolve": "1.12.0",
 		"resolve-url-loader": "3.1.0",
 		"sass-loader": "7.2.0",
@@ -93,7 +89,7 @@
 	"scripts": {
 		"tree": "echo '```' > tree.md && tree >> tree.md -I 'node_modules' -F",
 		"start": "node scripts/start.js",
-		"build": "node scripts/build.js",
+		"build": "GENERATE_SOURCEMAP=false node scripts/build.js",
 		"test": "node scripts/test.js"
 	},
 	"husky": {
