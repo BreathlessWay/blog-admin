@@ -37,6 +37,7 @@ class MenuComponent extends React.Component<
 		const _keys = e.key.split('-');
 		const index = 0;
 		const _path = getPath(_keys, this.menuList, index);
+
 		if (_path) {
 			this.props.history.push(_path);
 			if (_keys.length > 1) {

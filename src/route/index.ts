@@ -10,10 +10,10 @@ export const routeMapPath = {
 	me: `${prePath}/me`,
 	article: {
 		index: `${prePath}/article`,
-		home: `${prePath}/index`,
-		tag: `${prePath}/tag`,
-		create: `${prePath}/create`,
-		edit: `${prePath}/edit`,
+		home: `${prePath}/article/index`,
+		tag: `${prePath}/article/tag`,
+		create: `${prePath}/article/create`,
+		edit: `${prePath}/article/edit`,
 	},
 	cat: `${prePath}/cat`,
 	photography: {
