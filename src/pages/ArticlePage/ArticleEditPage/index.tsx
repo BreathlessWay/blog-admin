@@ -57,10 +57,10 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	time: any = null;
 
 	async componentDidMount() {
-		const { pathname } = this.props.location;
 		const _this = this;
+		const { pathname } = _this.props.location;
 
-		if (pathname === routeMapPath.article.edit && !this.articleId) {
+		if (pathname === routeMapPath.article.edit && !_this.articleId) {
 			warning({
 				title: '提示',
 				content: '编辑文章缺失文章id参数！',
@@ -71,9 +71,9 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 			});
 			return;
 		}
-		await this.getData();
+		await _this.getData();
 
-		if (this.judgeCache) {
+		if (_this.judgeCache) {
 			confirm({
 				title: '提示',
 				content: '您似乎有上一次未保存的草稿，是否载入？',
@@ -90,7 +90,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 		}
 
 		storage.remove(ARTICLE_CACHE_KEY);
-		this.startCache();
+		_this.startCache();
 	}
 
 	componentWillUnmount(): void {

@@ -32,7 +32,7 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 	componentDidMount() {
 		const _this = this;
 
-		if (!this.albumId) {
+		if (!_this.albumId) {
 			warning({
 				title: '提示',
 				content: '缺少相册id参数！',
@@ -43,8 +43,8 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 			});
 			return;
 		}
-		this.props.photoListStore.resetStore();
-		this.props.photoListStore.getList();
+		_this.props.photoListStore.resetStore();
+		_this.props.photoListStore.getList();
 	}
 
 	render() {

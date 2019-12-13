@@ -60,11 +60,12 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		tag: TagItemType;
 		index: number;
 	}) => () => {
+		const _this = this;
+
 		if (tag.count) {
 			message.error('当前标签下存在文章，不可删除');
 			return;
 		}
-		const _this = this;
 		confirm({
 			title: '是否确认删除该标签',
 			okType: 'danger',

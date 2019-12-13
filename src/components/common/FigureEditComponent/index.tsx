@@ -40,10 +40,11 @@ export default class FigureEditComponent extends Component<
 	}
 
 	handleRemove = (item: ImageItemType) => () => {
+		const _this = this;
+
 		if (item.show) {
 			message.warning('当前图片正在使用中！');
 		} else {
-			const _this = this;
 			confirm({
 				title: '是否确认删除该图片？',
 				okType: 'danger',
