@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "46f7ef540f800f62ac6faa16201feaeb",
+    "revision": "f1d358d9be7e9ccc3a280adc448d13c7",
     "url": "/blog-admin/index.html"
   },
   {
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/MenuComponent.b48e0c92.chunk.css"
   },
   {
-    "revision": "de2d9327b84d9ded7806",
+    "revision": "b9794e277616256180ef",
     "url": "/blog-admin/static/css/MenuEditComponent.3503903b.chunk.css"
   },
   {
@@ -112,7 +112,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/RouterPage.426d38ce.chunk.css"
   },
   {
-    "revision": "70d27d204045cdece16d",
+    "revision": "438d4a2a0661e89443d0",
     "url": "/blog-admin/static/css/SkillComponent.20fd6286.chunk.css"
   },
   {
@@ -120,7 +120,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/SocialEditComponent.a9fe4a86.chunk.css"
   },
   {
-    "revision": "ee5cb8fb9e144a2222a8",
+    "revision": "9e77e2046f114669dfb5",
     "url": "/blog-admin/static/css/main.c0b7c642.chunk.css"
   },
   {
@@ -248,8 +248,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/MenuComponent.92878d05.chunk.js"
   },
   {
-    "revision": "de2d9327b84d9ded7806",
-    "url": "/blog-admin/static/js/MenuEditComponent.848e1537.chunk.js"
+    "revision": "b9794e277616256180ef",
+    "url": "/blog-admin/static/js/MenuEditComponent.dbaa0578.chunk.js"
   },
   {
     "revision": "191bd9ef3bb1822e5b7c",
@@ -288,20 +288,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/RouterPage.1a0bc4af.chunk.js"
   },
   {
-    "revision": "70d27d204045cdece16d",
-    "url": "/blog-admin/static/js/SkillComponent.c1712f2c.chunk.js"
+    "revision": "438d4a2a0661e89443d0",
+    "url": "/blog-admin/static/js/SkillComponent.f3a9c930.chunk.js"
   },
   {
     "revision": "0a91f666c6e403c7fcc8",
     "url": "/blog-admin/static/js/SocialEditComponent.de00a451.chunk.js"
   },
   {
-    "revision": "ee5cb8fb9e144a2222a8",
-    "url": "/blog-admin/static/js/main.21ea676e.chunk.js"
+    "revision": "9e77e2046f114669dfb5",
+    "url": "/blog-admin/static/js/main.4c865489.chunk.js"
   },
   {
-    "revision": "ec7d6d99dcd86828356f",
-    "url": "/blog-admin/static/js/runtime-main.6b668316.js"
+    "revision": "9cca81e1cd428e2e714a",
+    "url": "/blog-admin/static/js/runtime-main.61fff7df.js"
   },
   {
     "revision": "b2c6951fad149f079cdd8605b5573468",
