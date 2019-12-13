@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5b6d7414d3a276f5db26d77478802fed",
+    "revision": "a0b74d1ac12553e0025e1e37c59ee57c",
     "url": "/blog-admin/index.html"
   },
   {
@@ -48,7 +48,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/ArticleListComponent.1e540747.chunk.css"
   },
   {
-    "revision": "019059d8c5c26c01cea4",
+    "revision": "6d7d8831479624fe76a6",
     "url": "/blog-admin/static/css/ArticleTagPage.dc0a1e5f.chunk.css"
   },
   {
@@ -56,7 +56,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/BreadcrumbComponent.d98ca879.chunk.css"
   },
   {
-    "revision": "7d4057f7403eb2dbb643",
+    "revision": "b8c64f8eca1156eec223",
     "url": "/blog-admin/static/css/CatFigureComponent.54b4c57d.chunk.css"
   },
   {
@@ -64,7 +64,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/CatPictureListComponent.798a4f08.chunk.css"
   },
   {
-    "revision": "36c29f49378a65043687",
+    "revision": "834295dcc5178356f94a",
     "url": "/blog-admin/static/css/HobbiesFigureComponent.3acf7c5c.chunk.css"
   },
   {
@@ -88,7 +88,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/MottoComponent.51f46949.chunk.css"
   },
   {
-    "revision": "429434941d3e4eec6612",
+    "revision": "70fbd519d680295fc294",
     "url": "/blog-admin/static/css/PersonalFigureComponent.964e5e88.chunk.css"
   },
   {
@@ -188,8 +188,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/ArticleDetailTopComponent.44a4f966.chunk.js"
   },
   {
-    "revision": "0fa4f50ee25ed3dc3d5c",
-    "url": "/blog-admin/static/js/ArticleEditPage.99e3ba94.chunk.js"
+    "revision": "12121ba83e8b9658f806",
+    "url": "/blog-admin/static/js/ArticleEditPage.0f7a972b.chunk.js"
   },
   {
     "revision": "3fd7b3cc899ceb8a8a98",
@@ -204,16 +204,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/ArticleListComponent.8d5917c0.chunk.js"
   },
   {
-    "revision": "019059d8c5c26c01cea4",
-    "url": "/blog-admin/static/js/ArticleTagPage.6d878ff2.chunk.js"
+    "revision": "6d7d8831479624fe76a6",
+    "url": "/blog-admin/static/js/ArticleTagPage.7f285e14.chunk.js"
   },
   {
     "revision": "549acf3cdc5a184693c8",
     "url": "/blog-admin/static/js/BreadcrumbComponent.943469e1.chunk.js"
   },
   {
-    "revision": "7d4057f7403eb2dbb643",
-    "url": "/blog-admin/static/js/CatFigureComponent.b5a3bdea.chunk.js"
+    "revision": "b8c64f8eca1156eec223",
+    "url": "/blog-admin/static/js/CatFigureComponent.14a1960d.chunk.js"
   },
   {
     "revision": "bf270bdc0b40493d1256",
@@ -228,8 +228,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/GitHubComponent.46edfa84.chunk.js"
   },
   {
-    "revision": "36c29f49378a65043687",
-    "url": "/blog-admin/static/js/HobbiesFigureComponent.0628f725.chunk.js"
+    "revision": "834295dcc5178356f94a",
+    "url": "/blog-admin/static/js/HobbiesFigureComponent.3c2c6f45.chunk.js"
   },
   {
     "revision": "e6dc499b4201cb29126d",
@@ -256,8 +256,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/MottoComponent.5312bda8.chunk.js"
   },
   {
-    "revision": "429434941d3e4eec6612",
-    "url": "/blog-admin/static/js/PersonalFigureComponent.a619bab3.chunk.js"
+    "revision": "70fbd519d680295fc294",
+    "url": "/blog-admin/static/js/PersonalFigureComponent.1f9eedbc.chunk.js"
   },
   {
     "revision": "557b4feefdf224f44b29",
@@ -272,8 +272,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/PhotoListComponent.3a984cd5.chunk.js"
   },
   {
-    "revision": "c6942eceaa657e8384d0",
-    "url": "/blog-admin/static/js/PhotographyEditPage.8007016e.chunk.js"
+    "revision": "4a8358e083310a98cfd0",
+    "url": "/blog-admin/static/js/PhotographyEditPage.9235b63f.chunk.js"
   },
   {
     "revision": "b1c20b9c615903b98f7a",
@@ -300,8 +300,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/main.42ada4f5.chunk.js"
   },
   {
-    "revision": "6aa5c4672b2b8bf67af7",
-    "url": "/blog-admin/static/js/runtime-main.4f448c58.js"
+    "revision": "df733eb6bb9235522410",
+    "url": "/blog-admin/static/js/runtime-main.b022592a.js"
   },
   {
     "revision": "b2c6951fad149f079cdd8605b5573468",
