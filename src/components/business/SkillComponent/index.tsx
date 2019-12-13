@@ -56,7 +56,7 @@ class SkillComponent extends Component<SkillComponentPropType> {
 		return (
 			<BasicWrapComponent
 				title="个人技能"
-				note={`个人技能名称最长${MAX_LENGTH_MD}个字`}
+				note={`个人技能名称最长${MAX_LENGTH_MD}个字, 可以拖拽排序`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasSkills || isEditing ? (

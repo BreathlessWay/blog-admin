@@ -1,6 +1,8 @@
 import { EMenuType } from '@/store/HomePageStore/homepage.enum';
 
-export const prePath = process.env.PUBLIC_URL;
+// export const prePath = process.env.PUBLIC_URL;
+
+export const prePath = '';
 
 export const routeMapPath = {
 	login: `${prePath}/login`,

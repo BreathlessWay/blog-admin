@@ -87,7 +87,7 @@ class MenuEditComponent extends React.Component<
 		return (
 			<BasicWrapComponent
 				title="菜单栏"
-				note={`菜单名最长${MAX_LENGTH_XS}个字`}
+				note={`菜单名最长${MAX_LENGTH_XS}个字, 可以拖拽排序`}
 				handleEdit={this.handleEdit}
 				render={isEditing => (
 					<DraggableComponent
