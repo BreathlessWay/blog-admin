@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f1d358d9be7e9ccc3a280adc448d13c7",
+    "revision": "edc41d399f50492e9bac94555f83d9a2",
     "url": "/blog-admin/index.html"
   },
   {
@@ -120,7 +120,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/css/SocialEditComponent.a9fe4a86.chunk.css"
   },
   {
-    "revision": "9e77e2046f114669dfb5",
+    "revision": "019c17475221917e8c53",
     "url": "/blog-admin/static/css/main.c0b7c642.chunk.css"
   },
   {
@@ -296,8 +296,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blog-admin/static/js/SocialEditComponent.de00a451.chunk.js"
   },
   {
-    "revision": "9e77e2046f114669dfb5",
-    "url": "/blog-admin/static/js/main.4c865489.chunk.js"
+    "revision": "019c17475221917e8c53",
+    "url": "/blog-admin/static/js/main.42ada4f5.chunk.js"
   },
   {
     "revision": "9cca81e1cd428e2e714a",
