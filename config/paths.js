@@ -83,6 +83,7 @@ module.exports = {
 	appNodeModules: resolveApp('node_modules'),
 	publicUrl: getPublicUrl(resolveApp('package.json')),
 	servedPath: '/blog-admin/',
+	// servedPath: '/blog-admin/build/',
 	// servedPath: getServedPath(resolveApp('package.json')),
 };
 
