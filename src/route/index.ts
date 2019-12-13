@@ -70,11 +70,15 @@ export const baseRoute = [
 	},
 ];
 
-export const articleRoute = [
-	{ name: `文章管理`, path: routeMapPath.article.home, show: true },
+export const articleRoute = (articleAlias: string) => [
+	{ name: `${articleAlias}管理`, path: routeMapPath.article.home, show: true },
 	{ name: '标签管理', path: routeMapPath.article.tag, show: true },
-	{ name: '新建文章', path: routeMapPath.article.create, show: false },
-	{ name: '编辑文章', path: routeMapPath.article.edit, show: false },
+	{
+		name: `新建${articleAlias}`,
+		path: routeMapPath.article.create,
+		show: false,
+	},
+	{ name: `编辑${articleAlias}`, path: routeMapPath.article.edit, show: false },
 ];
 
 export const photographyRoute = [

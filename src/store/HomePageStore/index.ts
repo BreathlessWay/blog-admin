@@ -10,7 +10,7 @@ import { getBreadcrumbNameMap } from '@/utils/path';
 
 export default class HomePageStore {
 	@observable
-	menuList: MenuListType = [];
+	_menuList: MenuListType = [];
 
 	@observable
 	openKeys: Array<string> = [];
@@ -20,15 +20,7 @@ export default class HomePageStore {
 
 	@action.bound
 	setMenuList(list: MenuListType) {
-		this.menuList = list;
-		this.menuList.forEach(item => {
-			if (item.type === EMenuType.read) {
-				item.children = articleRoute;
-			}
-			if (item.type === EMenuType.camera) {
-				item.children = photographyRoute;
-			}
-		});
+		this._menuList = list;
 	}
 
 	@action.bound
@@ -70,7 +62,7 @@ export default class HomePageStore {
 		value: any;
 		type?: 'input' | 'checkbox';
 	}) {
-		this.menuList.forEach(menu => {
+		this._menuList.forEach(menu => {
 			if (menu.type === item.type) {
 				if (type === 'input') {
 					menu.name = value;
@@ -84,8 +76,8 @@ export default class HomePageStore {
 
 	@action.bound
 	sortMenuList(dragIndex: number, hoverIndex: number) {
-		const dragItem = this.menuList.splice(dragIndex, 1);
-		this.menuList.splice(hoverIndex, 0, ...dragItem);
+		const dragItem = this._menuList.splice(dragIndex, 1);
+		this._menuList.splice(hoverIndex, 0, ...dragItem);
 	}
 
 	@computed
@@ -120,5 +112,18 @@ export default class HomePageStore {
 	get articleAlias() {
 		const item = this.menuList.find(menu => menu.type === EMenuType.read);
 		return item?.name ?? '';
+	}
+
+	@computed
+	get menuList() {
+		return this._menuList.map(item => {
+			if (item.type === EMenuType.read) {
+				return { ...item, ...{ children: articleRoute(item.name) } };
+			}
+			if (item.type === EMenuType.camera) {
+				return { ...item, ...{ children: photographyRoute } };
+			}
+			return item;
+		});
 	}
 }
