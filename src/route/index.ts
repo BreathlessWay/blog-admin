@@ -1,21 +1,23 @@
 import { EMenuType } from '@/store/HomePageStore/homepage.enum';
 
+const prePath = process.env.PUBLIC_URL;
+
 export const routeMapPath = {
-	login: '/login',
-	home: '/home',
-	me: '/me',
+	login: `${prePath}/login`,
+	home: `${prePath}/home`,
+	me: `${prePath}/me`,
 	article: {
-		index: '/article',
-		home: '/article/index',
-		tag: '/article/tag',
-		create: '/article/create',
-		edit: '/article/edit',
+		index: `${prePath}/article`,
+		home: `${prePath}/index`,
+		tag: `${prePath}/tag`,
+		create: `${prePath}/create`,
+		edit: `${prePath}/edit`,
 	},
-	cat: '/cat',
+	cat: `${prePath}/cat`,
 	photography: {
-		index: '/photography',
-		home: '/photography/index',
-		edit: '/photography/edit',
+		index: `${prePath}/photography`,
+		home: `${prePath}/photography/index`,
+		edit: `${prePath}/photography/edit`,
 	},
 };
 
