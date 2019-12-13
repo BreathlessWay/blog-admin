@@ -7,7 +7,7 @@ import { Breadcrumb, Button } from 'antd';
 
 import { StoreType } from '@/store/store';
 
-import { routeMapPath } from '@/route';
+import { routeMapPath, prePath } from '@/route';
 
 import compose from '@/utils/compose';
 
@@ -36,7 +36,9 @@ const BreadcrumbComponent = (props: BreadcrumbComponentPropType) => {
 		setKeys(url);
 	};
 
-	const pathSnippets = location.pathname.split('/').filter(i => i);
+	const pathSnippets = location.pathname
+		.split('/')
+		.filter(i => i && i !== prePath);
 	const extraBreadcrumbItems = pathSnippets.map((_, index) => {
 		const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
 		return (
@@ -47,13 +49,15 @@ const BreadcrumbComponent = (props: BreadcrumbComponentPropType) => {
 			</Item>
 		);
 	});
+
 	const breadcrumbItems = [
 		<Item key="manager">
-			<Link to="/" onClick={() => handleClick(firstMenu.path)}>
+			<Link to={prePath || '/'} onClick={() => handleClick(firstMenu.path)}>
 				管理后台
 			</Link>
 		</Item>,
 	].concat(extraBreadcrumbItems);
+
 	return (
 		<section className="bread-crumb">
 			<Breadcrumb separator=">">{breadcrumbItems}</Breadcrumb>
