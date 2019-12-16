@@ -183,7 +183,7 @@ class RouterPage extends React.Component<RouterPagePropType> {
 								<Route
 									path={routeMapPath.statistics}
 									exact={true}
-									children={<div>网站统计</div>}
+									children={<div>网站统计，等有数据和访问量之后再做</div>}
 								/>
 								<Route
 									path="*"
