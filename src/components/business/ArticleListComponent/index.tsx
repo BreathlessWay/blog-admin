@@ -95,7 +95,7 @@ class ArticleListComponent extends Component<
 				<Gap size="lg" />
 				<Row type="flex" align="middle" justify="space-between">
 					<Col>
-						{!isEmpty && (
+						{!isEmpty && selectedRowKeys && selectedRowKeys.length > 0 && (
 							<>
 								<Button type="link" onClick={this.handleDeleteSelected}>
 									删除

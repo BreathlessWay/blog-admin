@@ -56,6 +56,7 @@ class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 			isEmpty,
 			count,
 			isAllListChecked,
+			hasChecked,
 		} = this.props.catStore;
 
 		return (
@@ -65,15 +66,19 @@ class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 						<Button type="link" onClick={this.handleChangeChecked}>
 							{isAllListChecked ? '取消全选' : '全选'}
 						</Button>
-						<Button type="link" onClick={this.handleBatchHide}>
-							批量隐藏
-						</Button>
-						<Button type="link" onClick={this.handelBatchShow}>
-							批量显示
-						</Button>
-						<Button type="link" onClick={this.handleBatchDelete}>
-							批量删除
-						</Button>
+						{hasChecked && (
+							<>
+								<Button type="link" onClick={this.handleBatchHide}>
+									批量隐藏
+								</Button>
+								<Button type="link" onClick={this.handelBatchShow}>
+									批量显示
+								</Button>
+								<Button type="link" onClick={this.handleBatchDelete}>
+									批量删除
+								</Button>
+							</>
+						)}
 					</Col>
 					<Col>
 						<section className="cat-pagination">
