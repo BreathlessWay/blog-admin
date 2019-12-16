@@ -79,7 +79,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 			} else {
 				confirm({
 					title: '提示',
-					content: '该邮箱尚未注册，是否注册',
+					content: '该邮箱尚未注册，是否注册？',
 					okText: '注册',
 					cancelText: '不注册',
 					onOk() {

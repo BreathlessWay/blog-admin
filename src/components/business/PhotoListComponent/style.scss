@@ -1,45 +1,55 @@
 @import '../../../static/css/variables';
 @import '../../../static/css/mixins';
 
-.picture-list {
+.photo-list {
 	margin: 0 auto;
 	height: calc(100vh - 64px - 85px - 52px - 24px - 24px - 20px - 5px);
 	overflow: auto;
 	@include flex($align-items: flex-start, $justify-content: center);
 }
 
-.picture-list::-webkit-scrollbar-track {
+.photo-list::-webkit-scrollbar-track {
 	border-radius: $border-radius-sm;
 }
 
-.picture-list::-webkit-scrollbar {
+.photo-list::-webkit-scrollbar {
 	width: 6px;
 }
 
-.picture-list::-webkit-scrollbar-thumb {
+.photo-list::-webkit-scrollbar-thumb {
 	background: #ffb6bb;
 	border-radius: $border-radius-sm;
 }
 
-.picture-list_column {
+.photo-list_column {
 	flex: 1;
 	flex-grow: 0;
 	flex-shrink: 0;
 }
 
-.picture-list_item {
+.photo-list_item {
 	margin: $spacing-v-lg $spacing-h-md $spacing-v-xl;
 	.image-load_img {
 		width: 100%;
 	}
 }
 
-.picture-list_image {
+.photo-list_image {
 	box-shadow: 0 0 14px $color-gray-2;
 	width: 100%;
 }
 
-.picture-list_image__title {
+.photo-list_image__title {
 	margin: $spacing-v-lg auto;
 	width: 90%;
+}
+
+.photo-list-image_wrap {
+	position: relative;
+	.photo-list-image_checkbox {
+		position: absolute;
+		top: $spacing-v-sm;
+		left: $spacing-h-md;
+		z-index: $z-index;
+	}
 }

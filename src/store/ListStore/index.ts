@@ -2,7 +2,9 @@ import { action, computed, observable } from 'mobx';
 
 import { PAGE_LIMIT } from '@/utils/constant';
 
-export default class ListStore<T extends { objectId: string }> {
+export default class ListStore<
+	T extends { objectId: string; checked?: boolean; show?: boolean }
+> {
 	@observable
 	list: Array<T> = [];
 
@@ -80,6 +82,49 @@ export default class ListStore<T extends { objectId: string }> {
 	}
 
 	@action.bound
+	batchChangeChecked() {
+		const { isAllListChecked } = this;
+		this.list = this.list.map(item => {
+			item.checked = !isAllListChecked;
+			return item;
+		});
+	}
+
+	@action.bound
+	batchHide() {
+		if (!this.hasChecked) {
+			return;
+		}
+		this.list = this.list.map(item => {
+			if (item.checked) {
+				item.show = false;
+			}
+			return item;
+		});
+	}
+
+	@action.bound
+	batchShow() {
+		if (!this.hasChecked) {
+			return;
+		}
+		this.list = this.list.map(item => {
+			if (item.checked) {
+				item.show = true;
+			}
+			return item;
+		});
+	}
+
+	@action.bound
+	batchDelete() {
+		if (!this.hasChecked) {
+			return;
+		}
+		this.list = this.list.filter(item => !item.checked);
+	}
+
+	@action.bound
 	resetStore() {
 		this.list = [];
 		this.pageIndex = 1;
@@ -108,5 +153,15 @@ export default class ListStore<T extends { objectId: string }> {
 	@computed
 	get isEmpty() {
 		return this.listLength === 0;
+	}
+
+	@computed
+	get isAllListChecked() {
+		return this.list.every(item => item.checked);
+	}
+
+	@computed
+	get hasChecked() {
+		return this.list.some(item => item.checked);
 	}
 }

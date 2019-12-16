@@ -72,7 +72,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 			return;
 		}
 		confirm({
-			title: '是否确认删除该标签',
+			title: '是否确认删除该标签？',
 			okType: 'danger',
 			onOk() {
 				_this.props.tagStore.removeTag(index);

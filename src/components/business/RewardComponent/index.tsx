@@ -48,7 +48,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 	handleDelete = ({ key }: { key: ERewardChangeKey }) => () => {
 		const _this = this;
 		confirm({
-			title: '是否确认删除该二维码',
+			title: '是否确认删除该二维码？',
 			okType: 'danger',
 			onOk() {
 				_this.props.userStore.setPersonalInfo({

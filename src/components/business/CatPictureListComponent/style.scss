@@ -1,0 +1,11 @@
+@import '../../../static/css/variables';
+@import '../../../static/css/mixins';
+
+.cat-list_item {
+	position: relative;
+	.cat-list_checkbox {
+		position: absolute;
+		top: $spacing-v-sm;
+		left: $spacing-h-md;
+	}
+}

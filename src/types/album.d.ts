@@ -4,6 +4,8 @@ export type AlbumItemType = {
 	count: number;
 	cover?: string;
 
+	checked?: boolean;
+
 	objectId: string;
 };
 

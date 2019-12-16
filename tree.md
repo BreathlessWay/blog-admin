@@ -59,7 +59,8 @@
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
 │   │   │   ├── CatPictureListComponent/
-│   │   │   │   └── index.tsx
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── style.scss
 │   │   │   ├── HobbiesFigureComponent/
 │   │   │   │   ├── index.tsx
 │   │   │   │   └── style.scss
@@ -97,6 +98,8 @@
 │   │   │       ├── item.tsx
 │   │   │       └── style.scss
 │   │   └── common/
+│   │       ├── BatchEditDropdownComponent/
+│   │       │   └── index.tsx
 │   │       ├── ColorPickerComponent/
 │   │       │   ├── index.tsx
 │   │       │   └── style.scss
@@ -245,5 +248,5 @@
 ├── tree.md
 └── tsconfig.json
 
-80 directories, 164 files
+81 directories, 166 files
 ```

@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react';
 import {
 	Empty,
 	Button,
-	Icon,
 	Row,
 	Col,
 	Switch,
@@ -13,6 +12,7 @@ import {
 	Modal,
 	Typography,
 	Select,
+	Checkbox,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
@@ -20,6 +20,8 @@ import ImageUploadComponent from '@/components/common/ImageUploadComponent';
 import ImageLazyLoadComponent from '@/components/common/ImageLazyLoadComponent';
 import preview from '@/components/common/PreviewImageComponent';
 import Gap from '@/components/common/Gap';
+import PhotoActionComponent from '@/components/common/PhotoActionComponent';
+import BatchEditDropdownComponent from '@/components/common/BatchEditDropdownComponent';
 
 import { StoreType } from '@/store/store';
 import { ImageItemType, ImageListType } from '@/types/image';
@@ -33,7 +35,6 @@ import {
 } from '@/utils/constant';
 
 import './style.scss';
-import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
 const { Text } = Typography;
 
@@ -215,20 +216,48 @@ class PhotoListComponent extends Component<
 		}
 	};
 
+	handleChangeChecked = (item: ImageItemType) => () => {
+		this.props.photoListStore.setItem({
+			...item,
+			...{ checked: !item.checked },
+		} as PhotoItemType);
+	};
+
+	handleBatchChangeChecked = () => {
+		this.props.photoListStore.batchChangeChecked();
+	};
+
+	handleBatchHide = () => {
+		this.props.photoListStore.batchHide();
+	};
+
+	handleBatchShow = () => {
+		this.props.photoListStore.batchShow();
+	};
+
+	handleBatchDelete = () => {
+		this.props.photoListStore.batchDelete();
+	};
+
 	renderPhotoList = () => {
 		const { spliceList } = this.props.photoListStore;
 		return (
-			<ul className="picture-list" id={elementId}>
+			<ul className="photo-list" id={elementId}>
 				{spliceList.map((photoList, index) => (
-					<li key={index} className="picture-list_column">
+					<li key={index} className="photo-list_column">
 						<ImageLazyLoadComponent
-							itemClassName="picture-list_item"
+							itemClassName="photo-list_item"
 							imageList={photoList}
 							render={({ item, observer }) => (
-								<>
+								<section className="photo-list-image_wrap">
+									<Checkbox
+										className="photo-list-image_checkbox"
+										checked={item.checked}
+										onChange={this.handleChangeChecked(item)}
+									/>
 									<PhotoActionComponent
-										classNameWrap="picture-list_image"
-										classNameTitle="picture-list_image__title"
+										classNameWrap="photo-list_image"
+										classNameTitle="photo-list_image__title"
 										onEdit={() => this.handleEditPhoto(item)}
 										onDelete={() => this.handleDeletePhoto(item)}
 										title={item.title}>
@@ -242,7 +271,7 @@ class PhotoListComponent extends Component<
 											width={imageWidth}
 										/>
 									</PhotoActionComponent>
-								</>
+								</section>
 							)}
 						/>
 					</li>
@@ -252,7 +281,7 @@ class PhotoListComponent extends Component<
 	};
 
 	render() {
-		const { isEmpty } = this.props.photoListStore;
+		const { isEmpty, isAllListChecked, hasChecked } = this.props.photoListStore;
 		const { list } = this.props.photoAlbumStore;
 		const { albumId } = this.props;
 		const { visible, confirmLoading, editItem, titleError } = this.state;
@@ -262,17 +291,24 @@ class PhotoListComponent extends Component<
 				title={'相册名'}
 				note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}
 				operation={
-					<ImageUploadComponent
-						onUploadImage={this.handleUploadImage}
-						multiple={true}
-						disabled={false}
-						accept={UPLOAD_IMAGE_TYPE}
-						showUploadList={false}>
-						<Button type="link">
-							<Icon type="upload" />
-							上传图片
-						</Button>
-					</ImageUploadComponent>
+					<BatchEditDropdownComponent
+						isEmpty={isEmpty}
+						isAllListChecked={isAllListChecked}
+						tips="是否确认删除选中的图片？"
+						hasChecked={hasChecked}
+						onBatchSelect={this.handleBatchChangeChecked}
+						onBatchShow={this.handleBatchShow}
+						onBatchHide={this.handleBatchHide}
+						onBatchDelete={this.handleBatchDelete}>
+						<ImageUploadComponent
+							onUploadImage={this.handleUploadImage}
+							multiple={true}
+							disabled={false}
+							accept={UPLOAD_IMAGE_TYPE}
+							showUploadList={false}>
+							<Button type="link">上传图片</Button>
+						</ImageUploadComponent>
+					</BatchEditDropdownComponent>
 				}>
 				{isEmpty ? <Empty description="暂无图片" /> : this.renderPhotoList()}
 

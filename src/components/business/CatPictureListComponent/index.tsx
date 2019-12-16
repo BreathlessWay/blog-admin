@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Icon, Input, Modal, Row, Switch } from 'antd';
+import { Col, Icon, Input, Modal, Row, Switch, Checkbox } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
@@ -19,6 +19,8 @@ import {
 	MAX_LENGTH_LG,
 	MAX_LENGTH_SM,
 } from '@/utils/constant';
+
+import './style.scss';
 
 const { TextArea } = Input;
 const { confirm } = Modal;
@@ -151,6 +153,13 @@ class CatPictureListComponent extends Component<
 		}
 	};
 
+	handleChangeChecked = (item: ImageItemType) => () => {
+		this.props.catStore.setItem({
+			...item,
+			...{ checked: !item.checked },
+		} as CatItemType);
+	};
+
 	render() {
 		const { visible, confirmLoading, editItem } = this.state;
 
@@ -169,40 +178,48 @@ class CatPictureListComponent extends Component<
 						imageList={list}
 						onUploadImage={this.onAddCatPicture}
 						render={({ item, index, observer }) => (
-							<ImageCardComponent
-								observer={observer as IntersectionObserver}
-								width={300}
-								height={200}
-								showInfo={true}
-								title={item.title}
-								intro={item.intro}
-								url={item.url}
-								actions={[
-									<Icon
-										type="eye"
-										style={iconStyle}
-										onClick={this.handlePreview(index)}
-									/>,
-									<Icon
-										type="delete"
-										style={iconStyle}
-										onClick={this.handleRemove(item)}
-									/>,
-									<Icon
-										type="edit"
-										style={iconStyle}
-										onClick={this.handleEdit(item)}
-									/>,
-									<Icon
-										type="check-circle"
-										style={{
-											...iconStyle,
-											...{ color: item.show ? '#1890ff' : '' },
-										}}
-										onClick={this.handleSetShowFigure(item)}
-									/>,
-								]}
-							/>
+							<section className="cat-list_item">
+								<Checkbox
+									className="cat-list_checkbox"
+									onChange={this.handleChangeChecked(item)}
+									checked={item.checked}
+								/>
+								<ImageCardComponent
+									onClick={this.handleChangeChecked(item)}
+									observer={observer as IntersectionObserver}
+									width={300}
+									height={200}
+									showInfo={true}
+									title={item.title}
+									intro={item.intro}
+									url={item.url}
+									actions={[
+										<Icon
+											type="eye"
+											style={iconStyle}
+											onClick={this.handlePreview(index)}
+										/>,
+										<Icon
+											type="delete"
+											style={iconStyle}
+											onClick={this.handleRemove(item)}
+										/>,
+										<Icon
+											type="edit"
+											style={iconStyle}
+											onClick={this.handleEdit(item)}
+										/>,
+										<Icon
+											type="check-circle"
+											style={{
+												...iconStyle,
+												...{ color: item.show ? '#1890ff' : '' },
+											}}
+											onClick={this.handleSetShowFigure(item)}
+										/>,
+									]}
+								/>
+							</section>
 						)}
 					/>
 				</BasicWrapComponent>

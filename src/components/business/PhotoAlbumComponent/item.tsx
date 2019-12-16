@@ -3,7 +3,7 @@ import React, { Component, ComponentClass, MouseEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Modal } from 'antd';
+import { Modal, Checkbox } from 'antd';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
@@ -66,11 +66,25 @@ class PhotoAlbumItem extends Component<
 		event.stopPropagation();
 	};
 
+	handleChangeChecked = () => {
+		const { item } = this.props;
+		this.props.photoAlbumStore.setItem({
+			...item,
+			...{ checked: !item.checked },
+		});
+	};
+
 	render() {
-		const { title, cover = '' } = this.props.item;
+		const { title, cover = '', checked } = this.props.item;
 
 		return (
 			<li className="photo-album_item" onClick={this.handleEditAlbum}>
+				<Checkbox
+					className="photo-album_checked"
+					checked={checked}
+					onChange={this.handleChangeChecked}
+					onClick={this.handleStop}
+				/>
 				<PhotoActionComponent
 					classNameWrap="photo-album_item__img"
 					classNameTitle="photo-album_item__title"

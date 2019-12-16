@@ -16,6 +16,7 @@ import {
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 import PhotoAlbumItem from '@/components/business/PhotoAlbumComponent/item';
+import BatchEditDropdownComponent from '@/components/common/BatchEditDropdownComponent';
 
 import { StoreType } from '@/store/store';
 import { AlbumItemType } from '@/types/album';
@@ -127,6 +128,22 @@ class PhotoAlbumComponent extends Component<
 		});
 	};
 
+	handleChangeChecked = () => {
+		this.props.photoAlbumStore.batchChangeChecked();
+	};
+
+	handleBatchHide = () => {
+		this.props.photoAlbumStore.batchHide();
+	};
+
+	handleBatchShow = () => {
+		this.props.photoAlbumStore.batchShow();
+	};
+
+	handleBatchDelete = () => {
+		this.props.photoAlbumStore.batchDelete();
+	};
+
 	render() {
 		const {
 			visible,
@@ -141,6 +158,8 @@ class PhotoAlbumComponent extends Component<
 			pageIndex,
 			pageSize,
 			count,
+			isAllListChecked,
+			hasChecked,
 		} = this.props.photoAlbumStore;
 
 		return (
@@ -149,9 +168,19 @@ class PhotoAlbumComponent extends Component<
 				title="相册管理"
 				note={`相册标题最长${MAX_LENGTH_SM}个字`}
 				operation={
-					<Button type="link" onClick={this.handleAddAlbum}>
-						新建相册
-					</Button>
+					<BatchEditDropdownComponent
+						tips="是否确认删除所选相册以及相册下的图片？"
+						isEmpty={isEmpty}
+						isAllListChecked={isAllListChecked}
+						hasChecked={hasChecked}
+						onBatchSelect={this.handleChangeChecked}
+						onBatchHide={this.handleBatchHide}
+						onBatchShow={this.handleBatchShow}
+						onBatchDelete={this.handleBatchDelete}>
+						<Button type="link" onClick={this.handleAddAlbum}>
+							新建相册
+						</Button>
+					</BatchEditDropdownComponent>
 				}>
 				{isEmpty ? (
 					<Empty description="暂无相册" />

@@ -6,6 +6,7 @@ export type ImageItemType = {
 	show: boolean;
 
 	createAt?: number;
+	checked?: boolean;
 };
 
 export type ImageListType = Array<ImageItemType>;

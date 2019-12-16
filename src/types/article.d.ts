@@ -16,7 +16,7 @@ export type ArticleQueryType = {
 export type ArticleItemType = {
 	objectId: string;
 	title: string;
-	status: number;
+	status: number; // 0 隐藏 1 显示
 	createAt: number;
 	tags: TagListType;
 	key?: string;

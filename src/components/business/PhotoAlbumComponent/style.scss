@@ -18,6 +18,13 @@
 	margin-right: $spacing-h-xl * 2;
 	margin-bottom: $spacing-v-xl;
 	@include text-align();
+	position: relative;
+	.photo-album_checked {
+		position: absolute;
+		top: $spacing-v-sm;
+		left: $spacing-h-md;
+		z-index: $z-index;
+	}
 }
 
 .photo-album_item__img {

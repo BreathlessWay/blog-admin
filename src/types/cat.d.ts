@@ -6,6 +6,8 @@ export type CatItemType = {
 
 	objectId: string;
 	createAt: number;
+
+	checked?: boolean;
 };
 
 export type CatListType = Array<CatItemType>;
