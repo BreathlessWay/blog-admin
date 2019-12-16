@@ -60,14 +60,14 @@ export const baseRoute = [
 		show: true,
 		objectId: 'camera',
 	},
-	// {
-	// 	name: '网站统计',
-	// 	type: EMenuType.fund,
-	// 	path: routeMapPath.statistics,
-	// 	show: false,
-	// 	objectId: 'fund',
-	// 	onlyAdmin: true,
-	// },
+	{
+		name: '网站统计',
+		type: EMenuType.fund,
+		path: routeMapPath.statistics,
+		show: false,
+		objectId: 'fund',
+		onlyAdmin: true,
+	},
 ];
 
 export const articleRoute = (articleAlias: string) => [
