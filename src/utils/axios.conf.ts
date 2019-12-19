@@ -148,6 +148,7 @@ axios.defaults = axios_config;
 axios.interceptors.request.use(
 	function(config) {
 		// 在发送请求之前做些什么
+		config.headers['x-csrf-token'] = '';
 		return config;
 	},
 	function(error) {
