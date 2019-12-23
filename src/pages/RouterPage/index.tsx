@@ -7,7 +7,7 @@ import { Layout, Row, Spin, BackTop, Icon } from 'antd';
 
 import { StoreType } from '@/store/store';
 
-import { login } from '@/service/login';
+import { loginService } from '@/service/loginService';
 
 import { routeMapPath } from '@/route';
 
@@ -90,7 +90,7 @@ export type RouterPagePropType = Pick<
 class RouterPage extends React.Component<RouterPagePropType> {
 	componentDidMount(): void {
 		const { userStore, history, homepageStore } = this.props;
-		login({ userStore, history, homepageStore });
+		loginService({ userStore, history, homepageStore });
 	}
 
 	render() {

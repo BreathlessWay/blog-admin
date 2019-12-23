@@ -24,7 +24,7 @@ export const getMenu = ({
 	homepageStore.setKeys(_pathname);
 };
 
-export const login = async ({
+export const loginService = async ({
 	userStore,
 	homepageStore,
 	history,

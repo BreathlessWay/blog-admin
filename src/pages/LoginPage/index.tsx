@@ -8,7 +8,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import { StoreType } from '@/store/store';
 
-import { login } from '@/service/login';
+import { getCode, login, register } from '@/apis/user';
+
+import { loginService } from '@/service/loginService';
 
 import { TIME_COUNT_DOWN } from '@/utils/constant';
 
@@ -42,90 +44,109 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 
 	componentDidMount(): void {
 		const { userStore, history, homepageStore } = this.props;
-		login({ userStore, history, homepageStore, isLoginPage: true });
+		loginService({ userStore, history, homepageStore, isLoginPage: true });
 	}
 
 	handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
+		this.props.form.validateFields(async (err, values) => {
 			if (!err) {
 				const { userStore, history, homepageStore } = this.props;
-				// 登陆接口
-				login({
-					userStore,
-					history,
-					homepageStore,
-					isLoginPage: true,
-					token: 'login',
-				});
+				try {
+					const res = await login(values);
+					console.log(res);
+					// login({
+					// 	userStore,
+					// 	history,
+					// 	homepageStore,
+					// 	isLoginPage: true,
+					// 	token: 'login',
+					// });
+				} catch (e) {}
 			}
 		});
 	};
 
-	handleGetCode = () => {
+	handleGetCode = async () => {
 		const _this = this;
-		// 获取邮箱输入框
-		const email = _this.props.form.getFieldValue('email');
-		// 邮箱正则
-		const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-		if (emailReg.test(email)) {
-			_this.setState({
-				loading: true,
-			});
-			// 验证邮箱是否注册过
-			const isR = false;
-			if (isR) {
-				_this.handleGetCodeRequest();
-			} else {
-				confirm({
-					title: '提示',
-					content: '该邮箱尚未注册，是否注册？',
-					okText: '注册',
-					cancelText: '不注册',
-					onOk() {
-						// 注册流程
-						_this.handleGetCodeRequest();
-					},
-					onCancel() {
-						console.log('Cancel');
-					},
-				});
-			}
-			return;
-		}
-		_this.props.form.setFields({
-			email: {
-				value: '',
-				errors: [new Error('请输入邮箱账号')],
-			},
-		});
-	};
 
-	handleGetCodeRequest = () => {
-		// 请求发送
-		// 请求发送成功后loading: false
-		// 发送验证码
-		// 回调倒计时
-		setTimeout(() => {
-			this.setState({
-				loading: false,
-				disabled: true,
-			});
-			this.time = setInterval(() => {
-				const { second } = this.state;
-				if (second) {
-					this.setState({
-						second: second - 1,
-					});
+		try {
+			// 获取邮箱输入框
+			const email = _this.props.form.getFieldValue('email');
+			// 邮箱正则
+			const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			if (emailReg.test(email)) {
+				_this.setState({
+					loading: true,
+				});
+				// 获取验证码
+				const res = await getCode({ email });
+				if (res.data.success) {
+					_this.handleGetCodeTime();
 				} else {
-					window.clearInterval(this.time);
-					this.setState({
-						disabled: false,
-						second: TIME_COUNT_DOWN,
+					confirm({
+						title: '提示',
+						content: '该邮箱尚未注册，是否注册？',
+						okText: '注册',
+						cancelText: '不注册',
+						onOk() {
+							// 注册流程
+							_this.handleRegister({ email });
+						},
+						onCancel() {
+							_this.setState({
+								loading: false,
+							});
+						},
 					});
 				}
-			}, 1000);
-		}, 5000);
+				return;
+			}
+			_this.props.form.setFields({
+				email: {
+					value: '',
+					errors: [new Error('请输入邮箱账号')],
+				},
+			});
+		} catch (e) {
+			_this.setState({
+				loading: false,
+			});
+		}
+	};
+
+	handleRegister = async ({ email }: { email: string }) => {
+		try {
+			const res = await register({ email });
+			if (res.data.success) {
+				this.handleGetCodeTime();
+			}
+		} catch (e) {
+			this.setState({
+				loading: false,
+			});
+		}
+	};
+
+	handleGetCodeTime = () => {
+		this.setState({
+			loading: false,
+			disabled: true,
+		});
+		this.time = setInterval(() => {
+			const { second } = this.state;
+			if (second) {
+				this.setState({
+					second: second - 1,
+				});
+			} else {
+				window.clearInterval(this.time);
+				this.setState({
+					disabled: false,
+					second: TIME_COUNT_DOWN,
+				});
+			}
+		}, 1000);
 	};
 
 	get label() {
@@ -162,7 +183,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 						<Form.Item>
 							<Row gutter={8}>
 								<Col span={14}>
-									{getFieldDecorator('password', {
+									{getFieldDecorator('code', {
 										rules: [{ required: true, message: '请输入验证码!' }],
 									})(
 										<Input

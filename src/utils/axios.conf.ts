@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import qs from 'qs';
-
+import Cookies from 'js-cookie';
 import { baseURL } from './config';
 
 const axios_config: AxiosRequestConfig = {
@@ -18,12 +17,12 @@ const axios_config: AxiosRequestConfig = {
 	// `transformRequest` 允许在向服务器发送前，修改请求数据
 	// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
 	// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
-	transformRequest: [
-		function(data: any, headers?: any) {
-			// 对 data 进行任意转换处理
-			return qs.stringify(data);
-		},
-	],
+	// transformRequest: [
+	// 	function(data: any, headers?: any) {
+	// 		// 对 data 进行任意转换处理
+	// 		return qs.stringify(data);
+	// 	},
+	// ],
 
 	// `transformResponse` 在传递给 then/catch 前，允许修改响应数据
 	transformResponse: [
@@ -38,9 +37,6 @@ const axios_config: AxiosRequestConfig = {
 
 	// `params` 是即将与请求一起发送的 URL 参数
 	// 必须是一个无格式对象(plain object)或 URLSearchParams 对象
-	params: {
-		ID: 12345,
-	},
 
 	// `paramsSerializer` 是一个负责 `params` 序列化的函数
 	// (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
@@ -60,7 +56,7 @@ const axios_config: AxiosRequestConfig = {
 
 	// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 	// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-	timeout: 1000,
+	timeout: 10000,
 
 	// `withCredentials` 表示跨域请求时是否需要使用凭证
 	withCredentials: false, // default
@@ -84,12 +80,6 @@ const axios_config: AxiosRequestConfig = {
 	// `responseEncoding` indicates encoding to use for decoding responses
 	// Note: Ignored for `responseType` of 'stream' or client-side requests
 	// responseEncoding: 'utf8', // default
-
-	// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
-	xsrfCookieName: 'XSRF-TOKEN', // default
-
-	// `xsrfHeaderName` is the name of the http header that carries the xsrf token value
-	xsrfHeaderName: 'X-XSRF-TOKEN', // default
 
 	// `onUploadProgress` 允许为上传处理进度事件
 	// onUploadProgress: function (progressEvent:any) {
@@ -142,14 +132,15 @@ const axios_config: AxiosRequestConfig = {
 	// })
 };
 
-axios.defaults = axios_config;
+for (let p in axios_config) {
+	(axios.defaults as any)[p] = (axios_config as any)[p];
+}
 
 // 添加请求拦截器
 axios.interceptors.request.use(
 	function(config) {
 		// 在发送请求之前做些什么
-		config.headers['x-csrf-token'] = '';
-		config.headers['Authorization'] = `Bearer token`;
+		config.headers['X-XSRF-TOKEN'] = Cookies.get('csrfToken');
 		return config;
 	},
 	function(error) {

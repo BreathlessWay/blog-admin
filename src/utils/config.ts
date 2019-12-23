@@ -1,7 +1,7 @@
 export const env = process.env.NODE_ENV;
 
 export const baseURL = {
-	development: 'development',
+	development: '/api',
 	production: 'production',
 	test: '',
 }[env];
