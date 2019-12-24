@@ -52,7 +52,7 @@ export default class UserStore {
 	@action.bound
 	login(token: string) {
 		this.session = token;
-		storage.set({ key: LOGIN_TOKEN, value: 'login' });
+		storage.set({ key: LOGIN_TOKEN, value: token });
 	}
 
 	@action.bound

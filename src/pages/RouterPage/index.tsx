@@ -88,9 +88,9 @@ export type RouterPagePropType = Pick<
 }))
 @observer
 class RouterPage extends React.Component<RouterPagePropType> {
-	componentDidMount(): void {
-		const { userStore, history, homepageStore } = this.props;
-		loginService({ userStore, history, homepageStore });
+	async componentDidMount() {
+		const { history } = this.props;
+		await loginService({ history });
 	}
 
 	render() {

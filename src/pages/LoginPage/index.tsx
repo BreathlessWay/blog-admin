@@ -2,7 +2,7 @@ import React, { FormEvent } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Row, Form, Icon, Input, Button, Col, Modal } from 'antd';
+import { Row, Form, Icon, Input, Button, Col, Modal, notification } from 'antd';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
@@ -24,8 +24,9 @@ export type LoginPagePropType = Pick<StoreType, 'userStore' | 'homepageStore'> &
 
 export type LoginPageStateType = Readonly<{
 	second: number;
-	loading: boolean;
-	disabled: boolean;
+	codeLoading: boolean;
+	codeDisabled: boolean;
+	submitLoading: boolean;
 }>;
 
 @inject((allStore: StoreType) => ({
@@ -38,31 +39,47 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 
 	readonly state: LoginPageStateType = {
 		second: TIME_COUNT_DOWN,
-		loading: false,
-		disabled: false,
+		codeLoading: false,
+		codeDisabled: false,
+		submitLoading: false,
 	};
 
-	componentDidMount(): void {
-		const { userStore, history, homepageStore } = this.props;
-		loginService({ userStore, history, homepageStore, isLoginPage: true });
+	async componentDidMount() {
+		const { history } = this.props;
+		await loginService({
+			history,
+			isLoginPage: true,
+		});
 	}
 
 	handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		this.props.form.validateFields(async (err, values) => {
 			if (!err) {
-				const { userStore, history, homepageStore } = this.props;
+				this.setState({
+					submitLoading: true,
+				});
+				const { history } = this.props;
 				try {
 					const res = await login(values);
-					console.log(res);
-					// login({
-					// 	userStore,
-					// 	history,
-					// 	homepageStore,
-					// 	isLoginPage: true,
-					// 	token: 'login',
-					// });
-				} catch (e) {}
+					if (res.data.success) {
+						await loginService({
+							history,
+							isLoginPage: true,
+							token: res.data.data.token,
+						});
+					} else {
+						throw new Error(res.data.msg);
+					}
+				} catch (e) {
+					notification['error']({
+						message: '登录失败',
+						description: e.message,
+					});
+					this.setState({
+						submitLoading: false,
+					});
+				}
 			}
 		});
 	};
@@ -77,7 +94,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 			const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 			if (emailReg.test(email)) {
 				_this.setState({
-					loading: true,
+					codeLoading: true,
 				});
 				// 获取验证码
 				const res = await getCode({ email });
@@ -95,7 +112,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 						},
 						onCancel() {
 							_this.setState({
-								loading: false,
+								codeLoading: false,
 							});
 						},
 					});
@@ -110,7 +127,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 			});
 		} catch (e) {
 			_this.setState({
-				loading: false,
+				codeLoading: false,
 			});
 		}
 	};
@@ -123,15 +140,15 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 			}
 		} catch (e) {
 			this.setState({
-				loading: false,
+				codeLoading: false,
 			});
 		}
 	};
 
 	handleGetCodeTime = () => {
 		this.setState({
-			loading: false,
-			disabled: true,
+			codeLoading: false,
+			codeDisabled: true,
 		});
 		this.time = setInterval(() => {
 			const { second } = this.state;
@@ -142,7 +159,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 			} else {
 				window.clearInterval(this.time);
 				this.setState({
-					disabled: false,
+					codeDisabled: false,
 					second: TIME_COUNT_DOWN,
 				});
 			}
@@ -150,8 +167,8 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 	};
 
 	get label() {
-		const { second, disabled } = this.state;
-		if (disabled) {
+		const { second, codeDisabled } = this.state;
+		if (codeDisabled) {
 			return `${second}s后重新获取`;
 		}
 		return '获取验证码';
@@ -163,7 +180,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		const { loading, disabled } = this.state;
+		const { codeLoading, codeDisabled, submitLoading } = this.state;
 		const { label } = this;
 
 		return (
@@ -196,15 +213,20 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 									<Button
 										block={true}
 										onClick={this.handleGetCode}
-										loading={loading}
-										disabled={disabled}>
+										loading={codeLoading}
+										disabled={codeDisabled}>
 										{label}
 									</Button>
 								</Col>
 							</Row>
 						</Form.Item>
 						<Form.Item>
-							<Button type="default" htmlType="submit" block={true}>
+							<Button
+								type="default"
+								htmlType="submit"
+								block={true}
+								loading={submitLoading}
+								disabled={submitLoading}>
 								登陆
 							</Button>
 						</Form.Item>

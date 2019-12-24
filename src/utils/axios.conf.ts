@@ -1,7 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
-
 import Cookies from 'js-cookie';
+import { notification } from 'antd';
+
 import { baseURL } from './config';
+import { storage } from '@/utils/storage';
+import { LOGIN_TOKEN } from '@/utils/constant';
 
 const axios_config: AxiosRequestConfig = {
 	// `url` 是用于请求的服务器 URL
@@ -96,7 +99,7 @@ const axios_config: AxiosRequestConfig = {
 
 	// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，promise 将被 resolve; 否则，promise 将被 rejecte
 	validateStatus: function(status: number) {
-		return status >= 200 && status < 300; // default
+		return status >= 200 && status < 500; // default
 	},
 
 	// `maxRedirects` 定义在 node.js 中 follow 的最大重定向数目
@@ -141,6 +144,10 @@ axios.interceptors.request.use(
 	function(config) {
 		// 在发送请求之前做些什么
 		config.headers['X-XSRF-TOKEN'] = Cookies.get('csrfToken');
+		const storageToken = storage.get(LOGIN_TOKEN);
+		if (storageToken) {
+			config.headers['Authorization'] = `Bearer ${storageToken}`;
+		}
 		return config;
 	},
 	function(error) {
@@ -157,6 +164,10 @@ axios.interceptors.response.use(
 	},
 	function(error) {
 		// 对响应错误做点什么
+		notification['error']({
+			message: '服务器错误',
+			description: error.message,
+		});
 		return Promise.reject(error);
 	},
 );

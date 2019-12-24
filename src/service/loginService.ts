@@ -1,6 +1,7 @@
-import UserStore from '@/store/UserStore';
-import HomePageStore from '@/store/HomePageStore';
+import store from '@/store';
 import * as H from 'history';
+
+import { notification } from 'antd';
 
 import { baseRoute, routeMapPath } from '@/route';
 
@@ -8,54 +9,52 @@ import { MenuListType } from '@/types/hompage';
 import { LOGIN_TOKEN } from '@/utils/constant';
 
 import { storage } from '@/utils/storage';
+import { valid } from '@/apis/user';
 
 export const getMenu = ({
-	homepageStore,
 	pathname,
 	isLoginPage,
 }: {
-	homepageStore: HomePageStore;
 	pathname: string;
 	isLoginPage?: boolean;
 }) => {
 	// get menu
-	homepageStore.setMenuList(baseRoute as MenuListType);
-	const _pathname = isLoginPage ? homepageStore.firstMenu.path : pathname;
-	homepageStore.setKeys(_pathname);
+	store.homepageStore.setMenuList(baseRoute as MenuListType);
+	const _pathname = isLoginPage ? store.homepageStore.firstMenu.path : pathname;
+	store.homepageStore.setKeys(_pathname);
 };
 
 export const loginService = async ({
-	userStore,
-	homepageStore,
 	history,
 	isLoginPage,
 	token,
 }: {
-	userStore: UserStore;
-	homepageStore: HomePageStore;
 	history: H.History;
 	isLoginPage?: boolean;
 	token?: string;
 }) => {
-	let _token;
-	if (token) {
-		_token = token;
-	} else {
-		const storageToken = storage.get(LOGIN_TOKEN);
+	let _token = token || storage.get(LOGIN_TOKEN);
+	store.userStore.login(_token);
+	if (_token && !token) {
 		// 验证token是否有效
-		_token = storageToken;
+		const res = await valid();
+		if (!res.data.success) {
+			store.userStore.logout();
+			notification['error']({
+				message: '登录过期！',
+				description: res.data.msg,
+			});
+		}
 	}
-	if (_token) {
-		userStore.login(_token);
+	if (!store.userStore.isLogin) {
+		history.push(routeMapPath.login);
+	} else {
 		getMenu({
-			homepageStore,
 			pathname: history.location.pathname,
 			isLoginPage,
 		});
 		if (isLoginPage) {
-			history.replace(homepageStore.firstMenu.path);
+			history.replace(store.homepageStore.firstMenu.path);
 		}
-	} else {
-		history.push(routeMapPath.login);
 	}
 };

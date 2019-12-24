@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+export const valid = () => {
+	return axios.get(`/valid`);
+};
+
 export const getCode = ({ email }: { email: string }) => {
 	return axios.get(`/code?email=${email}`);
 };
