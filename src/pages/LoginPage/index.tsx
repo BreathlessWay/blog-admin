@@ -63,6 +63,9 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 				try {
 					const res = await login(values);
 					if (res.data.success) {
+						notification['success']({
+							message: '登录成功',
+						});
 						await loginService({
 							history,
 							isLoginPage: true,
