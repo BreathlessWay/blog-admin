@@ -18,7 +18,7 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 
 	@action.bound
 	getList() {
-		// results.forEach(item => (item.key = item.objectId));
+		// results.forEach(item => (item.key = item._id));
 		this.setList({
 			results: [],
 			count: 0,
@@ -33,8 +33,8 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 	@action.bound
 	changeStatus(articleIds: Array<string>, status: number) {
 		this.list = this.list.map(item => {
-			const { objectId } = item;
-			if (articleIds.includes(objectId)) {
+			const { _id } = item;
+			if (articleIds.includes(_id)) {
 				item.status = status;
 			}
 			return item;
@@ -43,7 +43,7 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 
 	@action.bound
 	deleteArticle(articleIds: Array<string>) {
-		this.list = this.list.filter(item => !articleIds.includes(item.objectId));
+		this.list = this.list.filter(item => !articleIds.includes(item._id));
 	}
 
 	@computed

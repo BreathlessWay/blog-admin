@@ -143,12 +143,12 @@ export default class ImageUploadComponent extends Component<
 		this.setState({
 			stateDisabled: true,
 		});
-		uploadFile(file).then(({ url, title, objectId }) => {
+		uploadFile(file).then(({ url, title, _id }) => {
 			onUploadImage([
 				{
 					url,
 					title,
-					objectId,
+					_id,
 				} as ImageItemType,
 			]);
 			this.setState({

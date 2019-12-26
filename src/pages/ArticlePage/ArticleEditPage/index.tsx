@@ -121,7 +121,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					) {
 						return true;
 					}
-					if (detail.tags.map(tag => tag.objectId).join() !== tags.join()) {
+					if (detail.tags.map(tag => tag._id).join() !== tags.join()) {
 						return true;
 					}
 					if (
@@ -155,7 +155,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					markdown,
 					draftDetail,
 				} = detail;
-				const _cacheTag = tags.map(tag => tag.objectId).filter(value => value);
+				const _cacheTag = tags.map(tag => tag._id).filter(value => value);
 				let _cacheDetail = '';
 				if (renderType === EArticleRenderType.richText) {
 					if (draftDetail && draftDetail.toText()) {
@@ -196,7 +196,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 			} as any;
 			if (tags.length) {
 				params.tags = this.props.tagStore.tags.filter(
-					item => item.objectId && tags.includes(item.objectId),
+					item => item._id && tags.includes(item._id),
 				);
 			}
 			if (renderType === EArticleRenderType.richText) {

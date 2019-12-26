@@ -12,7 +12,7 @@ import { getCode, login, register } from '@/apis/user';
 
 import { loginService } from '@/service/loginService';
 
-import { MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
+import { EMAIL_REG, MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
 
 import './style.scss';
 
@@ -93,9 +93,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 		try {
 			// 获取邮箱输入框
 			const email = _this.props.form.getFieldValue('email');
-			// 邮箱正则
-			const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-			if (emailReg.test(email)) {
+			if (EMAIL_REG.test(email)) {
 				_this.setState({
 					codeLoading: true,
 				});

@@ -72,6 +72,6 @@ export default class TagStore {
 
 	@computed
 	get usefulTag() {
-		return this.tags.filter(tag => tag.objectId);
+		return this.tags.filter(tag => tag._id);
 	}
 }

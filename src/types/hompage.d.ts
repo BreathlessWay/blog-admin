@@ -3,7 +3,7 @@ export type MenuItemType = {
 	type: string;
 	path: string;
 	show: boolean;
-	objectId: string;
+	_id: string;
 	onlyAdmin?: boolean;
 	children?: Array<{
 		name: string;

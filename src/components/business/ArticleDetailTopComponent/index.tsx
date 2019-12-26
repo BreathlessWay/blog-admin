@@ -82,7 +82,7 @@ class ArticleDetailTopComponent extends Component<
 			value: !value.length,
 		});
 		if (value && hasTag) {
-			const selectedTags = tags.filter(tag => value.includes(tag.objectId));
+			const selectedTags = tags.filter(tag => value.includes(tag._id));
 			changeDetail({
 				key: EArticleDetailKey.tags,
 				value: selectedTags,
@@ -104,7 +104,7 @@ class ArticleDetailTopComponent extends Component<
 
 	get selectTag() {
 		const { detail } = this.props.articleDetailStore;
-		return detail?.tags.map(tag => tag.objectId) ?? [];
+		return detail?.tags.map(tag => tag._id) ?? [];
 	}
 
 	render() {
@@ -191,7 +191,7 @@ class ArticleDetailTopComponent extends Component<
 						value={this.selectTag}
 						onChange={this.handleChangeTag}>
 						{tags.map(tag => (
-							<Option key={tag.objectId}>{tag.name}</Option>
+							<Option key={tag._id}>{tag.name}</Option>
 						))}
 					</Select>
 					{tagError && (

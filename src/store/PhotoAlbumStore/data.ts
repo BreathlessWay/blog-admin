@@ -4,7 +4,7 @@ export const data = [
 		show: true,
 		count: 1,
 		cover: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-		objectId: 'string',
+		_id: 'string',
 	},
 	{
 		title: 'string1',
@@ -12,36 +12,36 @@ export const data = [
 		count: 1,
 		cover:
 			'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-		objectId: 'string1',
+		_id: 'string1',
 	},
 	{
 		title: 'string2',
 		show: true,
 		count: 1,
-		objectId: 'string2',
+		_id: 'string2',
 	},
 	{
 		title: 'string3',
 		show: true,
 		count: 1,
-		objectId: 'string3',
+		_id: 'string3',
 	},
 	{
 		title: 'strin4g',
 		show: true,
 		count: 1,
-		objectId: 'string4',
+		_id: 'string4',
 	},
 	{
 		title: 'string5',
 		show: true,
 		count: 1,
-		objectId: 'string5',
+		_id: 'string5',
 	},
 	{
 		title: 'string6',
 		show: true,
 		count: 1,
-		objectId: 'string6',
+		_id: 'string6',
 	},
 ];

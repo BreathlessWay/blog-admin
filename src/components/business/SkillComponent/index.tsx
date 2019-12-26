@@ -21,7 +21,7 @@ export type SkillComponentPropType = Pick<StoreType, 'userStore'>;
 class SkillComponent extends Component<SkillComponentPropType> {
 	get skills() {
 		return this.props.userStore.userDetail.personalSkill.map((item, index) => {
-			return { ...item, ...{ id: item.objectId || `${index}` } };
+			return { ...item, ...{ id: item._id || `${index}` } };
 		});
 	}
 
@@ -68,7 +68,7 @@ class SkillComponent extends Component<SkillComponentPropType> {
 								list={skills}
 								render={(item: PersonalSkillItemType, index) => (
 									<SkillComponentItem
-										key={item.objectId || `${index}`}
+										key={item._id || `${index}`}
 										item={item}
 										index={index}
 										isEditing={isEditing}

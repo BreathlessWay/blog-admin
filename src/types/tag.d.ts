@@ -2,7 +2,7 @@ export type TagItemType = {
 	name: string;
 	count: number;
 	show: boolean;
-	objectId?: string;
+	_id?: string;
 };
 
 export type TagListType = Array<TagItemType>;

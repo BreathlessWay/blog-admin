@@ -3,7 +3,7 @@ import { action, computed, observable } from 'mobx';
 import { PAGE_LIMIT } from '@/utils/constant';
 
 export default class ListStore<
-	T extends { objectId: string; checked?: boolean; show?: boolean }
+	T extends { _id: string; checked?: boolean; show?: boolean }
 > {
 	@observable
 	list: Array<T> = [];
@@ -63,13 +63,13 @@ export default class ListStore<
 
 	@action.bound
 	removeItem(item: T) {
-		this.list = this.list.filter(value => value.objectId !== item.objectId);
+		this.list = this.list.filter(value => value._id !== item._id);
 	}
 
 	@action.bound
 	setItem(item: T) {
 		this.list = this.list.map(_ => {
-			if (_.objectId === item.objectId) {
+			if (_._id === item._id) {
 				return item;
 			}
 			return _;

@@ -145,7 +145,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		return (
 			<Row type="flex">
 				{tags.map((tag, index) => (
-					<Fragment key={tag.objectId || `${index}`}>
+					<Fragment key={tag._id || `${index}`}>
 						<Col>{this.renderItem({ tag, index, isEditing })}</Col>
 						<Gap size="lg" />
 					</Fragment>

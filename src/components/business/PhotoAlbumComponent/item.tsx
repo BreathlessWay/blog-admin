@@ -32,9 +32,9 @@ class PhotoAlbumItem extends Component<
 	handleEditAlbum = () => {
 		const {
 			history,
-			item: { objectId },
+			item: { _id },
 		} = this.props;
-		history.push(`${routeMapPath.photography.edit}?id=${objectId}`);
+		history.push(`${routeMapPath.photography.edit}?id=${_id}`);
 	};
 
 	handleDelete = (e: MouseEvent) => {

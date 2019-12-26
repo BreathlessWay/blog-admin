@@ -3,15 +3,16 @@ import * as H from 'history';
 
 import { notification } from 'antd';
 
-import { baseRoute, routeMapPath } from '@/route';
+import { routeMapPath } from '@/route';
 
 import { MenuListType } from '@/types/hompage';
 import { LOGIN_TOKEN } from '@/utils/constant';
 
 import { storage } from '@/utils/storage';
 import { valid } from '@/apis/user';
+import { getMenuList } from '@/apis/menu';
 
-export const getMenu = ({
+export const getMenu = async ({
 	pathname,
 	isLoginPage,
 }: {
@@ -19,9 +20,21 @@ export const getMenu = ({
 	isLoginPage?: boolean;
 }) => {
 	// get menu
-	store.homepageStore.setMenuList(baseRoute as MenuListType);
-	const _pathname = isLoginPage ? store.homepageStore.firstMenu.path : pathname;
-	store.homepageStore.setKeys(_pathname);
+	const res = await getMenuList();
+	if (res.data?.success) {
+		store.homepageStore.setMenuList(
+			res.data?.data?.result?.list ?? ([] as MenuListType),
+		);
+		const _pathname = isLoginPage
+			? store.homepageStore.firstMenu.path
+			: pathname;
+		store.homepageStore.setKeys(_pathname);
+	} else {
+		notification['error']({
+			message: '获取菜单栏失败！',
+			description: res.data?.msg ?? '获取菜单栏失败！',
+		});
+	}
 };
 
 export const loginService = async ({
@@ -49,7 +62,7 @@ export const loginService = async ({
 	if (!store.userStore.isLogin) {
 		history.push(routeMapPath.login);
 	} else {
-		getMenu({
+		await getMenu({
 			pathname: history.location.pathname,
 			isLoginPage,
 		});

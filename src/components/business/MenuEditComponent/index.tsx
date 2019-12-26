@@ -34,7 +34,7 @@ class MenuEditComponent extends React.Component<
 	get menuList() {
 		return this.props.homepageStore.menuList.map(item => ({
 			...item,
-			...{ error: !item.name.trim(), id: item.objectId },
+			...{ error: !item.name.trim(), id: item.type },
 		}));
 	}
 

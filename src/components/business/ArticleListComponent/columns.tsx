@@ -53,7 +53,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 		key: 'tags',
 		render: (tags: TagListType) =>
 			tags.map((tag, index) => (
-				<Tag key={tag.objectId} color={TAG_COLOR[index]}>
+				<Tag key={tag._id} color={TAG_COLOR[index]}>
 					{tag.name}
 				</Tag>
 			)),
@@ -87,7 +87,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 					onClick={handleDelete(article)}
 				/>
 				&nbsp; &nbsp;
-				<Link to={`${routeMapPath.article.edit}?id=${article.objectId}`}>
+				<Link to={`${routeMapPath.article.edit}?id=${article._id}`}>
 					<Icon type="edit" style={{ fontSize: 20 }} />
 				</Link>
 			</div>
@@ -99,7 +99,7 @@ const handleChangeStatus = (article: ArticleItemType) => () => {
 	const status = Boolean(article.status)
 		? EArticleStatus.hide
 		: EArticleStatus.show;
-	store.articleListStore.changeStatus([article.objectId], status);
+	store.articleListStore.changeStatus([article._id], status);
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
@@ -108,7 +108,7 @@ const handleDelete = (article: ArticleItemType) => () => {
 		title: `确认删除该${articleAlias}？`,
 		okType: 'danger',
 		onOk() {
-			store.articleListStore.deleteArticle([article.objectId]);
+			store.articleListStore.deleteArticle([article._id]);
 		},
 		onCancel() {
 			console.log('Cancel');

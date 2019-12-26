@@ -6,7 +6,7 @@ export type AlbumItemType = {
 
 	checked?: boolean;
 
-	objectId: string;
+	_id: string;
 };
 
 export type AlbumListType = Array<AlbumItemType>;

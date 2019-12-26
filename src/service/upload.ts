@@ -5,7 +5,7 @@ export const uploadFile = (
 ): Promise<{
 	url: string;
 	title: string;
-	objectId: string;
+	_id: string;
 }> => {
 	return new Promise((resolve, reject) => {
 		message.destroy();
@@ -18,7 +18,7 @@ export const uploadFile = (
 				resolve({
 					url: e.target.result as string,
 					title: file.name,
-					objectId: Date.now() + '',
+					_id: Date.now() + '',
 				});
 			} else {
 				message.error(`${file.name}文件上传失败`);

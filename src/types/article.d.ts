@@ -14,7 +14,7 @@ export type ArticleQueryType = {
 };
 
 export type ArticleItemType = {
-	objectId: string;
+	_id: string;
 	title: string;
 	status: number; // 0 隐藏 1 显示
 	createAt: number;
@@ -36,7 +36,7 @@ export type ArticleDetailType = {
 
 	draftDetail?: EditorState;
 
-	objectId?: string;
+	_id?: string;
 	createAt?: number;
 };
 

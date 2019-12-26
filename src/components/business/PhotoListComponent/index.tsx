@@ -111,10 +111,10 @@ class PhotoListComponent extends Component<
 		}
 	};
 
-	handleClickImage = ({ objectId, url }: { objectId: string; url: string }) => {
+	handleClickImage = ({ _id, url }: { _id: string; url: string }) => {
 		if (url) {
 			const { list, imageUrls } = this.props.photoListStore;
-			const _index = list.findIndex(item => item.objectId === objectId);
+			const _index = list.findIndex(item => item._id === _id);
 
 			preview.show({ urls: imageUrls, index: _index });
 		}
@@ -263,7 +263,7 @@ class PhotoListComponent extends Component<
 										title={item.title}>
 										<ImageLoadComponent
 											onClick={({ url }) =>
-												this.handleClickImage({ objectId: item.objectId, url })
+												this.handleClickImage({ _id: item._id, url })
 											}
 											observer={observer}
 											url={item.url}
@@ -366,9 +366,9 @@ class PhotoListComponent extends Component<
 								onChange={this.handleExChangePhoto}>
 								{list.map(item => (
 									<Option
-										key={item.objectId}
-										value={item.objectId}
-										disabled={item.objectId === albumId}>
+										key={item._id}
+										value={item._id}
+										disabled={item._id === albumId}>
 										{item.title}
 									</Option>
 								))}

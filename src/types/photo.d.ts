@@ -4,7 +4,7 @@ export type PhotoItemType = {
 	url: string;
 	show: boolean;
 
-	objectId: string;
+	_id: string;
 	createAt: number;
 };
 

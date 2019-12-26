@@ -1,5 +1,3 @@
-import { EMenuType } from '@/store/HomePageStore/homepage.enum';
-
 // export const prePath = process.env.PUBLIC_URL;
 
 export const prePath = '';
@@ -23,52 +21,6 @@ export const routeMapPath = {
 	},
 	statistics: `${prePath}/statistics`,
 };
-
-export const baseRoute = [
-	{
-		name: '首页',
-		type: EMenuType.home,
-		path: routeMapPath.home,
-		show: true,
-		objectId: 'home',
-	},
-	{
-		name: '我',
-		type: EMenuType.user,
-		path: routeMapPath.me,
-		show: true,
-		objectId: 'me',
-	},
-	{
-		name: '文章',
-		type: EMenuType.read,
-		path: routeMapPath.article.index,
-		show: true,
-		objectId: 'article',
-	},
-	{
-		name: '撸猫',
-		type: EMenuType.contacts,
-		path: routeMapPath.cat,
-		show: true,
-		objectId: 'cat',
-	},
-	{
-		name: '摄影',
-		type: EMenuType.camera,
-		path: routeMapPath.photography.index,
-		show: true,
-		objectId: 'camera',
-	},
-	{
-		name: '网站统计',
-		type: EMenuType.fund,
-		path: routeMapPath.statistics,
-		show: false,
-		objectId: 'fund',
-		onlyAdmin: true,
-	},
-];
 
 export const articleRoute = (articleAlias: string) => [
 	{ name: `${articleAlias}管理`, path: routeMapPath.article.home, show: true },

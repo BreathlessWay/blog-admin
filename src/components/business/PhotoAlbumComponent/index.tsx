@@ -92,7 +92,7 @@ class PhotoAlbumComponent extends Component<
 		this.setState({
 			confirmLoading: true,
 		});
-		if (editItem.objectId) {
+		if (editItem._id) {
 			// edit
 			this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
 		} else {
@@ -188,7 +188,7 @@ class PhotoAlbumComponent extends Component<
 					<ul>
 						{list.map(item => (
 							<PhotoAlbumItem
-								key={item.objectId}
+								key={item._id}
 								item={item}
 								onEditAlbum={this.handleEditAlbum}
 							/>

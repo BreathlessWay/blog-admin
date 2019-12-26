@@ -14,9 +14,7 @@ export default class ImageStore {
 
 	@action.bound
 	removeImage(item: ImageItemType) {
-		this.imageList = this.imageList.filter(
-			image => image.objectId !== item.objectId,
-		);
+		this.imageList = this.imageList.filter(image => image._id !== item._id);
 	}
 
 	@action.bound
@@ -27,7 +25,7 @@ export default class ImageStore {
 	@action.bound
 	setShowImage(item: ImageItemType) {
 		this.imageList.forEach(image => {
-			image.show = image.objectId === item.objectId;
+			image.show = image._id === item._id;
 		});
 	}
 

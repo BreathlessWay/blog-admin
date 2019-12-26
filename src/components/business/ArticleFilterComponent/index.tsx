@@ -122,7 +122,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 							style={{ width: '200px' }}
 							mode="multiple">
 							{usefulTag.map(tag => (
-								<Option key={tag.objectId}>{tag.name}</Option>
+								<Option key={tag._id}>{tag.name}</Option>
 							))}
 						</Select>,
 					)}

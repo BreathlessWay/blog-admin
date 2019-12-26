@@ -20,6 +20,36 @@ export default class HomePageStore {
 
 	@action.bound
 	setMenuList(list: MenuListType) {
+		if (list && list.length) {
+			list.forEach(item => {
+				switch (item.type) {
+					case EMenuType.home: {
+						item.path = routeMapPath.home;
+						break;
+					}
+					case EMenuType.me: {
+						item.path = routeMapPath.me;
+						break;
+					}
+					case EMenuType.article: {
+						item.path = routeMapPath.article.index;
+						break;
+					}
+					case EMenuType.cat: {
+						item.path = routeMapPath.cat;
+						break;
+					}
+					case EMenuType.photography: {
+						item.path = routeMapPath.photography.index;
+						break;
+					}
+					case EMenuType.statistics: {
+						item.path = routeMapPath.statistics;
+						break;
+					}
+				}
+			});
+		}
 		this._menuList = list;
 	}
 
@@ -104,23 +134,23 @@ export default class HomePageStore {
 
 	@computed
 	get catAlias() {
-		const item = this.menuList.find(menu => menu.type === EMenuType.contacts);
+		const item = this.menuList.find(menu => menu.type === EMenuType.cat);
 		return item?.name ?? '';
 	}
 
 	@computed
 	get articleAlias() {
-		const item = this.menuList.find(menu => menu.type === EMenuType.read);
+		const item = this.menuList.find(menu => menu.type === EMenuType.article);
 		return item?.name ?? '';
 	}
 
 	@computed
 	get menuList() {
 		return this._menuList.map(item => {
-			if (item.type === EMenuType.read) {
+			if (item.type === EMenuType.article) {
 				return { ...item, ...{ children: articleRoute(item.name) } };
 			}
-			if (item.type === EMenuType.camera) {
+			if (item.type === EMenuType.photography) {
 				return { ...item, ...{ children: photographyRoute } };
 			}
 			return item;
