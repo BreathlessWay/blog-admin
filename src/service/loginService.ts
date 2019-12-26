@@ -19,7 +19,6 @@ export const getMenu = async ({
 	pathname: string;
 	isLoginPage?: boolean;
 }) => {
-	// get menu
 	const res = await getMenuList();
 	if (res.data?.success) {
 		store.homepageStore.setMenuList(

@@ -9,6 +9,8 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import { StoreType } from '@/store/store';
 import { MenuItemType } from '@/types/hompage';
 
+import { updateMenuList } from '@/apis/menu';
+
 import { MAX_LENGTH_XS } from '@/utils/constant';
 
 import './style.scss';
@@ -43,19 +45,24 @@ class MenuEditComponent extends React.Component<
 		return !hasEmpty;
 	}
 
-	editMenu = () => {
-		// 发送请求
+	editMenu = async () => {
+		const { menuList } = this.props.homepageStore;
+		const params = menuList.map(item => ({
+			name: item.name,
+			show: item.show,
+			type: item.type,
+			onlyAdmin: item.onlyAdmin,
+		}));
+		console.log(params);
+		return await updateMenuList({ list: params });
 	};
 
 	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			if (this.canSubmit) {
-				this.editMenu();
-				resolve();
-			} else {
-				reject();
-			}
-		});
+		if (this.canSubmit) {
+			return this.editMenu();
+		} else {
+			return Promise.reject();
+		}
 	};
 
 	handleMoveCard = (
