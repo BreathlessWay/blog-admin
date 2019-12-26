@@ -12,7 +12,7 @@ import { getCode, login, register } from '@/apis/user';
 
 import { loginService } from '@/service/loginService';
 
-import { TIME_COUNT_DOWN } from '@/utils/constant';
+import { MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
 
 import './style.scss';
 
@@ -208,6 +208,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 									})(
 										<Input
 											prefix={<Icon type="lock" className="login-page_icon" />}
+											maxLength={MAX_LENGTH_XS}
 											placeholder="验证码"
 										/>,
 									)}
