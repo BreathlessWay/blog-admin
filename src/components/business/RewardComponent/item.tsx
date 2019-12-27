@@ -36,12 +36,15 @@ export default class RewardComponentItem extends React.Component<
 			disabled: true,
 		});
 
-		uploadService(options.file).then(({ url }) => {
-			this.props.onUploadCode(url);
-			this.setState({
-				disabled: false,
+		uploadService(options.file)
+			.then(({ url }) => {
+				this.props.onUploadCode(url);
+			})
+			.finally(() => {
+				this.setState({
+					disabled: false,
+				});
 			});
-		});
 	};
 
 	renderContent = () => {

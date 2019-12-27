@@ -73,6 +73,9 @@ export default class ColorPickerComponent extends Component<
 	};
 
 	handleVisibleChange = (visible: boolean) => {
+		if (this.props.disabled) {
+			return;
+		}
 		this.setState({ visible });
 	};
 

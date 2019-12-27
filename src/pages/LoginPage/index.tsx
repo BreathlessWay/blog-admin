@@ -8,11 +8,11 @@ import { RouteComponentProps } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import { StoreType } from '@/store/store';
 
+import { EMAIL_REG, MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
+
 import { getCode, login, register } from '@/apis/login';
 
 import { loginService } from '@/service/loginService';
-
-import { EMAIL_REG, MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
 
 import './style.scss';
 

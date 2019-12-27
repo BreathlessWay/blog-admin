@@ -17,6 +17,8 @@ import {
 	UPLOAD_RESUME_TYPE,
 } from '@/utils/constant';
 
+import { updateUserDetail } from '@/apis/user';
+
 import './style.scss';
 
 const { confirm } = Modal;
@@ -37,25 +39,17 @@ class SocialEditComponent extends React.Component<
 > {
 	handleEdit = () => {
 		this.props.userStore.filterSocial();
-		return new Promise((resolve, reject) => {
-			const {
-				resumeAlias,
-				resumeUrl,
-				resumeName,
-				resumeImageUrl,
-				social,
-			} = this.props.userStore.userDetail as UserDetailType;
-			const params = {
-				resumeAlias,
-				resumeUrl,
-				resumeName,
-				resumeImageUrl,
-				social,
-			};
-			console.log(params);
-			// 提交更新
-			resolve();
-		});
+		const { resumeAlias, resumeUrl, resumeName, resumeImageUrl, social } = this
+			.props.userStore.userDetail as UserDetailType;
+		const params = {
+			resumeAlias,
+			resumeUrl,
+			resumeName,
+			resumeImageUrl,
+			social,
+		};
+		console.log(params);
+		return updateUserDetail(params);
 	};
 
 	handleAddSocial = () => {
@@ -158,6 +152,7 @@ class SocialEditComponent extends React.Component<
 				render={isEditing => (
 					<Row type="flex" align="middle">
 						<SocialEditItem
+							size={MAX_RESUME_SIZE}
 							accept={UPLOAD_RESUME_TYPE}
 							type="file"
 							title={'简历'}
@@ -171,6 +166,7 @@ class SocialEditComponent extends React.Component<
 						/>
 						{social.map((item, index) => (
 							<SocialEditItem
+								size={MAX_SOCIAL_SIZE}
 								accept={UPLOAD_IMAGE_TYPE}
 								key={item._id || `${index}`}
 								type="image"

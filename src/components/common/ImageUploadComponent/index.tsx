@@ -112,10 +112,11 @@ export default class ImageUploadComponent extends Component<
 
 	handleCustomUpload = (options: RcCustomRequestOptions) => {
 		message.destroy();
-		const hide = message.loading('图片转码中...', 0);
 		const { multiple, onUploadImage } = this.props;
 		const { file } = options;
 		if (multiple) {
+			const hide = message.loading('图片转码中...', 0);
+
 			const { fileList, showModal } = this.state;
 
 			const fileReader = new FileReader();
@@ -143,18 +144,20 @@ export default class ImageUploadComponent extends Component<
 		this.setState({
 			stateDisabled: true,
 		});
-		uploadService(file).then(({ url, title, _id }) => {
-			onUploadImage([
-				{
-					url,
-					title,
-					_id,
-				} as ImageItemType,
-			]);
-			this.setState({
-				stateDisabled: false,
+		uploadService(file)
+			.then(({ url, title }) => {
+				onUploadImage([
+					{
+						url,
+						title,
+					} as ImageItemType,
+				]);
+			})
+			.finally(() => {
+				this.setState({
+					stateDisabled: false,
+				});
 			});
-		});
 	};
 
 	render() {

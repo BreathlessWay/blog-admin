@@ -9,9 +9,9 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import { StoreType } from '@/store/store';
 import { MenuItemType } from '@/types/hompage';
 
-import { updateMenuList } from '@/apis/menu';
-
 import { MAX_LENGTH_XS } from '@/utils/constant';
+
+import { updateMenuList } from '@/apis/menu';
 
 import './style.scss';
 

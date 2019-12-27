@@ -9,10 +9,10 @@ import Gap from '@/components/common/Gap';
 import { StoreType } from '@/store/store';
 import { UserDetailType } from '@/types/user';
 
-import { updateUserDetail } from '@/apis/user';
-
 import { EPersonalChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD, MAX_LENGTH_XXL } from '@/utils/constant';
+
+import { updateUserDetail } from '@/apis/user';
 
 const { Text } = Typography;
 const { TextArea } = Input;

@@ -8,9 +8,12 @@ import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
 
 import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_SM } from '@/utils/constant';
+
+import { updateUserDetail } from '@/apis/user';
 
 import './style.scss';
 
@@ -22,9 +25,9 @@ export type RewardComponentPropType = Pick<StoreType, 'userStore'>;
 @observer
 class RewardComponent extends Component<RewardComponentPropType> {
 	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			resolve();
-		});
+		const { rewardEnable, rewardTitle, zfbCode, wxCode } = this.props.userStore
+			.userDetail as UserDetailType;
+		return updateUserDetail({ rewardEnable, rewardTitle, zfbCode, wxCode });
 	};
 
 	handleChangeSwitch = () => {
@@ -78,7 +81,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 				render={isEditing => (
 					<Row type="flex">
 						<Col>
-							{rewardEnable ? '关闭' : '开启'}打赏功能：{' '}
+							打赏功能：{' '}
 							<Switch
 								disabled={!isEditing}
 								checked={rewardEnable}

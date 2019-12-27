@@ -9,6 +9,7 @@ import './style.scss';
 export type UploadFileComponentPropType = {
 	label: string;
 
+	size?: number;
 	accept?: string;
 	disabled?: boolean;
 
@@ -30,19 +31,24 @@ export default class UploadFileComponent extends React.Component<
 	};
 
 	handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { size } = this.props;
+
 		if (e.target.files) {
 			this.setState({
 				compLoading: true,
 				compDisabled: true,
 			});
 			// 通用上传文件，返回文件url和文件名
-			uploadService(e.target.files[0]).then(({ url, title }) => {
-				this.props.onUploadFile({ fileUrl: url, fileName: title });
-				this.setState({
-					compLoading: false,
-					compDisabled: false,
+			uploadService(e.target.files[0], size)
+				.then(({ url, title }) => {
+					this.props.onUploadFile({ fileUrl: url, fileName: title });
+				})
+				.finally(() => {
+					this.setState({
+						compLoading: false,
+						compDisabled: false,
+					});
 				});
-			});
 		}
 	};
 

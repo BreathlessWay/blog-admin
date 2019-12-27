@@ -12,8 +12,9 @@ import { UserDetailType } from '@/types/user';
 import { EMottoChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
-import './style.scss';
 import { updateUserDetail } from '@/apis/user';
+
+import './style.scss';
 
 const { TextArea } = Input;
 

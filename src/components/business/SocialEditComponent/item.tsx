@@ -12,6 +12,8 @@ export type SocialEditItemPropType = {
 	isEditing: boolean;
 	value: string;
 	file: string;
+
+	size?: number;
 	accept?: string;
 
 	error?: boolean;
@@ -41,6 +43,7 @@ const SocialEditItem: FC<SocialEditItemPropType> = props => {
 		errorMsg,
 		type,
 		accept = '',
+		size,
 	} = props;
 	return (
 		<>
@@ -48,7 +51,7 @@ const SocialEditItem: FC<SocialEditItemPropType> = props => {
 				{title ? (
 					<label htmlFor={title}>{title}：</label>
 				) : (
-					<Icon type="delete" onClick={onDeleteItem} />
+					isEditing && <Icon type="delete" onClick={onDeleteItem} />
 				)}
 			</Col>
 			<Col span={6}>
@@ -61,17 +64,18 @@ const SocialEditItem: FC<SocialEditItemPropType> = props => {
 					onChange={onChangeInput}
 				/>
 			</Col>
-			<Col span={5} offset={1}>
-				{isEditing && (
+			{isEditing && (
+				<Col span={5} offset={1}>
 					<UploadFileComponent
+						size={size}
 						accept={accept}
 						label={label}
 						disabled={!isEditing}
 						onUploadFile={onUploadFile}
 					/>
-				)}
-			</Col>
-			<Col span={10}>
+				</Col>
+			)}
+			<Col span={8} offset={1}>
 				<FileShowComponent type={type} value={file} onDelete={onDeleteFile} />
 			</Col>
 			<Col span={24}>{error && <Text type="danger">{errorMsg}</Text>}</Col>

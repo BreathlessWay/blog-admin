@@ -36,7 +36,6 @@ const axios_config: AxiosRequestConfig = {
 
 	// `headers` 是即将被发送的自定义请求头
 	headers: {
-		Accept: 'application/x-www-form-urlencoded',
 		'X-Requested-With': 'XMLHttpRequest',
 	},
 

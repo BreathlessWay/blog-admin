@@ -10,9 +10,9 @@ import SkillComponentItem from './item';
 import { StoreType } from '@/store/store';
 import { PersonalSkillItemType, UserDetailType } from '@/types/user';
 
-import { updateUserDetail } from '@/apis/user';
-
 import { MAX_LENGTH_MD } from '@/utils/constant';
+
+import { updateUserDetail } from '@/apis/user';
 
 import './style.scss';
 
