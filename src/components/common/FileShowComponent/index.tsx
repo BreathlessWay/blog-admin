@@ -40,7 +40,7 @@ const FileShowComponent: FC<FileShowComponentPropType> = props => {
 			&nbsp;
 			<Icon type="delete" onClick={onDelete} />
 			&nbsp;
-			<Icon type="eye" onClick={handlePreview} />
+			{type === 'image' && <Icon type="eye" onClick={handlePreview} />}
 		</>
 	) : null;
 };
