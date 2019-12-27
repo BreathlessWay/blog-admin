@@ -29,7 +29,7 @@
 ├── src/
 │   ├── apis/
 │   │   ├── menu.ts
-│   │   └── user.ts
+│   │   └── login.ts
 │   ├── components/
 │   │   ├── business/
 │   │   │   ├── ArticleDetailButtonComponent/
@@ -184,7 +184,7 @@
 │   │   └── index.ts
 │   ├── service/
 │   │   ├── loginService.ts
-│   │   └── upload.ts
+│   │   └── uploadService.ts
 │   ├── serviceWorker.ts
 │   ├── static/
 │   │   ├── css/

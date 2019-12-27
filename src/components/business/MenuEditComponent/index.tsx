@@ -53,7 +53,6 @@ class MenuEditComponent extends React.Component<
 			type: item.type,
 			onlyAdmin: item.onlyAdmin,
 		}));
-		console.log(params);
 		return await updateMenuList({ list: params });
 	};
 

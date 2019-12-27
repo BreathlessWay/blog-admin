@@ -28,13 +28,10 @@ class RewardComponent extends Component<RewardComponentPropType> {
 	};
 
 	handleChangeSwitch = () => {
-		const {
-			userDetail: { rewardEnable },
-			setPersonalInfo,
-		} = this.props.userStore;
+		const { userDetail, setPersonalInfo } = this.props.userStore;
 		setPersonalInfo({
 			key: ERewardChangeKey.rewardEnable,
-			value: !rewardEnable,
+			value: !userDetail?.rewardEnable,
 		});
 	};
 
@@ -70,12 +67,9 @@ class RewardComponent extends Component<RewardComponentPropType> {
 	};
 
 	render() {
-		const {
-			rewardTitle,
-			zfbCode,
-			wxCode,
-			rewardEnable,
-		} = this.props.userStore.userDetail;
+		const { rewardTitle, zfbCode, wxCode, rewardEnable } =
+			this.props.userStore.userDetail || {};
+
 		return (
 			<BasicWrapComponent
 				title="打赏"
@@ -114,7 +108,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 							<ul className="reward-code_list">
 								<RewardComponentItem
 									disabled={!isEditing}
-									url={zfbCode}
+									url={zfbCode as string}
 									title={'支付宝二维码'}
 									onDeleteCode={this.handleDelete({
 										key: ERewardChangeKey.zfbCode,
@@ -128,7 +122,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 								/>
 								<RewardComponentItem
 									disabled={!isEditing}
-									url={wxCode}
+									url={wxCode as string}
 									title={'微信二维码'}
 									onDeleteCode={this.handleDelete({
 										key: ERewardChangeKey.wxCode,

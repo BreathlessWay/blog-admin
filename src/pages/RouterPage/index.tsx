@@ -3,11 +3,12 @@ import React, { lazy } from 'react';
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Layout, Row, Spin, BackTop, Icon } from 'antd';
+import { Layout, Row, Spin, BackTop, Icon, message } from 'antd';
 
 import { StoreType } from '@/store/store';
 
 import { loginService } from '@/service/loginService';
+import { getUserDetailService } from '@/service/userService';
 
 import { routeMapPath } from '@/route';
 
@@ -90,7 +91,10 @@ export type RouterPagePropType = Pick<
 class RouterPage extends React.Component<RouterPagePropType> {
 	async componentDidMount() {
 		const { history } = this.props;
+		const hide = message.loading('加载中...', 0);
 		await loginService({ history });
+		await getUserDetailService();
+		hide();
 	}
 
 	render() {

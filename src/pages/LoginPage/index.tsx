@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import { StoreType } from '@/store/store';
 
-import { getCode, login, register } from '@/apis/user';
+import { getCode, login, register } from '@/apis/login';
 
 import { loginService } from '@/service/loginService';
 

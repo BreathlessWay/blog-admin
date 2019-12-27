@@ -7,6 +7,8 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
+
 import { EResumeChangeKey } from '@/store/UserStore/user.enum';
 import {
 	MAX_RESUME_SIZE,
@@ -42,7 +44,7 @@ class SocialEditComponent extends React.Component<
 				resumeName,
 				resumeImageUrl,
 				social,
-			} = this.props.userStore.userDetail;
+			} = this.props.userStore.userDetail as UserDetailType;
 			const params = {
 				resumeAlias,
 				resumeUrl,
@@ -142,7 +144,7 @@ class SocialEditComponent extends React.Component<
 	};
 
 	get social() {
-		return this.props.userStore.userDetail.social;
+		return this.props.userStore.userDetail?.social || [];
 	}
 
 	render() {
@@ -159,9 +161,9 @@ class SocialEditComponent extends React.Component<
 							accept={UPLOAD_RESUME_TYPE}
 							type="file"
 							title={'简历'}
-							value={userDetail.resumeAlias}
+							value={userDetail?.resumeAlias ?? ''}
 							label={'上传简历'}
-							file={userDetail.resumeName}
+							file={userDetail?.resumeName ?? ''}
 							isEditing={isEditing}
 							onUploadFile={this.handleUploadResume}
 							onDeleteFile={this.handleDeleteResume}

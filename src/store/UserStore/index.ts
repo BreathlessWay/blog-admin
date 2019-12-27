@@ -13,6 +13,7 @@ import {
 } from '@/store/UserStore/user.enum';
 
 import { LOGIN_TOKEN, SKILL_COLOR, SKILL_PERCENT_MID } from '@/utils/constant';
+import { ImageListType } from '@/types/image';
 
 export default class UserStore {
 	@observable
@@ -25,24 +26,7 @@ export default class UserStore {
 	hobbiesFigure = new ImageStore();
 
 	@observable
-	userDetail: UserDetailType = {
-		resumeAlias: '',
-		resumeUrl: '',
-		resumeName: '',
-		resumeImageUrl: '',
-		social: [],
-		en: '',
-		zh: '',
-		intro: '',
-		personalTitle: '',
-		personalInfo: '',
-		personalIntro: '',
-		personalSkill: [],
-		rewardEnable: false,
-		rewardTitle: '',
-		zfbCode: '',
-		wxCode: '',
-	};
+	userDetail: UserDetailType | null = null;
 
 	emptySocialTmp = {
 		icon: '',
@@ -60,32 +44,56 @@ export default class UserStore {
 		this.session = '';
 		storage.remove(LOGIN_TOKEN);
 	}
+
+	@action.bound
+	setDetail(
+		data: UserDetailType & {
+			personalFigure: ImageListType;
+			hobbiesFigure: ImageListType;
+		},
+	) {
+		const { personalFigure, hobbiesFigure, ...rest } = data;
+		this.userDetail = rest;
+		this.personalFigure.setImageList(personalFigure);
+		this.hobbiesFigure.setImageList(hobbiesFigure);
+	}
+
 	// 首页
 	@action.bound
 	addSocial() {
-		this.userDetail.social.push(this.emptySocialTmp);
+		if (this.userDetail) {
+			this.userDetail.social.push(this.emptySocialTmp);
+		}
 	}
 
 	@action.bound
 	deleteSocial(index: number) {
-		this.userDetail.social.splice(index, 1);
+		if (this.userDetail) {
+			this.userDetail.social.splice(index, 1);
+		}
 	}
 
 	@action.bound
 	filterSocial() {
-		this.userDetail.social = this.userDetail.social.filter(
-			item => item.value || item.icon,
-		);
+		if (this.userDetail) {
+			this.userDetail.social = this.userDetail?.social.filter(
+				item => item.value || item.icon,
+			);
+		}
 	}
 
 	@action.bound
 	changeSocialIcon({ fileUrl, index }: { fileUrl: string; index: number }) {
-		this.userDetail.social[index].icon = fileUrl;
+		if (this.userDetail) {
+			this.userDetail.social[index].icon = fileUrl;
+		}
 	}
 
 	@action.bound
 	changeSocialValue({ value, index }: { value: string; index: number }) {
-		this.userDetail.social[index].value = value.trim();
+		if (this.userDetail) {
+			this.userDetail.social[index].value = value.trim();
+		}
 	}
 
 	@action.bound
@@ -100,54 +108,68 @@ export default class UserStore {
 			| EResumeChangeKey;
 		value: any;
 	}) {
-		(this.userDetail[key] as any) = value;
+		if (this.userDetail) {
+			(this.userDetail[key] as any) = value;
+		}
 	}
 
 	// 我页面
 	@action.bound
 	sortSkill(dragIndex: number, hoverIndex: number) {
-		const dragItem = this.userDetail.personalSkill.splice(dragIndex, 1);
-		this.userDetail.personalSkill.splice(hoverIndex, 0, ...dragItem);
+		if (this.userDetail) {
+			const dragItem = this.userDetail.personalSkill.splice(dragIndex, 1);
+			this.userDetail.personalSkill.splice(hoverIndex, 0, ...dragItem);
+		}
 	}
 
 	@action.bound
 	changeSkillName(value: string, index: number) {
-		this.userDetail.personalSkill[index].name = value;
+		if (this.userDetail) {
+			this.userDetail.personalSkill[index].name = value;
+		}
 	}
 
 	@action.bound
 	changeSkillPercent(value: number, index: number) {
-		this.userDetail.personalSkill[index].percent = value;
+		if (this.userDetail) {
+			this.userDetail.personalSkill[index].percent = value;
+		}
 	}
 
 	@action.bound
 	changeSkillColor(value: string, index: number) {
-		this.userDetail.personalSkill[index].color = value;
+		if (this.userDetail) {
+			this.userDetail.personalSkill[index].color = value;
+		}
 	}
 
 	@action.bound
 	filterSkill() {
-		this.userDetail.personalSkill = this.userDetail.personalSkill.filter(item =>
-			item.name.trim(),
-		);
+		if (this.userDetail) {
+			this.userDetail.personalSkill = this.userDetail.personalSkill.filter(
+				item => item.name.trim(),
+			);
+		}
 	}
 
 	@action.bound
 	addSkill() {
-		this.userDetail.personalSkill.push({
-			name: '',
-			percent: SKILL_PERCENT_MID,
-			color: SKILL_COLOR,
-		});
+		if (this.userDetail) {
+			this.userDetail.personalSkill.push({
+				name: '',
+				percent: SKILL_PERCENT_MID,
+				color: SKILL_COLOR,
+			});
+		}
 	}
 
 	@computed
 	get isLogin() {
-		return this.session !== '';
+		return this.session;
 	}
 
 	@computed
 	get userId() {
-		return this.userDetail._id || '_id';
+		return this.userDetail?._id ?? '_id';
 	}
 }

@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import { Button, Icon } from 'antd';
 
-import { uploadFile } from '@/service/upload';
+import { uploadService } from '@/service/uploadService';
 
 import './style.scss';
 
@@ -36,7 +36,7 @@ export default class UploadFileComponent extends React.Component<
 				compDisabled: true,
 			});
 			// 通用上传文件，返回文件url和文件名
-			uploadFile(e.target.files[0]).then(({ url, title }) => {
+			uploadService(e.target.files[0]).then(({ url, title }) => {
 				this.props.onUploadFile({ fileUrl: url, fileName: title });
 				this.setState({
 					compLoading: false,

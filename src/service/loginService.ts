@@ -9,7 +9,7 @@ import { MenuListType } from '@/types/hompage';
 import { LOGIN_TOKEN } from '@/utils/constant';
 
 import { storage } from '@/utils/storage';
-import { valid } from '@/apis/user';
+import { valid } from '@/apis/login';
 import { getMenuList } from '@/apis/menu';
 
 export const getMenu = async ({

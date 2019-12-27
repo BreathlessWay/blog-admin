@@ -10,7 +10,7 @@ import {
 	EArticleEditError,
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
-import { uploadFile } from '@/service/upload';
+import { uploadService } from '@/service/uploadService';
 
 export type ArticleDetailMarkdownComponentPropType = Pick<
 	StoreType,
@@ -40,7 +40,7 @@ class ArticleDetailMarkdownComponent extends Component<
 	};
 
 	handleUploadFile = (file: File, index: number) => {
-		uploadFile(file).then(({ url, title }) => {
+		uploadService(file).then(({ url, title }) => {
 			this.$vm.current.$img2Url(title, url);
 		});
 	};

@@ -8,7 +8,9 @@ import DraggableComponent from '@/components/common/DraggableComponent';
 import SkillComponentItem from './item';
 
 import { StoreType } from '@/store/store';
-import { PersonalSkillItemType } from '@/types/user';
+import { PersonalSkillItemType, UserDetailType } from '@/types/user';
+
+import { updateUserDetail } from '@/apis/user';
 
 import { MAX_LENGTH_MD } from '@/utils/constant';
 
@@ -20,18 +22,19 @@ export type SkillComponentPropType = Pick<StoreType, 'userStore'>;
 @observer
 class SkillComponent extends Component<SkillComponentPropType> {
 	get skills() {
-		return this.props.userStore.userDetail.personalSkill.map((item, index) => {
-			return { ...item, ...{ id: item._id || `${index}` } };
-		});
+		const { userDetail } = this.props.userStore;
+		if (userDetail) {
+			return userDetail.personalSkill.map((item, index) => {
+				return { ...item, ...{ id: item._id || `${index}` } };
+			});
+		}
+		return [];
 	}
 
 	handleEdit = () => {
 		this.props.userStore.filterSkill();
-		return new Promise((resolve, reject) => {
-			const { personalSkill } = this.props.userStore.userDetail;
-			console.log(personalSkill);
-			resolve();
-		});
+		const { personalSkill } = this.props.userStore.userDetail as UserDetailType;
+		return updateUserDetail({ personalSkill });
 	};
 
 	handleAddSkill = () => {

@@ -12,7 +12,7 @@ import {
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
 
-import { uploadFile } from '@/service/upload';
+import { uploadService } from '@/service/uploadService';
 
 // 引入编辑器样式
 import './style.scss';
@@ -75,7 +75,7 @@ class ArticleDetailUEditComponent extends Component<
 	};
 	// 如果未指定uploadFn，添加到媒体库的图片将会自动转换为base64的形式，而视频和音频则无法被添加到媒体库。
 	handleUploadFile = (params: UploadFileType) => {
-		uploadFile(params.file)
+		uploadService(params.file)
 			.then(({ url, title }) => {
 				// 假设服务端直接返回文件上传后的地址
 				// 上传成功后调用param.success并传入上传后的文件地址

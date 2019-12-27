@@ -1,5 +1,3 @@
-import { ImageListType } from '@/types/image';
-
 export type SocialItemType = {
 	icon: string;
 	value: string;

@@ -11,7 +11,11 @@ export const storage = {
 	},
 	set({ key, value }: { key: string; value: any }) {
 		const _key = storage.getKey(key);
-		window.localStorage.setItem(_key, Qs.stringify({ data: value }));
+		if (value) {
+			window.localStorage.setItem(_key, Qs.stringify({ data: value }));
+		} else {
+			storage.remove(_key);
+		}
 	},
 	get(key: string) {
 		const _key = storage.getKey(key);

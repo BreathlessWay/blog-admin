@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
 import { notification } from 'antd';
 
 import { baseURL } from './config';
@@ -36,7 +35,10 @@ const axios_config: AxiosRequestConfig = {
 	],
 
 	// `headers` 是即将被发送的自定义请求头
-	headers: { 'X-Requested-With': 'XMLHttpRequest' },
+	headers: {
+		Accept: 'application/x-www-form-urlencoded',
+		'X-Requested-With': 'XMLHttpRequest',
+	},
 
 	// `params` 是即将与请求一起发送的 URL 参数
 	// 必须是一个无格式对象(plain object)或 URLSearchParams 对象
@@ -76,6 +78,12 @@ const axios_config: AxiosRequestConfig = {
 	//   username: 'janedoe',
 	//   password: 's00pers3cret'
 	// },
+
+	// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
+	xsrfCookieName: 'csrfToken', // default
+
+	// `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+	xsrfHeaderName: 'X-XSRF-TOKEN', // default
 
 	// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 	responseType: 'json', // default
@@ -143,7 +151,6 @@ for (let p in axios_config) {
 axios.interceptors.request.use(
 	function(config) {
 		// 在发送请求之前做些什么
-		config.headers['X-XSRF-TOKEN'] = Cookies.get('csrfToken');
 		const storageToken = storage.get(LOGIN_TOKEN);
 		if (storageToken) {
 			config.headers['Authorization'] = `Bearer ${storageToken}`;

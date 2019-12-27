@@ -1,6 +1,6 @@
 import { message } from 'antd';
 
-export const uploadFile = (
+export const uploadService = (
 	file: File,
 ): Promise<{
 	url: string;
@@ -8,7 +8,6 @@ export const uploadFile = (
 	_id: string;
 }> => {
 	return new Promise((resolve, reject) => {
-		message.destroy();
 		// 伪文件上传预览
 		const loading = message.loading('文件上传中...', 0);
 		const fileReader = new FileReader();
