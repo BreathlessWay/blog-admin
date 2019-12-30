@@ -6,6 +6,8 @@ export type MenuItemType = {
 	path: string;
 	show: boolean;
 	onlyAdmin: boolean;
+	_id: string;
+	sort: number;
 	children?: Array<{
 		name: string;
 		path: string;

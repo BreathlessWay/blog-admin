@@ -22,7 +22,7 @@ export const getMenu = async ({
 	const res = await getMenuList();
 	if (res.data?.success) {
 		store.homepageStore.setMenuList(
-			res.data?.data?.result?.list ?? ([] as MenuListType),
+			res.data?.data?.list ?? ([] as MenuListType),
 		);
 		const _pathname = isLoginPage
 			? store.homepageStore.firstMenu.path

@@ -36,7 +36,7 @@ class MenuEditComponent extends React.Component<
 	get menuList() {
 		return this.props.homepageStore.menuList.map(item => ({
 			...item,
-			...{ error: !item.name.trim(), id: item.type },
+			...{ error: !item.name.trim(), id: item._id },
 		}));
 	}
 
@@ -47,11 +47,13 @@ class MenuEditComponent extends React.Component<
 
 	editMenu = async () => {
 		const { menuList } = this.props.homepageStore;
-		const params = menuList.map(item => ({
+		const params = menuList.map((item, index) => ({
 			name: item.name,
 			show: item.show,
 			type: item.type,
 			onlyAdmin: item.onlyAdmin,
+			sort: index,
+			_id: item._id,
 		}));
 		return await updateMenuList({ list: params });
 	};
