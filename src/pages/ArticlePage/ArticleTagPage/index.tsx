@@ -13,6 +13,7 @@ import {
 	Button,
 	message,
 	Modal,
+	notification,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
@@ -22,6 +23,8 @@ import { StoreType } from '@/store/store';
 import { TagItemType } from '@/types/tag';
 
 import { MAX_LENGTH_SM } from '@/utils/constant';
+
+import { getTagList, updateTagList } from '@/apis/article';
 
 import './style.scss';
 
@@ -41,15 +44,47 @@ export type ArticleTagPagePropType = Pick<
 }))
 @observer
 class ArticleTagPage extends Component<ArticleTagPagePropType> {
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
-			filterEmptyTag();
-			if (hasSameNameTag) {
-				message.error('存在相同名称的标签，请确认后重试');
-				reject();
+	async componentDidMount() {
+		await this.getTagList();
+	}
+
+	getTagList = async () => {
+		const hide = message.loading('加载中...', 0);
+		try {
+			const res = await getTagList();
+			if (!res.data.success) {
+				notification['error']({
+					message: '获取标签列表失败！',
+					description: res.data.msg,
+				});
+			} else {
+				this.props.tagStore.setTags(res.data?.data?.list ?? []);
 			}
-			resolve();
+		} catch (e) {
+		} finally {
+			hide();
+		}
+	};
+
+	handleEdit = async () => {
+		const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
+		filterEmptyTag();
+		if (hasSameNameTag) {
+			message.error('存在相同名称的标签，请确认后重试');
+			return Promise.reject();
+		}
+		const { tags } = this.props.tagStore;
+		return await updateTagList({ list: tags }).then(res => {
+			if (!res.data.success) {
+				notification['error']({
+					message: '更新标签列表失败！',
+					description: res.data.msg,
+				});
+				return Promise.reject();
+			} else {
+				this.props.tagStore.setTags(res.data?.data?.list ?? []);
+				return Promise.resolve();
+			}
 		});
 	};
 
