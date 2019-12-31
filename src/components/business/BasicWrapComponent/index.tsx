@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useState } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Button, Col, Divider, Row, Typography } from 'antd';
+import { Button, Col, Divider, notification, Row, Typography } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
@@ -41,20 +41,25 @@ const BasicWrapComponent: FC<BasicWrapComponentPropType &
 		operation,
 	} = props;
 
-	const handleClickEdit = () => {
-		if (handleEdit && isEditing) {
-			globalStore.startLoading();
-			handleEdit()
-				.then(() => {
-					setIsEditing(false);
-				})
-				.catch(() => {})
-				.finally(() => {
-					globalStore.endLoading();
+	const handleClickEdit = async () => {
+		try {
+			if (handleEdit && isEditing) {
+				globalStore.startLoading();
+				await handleEdit();
+				setIsEditing(false);
+			}
+			if (!isEditing) {
+				setIsEditing(true);
+			}
+		} catch (e) {
+			if (e.message && e.name !== 'Error') {
+				notification['error']({
+					message: e.name,
+					description: e.message,
 				});
-		}
-		if (!isEditing) {
-			setIsEditing(true);
+			}
+		} finally {
+			globalStore.endLoading();
 		}
 	};
 

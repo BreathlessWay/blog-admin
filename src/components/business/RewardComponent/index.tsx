@@ -13,7 +13,7 @@ import { UserDetailType } from '@/types/user';
 import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -24,10 +24,14 @@ export type RewardComponentPropType = Pick<StoreType, 'userStore'>;
 @inject('userStore')
 @observer
 class RewardComponent extends Component<RewardComponentPropType> {
-	handleEdit = () => {
-		const { rewardEnable, rewardTitle, zfbCode, wxCode } = this.props.userStore
-			.userDetail as UserDetailType;
-		return updateUserDetail({ rewardEnable, rewardTitle, zfbCode, wxCode });
+	handleEdit = async () => {
+		try {
+			const { rewardEnable, rewardTitle, zfbCode, wxCode } = this.props
+				.userStore.userDetail as UserDetailType;
+			return updateUserService({ rewardEnable, rewardTitle, zfbCode, wxCode });
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleChangeSwitch = () => {

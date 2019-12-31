@@ -3,7 +3,7 @@ import { notification } from 'antd';
 
 import { baseURL } from './config';
 import { storage } from '@/utils/storage';
-import { LOGIN_TOKEN } from '@/utils/constant';
+import { LOGIN_ERROR_CODE, LOGIN_TOKEN } from '@/utils/constant';
 
 const axios_config: AxiosRequestConfig = {
 	// `url` 是用于请求的服务器 URL
@@ -166,6 +166,9 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
 	function(response) {
 		// 对响应数据做点什么
+		if (response.status === LOGIN_ERROR_CODE) {
+			window.location.reload();
+		}
 		return response;
 	},
 	function(error) {

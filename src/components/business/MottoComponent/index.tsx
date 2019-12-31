@@ -12,7 +12,7 @@ import { UserDetailType } from '@/types/user';
 import { EMottoChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -46,28 +46,29 @@ class MottoComponent extends React.Component<
 		introError: false,
 	};
 
-	handleEdit = () => {
+	handleEdit = async () => {
 		const { en, zh, intro } = this.props.userStore.userDetail as UserDetailType;
-		if (en && zh && intro && en.trim() && zh.trim() && intro.trim()) {
+
+		try {
+			if (en.trim() && zh.trim() && intro.trim()) {
+				// 提交更新
+				return updateUserService({
+					en,
+					zh,
+					intro,
+				});
+			} else {
+				throw new Error();
+			}
+		} catch (e) {
+			throw new Error();
+		} finally {
 			this.setState({
-				enError: false,
-				zhError: false,
-				introError: false,
-			});
-			// 提交更新
-			return updateUserDetail({
-				en,
-				zh,
-				intro,
+				enError: !en || !en.trim(),
+				zhError: !zh || !zh.trim(),
+				introError: !intro || !intro.trim(),
 			});
 		}
-
-		this.setState({
-			enError: !en || !en.trim(),
-			zhError: !zh || !zh.trim(),
-			introError: !intro || !intro.trim(),
-		});
-		return Promise.reject();
 	};
 
 	handleChangeEn = (e: ChangeEvent<HTMLInputElement>) => {

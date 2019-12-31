@@ -7,7 +7,7 @@ import FigureEditComponent from '@/components/common/FigureEditComponent';
 import { StoreType } from '@/store/store';
 import { ImageItemType } from '@/types/image';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 import { toJS } from 'mobx';
 
@@ -18,9 +18,11 @@ export type HobbiesFigureComponentPropType = Pick<StoreType, 'userStore'>;
 @inject('userStore')
 @observer
 class HobbiesFigureComponent extends Component<HobbiesFigureComponentPropType> {
-	handleUpdateFigure = () => {
-		const { imageList } = this.props.userStore.hobbiesFigure;
-		updateUserDetail({ hobbiesFigure: imageList });
+	handleUpdateFigure = async () => {
+		try {
+			const { imageList } = this.props.userStore.hobbiesFigure;
+			await updateUserService({ hobbiesFigure: imageList });
+		} catch (e) {}
 	};
 
 	handleRemoveFigure = (item: ImageItemType) => {

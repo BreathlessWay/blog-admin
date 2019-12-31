@@ -12,7 +12,7 @@ import { UserDetailType } from '@/types/user';
 import { EPersonalChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD, MAX_LENGTH_XXL } from '@/utils/constant';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -37,35 +37,26 @@ class PersonalInfoComponent extends Component<
 		introError: false,
 	};
 
-	handleEdit = () => {
+	handleEdit = async () => {
 		const { personalTitle, personalInfo, personalIntro } = this.props.userStore
 			.userDetail as UserDetailType;
-		if (
-			personalTitle &&
-			personalInfo &&
-			personalIntro &&
-			personalTitle.trim() &&
-			personalInfo.trim() &&
-			personalIntro.trim()
-		) {
+		try {
+			if (personalTitle.trim() && personalInfo.trim() && personalIntro.trim()) {
+				return updateUserService({
+					personalTitle,
+					personalInfo,
+					personalIntro,
+				});
+			}
+		} catch (e) {
+			throw new Error();
+		} finally {
 			this.setState({
-				titleError: false,
-				infoError: false,
-				introError: false,
-			});
-			return updateUserDetail({
-				personalTitle,
-				personalInfo,
-				personalIntro,
+				titleError: !personalTitle || !personalTitle.trim(),
+				infoError: !personalInfo || !personalInfo.trim(),
+				introError: !personalIntro || !personalIntro.trim(),
 			});
 		}
-
-		this.setState({
-			titleError: !personalTitle || !personalTitle.trim(),
-			infoError: !personalInfo || !personalInfo.trim(),
-			introError: !personalIntro || !personalIntro.trim(),
-		});
-		return Promise.reject();
 	};
 
 	handleChangeContent = (

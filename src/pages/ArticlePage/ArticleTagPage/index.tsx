@@ -70,22 +70,19 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
 		filterEmptyTag();
 		if (hasSameNameTag) {
-			message.error('存在相同名称的标签，请确认后重试');
-			return Promise.reject();
+			const err = new Error('存在相同名称的标签，请确认后重试！');
+			err.name = '错误！';
+			throw err;
 		}
 		const { tags } = this.props.tagStore;
-		return await updateTagList({ list: tags }).then(res => {
-			if (!res.data.success) {
-				notification['error']({
-					message: '更新标签列表失败！',
-					description: res.data.msg,
-				});
-				return Promise.reject();
-			} else {
-				this.props.tagStore.setTags(res.data?.data?.list ?? []);
-				return Promise.resolve();
-			}
-		});
+		const res = await updateTagList({ list: tags });
+		if (res.data?.success) {
+			this.props.tagStore.setTags(res.data?.data?.list ?? []);
+		} else {
+			const err = new Error(res.data?.msg);
+			err.name = '更新标签列表失败！';
+			throw err;
+		}
 	};
 
 	handleChangeSwitch = (index: number) => () => {

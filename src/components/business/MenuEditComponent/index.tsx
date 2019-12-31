@@ -46,7 +46,7 @@ class MenuEditComponent extends React.Component<
 	}
 
 	editMenu = async () => {
-		const { menuList } = this.props.homepageStore;
+		const { menuList, setMenuList } = this.props.homepageStore;
 		const params = menuList.map((item, index) => ({
 			name: item.name,
 			show: item.show,
@@ -55,14 +55,21 @@ class MenuEditComponent extends React.Component<
 			sort: index,
 			_id: item._id,
 		}));
-		return await updateMenuList({ list: params });
+		const res = await updateMenuList({ list: params });
+		if (res.data?.success) {
+			setMenuList(res.data?.data?.list ?? []);
+		} else {
+			const err = new Error(res.data?.msg);
+			err.name = '更新菜单栏失败！';
+			throw err;
+		}
 	};
 
-	handleEdit = () => {
+	handleEdit = async () => {
 		if (this.canSubmit) {
 			return this.editMenu();
 		} else {
-			return Promise.reject();
+			throw new Error();
 		}
 	};
 

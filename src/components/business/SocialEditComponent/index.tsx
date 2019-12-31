@@ -10,14 +10,15 @@ import { StoreType } from '@/store/store';
 import { UserDetailType } from '@/types/user';
 
 import { EResumeChangeKey } from '@/store/UserStore/user.enum';
+
+import { updateUserService } from '@/service/userService';
+
 import {
 	MAX_RESUME_SIZE,
 	MAX_SOCIAL_SIZE,
 	UPLOAD_IMAGE_TYPE,
 	UPLOAD_RESUME_TYPE,
 } from '@/utils/constant';
-
-import { updateUserDetail } from '@/apis/user';
 
 import './style.scss';
 
@@ -37,19 +38,27 @@ class SocialEditComponent extends React.Component<
 	SocialEditComponentPropType,
 	SocialEditComponentStateType
 > {
-	handleEdit = () => {
-		this.props.userStore.filterSocial();
-		const { resumeAlias, resumeUrl, resumeName, resumeImageUrl, social } = this
-			.props.userStore.userDetail as UserDetailType;
-		const params = {
-			resumeAlias,
-			resumeUrl,
-			resumeName,
-			resumeImageUrl,
-			social,
-		};
-		console.log(params);
-		return updateUserDetail(params);
+	handleEdit = async () => {
+		try {
+			this.props.userStore.filterSocial();
+			const {
+				resumeAlias,
+				resumeUrl,
+				resumeName,
+				resumeImageUrl,
+				social,
+			} = this.props.userStore.userDetail as UserDetailType;
+			const params = {
+				resumeAlias,
+				resumeUrl,
+				resumeName,
+				resumeImageUrl,
+				social,
+			};
+			return await updateUserService(params);
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleAddSocial = () => {

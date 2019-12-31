@@ -12,7 +12,7 @@ import { PersonalSkillItemType, UserDetailType } from '@/types/user';
 
 import { MAX_LENGTH_MD } from '@/utils/constant';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -31,10 +31,15 @@ class SkillComponent extends Component<SkillComponentPropType> {
 		return [];
 	}
 
-	handleEdit = () => {
-		this.props.userStore.filterSkill();
-		const { personalSkill } = this.props.userStore.userDetail as UserDetailType;
-		return updateUserDetail({ personalSkill });
+	handleEdit = async () => {
+		try {
+			this.props.userStore.filterSkill();
+			const { personalSkill } = this.props.userStore
+				.userDetail as UserDetailType;
+			return updateUserService({ personalSkill });
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleAddSkill = () => {

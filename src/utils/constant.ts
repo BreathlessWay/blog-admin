@@ -80,3 +80,6 @@ export const SUPPORT_INTERSECTION_OBSERVER =
 
 // 图片src存储key
 export const IMAGE_DATA_SRC = 'data-src';
+
+// 401
+export const LOGIN_ERROR_CODE = 401;

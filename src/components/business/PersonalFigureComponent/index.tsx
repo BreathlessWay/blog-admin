@@ -7,7 +7,7 @@ import FigureEditComponent from '@/components/common/FigureEditComponent';
 import { StoreType } from '@/store/store';
 import { ImageItemType } from '@/types/image';
 
-import { updateUserDetail } from '@/apis/user';
+import { updateUserService } from '@/service/userService';
 
 import { toJS } from 'mobx';
 
@@ -20,9 +20,11 @@ export type PersonalFigureComponentPropType = Pick<StoreType, 'userStore'>;
 class PersonalFigureComponent extends Component<
 	PersonalFigureComponentPropType
 > {
-	handleUpdateFigure = () => {
-		const { imageList } = this.props.userStore.personalFigure;
-		updateUserDetail({ personalFigure: imageList });
+	handleUpdateFigure = async () => {
+		try {
+			const { imageList } = this.props.userStore.personalFigure;
+			await updateUserService({ personalFigure: imageList });
+		} catch (e) {}
 	};
 
 	handleRemoveFigure = (item: ImageItemType) => {
