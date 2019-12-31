@@ -72,7 +72,7 @@ export default class HomePageStore {
 						this.openKeys = [`${menuIndex}`];
 						this.selectedKeys = child.show
 							? [`${menuIndex}-${childIndex}`]
-							: [`${menuIndex}-${0}`];
+							: [`${menuIndex}-0`];
 					}
 				});
 			} else if (menu.path === pathname) {
@@ -148,12 +148,20 @@ export default class HomePageStore {
 	get menuList() {
 		return this._menuList.map(item => {
 			if (item.type === EMenuType.article) {
-				return { ...item, ...{ children: articleRoute(item.name) } };
+				return observable({
+					...item,
+					...{ children: articleRoute(item.name) },
+				});
 			}
 			if (item.type === EMenuType.photography) {
-				return { ...item, ...{ children: photographyRoute } };
+				return observable({ ...item, ...{ children: photographyRoute } });
 			}
 			return item;
 		});
+	}
+
+	@computed
+	get hasMenu() {
+		return this.menuList.length > 0;
 	}
 }

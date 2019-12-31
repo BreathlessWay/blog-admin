@@ -9,6 +9,8 @@ import { StoreType } from '@/store/store';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
+import { getArticleListService } from '@/service/articleService';
+
 import moment from 'moment';
 import { MAX_LENGTH_MD } from '@/utils/constant';
 
@@ -44,7 +46,7 @@ export type FormValueType = {
 class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 	handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values: FormValueType) => {
+		this.props.form.validateFields(async (err, values: FormValueType) => {
 			if (!err) {
 				const { keyword, date, status, tag } = values;
 				let startTime, endTime;
@@ -59,7 +61,9 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 					status,
 					tags: tag,
 				});
-				console.log(this.props.articleListStore.searchQuery);
+				try {
+					await getArticleListService();
+				} catch (e) {}
 			}
 		});
 	};

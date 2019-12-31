@@ -10,6 +10,7 @@ import { StoreType } from '@/store/store';
 
 import compose from '@/utils/compose';
 import { getPath } from '@/utils/path';
+import { toJS } from 'mobx';
 
 const { Item, SubMenu } = Menu;
 
@@ -57,19 +58,20 @@ class MenuComponent extends React.Component<
 	render() {
 		const { openKeys, selectedKeys } = this.props.homepageStore;
 		const { menuList } = this;
+
 		return (
 			<Menu
 				theme={'dark'}
 				onClick={this.handleClick}
-				openKeys={openKeys}
+				openKeys={toJS(openKeys)}
 				onOpenChange={this.handleOpenChange}
-				selectedKeys={selectedKeys}
+				selectedKeys={toJS(selectedKeys)}
 				mode="inline">
 				{menuList.map((item, index) => {
 					if (item.children && item.children.length) {
 						return (
 							<SubMenu
-								key={index}
+								key={`${index}`}
 								title={
 									<span>
 										<Icon type={item.type} />
@@ -86,7 +88,7 @@ class MenuComponent extends React.Component<
 						);
 					} else {
 						return (
-							<Item key={index}>
+							<Item key={`${index}`}>
 								<Icon type={item.type} />
 								{item.name}
 							</Item>

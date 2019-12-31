@@ -99,14 +99,14 @@ class RouterPage extends React.Component<RouterPagePropType> {
 
 	render() {
 		const {
-			homepageStore: { firstMenu },
+			homepageStore: { firstMenu, hasMenu },
 			globalStore: { loading },
 		} = this.props;
 		return (
 			<Layout>
 				<Sider className="home-page_sider">
 					<aside className="home-page_logo">博客管理后台</aside>
-					<MenuComponent />
+					{hasMenu && <MenuComponent />}
 				</Sider>
 				<Layout className="home-page_layout">
 					<Header className="home-page_header">

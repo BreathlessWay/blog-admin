@@ -4,8 +4,12 @@ import { inject, observer } from 'mobx-react';
 
 import Gap from '@/components/common/Gap';
 
-import compose from '@/utils/compose';
 import { StoreType } from '@/store/store';
+
+import { getTagListService } from '@/service/tagService';
+import { getArticleListService } from '@/service/articleService';
+
+import compose from '@/utils/compose';
 
 const ArticleFilterComponent = lazy(() =>
 	import(
@@ -24,16 +28,17 @@ export type ArticlePagePropType = Pick<
 	'articleListStore' | 'tagStore'
 >;
 
-const ArticlePage: FC<ArticlePagePropType> = props => {
-	const {
-		articleListStore: { getList },
-		tagStore: { getTags },
-	} = props;
+const ArticlePage: FC<ArticlePagePropType> = () => {
+	const getData = async () => {
+		try {
+			await getTagListService();
+			await getArticleListService();
+		} catch (e) {}
+	};
 
 	useEffect(() => {
-		getTags();
-		getList();
-	}, [getList, getTags]);
+		getData();
+	}, []);
 
 	return (
 		<>

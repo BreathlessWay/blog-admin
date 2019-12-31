@@ -15,6 +15,7 @@ import { parseSearch } from '@/utils/parseSearch';
 import { storage } from '@/utils/storage';
 
 import { routeMapPath } from '@/route';
+import { getTagListService } from '@/service/tagService';
 
 const ArticleDetailTopComponent = lazy(() =>
 	import(
@@ -58,41 +59,45 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	time: any = null;
 
 	async componentDidMount() {
-		const _this = this;
-		const { pathname } = _this.props.location;
-		const { articleAlias } = _this.props.homepageStore;
+		try {
+			await getTagListService();
 
-		if (pathname === routeMapPath.article.edit && !_this.articleId) {
-			warning({
-				title: '提示',
-				content: `编辑${articleAlias}缺少${articleAlias}id参数！`,
-				okText: '确定',
-				onOk() {
-					_this.props.history.replace(routeMapPath.article.home);
-				},
-			});
-			return;
-		}
-		await _this.getData();
+			const _this = this;
+			const { pathname } = _this.props.location;
+			const { articleAlias } = _this.props.homepageStore;
 
-		if (_this.judgeCache) {
-			confirm({
-				title: '提示',
-				content: '您似乎有上一次未保存的草稿，是否载入？',
-				keyboard: false,
-				maskClosable: false,
-				onOk() {
-					_this.loadCache();
-				},
-				onCancel() {
-					storage.remove(ARTICLE_CACHE_KEY);
-				},
-			});
-			return;
-		}
+			if (pathname === routeMapPath.article.edit && !_this.articleId) {
+				warning({
+					title: '提示',
+					content: `编辑${articleAlias}缺少${articleAlias}id参数！`,
+					okText: '确定',
+					onOk() {
+						_this.props.history.replace(routeMapPath.article.home);
+					},
+				});
+				return;
+			}
+			await _this.getData();
 
-		storage.remove(ARTICLE_CACHE_KEY);
-		_this.startCache();
+			if (_this.judgeCache) {
+				confirm({
+					title: '提示',
+					content: '您似乎有上一次未保存的草稿，是否载入？',
+					keyboard: false,
+					maskClosable: false,
+					onOk() {
+						_this.loadCache();
+					},
+					onCancel() {
+						storage.remove(ARTICLE_CACHE_KEY);
+					},
+				});
+				return;
+			}
+
+			storage.remove(ARTICLE_CACHE_KEY);
+			_this.startCache();
+		} catch (e) {}
 	}
 
 	componentWillUnmount(): void {
@@ -121,7 +126,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					) {
 						return true;
 					}
-					if (detail.tags.map(tag => tag._id).join() !== tags.join()) {
+					if (detail.tags.join() !== tags.join()) {
 						return true;
 					}
 					if (
@@ -155,7 +160,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					markdown,
 					draftDetail,
 				} = detail;
-				const _cacheTag = tags.map(tag => tag._id).filter(value => value);
+				const _cacheTag = tags.filter(value => value);
 				let _cacheDetail = '';
 				if (renderType === EArticleRenderType.richText) {
 					if (draftDetail && draftDetail.toText()) {
@@ -195,9 +200,9 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 				status: Number(status),
 			} as any;
 			if (tags.length) {
-				params.tags = this.props.tagStore.tags.filter(
-					item => item._id && tags.includes(item._id),
-				);
+				params.tags = this.props.tagStore.tags
+					.filter(item => item._id && tags.includes(item._id))
+					.map(tag => tag._id) as Array<string>;
 			}
 			if (renderType === EArticleRenderType.richText) {
 				params.richTextRaw = detail;

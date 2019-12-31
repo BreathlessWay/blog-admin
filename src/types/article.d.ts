@@ -31,7 +31,7 @@ export type ArticleDetailType = {
 	richTextRaw: string;
 	markdown: string;
 	status: number;
-	tags: TagListType;
+	tags: Array<string>;
 	renderType: EArticleRenderType;
 
 	draftDetail?: EditorState;

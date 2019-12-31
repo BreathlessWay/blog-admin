@@ -2,6 +2,8 @@ import { action, computed, observable } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
+import Qs from 'qs';
+
 import { ArticleQueryType, ArticleItemType } from '@/types/article';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
@@ -15,15 +17,6 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 		status: EArticleStatus.show,
 		tags: undefined,
 	};
-
-	@action.bound
-	getList() {
-		// results.forEach(item => (item.key = item._id));
-		this.setList({
-			results: [],
-			count: 0,
-		});
-	}
 
 	@action.bound
 	setQuery(query: ArticleQueryType) {
@@ -48,7 +41,7 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 
 	@computed
 	get searchQuery() {
-		return JSON.stringify({
+		return Qs.stringify({
 			...this.query,
 			...{ pageIndex: this.pageIndex, pageSize: this.pageSize },
 		});

@@ -23,8 +23,8 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 	}
 
 	@action.bound
-	setList({ results, count }: { results: PhotoListType; count: number }) {
-		this.list = this.list.concat(results);
+	setList({ list, count }: { list: PhotoListType; count: number }) {
+		this.list = this.list.concat(list);
 		this.count = count;
 	}
 

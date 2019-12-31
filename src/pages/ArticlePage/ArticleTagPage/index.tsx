@@ -13,7 +13,6 @@ import {
 	Button,
 	message,
 	Modal,
-	notification,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
@@ -22,9 +21,11 @@ import { RouteComponentProps } from 'react-router';
 import { StoreType } from '@/store/store';
 import { TagItemType } from '@/types/tag';
 
+import { getTagListService } from '@/service/tagService';
+
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
-import { getTagList, updateTagList } from '@/apis/article';
+import { updateTagList } from '@/apis/article';
 
 import './style.scss';
 
@@ -51,15 +52,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 	getTagList = async () => {
 		const hide = message.loading('加载中...', 0);
 		try {
-			const res = await getTagList();
-			if (!res.data.success) {
-				notification['error']({
-					message: '获取标签列表失败！',
-					description: res.data.msg,
-				});
-			} else {
-				this.props.tagStore.setTags(res.data?.data?.list ?? []);
-			}
+			await getTagListService();
 		} catch (e) {
 		} finally {
 			hide();

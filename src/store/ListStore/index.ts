@@ -56,8 +56,8 @@ export default class ListStore<
 	}
 
 	@action.bound
-	setList({ results, count }: { results: Array<T>; count: number }) {
-		this.list = results;
+	setList({ list, count }: { list: Array<T>; count: number }) {
+		this.list = list;
 		this.count = count;
 	}
 
