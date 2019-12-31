@@ -14,13 +14,14 @@ import {
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
 
-import { createArticle } from '@/apis/article';
+import { createArticle, updateArticleDetail } from '@/apis/article';
 
 import { ARTICLE_CACHE_KEY } from '@/utils/constant';
 import compose from '@/utils/compose';
 import { storage } from '@/utils/storage';
 
 import { routeMapPath } from '@/route';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const { Text } = Typography;
 const { error } = Modal;
@@ -123,17 +124,17 @@ class ArticleDetailButtonComponent extends Component<
 					value: markdown,
 				});
 			}
-			this.createArticle();
+			this.submitArticle();
 		}
 	};
 
-	createArticle = async () => {
+	submitArticle = async () => {
 		try {
 			this.setState({
 				loading: true,
 			});
 			const { detail, resetDetail } = this.props.articleDetailStore;
-			const res = await createArticle({
+			const params = {
 				title: detail!.title,
 				intro: detail!.intro,
 				richTextHtml: detail!.richTextHtml,
@@ -142,8 +143,15 @@ class ArticleDetailButtonComponent extends Component<
 				status: detail!.status,
 				tags: detail!.tags,
 				renderType: detail!.renderType,
-			});
-			if (res.data?.success) {
+			};
+			let res: AxiosResponse;
+			if (detail!._id) {
+				res = await updateArticleDetail(detail!._id, params);
+			} else {
+				res = await createArticle(params);
+			}
+
+			if (res && res.data?.success) {
 				resetDetail();
 				storage.remove(ARTICLE_CACHE_KEY);
 				this.props.history.replace(routeMapPath.article.home);

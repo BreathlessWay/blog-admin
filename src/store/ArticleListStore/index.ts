@@ -4,7 +4,7 @@ import ListStore from '@/store/ListStore';
 
 import Qs from 'qs';
 
-import { ArticleQueryType, ArticleItemType } from '@/types/article';
+import { ArticleItemType, ArticleQueryType } from '@/types/article';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
@@ -14,7 +14,7 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 		keyword: undefined,
 		startTime: undefined,
 		endTime: undefined,
-		status: EArticleStatus.show,
+		status: EArticleStatus.all,
 		tags: undefined,
 	};
 
@@ -41,8 +41,12 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 
 	@computed
 	get searchQuery() {
+		let query = { ...this.query };
+		if (query.status === EArticleStatus.all) {
+			query.status = void 0;
+		}
 		return Qs.stringify({
-			...this.query,
+			...query,
 			...{ pageIndex: this.pageIndex, pageSize: this.pageSize },
 		});
 	}

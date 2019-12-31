@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Icon, Tag, Modal } from 'antd';
+import { Icon, Tag, Modal, notification } from 'antd';
 
 import store from '@/store';
 
@@ -12,6 +12,10 @@ import { TagListType } from '@/types/tag';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 import { TAG_COLOR } from '@/utils/constant';
+
+import { getArticleListService } from '@/service/articleService';
+
+import { deleteArticle, updateArticleDetail } from '@/apis/article';
 
 import moment from 'moment';
 
@@ -95,11 +99,21 @@ const columns: ColumnProps<ArticleItemType>[] = [
 	},
 ];
 
-const handleChangeStatus = (article: ArticleItemType) => () => {
-	const status = Boolean(article.status)
-		? EArticleStatus.hide
-		: EArticleStatus.show;
-	store.articleListStore.changeStatus([article._id], status);
+const handleChangeStatus = (article: ArticleItemType) => async () => {
+	try {
+		const status = Boolean(article.status)
+			? EArticleStatus.hide
+			: EArticleStatus.show;
+		const res = await updateArticleDetail(article._id, { status });
+		if (res.data?.success) {
+			store.articleListStore.changeStatus([article._id], status);
+		} else {
+			notification['error']({
+				message: '修改文章状态失败！',
+				description: res.data?.msg,
+			});
+		}
+	} catch (e) {}
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
@@ -108,7 +122,19 @@ const handleDelete = (article: ArticleItemType) => () => {
 		title: `确认删除该${articleAlias}？`,
 		okType: 'danger',
 		onOk() {
-			store.articleListStore.deleteArticle([article._id]);
+			deleteArticle(article._id)
+				.then(res => {
+					console.log(res);
+					if (res.data?.success) {
+						return getArticleListService();
+					} else {
+						notification['error']({
+							message: '删除文章失败！',
+							description: res.data?.msg,
+						});
+					}
+				})
+				.catch(e => console.error(e));
 		},
 		onCancel() {
 			console.log('Cancel');

@@ -111,6 +111,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 						initialValue: status,
 					})(
 						<Select style={{ width: '70px' }} id={EFormKey.status}>
+							<Option value={EArticleStatus.all}>全部</Option>
 							<Option value={EArticleStatus.show}>显示</Option>
 							<Option value={EArticleStatus.hide}>隐藏</Option>
 						</Select>,

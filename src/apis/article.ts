@@ -27,3 +27,16 @@ export const createArticle = (
 export const getArticleDetail = (id: string) => {
 	return axios.get(`/article/${id}`);
 };
+
+export const updateArticleDetail = (
+	id: string,
+	data: Partial<ArticleDetailType>,
+) => {
+	return axios.put(`/article/${id}`, {
+		detail: data,
+	});
+};
+
+export const deleteArticle = (id: string) => {
+	return axios.delete(`/article/${id}`);
+};

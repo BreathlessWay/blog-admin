@@ -9,7 +9,7 @@ export type ArticleQueryType = {
 	keyword: string | undefined;
 	startTime: number | undefined;
 	endTime: number | undefined;
-	status: EArticleStatus;
+	status: EArticleStatus | undefined;
 	tags: Array<string> | undefined;
 };
 

@@ -4,6 +4,7 @@ export enum EArticleRenderType {
 }
 
 export enum EArticleStatus {
+	all = -1,
 	hide = 0,
 	show = 1,
 }
