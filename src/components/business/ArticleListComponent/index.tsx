@@ -85,6 +85,7 @@ class ArticleListComponent extends Component<
 		return (
 			<>
 				<Table
+					rowKey="_id"
 					loading={loading}
 					bordered={true}
 					rowSelection={{ selectedRowKeys, onChange: this.handleSelectChange }}

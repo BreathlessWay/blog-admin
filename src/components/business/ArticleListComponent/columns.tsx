@@ -35,15 +35,15 @@ const columns: ColumnProps<ArticleItemType>[] = [
 	{
 		title: '发布日期',
 		align: 'center' as const,
-		dataIndex: 'createAt',
-		key: 'createAt',
-		render: createAt => (
+		dataIndex: 'createdAt',
+		key: 'createdAt',
+		render: createdAt => (
 			<div className="article-list_item">
-				<span>{moment(createAt).format('YYYY-MM-DD HH:mm:ss')}</span>
+				<span>{moment(createdAt).format('YYYY-MM-DD HH:mm:ss')}</span>
 			</div>
 		),
 		sorter: (a: ArticleItemType, b: ArticleItemType) => {
-			return a.createAt - b.createAt;
+			return a.createdAt - b.createdAt;
 		},
 	},
 	{

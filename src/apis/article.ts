@@ -17,9 +17,13 @@ export const getArticleList = (params: string) => {
 };
 
 export const createArticle = (
-	data: Omit<ArticleDetailType, '_id' | 'draftDetail' | 'createAt'>,
+	data: Omit<ArticleDetailType, '_id' | 'draftDetail' | 'createdAt'>,
 ) => {
 	return axios.post(`/article`, {
 		detail: data,
 	});
+};
+
+export const getArticleDetail = (id: string) => {
+	return axios.get(`/article/${id}`);
 };

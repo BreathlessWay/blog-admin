@@ -17,7 +17,7 @@ export type ArticleItemType = {
 	_id: string;
 	title: string;
 	status: number; // 0 隐藏 1 显示
-	createAt: number;
+	createdAt: number;
 	tags: TagListType;
 	key?: string;
 };
@@ -37,7 +37,7 @@ export type ArticleDetailType = {
 	draftDetail?: EditorState;
 
 	_id?: string;
-	createAt?: number;
+	createdAt?: number;
 };
 
 export type ArticleCacheType = {

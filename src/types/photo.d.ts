@@ -5,7 +5,7 @@ export type PhotoItemType = {
 	show: boolean;
 
 	_id: string;
-	createAt: number;
+	createdAt: number;
 };
 
 export type PhotoListType = Array<PhotoItemType>;

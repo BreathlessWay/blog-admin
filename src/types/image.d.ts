@@ -5,7 +5,7 @@ export type ImageItemType = {
 	_id: string;
 	show: boolean;
 
-	createAt?: number;
+	createdAt?: number;
 	checked?: boolean;
 };
 

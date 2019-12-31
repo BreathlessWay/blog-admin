@@ -2,7 +2,7 @@ import React, { Component, ComponentClass, lazy } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Modal } from 'antd';
+import { Modal, notification } from 'antd';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
@@ -10,12 +10,15 @@ import { ArticleCacheType, ArticleDetailType } from '@/types/article';
 
 import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
 
+import { getTagListService } from '@/service/tagService';
+
+import { getArticleDetail } from '@/apis/article';
+
 import { ARTICLE_CACHE_KEY, ARTICLE_CACHE_TIME } from '@/utils/constant';
 import { parseSearch } from '@/utils/parseSearch';
 import { storage } from '@/utils/storage';
 
 import { routeMapPath } from '@/route';
-import { getTagListService } from '@/service/tagService';
 
 const ArticleDetailTopComponent = lazy(() =>
 	import(
@@ -216,13 +219,24 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 		this.startCache();
 	};
 
-	getData = () => {
-		const { createArticle } = this.props.articleDetailStore;
-		if (this.isEdit) {
-		}
-		if (this.isCreate) {
-			createArticle();
-		}
+	getData = async () => {
+		try {
+			const { createArticle, setDetail } = this.props.articleDetailStore;
+			if (this.isEdit && this.articleId) {
+				const res = await getArticleDetail(this.articleId);
+				if (res.data?.success) {
+					setDetail(res.data.data);
+				} else {
+					notification['error']({
+						message: '获取文章详情失败！',
+						description: res.data?.msg,
+					});
+				}
+			}
+			if (this.isCreate) {
+				createArticle();
+			}
+		} catch (e) {}
 	};
 
 	get articleCache(): ArticleCacheType | null {

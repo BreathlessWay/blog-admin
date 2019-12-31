@@ -5,7 +5,7 @@ export type CatItemType = {
 	show: boolean;
 
 	_id: string;
-	createAt: number;
+	createdAt: number;
 
 	checked?: boolean;
 };
