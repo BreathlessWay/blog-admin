@@ -75,18 +75,25 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 	render() {
 		const { usefulTag } = this.props.tagStore;
 		const {
-			query: { status },
+			query: { status, keyword, startTime, endTime, tags },
 		} = this.props.articleListStore;
 		const { getFieldDecorator } = this.props.form;
 		const { articleAlias } = this.props.homepageStore;
 
+		const initialDataRange: Record<string, any> = {
+			initialValue: null,
+		};
+
+		if (startTime && endTime) {
+			initialDataRange.initialValue = [moment(startTime), moment(endTime)];
+		}
+
 		return (
 			<Form layout="inline" onSubmit={this.handleSubmit}>
 				<Form.Item label="关键字" htmlFor={EFormKey.keyword}>
-					{getFieldDecorator(
-						EFormKey.keyword,
-						{},
-					)(
+					{getFieldDecorator(EFormKey.keyword, {
+						initialValue: keyword,
+					})(
 						<Input
 							id={EFormKey.keyword}
 							placeholder="关键字"
@@ -98,7 +105,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 				<Form.Item label="发布时间" htmlFor={EFormKey.date}>
 					{getFieldDecorator(
 						EFormKey.date,
-						{},
+						initialDataRange,
 					)(
 						<RangePicker
 							id={EFormKey.date}
@@ -118,10 +125,9 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 					)}
 				</Form.Item>
 				<Form.Item label={`${articleAlias}标签`} htmlFor={EFormKey.tag}>
-					{getFieldDecorator(
-						EFormKey.tag,
-						{},
-					)(
+					{getFieldDecorator(EFormKey.tag, {
+						initialValue: tags,
+					})(
 						<Select
 							id={EFormKey.tag}
 							style={{ width: '200px' }}

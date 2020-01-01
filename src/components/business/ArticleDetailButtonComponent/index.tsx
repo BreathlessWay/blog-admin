@@ -7,6 +7,7 @@ import { Button, Col, Row, Typography, Modal, notification } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
+import { AxiosResponse } from 'axios';
 
 import {
 	EArticleDetailKey,
@@ -21,7 +22,6 @@ import compose from '@/utils/compose';
 import { storage } from '@/utils/storage';
 
 import { routeMapPath } from '@/route';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const { Text } = Typography;
 const { error } = Modal;
