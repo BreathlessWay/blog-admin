@@ -66,10 +66,12 @@ class ArticleListComponent extends Component<
 			okType: 'danger',
 			onOk() {
 				const ids = _this.state.selectedRowKeys;
-
 				batchDeleteArticle({ ids })
 					.then(res => {
 						if (res.data?.success) {
+							_this.setState({
+								selectedRowKeys: [],
+							});
 							getArticleListService();
 						} else {
 							notification['error']({
@@ -95,6 +97,9 @@ class ArticleListComponent extends Component<
 					this.state.selectedRowKeys,
 					status,
 				);
+				this.setState({
+					selectedRowKeys: [],
+				});
 			} else {
 				notification['error']({
 					message: '修改文章状态失败！',
@@ -140,9 +145,9 @@ class ArticleListComponent extends Component<
 					<Col>
 						{!isEmpty && selectedRowKeys && selectedRowKeys.length > 0 && (
 							<>
-								<Button type="link" onClick={this.handleDeleteSelected}>
-									删除
-								</Button>
+								{/*<Button type="link" onClick={this.handleDeleteSelected}>*/}
+								{/*	删除*/}
+								{/*</Button>*/}
 								<Button type="link" onClick={this.handleShowSelected}>
 									显示
 								</Button>
