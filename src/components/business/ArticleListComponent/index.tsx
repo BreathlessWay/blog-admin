@@ -52,10 +52,12 @@ class ArticleListComponent extends Component<
 
 	handlePaginationChange = (page: number) => {
 		this.props.articleListStore.jumpToPage(page);
+		getArticleListService();
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
 		this.props.articleListStore.changePageSize(size);
+		getArticleListService();
 	};
 
 	handleDeleteSelected = async () => {
