@@ -47,7 +47,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 			</div>
 		),
 		sorter: (a: ArticleItemType, b: ArticleItemType) => {
-			return a.createdAt - b.createdAt;
+			return moment(a.createdAt).valueOf() - moment(b.createdAt).valueOf();
 		},
 	},
 	{
@@ -129,7 +129,7 @@ const handleDelete = (article: ArticleItemType) => () => {
 						return getArticleListService();
 					} else {
 						notification['error']({
-							message: '删除文章失败！',
+							message: `删除${articleAlias}失败！`,
 							description: res.data?.msg,
 						});
 					}
