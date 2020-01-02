@@ -145,9 +145,9 @@ class ArticleListComponent extends Component<
 					<Col>
 						{!isEmpty && selectedRowKeys && selectedRowKeys.length > 0 && (
 							<>
-								{/*<Button type="link" onClick={this.handleDeleteSelected}>*/}
-								{/*	删除*/}
-								{/*</Button>*/}
+								<Button type="link" onClick={this.handleDeleteSelected}>
+									删除
+								</Button>
 								<Button type="link" onClick={this.handleShowSelected}>
 									显示
 								</Button>

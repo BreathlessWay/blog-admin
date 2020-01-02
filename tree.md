@@ -196,7 +196,6 @@
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
-│   │   ├── fonts/
 │   │   └── images/
 │   │       ├── background-loading.svg
 │   │       ├── image-loading.svg
@@ -256,5 +255,5 @@
 ├── tree.md
 └── tsconfig.json
 
-81 directories, 174 files
+80 directories, 174 files
 ```
