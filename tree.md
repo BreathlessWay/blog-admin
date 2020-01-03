@@ -29,6 +29,7 @@
 ├── src/
 │   ├── apis/
 │   │   ├── article.ts
+│   │   ├── cat.ts
 │   │   ├── login.ts
 │   │   ├── menu.ts
 │   │   ├── upload.ts
@@ -187,6 +188,7 @@
 │   │   └── index.ts
 │   ├── service/
 │   │   ├── articleService.ts
+│   │   ├── catListService.ts
 │   │   ├── loginService.ts
 │   │   ├── tagService.ts
 │   │   ├── uploadService.ts
@@ -196,6 +198,7 @@
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
+│   │   ├── fonts/
 │   │   └── images/
 │   │       ├── background-loading.svg
 │   │       ├── image-loading.svg
@@ -205,10 +208,8 @@
 │   │   │   ├── article.enum.ts
 │   │   │   └── index.ts
 │   │   ├── ArticleListStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── CatStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.tsx
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
@@ -220,10 +221,8 @@
 │   │   ├── ListStore/
 │   │   │   └── index.ts
 │   │   ├── PhotoAlbumStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── PhotoListStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── TagStore/
 │   │   │   └── index.ts
@@ -255,5 +254,5 @@
 ├── tree.md
 └── tsconfig.json
 
-80 directories, 174 files
+81 directories, 172 files
 ```

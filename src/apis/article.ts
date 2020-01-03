@@ -54,8 +54,6 @@ export const batchUpdateArticle = ({
 	});
 };
 
-export const batchDeleteArticle = ({ ids }: { ids: Array<string> }) => {
-	return axios.put('/batch/delete/article', {
-		ids,
-	});
+export const batchDeleteArticle = (ids: string) => {
+	return axios.delete(`/batch/delete/article?ids=${ids}`);
 };

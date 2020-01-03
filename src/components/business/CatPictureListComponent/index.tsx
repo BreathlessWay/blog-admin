@@ -2,7 +2,17 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Icon, Input, Modal, Row, Switch, Checkbox } from 'antd';
+import {
+	Col,
+	Icon,
+	Input,
+	Modal,
+	Row,
+	Switch,
+	Checkbox,
+	Spin,
+	notification,
+} from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageCardComponent from '@/components/common/ImageCardComponent';
 import ImageShowAndUploadComponent from '@/components/common/ImageShowAndUploadComponent';
@@ -11,7 +21,11 @@ import preview from '@/components/common/PreviewImageComponent';
 
 import { StoreType } from '@/store/store';
 import { ImageItemType, ImageListType } from '@/types/image';
-import { CatItemType, CatListType } from '@/types/cat';
+import { CatItemType } from '@/types/cat';
+
+import { getCatListService } from '@/service/catListService';
+
+import { changeCatInfo, createCatList, deleteCatItem } from '@/apis/cat';
 
 import {
 	ACTION_ICON_SIZE,
@@ -37,7 +51,6 @@ export type CatPictureListComponentPropType = Pick<
 export type CatPictureListComponentStateType = Readonly<{
 	visible: boolean;
 	confirmLoading: boolean;
-
 	editItem: CatItemType | null;
 }>;
 
@@ -60,12 +73,40 @@ class CatPictureListComponent extends Component<
 		return this.props.catStore.list.map(item => item.url);
 	}
 
-	onAddCatPicture = (imageList: ImageListType) => {
-		const len = imageList.length;
-		const { pageSize, listLength, addList } = this.props.catStore;
-		if (listLength + len <= pageSize) {
+	componentDidMount(): void {
+		getCatListService();
+	}
+
+	onAddCatPicture = async (imageList: ImageListType) => {
+		const {
+			pageSize,
+			listLength,
+			startLoading,
+			stopLoading,
+			changeCount,
+			count,
+		} = this.props.catStore;
+
+		try {
+			startLoading();
 			imageList.forEach(image => (image.show = true));
-			addList(imageList as CatListType);
+			const res = await createCatList(imageList);
+			if (res.data?.success) {
+				const len = imageList.length;
+				if (listLength + len <= pageSize) {
+					await getCatListService();
+				} else {
+					changeCount(count + len);
+				}
+			} else {
+				notification['error']({
+					message: '新增图片失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
 		}
 	};
 
@@ -76,12 +117,19 @@ class CatPictureListComponent extends Component<
 	};
 
 	handleRemove = (item: ImageItemType) => () => {
-		const _this = this;
 		confirm({
 			title: '是否确认删除该图片？',
 			okType: 'danger',
-			onOk() {
-				_this.props.catStore.removeItem(item as CatItemType);
+			onOk: async () => {
+				const res = await deleteCatItem(item._id);
+				if (res.data?.success) {
+					await getCatListService();
+				} else {
+					notification['error']({
+						message: '删除图片失败！',
+						description: res.data?.msg,
+					});
+				}
 			},
 			onCancel() {
 				console.log('Cancel');
@@ -89,9 +137,9 @@ class CatPictureListComponent extends Component<
 		});
 	};
 
-	handleSetShowFigure = (item: ImageItemType) => () => {
+	handleSetShowFigure = (item: ImageItemType) => async () => {
 		item.show = !item.show;
-		this.props.catStore.setItem(item as CatItemType);
+		await this.changeInfo(item);
 	};
 
 	handleEdit = (item: ImageItemType) => () => {
@@ -101,18 +149,34 @@ class CatPictureListComponent extends Component<
 		});
 	};
 
-	handleOk = () => {
+	changeInfo = async (item: ImageItemType) => {
+		const res = await changeCatInfo(item);
+		if (res.data?.success) {
+			this.props.catStore.setItem(item as CatItemType);
+		} else {
+			notification['error']({
+				message: '修改图片信息失败！',
+				description: res.data?.msg,
+			});
+		}
+	};
+
+	handleOk = async () => {
 		this.setState({
 			confirmLoading: true,
 		});
-		const { editItem } = this.state;
-		setTimeout(() => {
-			editItem && this.props.catStore.setItem(editItem);
+		try {
+			const { editItem } = this.state;
+			if (editItem) {
+				await this.changeInfo(editItem);
+			}
+		} catch (e) {
+		} finally {
 			this.setState({
 				confirmLoading: false,
 				visible: false,
 			});
-		}, 300);
+		}
 	};
 
 	handleCancel = () => {
@@ -163,7 +227,7 @@ class CatPictureListComponent extends Component<
 	render() {
 		const { visible, confirmLoading, editItem } = this.state;
 
-		const { list } = this.props.catStore;
+		const { list, loading } = this.props.catStore;
 
 		const { catAlias } = this.props.homepageStore;
 
@@ -173,55 +237,57 @@ class CatPictureListComponent extends Component<
 					needEdit={false}
 					title={`${catAlias}图片`}
 					note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}>
-					<ImageShowAndUploadComponent
-						multiple={true}
-						imageList={list}
-						onUploadImage={this.onAddCatPicture}
-						render={({ item, index, observer }) => (
-							<section className="cat-list_item">
-								<Checkbox
-									className="cat-list_checkbox"
-									onChange={this.handleChangeChecked(item)}
-									checked={item.checked}
-								/>
-								<ImageCardComponent
-									onClick={this.handleChangeChecked(item)}
-									observer={observer as IntersectionObserver}
-									width={300}
-									height={200}
-									showInfo={true}
-									title={item.title}
-									intro={item.intro}
-									url={item.url}
-									actions={[
-										<Icon
-											type="eye"
-											style={iconStyle}
-											onClick={this.handlePreview(index)}
-										/>,
-										<Icon
-											type="delete"
-											style={iconStyle}
-											onClick={this.handleRemove(item)}
-										/>,
-										<Icon
-											type="edit"
-											style={iconStyle}
-											onClick={this.handleEdit(item)}
-										/>,
-										<Icon
-											type="check-circle"
-											style={{
-												...iconStyle,
-												...{ color: item.show ? '#1890ff' : '' },
-											}}
-											onClick={this.handleSetShowFigure(item)}
-										/>,
-									]}
-								/>
-							</section>
-						)}
-					/>
+					<Spin spinning={loading}>
+						<ImageShowAndUploadComponent
+							multiple={true}
+							imageList={list}
+							onUploadImage={this.onAddCatPicture}
+							render={({ item, index, observer }) => (
+								<section className="cat-list_item">
+									<Checkbox
+										className="cat-list_checkbox"
+										onChange={this.handleChangeChecked(item)}
+										checked={item.checked}
+									/>
+									<ImageCardComponent
+										onClick={this.handleChangeChecked(item)}
+										observer={observer as IntersectionObserver}
+										width={300}
+										height={200}
+										showInfo={true}
+										title={item.title}
+										intro={item.intro}
+										url={item.url}
+										actions={[
+											<Icon
+												type="eye"
+												style={iconStyle}
+												onClick={this.handlePreview(index)}
+											/>,
+											<Icon
+												type="delete"
+												style={iconStyle}
+												onClick={this.handleRemove(item)}
+											/>,
+											<Icon
+												type="edit"
+												style={iconStyle}
+												onClick={this.handleEdit(item)}
+											/>,
+											<Icon
+												type="check-circle"
+												style={{
+													...iconStyle,
+													...{ color: item.show ? '#1890ff' : '' },
+												}}
+												onClick={this.handleSetShowFigure(item)}
+											/>,
+										]}
+									/>
+								</section>
+							)}
+						/>
+					</Spin>
 				</BasicWrapComponent>
 				<Modal
 					maskClosable={false}

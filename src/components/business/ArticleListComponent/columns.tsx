@@ -10,7 +10,10 @@ import { ColumnProps } from 'antd/es/table';
 import { ArticleItemType } from '@/types/article';
 import { TagListType } from '@/types/tag';
 
-import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
+import {
+	EArticleRenderType,
+	EArticleStatus,
+} from '@/store/ArticleDetailStore/article.enum';
 import { TAG_COLOR } from '@/utils/constant';
 
 import { getArticleListService } from '@/service/articleService';
@@ -70,6 +73,20 @@ const columns: ColumnProps<ArticleItemType>[] = [
 		render: status => (
 			<div className="article-list_item">
 				<span>{status ? '显示中' : '已隐藏'}</span>
+			</div>
+		),
+	},
+	{
+		title: '编辑格式',
+		align: 'center' as const,
+		dataIndex: 'renderType',
+		key: 'renderType',
+		render: renderType => (
+			<div className="article-list_item">
+				<span>
+					{renderType === EArticleRenderType.richText && '富文本'}
+					{renderType === EArticleRenderType.markdown && 'Markdown'}
+				</span>
 			</div>
 		),
 	},

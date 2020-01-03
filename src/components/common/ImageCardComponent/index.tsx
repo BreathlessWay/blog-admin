@@ -56,7 +56,8 @@ const ImageCardComponent: FC<ImageCardComponentPropType> = props => {
 					type="flex"
 					align="middle"
 					justify="center"
-					className="image-card_bottom">
+					className="image-card_bottom"
+					onClick={event => event.stopPropagation()}>
 					{actions.map((item, index) => (
 						<Col span={span} className="image-card_action" key={index}>
 							{item}

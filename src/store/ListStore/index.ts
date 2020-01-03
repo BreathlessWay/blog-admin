@@ -67,6 +67,11 @@ export default class ListStore<
 	}
 
 	@action.bound
+	changeCount(count: number) {
+		this.count = count;
+	}
+
+	@action.bound
 	removeItem(item: T) {
 		this.list = this.list.filter(value => value._id !== item._id);
 	}
@@ -167,6 +172,18 @@ export default class ListStore<
 
 	@computed
 	get hasChecked() {
-		return this.list.some(item => item.checked);
+		return this.checkedId.length > 0;
+	}
+
+	@computed
+	get checkedId(): Array<string> {
+		return this.list
+			.map(item => {
+				if (item.checked) {
+					return item._id;
+				}
+				return void 0;
+			})
+			.filter(v => v) as Array<string>;
 	}
 }

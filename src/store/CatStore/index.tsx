@@ -1,4 +1,6 @@
-import { action, observable } from 'mobx';
+import { computed, observable } from 'mobx';
+
+import * as Qs from 'qs';
 
 import ListStore from '@/store/ListStore';
 import ImageStore from '@/store/ImageStore';
@@ -9,6 +11,11 @@ export default class CatStore extends ListStore<CatItemType> {
 	@observable
 	catFigure = new ImageStore();
 
-	@action.bound
-	getList() {}
+	@computed
+	get query() {
+		return Qs.stringify({
+			pageIndex: this.pageIndex,
+			pageSize: this.pageSize,
+		});
+	}
 }

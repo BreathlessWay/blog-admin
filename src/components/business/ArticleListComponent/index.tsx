@@ -71,7 +71,7 @@ class ArticleListComponent extends Component<
 				try {
 					startLoading();
 					const ids = _this.state.selectedRowKeys;
-					const res = await batchDeleteArticle({ ids });
+					const res = await batchDeleteArticle(JSON.stringify(ids));
 					if (res.data?.success) {
 						_this.setState({
 							selectedRowKeys: [],
