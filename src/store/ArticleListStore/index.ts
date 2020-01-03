@@ -34,11 +34,6 @@ export default class ArticleListStore extends ListStore<ArticleItemType> {
 		});
 	}
 
-	@action.bound
-	deleteArticle(articleIds: Array<string>) {
-		this.list = this.list.filter(item => !articleIds.includes(item._id));
-	}
-
 	@computed
 	get searchQuery() {
 		let query = { ...this.query };

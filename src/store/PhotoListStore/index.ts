@@ -4,8 +4,6 @@ import ListStore from '@/store/ListStore';
 
 import { PhotoItemType, PhotoListType } from '@/types/photo';
 
-// import array from './data';
-
 export default class PhotoListStore extends ListStore<PhotoItemType> {
 	@observable
 	column = 1;
@@ -18,9 +16,7 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 	}
 
 	@action.bound
-	getList() {
-		// this.setList({ results: array, count: array.length });
-	}
+	getList() {}
 
 	@action.bound
 	setList({ list, count }: { list: PhotoListType; count: number }) {

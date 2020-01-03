@@ -7,11 +7,6 @@ export default class TagStore {
 	tags: TagListType = [];
 
 	@action.bound
-	getTags() {
-		this.setTags([]);
-	}
-
-	@action.bound
 	setTags(tags: TagListType) {
 		this.tags = tags;
 	}
