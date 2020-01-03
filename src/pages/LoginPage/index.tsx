@@ -62,7 +62,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 				const { history } = this.props;
 				try {
 					const res = await login(values);
-					if (res.data.success) {
+					if (res.data?.success) {
 						notification['success']({
 							message: '登录成功',
 						});
@@ -99,7 +99,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 				});
 				// 获取验证码
 				const res = await getCode({ email });
-				if (res.data.success) {
+				if (res.data?.success) {
 					_this.handleGetCodeTime();
 				} else {
 					confirm({
@@ -136,7 +136,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 	handleRegister = async ({ email }: { email: string }) => {
 		try {
 			const res = await register({ email });
-			if (res.data.success) {
+			if (res.data?.success) {
 				this.handleGetCodeTime();
 			}
 		} catch (e) {
@@ -147,6 +147,9 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 	};
 
 	handleGetCodeTime = () => {
+		notification['success']({
+			message: '获取验证码成功！',
+		});
 		this.setState({
 			codeLoading: false,
 			codeDisabled: true,

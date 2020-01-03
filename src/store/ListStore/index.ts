@@ -46,8 +46,13 @@ export default class ListStore<
 	}
 
 	@action.bound
-	changeLoading() {
-		this.loading = !this.loading;
+	startLoading() {
+		this.loading = true;
+	}
+
+	@action.bound
+	stopLoading() {
+		this.loading = false;
 	}
 
 	@action.bound

@@ -63,26 +63,30 @@ class ArticleListComponent extends Component<
 	handleDeleteSelected = async () => {
 		const _this = this;
 		const { articleAlias } = _this.props.homepageStore;
+		const { startLoading, stopLoading } = _this.props.articleListStore;
 		confirm({
 			title: `确认删除选中${articleAlias}？`,
 			okType: 'danger',
-			onOk() {
-				const ids = _this.state.selectedRowKeys;
-				batchDeleteArticle({ ids })
-					.then(res => {
-						if (res.data?.success) {
-							_this.setState({
-								selectedRowKeys: [],
-							});
-							getArticleListService();
-						} else {
-							notification['error']({
-								message: '删除文章失败！',
-								description: res.data?.msg,
-							});
-						}
-					})
-					.catch(e => console.error(e));
+			onOk: async () => {
+				try {
+					startLoading();
+					const ids = _this.state.selectedRowKeys;
+					const res = await batchDeleteArticle({ ids });
+					if (res.data?.success) {
+						_this.setState({
+							selectedRowKeys: [],
+						});
+						await getArticleListService();
+					} else {
+						notification['error']({
+							message: '删除文章失败！',
+							description: res.data?.msg,
+						});
+					}
+				} catch (e) {
+				} finally {
+					stopLoading();
+				}
 			},
 			onCancel() {
 				console.log('Cancel');

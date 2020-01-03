@@ -50,11 +50,11 @@ export const loginService = async ({
 	if (_token && !token) {
 		// 验证token是否有效
 		const res = await valid();
-		if (!res.data.success) {
+		if (!res.data?.success) {
 			store.userStore.logout();
 			notification['error']({
 				message: '登录过期！',
-				description: res.data.msg,
+				description: res.data?.msg,
 			});
 		}
 	}

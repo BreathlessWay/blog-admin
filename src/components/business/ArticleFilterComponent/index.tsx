@@ -61,9 +61,7 @@ class ArticleFilterComponent extends Component<ArticleFilterComponentPropType> {
 					status,
 					tags: tag,
 				});
-				try {
-					await getArticleListService();
-				} catch (e) {}
+				await getArticleListService();
 			}
 		});
 	};

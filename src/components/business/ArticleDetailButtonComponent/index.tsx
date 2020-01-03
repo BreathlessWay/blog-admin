@@ -151,7 +151,7 @@ class ArticleDetailButtonComponent extends Component<
 				res = await createArticle(params);
 			}
 
-			if (res && res.data?.success) {
+			if (res.data?.success) {
 				resetDetail();
 				storage.remove(ARTICLE_CACHE_KEY);
 				this.props.history.replace(routeMapPath.article.home);

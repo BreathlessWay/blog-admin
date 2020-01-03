@@ -121,20 +121,22 @@ const handleDelete = (article: ArticleItemType) => () => {
 	confirm({
 		title: `确认删除该${articleAlias}？`,
 		okType: 'danger',
-		onOk() {
-			deleteArticle(article._id)
-				.then(res => {
-					console.log(res);
-					if (res.data?.success) {
-						return getArticleListService();
-					} else {
-						notification['error']({
-							message: `删除${articleAlias}失败！`,
-							description: res.data?.msg,
-						});
-					}
-				})
-				.catch(e => console.error(e));
+		onOk: async () => {
+			try {
+				store.articleListStore.startLoading();
+				const res = await deleteArticle(article._id);
+				if (res.data?.success) {
+					await getArticleListService();
+				} else {
+					notification['error']({
+						message: `删除${articleAlias}失败！`,
+						description: res.data?.msg,
+					});
+				}
+			} catch (e) {
+			} finally {
+				store.articleListStore.stopLoading();
+			}
 		},
 		onCancel() {
 			console.log('Cancel');

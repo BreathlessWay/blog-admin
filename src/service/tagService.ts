@@ -4,7 +4,7 @@ import { getTagList } from '@/apis/article';
 
 export const getTagListService = async () => {
 	const res = await getTagList();
-	if (!res.data.success) {
+	if (!res.data?.success) {
 		notification['error']({
 			message: '获取标签列表失败！',
 			description: res.data?.msg,
