@@ -11,7 +11,6 @@ import { getCatListService } from '@/service/catListService';
 import { batchChangeCatInfo, batchDeleteCatItem } from '@/apis/cat';
 
 import './style.scss';
-import { render } from 'react-dom';
 
 const { confirm } = Modal;
 
