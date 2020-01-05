@@ -42,6 +42,7 @@
    },
    ```
 3. 没有@types 的插件例如`axios mobx mobx-react`, 暂时无法抽离 CDN, 会报无法找到模块错误
+4. `"skipLibCheck": true,`忽略第三方库类型检测
 
 > 其他
 
