@@ -12,6 +12,7 @@ import {
 	Empty,
 	Typography,
 	Pagination,
+	notification,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
@@ -24,6 +25,7 @@ import { AlbumItemType } from '@/types/album';
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
 import './style.scss';
+import { createAlbum } from '@/apis/photography';
 
 const { Text } = Typography;
 
@@ -81,28 +83,42 @@ class PhotoAlbumComponent extends Component<
 		});
 	};
 
-	handleOk = () => {
-		const { editItem } = this.state;
-		if (!editItem.title?.trim()) {
+	handleOk = async () => {
+		try {
+			const { editItem } = this.state;
+			if (!editItem.title?.trim()) {
+				this.setState({
+					titleError: true,
+				});
+				return;
+			}
 			this.setState({
-				titleError: true,
+				confirmLoading: true,
 			});
-			return;
+			if (editItem._id) {
+				// edit
+				this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
+			} else {
+				// create
+				const res = await createAlbum({
+					title: editItem.title,
+					show: editItem.show as boolean,
+				});
+				if (res.data?.success) {
+				} else {
+					notification['error']({
+						message: '新建相册列表失败！',
+						description: res.data?.msg,
+					});
+				}
+			}
+		} catch (e) {
+		} finally {
+			this.setState({
+				confirmLoading: false,
+				visible: false,
+			});
 		}
-		this.setState({
-			confirmLoading: true,
-		});
-		if (editItem._id) {
-			// edit
-			this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
-		} else {
-			// create
-			this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
-		}
-		this.setState({
-			confirmLoading: false,
-			visible: false,
-		});
 	};
 
 	handleCancel = () => {

@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 
 import { StoreType } from '@/store/store';
 
+import { getAlbumService } from '@/service/photographyService';
+
 import compose from '@/utils/compose';
 
 const PhotoAlbumComponent = lazy(() =>
@@ -13,11 +15,9 @@ const PhotoAlbumComponent = lazy(() =>
 );
 
 const PhotographyIndexPage: FC<Pick<StoreType, 'photoAlbumStore'>> = props => {
-	const { getList } = props.photoAlbumStore;
-
 	useEffect(() => {
-		getList();
-	}, [getList]);
+		getAlbumService();
+	}, []);
 
 	return <PhotoAlbumComponent />;
 };
