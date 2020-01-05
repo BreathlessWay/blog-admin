@@ -232,7 +232,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 								block={true}
 								loading={submitLoading}
 								disabled={submitLoading}>
-								登陆
+								登录
 							</Button>
 						</Form.Item>
 					</Form>
