@@ -3,13 +3,14 @@ import React, { Component, ComponentClass, lazy } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Modal } from 'antd';
+import { Modal, notification } from 'antd';
 
 import { StoreType } from '@/store/store';
 
 import { parseSearch } from '@/utils/parseSearch';
 
 import { routeMapPath } from '@/route';
+import { getAlbumInfo } from '@/apis/photography';
 
 const { warning } = Modal;
 
@@ -44,8 +45,32 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 			return;
 		}
 		_this.props.photoListStore.resetStore();
-		_this.props.photoListStore.getList();
+		_this.getData();
 	}
+
+	getData = async () => {
+		const {
+			startLoading,
+			stopLoading,
+			setAlbumInfo,
+		} = this.props.photoListStore;
+		startLoading();
+		try {
+			const albumResult = await getAlbumInfo(this.albumId);
+
+			if (albumResult.data?.success) {
+				setAlbumInfo(albumResult.data?.data ?? null);
+			} else {
+				notification['error']({
+					message: '获取相册信息失败！',
+					description: albumResult.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
+		}
+	};
 
 	render() {
 		return <PhotoListComponent albumId={this.albumId} />;

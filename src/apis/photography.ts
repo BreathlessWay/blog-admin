@@ -4,6 +4,10 @@ export const getAlbumList = (query: string) => {
 	return axios.get(`/album/list?${query}`);
 };
 
+export const getAlbumInfo = (id: string) => {
+	return axios.get(`/album/${id}`);
+};
+
 export const createAlbum = (params: { title: string; show: boolean }) => {
 	return axios.post('/album', params);
 };

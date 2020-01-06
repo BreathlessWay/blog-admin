@@ -83,13 +83,15 @@ class PhotoListComponent extends Component<
 
 	componentDidMount(): void {
 		this.waterFall();
-		window.onresize = () => {
-			this.waterFall();
-		};
+		window.onresize = this.waterFall;
 	}
 
 	componentDidUpdate(): void {
 		this.waterFall();
+	}
+
+	componentWillUnmount(): void {
+		window.onresize = null;
 	}
 
 	waterFall = () => {
