@@ -18,4 +18,9 @@ export default class PhotoAlbumStore extends ListStore<AlbumItemType> {
 			pageSize: this.pageSize,
 		});
 	}
+
+	@computed
+	get isFullPage() {
+		return this.list.length === this.pageSize;
+	}
 }

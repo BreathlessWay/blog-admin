@@ -74,6 +74,7 @@ export default class ListStore<
 	@action.bound
 	removeItem(item: T) {
 		this.list = this.list.filter(value => value._id !== item._id);
+		this.count--;
 	}
 
 	@action.bound

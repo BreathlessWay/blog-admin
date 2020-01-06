@@ -32,6 +32,7 @@
 │   │   ├── cat.ts
 │   │   ├── login.ts
 │   │   ├── menu.ts
+│   │   ├── photography.ts
 │   │   ├── upload.ts
 │   │   └── user.ts
 │   ├── components/
@@ -190,6 +191,7 @@
 │   │   ├── articleService.ts
 │   │   ├── catListService.ts
 │   │   ├── loginService.ts
+│   │   ├── photographyService.ts
 │   │   ├── tagService.ts
 │   │   ├── uploadService.ts
 │   │   └── userService.ts
@@ -254,5 +256,5 @@
 ├── tree.md
 └── tsconfig.json
 
-81 directories, 172 files
+81 directories, 174 files
 ```

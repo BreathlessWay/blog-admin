@@ -22,10 +22,18 @@ import BatchEditDropdownComponent from '@/components/common/BatchEditDropdownCom
 import { StoreType } from '@/store/store';
 import { AlbumItemType } from '@/types/album';
 
+import { getAlbumService } from '@/service/photographyService';
+
+import {
+	batchDeleteAlbum,
+	batchUpdateAlbum,
+	createAlbum,
+	updateAlbum,
+} from '@/apis/photography';
+
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
 import './style.scss';
-import { createAlbum } from '@/apis/photography';
 
 const { Text } = Typography;
 
@@ -86,6 +94,8 @@ class PhotoAlbumComponent extends Component<
 	handleOk = async () => {
 		try {
 			const { editItem } = this.state;
+			const { setItem, isFullPage } = this.props.photoAlbumStore;
+
 			if (!editItem.title?.trim()) {
 				this.setState({
 					titleError: true,
@@ -97,18 +107,30 @@ class PhotoAlbumComponent extends Component<
 			});
 			if (editItem._id) {
 				// edit
-				this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
+				const updateResult = await updateAlbum({
+					id: editItem._id,
+					data: { title: editItem.title, show: editItem.show as boolean },
+				});
+				if (updateResult.data?.success) {
+					setItem(editItem as AlbumItemType);
+				} else {
+					notification['error']({
+						message: '更新相册失败！',
+						description: updateResult.data?.msg,
+					});
+				}
 			} else {
 				// create
-				const res = await createAlbum({
+				const createResult = await createAlbum({
 					title: editItem.title,
 					show: editItem.show as boolean,
 				});
-				if (res.data?.success) {
+				if (createResult.data?.success) {
+					!isFullPage && (await getAlbumService());
 				} else {
 					notification['error']({
-						message: '新建相册列表失败！',
-						description: res.data?.msg,
+						message: '新建相册失败！',
+						description: createResult.data?.msg,
 					});
 				}
 			}
@@ -131,10 +153,12 @@ class PhotoAlbumComponent extends Component<
 
 	handlePaginationChange = (page: number) => {
 		this.props.photoAlbumStore.jumpToPage(page);
+		getAlbumService();
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
 		this.props.photoAlbumStore.changePageSize(size);
+		getAlbumService();
 	};
 
 	handleEditAlbum = (item: AlbumItemType) => {
@@ -148,15 +172,45 @@ class PhotoAlbumComponent extends Component<
 		this.props.photoAlbumStore.batchChangeChecked();
 	};
 
+	changeAlbumShow = async (show: boolean) => {
+		try {
+			const { checkedId, batchHide, batchShow } = this.props.photoAlbumStore;
+			show ? batchShow() : batchHide();
+			const res = await batchUpdateAlbum({ ids: checkedId, show });
+			if (!res.data?.success) {
+				notification['error']({
+					message: '批量修改相册失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
+	};
+
 	handleBatchHide = () => {
-		this.props.photoAlbumStore.batchHide();
+		this.changeAlbumShow(false);
 	};
 
 	handleBatchShow = () => {
-		this.props.photoAlbumStore.batchShow();
+		this.changeAlbumShow(true);
 	};
 
-	handleBatchDelete = () => {
+	handleBatchDelete = async () => {
+		const { checkedId, startLoading, stopLoading } = this.props.photoAlbumStore;
+		startLoading();
+		try {
+			const res = await batchDeleteAlbum(JSON.stringify(checkedId));
+			if (res.data?.success) {
+				getAlbumService();
+			} else {
+				notification['error']({
+					message: '批量删除相册失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
+		}
 		this.props.photoAlbumStore.batchDelete();
 	};
 
