@@ -17,8 +17,7 @@ export const createPhoto = ({
 	albumId: string;
 	list: Array<{ title: string; url: string; show: boolean }>;
 }) => {
-	return axios.post('/photo', {
-		albumId,
+	return axios.post(`/photo/${albumId}`, {
 		list,
 	});
 };
@@ -71,4 +70,14 @@ export const batchDeletePhoto = ({
 	ids: string;
 }) => {
 	return axios.delete(`/batch/delete/photo/${albumId}?ids=${ids}`);
+};
+
+export const setAlbumCover = ({
+	albumId,
+	id,
+}: {
+	albumId: string;
+	id: string;
+}) => {
+	return axios.put(`/album/cover/${albumId}/${id}`);
 };

@@ -28,9 +28,15 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 
 	@action.bound
 	setList({ list, count }: { list: PhotoListType; count: number }) {
-		console.log(list);
 		this.list = this.list.concat(list);
 		this.count = count;
+	}
+
+	@action.bound
+	setCover(id: string) {
+		if (this.albumInfo) {
+			this.albumInfo.cover = id;
+		}
 	}
 
 	@computed

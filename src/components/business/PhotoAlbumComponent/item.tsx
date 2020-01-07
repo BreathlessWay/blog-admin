@@ -19,7 +19,11 @@ import { getAlbumService } from '@/service/photographyService';
 const { confirm } = Modal;
 
 export type PhotoAlbumItemPropType = {
-	item: AlbumItemType;
+	item: AlbumItemType & {
+		cover: {
+			url: string;
+		};
+	};
 
 	onEditAlbum: (item: AlbumItemType) => void;
 };
@@ -95,7 +99,7 @@ class PhotoAlbumItem extends Component<
 	};
 
 	render() {
-		const { title, cover = '', checked } = this.props.item;
+		const { title, cover, checked } = this.props.item;
 
 		return (
 			<li className="photo-album_item" onClick={this.handleEditAlbum}>
@@ -114,7 +118,7 @@ class PhotoAlbumItem extends Component<
 					title={title}>
 					<div style={{ overflow: 'hidden' }}>
 						<ImageLoadComponent
-							url={cover}
+							url={cover?.url ?? ''}
 							title={title}
 							width={200}
 							height={200}

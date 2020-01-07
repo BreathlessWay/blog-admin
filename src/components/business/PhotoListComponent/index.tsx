@@ -33,11 +33,10 @@ import {
 	batchDeletePhoto,
 	createPhoto,
 	deletePhoto,
+	setAlbumCover,
 	updatePhotoInfo,
 } from '@/apis/photo';
 import { getAlbumList } from '@/apis/album';
-
-import { getPhotoListService } from '@/service/photographyService';
 
 import {
 	MAX_IMAGE_COUNT,
@@ -122,13 +121,20 @@ class PhotoListComponent extends Component<
 	};
 
 	handleUploadImage = async (list: ImageListType) => {
-		const { startLoading, stopLoading } = this.props.photoListStore;
+		const {
+			startLoading,
+			stopLoading,
+			changeCount,
+			hasNext,
+			addList,
+		} = this.props.photoListStore;
 		const { albumId } = this.props;
 		startLoading();
 		try {
 			const res = await createPhoto({ albumId, list });
 			if (res.data?.success) {
-				getPhotoListService();
+				changeCount(res.data?.data?.count ?? 0);
+				!hasNext && addList(res.data?.data?.list ?? []);
 			} else {
 				notification['error']({
 					message: '添加照片失败！',
@@ -202,6 +208,24 @@ class PhotoListComponent extends Component<
 				console.log('Cancel');
 			},
 		});
+	};
+
+	handleSetAsAlbumCover = async (item: ImageItemType) => {
+		try {
+			const {
+				albumId,
+				photoListStore: { setCover },
+			} = this.props;
+			const res = await setAlbumCover({ albumId, id: item._id });
+			if (res.data?.success) {
+				setCover(item._id);
+			} else {
+				notification['error']({
+					message: '设置相册封面失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
 	};
 
 	handleOk = async () => {
@@ -365,7 +389,9 @@ class PhotoListComponent extends Component<
 	};
 
 	renderPhotoList = () => {
-		const { spliceList } = this.props.photoListStore;
+		const { spliceList, albumInfo } = this.props.photoListStore;
+		const coverId = albumInfo?.cover ?? '';
+
 		return (
 			<ul className="photo-list" id={elementId}>
 				{spliceList.map((photoList, index) => (
@@ -383,8 +409,10 @@ class PhotoListComponent extends Component<
 									<PhotoActionComponent
 										classNameWrap="photo-list_image"
 										classNameTitle="photo-list_image__title"
+										isCover={coverId === item._id}
 										onEdit={() => this.handleEditPhoto(item)}
 										onDelete={() => this.handleDeletePhoto(item)}
+										onChecked={() => this.handleSetAsAlbumCover(item)}
 										title={item.title}>
 										<ImageLoadComponent
 											onClick={({ url }) =>
@@ -406,8 +434,10 @@ class PhotoListComponent extends Component<
 	};
 
 	render() {
-		const { isEmpty, isAllListChecked, hasChecked } = this.props.photoListStore;
-		const { albumId } = this.props;
+		const {
+			albumId,
+			photoListStore: { isEmpty, isAllListChecked, hasChecked, albumInfo },
+		} = this.props;
 		const {
 			visible,
 			confirmLoading,
@@ -418,7 +448,7 @@ class PhotoListComponent extends Component<
 
 		return (
 			<BasicWrapComponent
-				title={'相册名'}
+				title={albumInfo?.title ?? ''}
 				note={`一次最多上传${MAX_IMAGE_COUNT}张图片，图片需小于500k`}
 				operation={
 					<BatchEditDropdownComponent

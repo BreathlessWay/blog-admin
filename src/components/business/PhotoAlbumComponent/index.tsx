@@ -259,7 +259,7 @@ class PhotoAlbumComponent extends Component<
 						{list.map(item => (
 							<PhotoAlbumItem
 								key={item._id}
-								item={item}
+								item={item as any}
 								onEditAlbum={this.handleEditAlbum}
 							/>
 						))}

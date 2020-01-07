@@ -35,7 +35,7 @@ export const getPhotoListService = async () => {
 			setList(res.data?.data ?? { list: [], count: 0 });
 		} else {
 			notification['error']({
-				message: '获取相册列表失败！',
+				message: '获取照片列表失败！',
 				description: res.data?.msg,
 			});
 		}
