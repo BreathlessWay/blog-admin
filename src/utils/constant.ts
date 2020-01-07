@@ -83,3 +83,5 @@ export const IMAGE_DATA_SRC = 'data-src';
 
 // 401
 export const LOGIN_ERROR_CODE = 401;
+
+export const OFFSET_BOTTOM_HEIGHT = 50;

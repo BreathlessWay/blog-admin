@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, ComponentClass } from 'react';
+import React, { ChangeEvent, Component, ComponentClass, UIEvent } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
@@ -38,10 +38,13 @@ import {
 } from '@/apis/photo';
 import { getAlbumList } from '@/apis/album';
 
+import { getPhotoListService } from '@/service/photographyService';
+
 import {
 	MAX_IMAGE_COUNT,
 	MAX_LENGTH_LG,
 	MAX_LENGTH_SM,
+	OFFSET_BOTTOM_HEIGHT,
 	UPLOAD_IMAGE_TYPE,
 } from '@/utils/constant';
 
@@ -58,6 +61,8 @@ const { confirm } = Modal;
 const elementId = 'list-view';
 
 const imageWidth = 300;
+
+let preScroll = 0;
 
 export type PhotoListComponentPropType = {
 	albumId: string;
@@ -97,16 +102,16 @@ class PhotoListComponent extends Component<
 	};
 
 	componentDidMount(): void {
-		this.waterFall();
+		// 延迟一下计算宽度，不然会获取到宽度为0
+		setTimeout(() => {
+			this.waterFall();
+		}, 100);
 		window.onresize = this.waterFall;
-	}
-
-	componentDidUpdate(): void {
-		this.waterFall();
 	}
 
 	componentWillUnmount(): void {
 		window.onresize = null;
+		preScroll = 0;
 	}
 
 	waterFall = () => {
@@ -388,12 +393,35 @@ class PhotoListComponent extends Component<
 		}
 	};
 
-	renderPhotoList = () => {
-		const { spliceList, albumInfo } = this.props.photoListStore;
-		const coverId = albumInfo?.cover ?? '';
+	handleScroll = (e: UIEvent<HTMLUListElement>) => {
+		const { hasNext, loading, nextPage } = this.props.photoListStore;
+		const _scrollTop = (e.target as any).scrollTop,
+			_height = (e.target as any).getBoundingClientRect().height;
+		if (_scrollTop < preScroll) {
+			return;
+		}
+		preScroll = _scrollTop;
+		const height: Array<number> = [];
+		document.querySelectorAll('.photo-list_column').forEach(item => {
+			height.push(item.getBoundingClientRect().height);
+		});
+		const maxHeight = Math.max(...height);
+		if (
+			_scrollTop + _height + OFFSET_BOTTOM_HEIGHT >= maxHeight &&
+			hasNext &&
+			!loading
+		) {
+			nextPage();
+			getPhotoListService();
+		}
+	};
 
+	renderPhotoList = () => {
+		const { spliceList, albumInfo, isEmpty } = this.props.photoListStore;
+		const coverId = albumInfo?.cover ?? '';
 		return (
-			<ul className="photo-list" id={elementId}>
+			<ul className="photo-list" id={elementId} onScroll={this.handleScroll}>
+				{isEmpty && <Empty description="暂无图片" />}
 				{spliceList.map((photoList, index) => (
 					<li key={index} className="photo-list_column">
 						<ImageLazyLoadComponent
@@ -470,8 +498,7 @@ class PhotoListComponent extends Component<
 						</ImageUploadComponent>
 					</BatchEditDropdownComponent>
 				}>
-				{isEmpty ? <Empty description="暂无图片" /> : this.renderPhotoList()}
-
+				{this.renderPhotoList()}
 				<Modal
 					maskClosable={false}
 					confirmLoading={confirmLoading}

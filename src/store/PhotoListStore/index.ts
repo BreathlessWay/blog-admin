@@ -22,7 +22,7 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 	@action.bound
 	setColumn(column: number) {
 		if (this.column !== column) {
-			this.column = column;
+			this.column = column || 1;
 		}
 	}
 
