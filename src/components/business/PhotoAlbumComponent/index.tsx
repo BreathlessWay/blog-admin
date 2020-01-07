@@ -29,7 +29,7 @@ import {
 	batchUpdateAlbum,
 	createAlbum,
 	updateAlbum,
-} from '@/apis/photography';
+} from '@/apis/album';
 
 import { MAX_LENGTH_SM } from '@/utils/constant';
 

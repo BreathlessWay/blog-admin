@@ -13,6 +13,7 @@ import {
 	Typography,
 	Select,
 	Checkbox,
+	notification,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
@@ -25,7 +26,18 @@ import BatchEditDropdownComponent from '@/components/common/BatchEditDropdownCom
 
 import { StoreType } from '@/store/store';
 import { ImageItemType, ImageListType } from '@/types/image';
-import { PhotoItemType, PhotoListType } from '@/types/photo';
+import { PhotoItemType } from '@/types/photo';
+
+import {
+	batchChangePhotoShow,
+	batchDeletePhoto,
+	createPhoto,
+	deletePhoto,
+	updatePhotoInfo,
+} from '@/apis/photo';
+import { getAlbumList } from '@/apis/album';
+
+import { getPhotoListService } from '@/service/photographyService';
 
 import {
 	MAX_IMAGE_COUNT,
@@ -54,7 +66,7 @@ export type PhotoListComponentPropType = {
 
 export type PhotoListComponentStorePropType = Pick<
 	StoreType,
-	'photoListStore' | 'photoAlbumStore'
+	'photoListStore'
 > &
 	PhotoListComponentPropType;
 
@@ -62,12 +74,15 @@ export type PhotoListComponentStateType = Readonly<{
 	titleError: boolean;
 	visible: boolean;
 	confirmLoading: boolean;
-	editItem: PhotoItemType | null;
+	editItem: (PhotoItemType & { albumId?: string }) | null;
+	albumList: Array<{
+		title: string;
+		_id: string;
+	}>;
 }>;
 
 @inject((allStore: StoreType) => ({
 	photoListStore: allStore.photoListStore,
-	photoAlbumStore: allStore.photoAlbumStore,
 }))
 @observer
 class PhotoListComponent extends Component<
@@ -79,6 +94,7 @@ class PhotoListComponent extends Component<
 		visible: false,
 		confirmLoading: false,
 		editItem: null,
+		albumList: [],
 	};
 
 	componentDidMount(): void {
@@ -105,11 +121,23 @@ class PhotoListComponent extends Component<
 		}
 	};
 
-	handleUploadImage = (item: ImageListType) => {
-		const { addList, hasNext } = this.props.photoListStore;
-		if (hasNext) {
-		} else {
-			addList(item as PhotoListType);
+	handleUploadImage = async (list: ImageListType) => {
+		const { startLoading, stopLoading } = this.props.photoListStore;
+		const { albumId } = this.props;
+		startLoading();
+		try {
+			const res = await createPhoto({ albumId, list });
+			if (res.data?.success) {
+				getPhotoListService();
+			} else {
+				notification['error']({
+					message: '添加照片失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
 		}
 	};
 
@@ -122,22 +150,53 @@ class PhotoListComponent extends Component<
 		}
 	};
 
-	handleEditPhoto = (item: ImageItemType) => {
-		this.setState({
-			visible: true,
-			titleError: false,
-			confirmLoading: false,
-			editItem: { ...item } as PhotoItemType,
-		});
+	handleEditPhoto = async (item: ImageItemType) => {
+		const { startLoading, stopLoading } = this.props.photoListStore;
+		startLoading();
+		try {
+			const res = await getAlbumList();
+			if (res.data?.success) {
+				this.setState({
+					visible: true,
+					titleError: false,
+					confirmLoading: false,
+					editItem: { ...item } as PhotoItemType,
+					albumList: res.data?.data?.list ?? [],
+				});
+			} else {
+				notification['error']({
+					message: '获取相册列表失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
+		}
 	};
 
 	handleDeletePhoto = (item: ImageItemType) => {
-		const { removeItem } = this.props.photoListStore;
+		const { albumId } = this.props;
+		const { removeItem, startLoading, stopLoading } = this.props.photoListStore;
 		confirm({
 			title: '是否确认删除该图片？',
 			okType: 'danger',
-			onOk() {
-				removeItem(item as PhotoItemType);
+			onOk: async () => {
+				startLoading();
+				try {
+					const res = await deletePhoto({ albumId, id: item._id });
+					if (res.data?.success) {
+						removeItem(item as PhotoItemType);
+					} else {
+						notification['error']({
+							message: '删除照片失败！',
+							description: res.data?.msg,
+						});
+					}
+				} catch (e) {
+				} finally {
+					stopLoading();
+				}
 			},
 			onCancel() {
 				console.log('Cancel');
@@ -145,19 +204,42 @@ class PhotoListComponent extends Component<
 		});
 	};
 
-	handleOk = () => {
-		const { editItem } = this.state;
-		if (editItem) {
-			if (!editItem.title?.trim()) {
+	handleOk = async () => {
+		try {
+			const { editItem } = this.state,
+				{
+					albumId,
+					photoListStore: { removeItem, setItem },
+				} = this.props;
+			if (editItem) {
+				if (!editItem.title?.trim()) {
+					this.setState({
+						titleError: true,
+					});
+					return;
+				}
 				this.setState({
-					titleError: true,
+					confirmLoading: true,
 				});
-				return;
+				const { _id, show, title, url, intro } = editItem;
+				const res = await updatePhotoInfo({
+					albumId,
+					id: _id,
+					data: { albumId: editItem.albumId, show, title, url, intro },
+				});
+				if (res.data?.success) {
+					editItem.albumId === albumId
+						? setItem(editItem)
+						: removeItem(editItem);
+				} else {
+					notification['error']({
+						message: '修改照片信息失败！',
+						description: res.data?.msg,
+					});
+				}
 			}
-			this.setState({
-				confirmLoading: true,
-			});
-			this.props.photoListStore.setItem(editItem as PhotoItemType);
+		} catch (e) {
+		} finally {
 			this.setState({
 				confirmLoading: false,
 				visible: false,
@@ -211,34 +293,75 @@ class PhotoListComponent extends Component<
 	};
 
 	handleExChangePhoto = (value: string) => {
-		console.log(value);
 		const { editItem } = this.state;
 		if (editItem) {
-			this.props.photoListStore.removeItem(editItem);
+			editItem.albumId = value;
+			this.setState({
+				editItem,
+			});
 		}
 	};
 
 	handleChangeChecked = (item: ImageItemType) => () => {
 		this.props.photoListStore.setItem({
-			...item,
+			...(item as PhotoItemType),
 			...{ checked: !item.checked },
-		} as PhotoItemType);
+		});
 	};
 
 	handleBatchChangeChecked = () => {
 		this.props.photoListStore.batchChangeChecked();
 	};
 
+	batchChangeShow = async (show: boolean) => {
+		try {
+			const {
+				albumId,
+				photoListStore: { checkedId, batchHide, batchShow },
+			} = this.props;
+			const res = await batchChangePhotoShow({ albumId, ids: checkedId, show });
+			if (res.data?.success) {
+				show ? batchShow() : batchHide();
+			} else {
+				notification['error']({
+					message: '修改照片信息失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
+	};
+
 	handleBatchHide = () => {
-		this.props.photoListStore.batchHide();
+		this.batchChangeShow(false);
 	};
 
 	handleBatchShow = () => {
-		this.props.photoListStore.batchShow();
+		this.batchChangeShow(true);
 	};
 
-	handleBatchDelete = () => {
-		this.props.photoListStore.batchDelete();
+	handleBatchDelete = async () => {
+		const {
+			albumId,
+			photoListStore: { checkedId, batchDelete, startLoading, stopLoading },
+		} = this.props;
+		try {
+			startLoading();
+			const res = await batchDeletePhoto({
+				albumId,
+				ids: JSON.stringify(checkedId),
+			});
+			if (res.data?.success) {
+				batchDelete();
+			} else {
+				notification['error']({
+					message: '批量删除照片失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
+		}
 	};
 
 	renderPhotoList = () => {
@@ -284,9 +407,14 @@ class PhotoListComponent extends Component<
 
 	render() {
 		const { isEmpty, isAllListChecked, hasChecked } = this.props.photoListStore;
-		const { list } = this.props.photoAlbumStore;
 		const { albumId } = this.props;
-		const { visible, confirmLoading, editItem, titleError } = this.state;
+		const {
+			visible,
+			confirmLoading,
+			editItem,
+			titleError,
+			albumList,
+		} = this.state;
 
 		return (
 			<BasicWrapComponent
@@ -363,10 +491,10 @@ class PhotoListComponent extends Component<
 							<label htmlFor="intro">移动图片：</label>
 							<Gap />
 							<Select
-								value={albumId}
+								value={editItem?.albumId}
 								style={{ width: '100%' }}
 								onChange={this.handleExChangePhoto}>
-								{list.map(item => (
+								{albumList.map(item => (
 									<Option
 										key={item._id}
 										value={item._id}

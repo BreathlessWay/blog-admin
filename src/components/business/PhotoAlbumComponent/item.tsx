@@ -13,7 +13,7 @@ import { AlbumItemType } from '@/types/album';
 import { routeMapPath } from '@/route';
 
 import './style.scss';
-import { deleteAlbum } from '@/apis/photography';
+import { deleteAlbum } from '@/apis/album';
 import { getAlbumService } from '@/service/photographyService';
 
 const { confirm } = Modal;

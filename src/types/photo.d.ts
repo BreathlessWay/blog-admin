@@ -3,6 +3,7 @@ export type PhotoItemType = {
 	intro: string;
 	url: string;
 	show: boolean;
+	albumId: string;
 
 	_id: string;
 	createdAt: number;

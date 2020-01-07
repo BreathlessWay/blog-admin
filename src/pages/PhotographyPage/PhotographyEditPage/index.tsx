@@ -3,14 +3,17 @@ import React, { Component, ComponentClass, lazy } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Modal, notification } from 'antd';
+import { Modal, notification, Spin } from 'antd';
 
 import { StoreType } from '@/store/store';
+
+import { getAlbumInfo } from '@/apis/album';
+
+import { getPhotoListService } from '@/service/photographyService';
 
 import { parseSearch } from '@/utils/parseSearch';
 
 import { routeMapPath } from '@/route';
-import { getAlbumInfo } from '@/apis/photography';
 
 const { warning } = Modal;
 
@@ -60,6 +63,7 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 
 			if (albumResult.data?.success) {
 				setAlbumInfo(albumResult.data?.data ?? null);
+				await getPhotoListService();
 			} else {
 				notification['error']({
 					message: '获取相册信息失败！',
@@ -73,7 +77,12 @@ class PhotographyEditPage extends Component<PhotographyEditPagePropType> {
 	};
 
 	render() {
-		return <PhotoListComponent albumId={this.albumId} />;
+		const { loading } = this.props.photoListStore;
+		return (
+			<Spin spinning={loading}>
+				<PhotoListComponent albumId={this.albumId} />
+			</Spin>
+		);
 	}
 }
 

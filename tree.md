@@ -28,11 +28,12 @@
 │   └── test.js
 ├── src/
 │   ├── apis/
+│   │   ├── album.ts
 │   │   ├── article.ts
 │   │   ├── cat.ts
 │   │   ├── login.ts
 │   │   ├── menu.ts
-│   │   ├── photography.ts
+│   │   ├── photo.ts
 │   │   ├── upload.ts
 │   │   └── user.ts
 │   ├── components/
@@ -256,5 +257,5 @@
 ├── tree.md
 └── tsconfig.json
 
-81 directories, 174 files
+81 directories, 175 files
 ```

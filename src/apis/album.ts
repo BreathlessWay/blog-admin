@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-export const getAlbumList = (query: string) => {
-	return axios.get(`/album/list?${query}`);
+export const getAlbumList = (query?: string) => {
+	const url = query ? `/album/list?${query}` : `/album/list`;
+
+	return axios.get(url);
 };
 
 export const getAlbumInfo = (id: string) => {
