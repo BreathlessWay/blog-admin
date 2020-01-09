@@ -174,7 +174,7 @@ axios.interceptors.response.use(
 	function(error) {
 		// 对响应错误做点什么
 		notification['error']({
-			message: '服务器错误',
+			message: '服务器错误！',
 			description: error.message,
 		});
 		return Promise.reject(error);
