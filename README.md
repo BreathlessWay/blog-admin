@@ -113,3 +113,5 @@
 11. [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages), 结合 github action 发布 gh-page
 
 12. 如果赋值 this 为一个变量，该赋值要在最上层，且该函数内的 this 都要用变量代替，否则编译出的代码 this 指向会变成 undefined
+
+13. 将本地分支推送到远程: `git push --set-upstream origin <branch name>`
