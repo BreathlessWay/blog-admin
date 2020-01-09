@@ -66,7 +66,7 @@
     "SocialEditComponent.css": "/blog-admin/static/css/SocialEditComponent.1e7a4320.chunk.css",
     "SocialEditComponent.js": "/blog-admin/static/js/SocialEditComponent.5768a9d3.chunk.js",
     "main.css": "/blog-admin/static/css/main.a0578610.chunk.css",
-    "main.js": "/blog-admin/static/js/main.6525d873.chunk.js",
+    "main.js": "/blog-admin/static/js/main.8996d132.chunk.js",
     "runtime-main.js": "/blog-admin/static/js/runtime-main.6eda680e.js",
     "static/css/41.bcb9267e.chunk.css": "/blog-admin/static/css/41.bcb9267e.chunk.css",
     "static/js/41.1f4324b3.chunk.js": "/blog-admin/static/js/41.1f4324b3.chunk.js",
@@ -77,7 +77,7 @@
     "static/css/44.ee37ce11.chunk.css": "/blog-admin/static/css/44.ee37ce11.chunk.css",
     "static/js/44.f305da5b.chunk.js": "/blog-admin/static/js/44.f305da5b.chunk.js",
     "index.html": "/blog-admin/index.html",
-    "precache-manifest.2f43698ecb2070f3eceb5e14d15e61df.js": "/blog-admin/precache-manifest.2f43698ecb2070f3eceb5e14d15e61df.js",
+    "precache-manifest.d3cb1fe3f2a44b26ca28efe17b4a4cc1.js": "/blog-admin/precache-manifest.d3cb1fe3f2a44b26ca28efe17b4a4cc1.js",
     "service-worker.js": "/blog-admin/service-worker.js",
     "static/media/image-loading.svg": "/blog-admin/static/media/image-loading.b2c6951f.svg"
   },
@@ -86,6 +86,6 @@
     "static/css/41.bcb9267e.chunk.css",
     "static/js/41.1f4324b3.chunk.js",
     "static/css/main.a0578610.chunk.css",
-    "static/js/main.6525d873.chunk.js"
+    "static/js/main.8996d132.chunk.js"
   ]
 }
