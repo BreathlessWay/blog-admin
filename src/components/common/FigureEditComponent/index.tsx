@@ -31,6 +31,11 @@ export type FigureEditComponentPropType = {
 export default class FigureEditComponent extends Component<
 	FigureEditComponentPropType
 > {
+	constructor(props: any) {
+		super(props);
+		this.handleRemove = this.handleRemove.bind(this);
+	}
+
 	get urls() {
 		return this.props.imageList.map(item => item.url);
 	}
