@@ -44,7 +44,7 @@ export default class FigureEditComponent extends Component<
 		return this.props.imageList.length;
 	}
 
-	handleRemove = (item: ImageItemType) => () => {
+	handleRemove = (item: ImageItemType) => {
 		const _this = this;
 
 		if (item.show) {
@@ -99,7 +99,7 @@ export default class FigureEditComponent extends Component<
 								<Icon
 									type="delete"
 									style={iconStyle}
-									onClick={this.handleRemove(item)}
+									onClick={() => this.handleRemove(item)}
 								/>,
 								<Icon
 									type="check-circle"
