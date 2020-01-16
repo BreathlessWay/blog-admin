@@ -10,6 +10,9 @@ import {
 	EArticleEditError,
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
+
+import { ARTICLE_IMAGE_SIZE } from '@/utils/constant';
+
 import { uploadService } from '@/service/uploadService';
 
 export type ArticleDetailMarkdownComponentPropType = Pick<
@@ -39,8 +42,8 @@ class ArticleDetailMarkdownComponent extends Component<
 		});
 	};
 
-	handleUploadFile = (file: File, index: number) => {
-		uploadService(file).then(({ url, title }) => {
+	handleUploadFile = (file: File) => {
+		uploadService(file, ARTICLE_IMAGE_SIZE).then(({ url, title }) => {
 			this.$vm.current.$img2Url(title, url);
 		});
 	};
@@ -48,6 +51,7 @@ class ArticleDetailMarkdownComponent extends Component<
 	render() {
 		const { detail } = this.props.articleDetailStore;
 		const { articleAlias } = this.props.homepageStore;
+
 		return (
 			<Editor
 				ref={this.$vm}

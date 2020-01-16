@@ -12,6 +12,8 @@ import {
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
 
+import { ARTICLE_IMAGE_SIZE } from '@/utils/constant';
+
 import { uploadService } from '@/service/uploadService';
 
 // 引入编辑器样式
@@ -75,20 +77,21 @@ class ArticleDetailUEditComponent extends Component<
 	};
 	// 如果未指定uploadFn，添加到媒体库的图片将会自动转换为base64的形式，而视频和音频则无法被添加到媒体库。
 	handleUploadFile = (params: UploadFileType) => {
-		uploadService(params.file)
+		console.log(params.file);
+		uploadService(params.file, ARTICLE_IMAGE_SIZE)
 			.then(({ url, title }) => {
 				// 假设服务端直接返回文件上传后的地址
 				// 上传成功后调用param.success并传入上传后的文件地址
 				params.success({
 					url: url,
 					meta: {
-						id: 'xxx',
+						id: url,
 						title: title,
 						alt: title,
 						loop: true, // 指定音视频是否循环播放
 						autoPlay: true, // 指定音视频是否自动播放
 						controls: true, // 指定音视频是否显示控制栏
-						poster: 'http://xxx/xx.png', // 指定视频播放器的封面
+						poster: '', // 指定视频播放器的封面
 					},
 				});
 			})
