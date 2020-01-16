@@ -1,6 +1,7 @@
 import React, { Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
+import { message } from 'antd';
 // 引入编辑器组件
 import BraftEditor, { EditorState } from 'braft-editor';
 
@@ -77,7 +78,10 @@ class ArticleDetailUEditComponent extends Component<
 	};
 	// 如果未指定uploadFn，添加到媒体库的图片将会自动转换为base64的形式，而视频和音频则无法被添加到媒体库。
 	handleUploadFile = (params: UploadFileType) => {
-		console.log(params.file);
+		if (!/^(image)/g.test(params.file.type)) {
+			message.error('目前只支持上传图片');
+			return;
+		}
 		uploadService(params.file, ARTICLE_IMAGE_SIZE)
 			.then(({ url, title }) => {
 				// 假设服务端直接返回文件上传后的地址
