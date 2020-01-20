@@ -1,7 +1,7 @@
 # 这个是配置文件的版本，不同的版本号声明方式会有细微的不同
 version: '3.7'
 services:
-  docker_build_blog_admim:
+  docker_compose_blog_admim:
     # docker构建镜像
     build:
       context: .
