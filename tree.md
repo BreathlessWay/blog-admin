@@ -108,6 +108,7 @@
 │   ├── pnpTs.js
 │   ├── webpack.config.js
 │   └── webpackDevServer.config.js
+├── docker-compose.yml
 ├── jest.config.js
 ├── package-lock.json
 ├── package.json
@@ -353,5 +354,5 @@
 ├── tree.md
 └── tsconfig.json
 
-86 directories, 266 files
+86 directories, 267 files
 ```
