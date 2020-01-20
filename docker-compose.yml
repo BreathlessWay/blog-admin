@@ -1,8 +1,9 @@
-version: '3.7' # 这个是配置文件的版本，不同的版本号声明方式会有细微的不同
+# 这个是配置文件的版本，不同的版本号声明方式会有细微的不同
+version: '3.7'
 services:
-  docker_blog_admin:
-    container_name: docker_blog_admin
-    image: docker_admin
+  docker_compose_blog_admin:
+    container_name: docker_container_blog_admin
+    image: docker_image_blog_admin
     ports:
       - '3000:3000'
     restart: on-failure
