@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-RUN mkdir -p /usr/share/nginx/blog-admin/gi
+RUN mkdir -p /usr/share/nginx/blog-admin
 
 COPY ./build/ /usr/share/nginx/blog-admin/
 
