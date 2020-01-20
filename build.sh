@@ -1,3 +1,2 @@
-docker stop docker_container_blog_admin || true \
-&& docker rm docker_container_blog_admin || true \
+docker-compose build --no-cache --force-rm \
 && docker-compose up -d
