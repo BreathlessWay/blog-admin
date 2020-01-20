@@ -21,6 +21,7 @@
 1. 代码格式化: [prettier](https://prettier.io/), [pretty-quick](https://github.com/azz/pretty-quick#readme)
 2. git commit 规范化: [commitlint](https://commitlint.js.org/#/)
 3. git 提交钩子辅助工具: [husky](https://github.com/typicode/husky#readme)
+4. 如果要跳过 git 的提交钩子可以使用 `git commit --no-verify -m "--no-verify 跳过检验规则"`
 
 > 语法支持
 
@@ -70,20 +71,19 @@
      test：新增测试用例或是更新现有测试
      revert：回滚某个更早之前的提交
    ```
-4. 如果要跳过 git 的提交钩子可以使用 `git commit --no-verify -m "--no-verify 跳过检验规则"`
-5. 目前菜单最多嵌套一层，为了能适配面包屑导航，使用 Query 代替 Params
-6. 多个 HOC 可以使用[compose](https://github.com/reduxjs/redux/blob/master/src/compose.ts)组合
-7. babel 可以通过`env`根据环境引入不同配置:
+4. 目前菜单最多嵌套一层，为了能适配面包屑导航，使用 Query 代替 Params
+5. 多个 HOC 可以使用[compose](https://github.com/reduxjs/redux/blob/master/src/compose.ts)组合
+6. babel 可以通过`env`根据环境引入不同配置:
    ```
    {
-   "env": {
-   	"production": {
-   		"plugins": [["transform-remove-console", { "exclude": ["error"] }]]
-   	}
-   }
+       "env": {
+            "production": {
+                "plugins": [["transform-remove-console", { "exclude": ["error"] }]]
+            }
+       }
    }
    ```
-8. `brew install tree` 安装`tree`命令可以生成目录结构
+7. `brew install tree` 安装`tree`命令可以生成目录结构
    ```
    -a 显示所有文件和目录。
    -A 使用ASNI绘图字符显示树状图而非以ASCII字符组合。
@@ -106,12 +106,10 @@
    -u 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。
    -x 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该子目录予以排除在寻找范围外。
    ```
-9. 在 p 标签上使用多行省略号还是可以看的超出的文字问题，需要使用一个 block 标签将 p 标签包裹，并且不能设置 p 标签的高度/padding，只能用内容撑高
+8. 在 p 标签上使用多行省略号还是可以看的超出的文字问题，需要使用一个 block 标签将 p 标签包裹，并且不能设置 p 标签的高度/padding，只能用内容撑高
 
-10. IntersectionObserver 所观察的子元素需要有初始高度，否则默认都在可观察区内，会都加载
+9. IntersectionObserver 所观察的子元素需要有初始高度，否则默认都在可观察区内，会都加载
 
-11. [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages), 结合 github action 发布 gh-page
+10. [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages), 结合 github action 发布 gh-page
 
-12. 如果赋值 this 为一个变量，该赋值要在最上层，且该函数内的 this 都要用变量代替，否则编译出的代码 this 指向会变成 undefined
-
-13. 将本地分支推送到远程: `git push --set-upstream origin <branch name>`
+11. 如果赋值 this 为一个变量，该赋值要在最上层，且该函数内的 this 都要用变量代替，否则编译出的代码 this 指向会变成 undefined
