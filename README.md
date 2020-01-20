@@ -14,7 +14,7 @@
 10. CSS 扩展语言: [Sass](https://www.sass.hk/)
 11. 时间处理库: [Moment.js](http://momentjs.cn/)
 12. JavaScript 实用工具库: [Lodash](https://www.lodashjs.com/)
-13. markdown 编辑器: [for-editor](https://md.kkfor.com/) ~~想自己试试写一个, TODO~~
+13. markdown 编辑器: [for-editor](https://md.kkfor.com/)
 
 > 代码规范
 
