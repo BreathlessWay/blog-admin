@@ -15,5 +15,5 @@ services:
       - '3000:3000'
     # 重启
     restart: always
-    networks:
-      - blog-server_docker_network_server
+    links:
+      - docker_container_blog_server:docker_container_blog_server
