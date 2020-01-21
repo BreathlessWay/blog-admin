@@ -16,4 +16,4 @@ services:
     # 重启
     restart: always
     networks:
-      - docker_network_server
+      - blog-server_docker_network_server
