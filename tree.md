@@ -97,6 +97,7 @@
 │       │   └── runtime-main.bd2bf0d7.js
 │       └── media/
 │           └── image-loading.b2c6951f.svg
+├── build.sh
 ├── commitlint.config.js
 ├── config/
 │   ├── env.js
@@ -354,5 +355,5 @@
 ├── tree.md
 └── tsconfig.json
 
-86 directories, 267 files
+86 directories, 268 files
 ```
