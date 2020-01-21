@@ -15,3 +15,5 @@ services:
       - '3000:3000'
     # 重启
     restart: always
+    networks:
+      - docker_network_server

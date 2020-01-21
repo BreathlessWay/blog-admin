@@ -1,4 +1,4 @@
-   # 使用nginx镜像
+# 使用nginx镜像
 FROM nginx:alpine
 # 在镜像中新建目录
 RUN mkdir -p /usr/share/nginx/blog-admin
