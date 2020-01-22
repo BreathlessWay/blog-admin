@@ -15,5 +15,6 @@ services:
       - '3000:3000'
     # 重启
     restart: always
-    # 设置网络模式
-    network_mode: 'blog-server_docker_network_server'
+    # 设置网络模式, 同docker run --net=docker_network_blog
+    # 就是指定加入已存在的network
+    network_mode: 'docker_network_blog'
