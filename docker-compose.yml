@@ -15,5 +15,5 @@ services:
       - '3000:3000'
     # 重启
     restart: always
-    networks:
-      - blog-server_docker_network_server
+    # 设置网络模式
+    network_mode: 'blog-server_docker_network_server'
