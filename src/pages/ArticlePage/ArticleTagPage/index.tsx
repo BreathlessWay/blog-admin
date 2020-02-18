@@ -82,13 +82,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		this.props.tagStore.changeTagShow(index);
 	};
 
-	handleDelete = ({
-		tag,
-		index,
-	}: {
-		tag: TagItemType;
-		index: number;
-	}) => () => {
+	handleDelete({ tag, index }: { tag: TagItemType; index: number }) {
 		const _this = this;
 		const { articleAlias } = _this.props.homepageStore;
 
@@ -106,7 +100,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 				console.log('Cancel');
 			},
 		});
-	};
+	}
 
 	handleChangeInput = ({ value, index }: { value: string; index: number }) => {
 		this.props.tagStore.changeTagName({ name: value, index });
@@ -131,7 +125,10 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 			<Row type="flex" align="middle">
 				{isEditing && (
 					<Col className="article-tag_item">
-						<Icon type="delete" onClick={this.handleDelete({ tag, index })} />
+						<Icon
+							type="delete"
+							onClick={this.handleDelete.bind(this, { tag, index })}
+						/>
 					</Col>
 				)}
 				<Col className="article-tag_item">
