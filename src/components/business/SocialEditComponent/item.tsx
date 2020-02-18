@@ -76,7 +76,12 @@ const SocialEditItem: FC<SocialEditItemPropType> = props => {
 				</Col>
 			)}
 			<Col span={8} offset={1}>
-				<FileShowComponent type={type} value={file} onDelete={onDeleteFile} />
+				<FileShowComponent
+					type={type}
+					value={file}
+					onDelete={onDeleteFile}
+					isEditing={isEditing}
+				/>
 			</Col>
 			<Col span={24}>{error && <Text type="danger">{errorMsg}</Text>}</Col>
 			<Gap />
