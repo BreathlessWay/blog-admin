@@ -10,7 +10,7 @@ import SkillComponentItem from './item';
 import { StoreType } from '@/store/store';
 import { PersonalSkillItemType, UserDetailType } from '@/types/user';
 
-import { MAX_LENGTH_MD } from '@/utils/constant';
+import { MAX_LENGTH_LG } from '@/utils/constant';
 
 import { updateUserService } from '@/service/userService';
 
@@ -64,7 +64,7 @@ class SkillComponent extends Component<SkillComponentPropType> {
 		return (
 			<BasicWrapComponent
 				title="个人技能"
-				note={`个人技能名称最长${MAX_LENGTH_MD}个字, 可以拖拽排序`}
+				note={`个人技能名称最长${MAX_LENGTH_LG}个字, 可以拖拽排序`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasSkills || isEditing ? (

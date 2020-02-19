@@ -9,7 +9,7 @@ import ColorPickerComponent from '@/components/common/ColorPickerComponent';
 import { SliderValue } from 'antd/lib/slider';
 import { StoreType } from '@/store/store';
 
-import { MAX_LENGTH_MD, SKILL_PERCENT_MID } from '@/utils/constant';
+import { MAX_LENGTH_LG, SKILL_PERCENT_MID } from '@/utils/constant';
 
 import './style.scss';
 
@@ -65,7 +65,7 @@ class SkillComponentItem extends Component<
 						id={`${index}`}
 						allowClear={true}
 						value={name}
-						maxLength={MAX_LENGTH_MD}
+						maxLength={MAX_LENGTH_LG}
 						disabled={!isEditing}
 						onChange={event => {
 							this.handleChangeSkillName(event, index);

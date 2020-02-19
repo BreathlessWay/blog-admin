@@ -105,7 +105,9 @@ class RouterPage extends React.Component<RouterPagePropType> {
 		return (
 			<Layout>
 				<Sider className="home-page_sider">
-					<aside className="home-page_logo">博客管理后台</aside>
+					<a href="/" className="home-page_logo">
+						博客管理后台
+					</a>
 					{hasMenu && <MenuComponent />}
 				</Sider>
 				<Layout className="home-page_layout">
