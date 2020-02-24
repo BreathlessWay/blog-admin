@@ -69,7 +69,7 @@ export const MAX_IMAGE_SIZE = 500;
 export const MAX_RESUME_SIZE = 2048;
 
 // 社交icon大小
-export const MAX_SOCIAL_SIZE = 20;
+export const MAX_SOCIAL_SIZE = 100;
 
 // icon的font-size
 export const ACTION_ICON_SIZE = 24;
