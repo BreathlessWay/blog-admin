@@ -8,7 +8,7 @@ export const LOGIN_TOKEN = 'login_token';
 export const MAX_IMAGE_COUNT = 5;
 
 // 默认上传图片类型
-export const UPLOAD_IMAGE_TYPE = '.ico,.png,.jpg,.jpeg';
+export const UPLOAD_IMAGE_TYPE = '.ico,.png,.jpg,.jpeg,.svg';
 
 // 默认上传简历类型
 export const UPLOAD_RESUME_TYPE = '.doc,.docx,.page,.jpeg,.png,.pdf';
