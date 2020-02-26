@@ -45,7 +45,7 @@ export const MAX_LENGTH_XS = 4;
 
 export const MAX_LENGTH_SM = 10;
 
-export const MAX_LENGTH_MD = 20;
+export const MAX_LENGTH_MD = 40;
 
 export const MAX_LENGTH_LG = 100;
 
