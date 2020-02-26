@@ -31,7 +31,7 @@ export default class UploadFileComponent extends React.Component<
 	};
 
 	handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { size } = this.props;
+		const { size, accept } = this.props;
 
 		if (e.target.files) {
 			this.setState({
@@ -39,7 +39,7 @@ export default class UploadFileComponent extends React.Component<
 				compDisabled: true,
 			});
 			// 通用上传文件，返回文件url和文件名
-			uploadService(e.target.files[0], size)
+			uploadService({ file: e.target.files[0], size, accept })
 				.then(({ url, title }) => {
 					this.props.onUploadFile({ fileUrl: url, fileName: title });
 				})

@@ -68,7 +68,7 @@ export default class ImageUploadComponent extends Component<
 			const uploadFilePromise = fileList
 				.map(({ file, checked }) => {
 					if (checked) {
-						return uploadService(file);
+						return uploadService({ file });
 					}
 					return null;
 				})
@@ -144,7 +144,7 @@ export default class ImageUploadComponent extends Component<
 		this.setState({
 			stateDisabled: true,
 		});
-		uploadService(file)
+		uploadService({ file })
 			.then(({ url, title }) => {
 				onUploadImage([
 					{

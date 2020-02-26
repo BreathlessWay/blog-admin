@@ -43,7 +43,7 @@ class ArticleDetailMarkdownComponent extends Component<
 	};
 
 	handleUploadFile = (file: File) => {
-		uploadService(file, ARTICLE_IMAGE_SIZE).then(({ url, title }) => {
+		uploadService({ file, size: ARTICLE_IMAGE_SIZE }).then(({ url, title }) => {
 			this.$vm.current.$img2Url(title, url);
 		});
 	};

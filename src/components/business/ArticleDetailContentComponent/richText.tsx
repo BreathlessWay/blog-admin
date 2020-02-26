@@ -82,7 +82,7 @@ class ArticleDetailUEditComponent extends Component<
 			message.error('目前只支持上传图片');
 			return;
 		}
-		uploadService(params.file, ARTICLE_IMAGE_SIZE)
+		uploadService({ file: params.file, size: ARTICLE_IMAGE_SIZE })
 			.then(({ url, title }) => {
 				// 假设服务端直接返回文件上传后的地址
 				// 上传成功后调用param.success并传入上传后的文件地址
