@@ -49,7 +49,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 		});
 	};
 
-	handleDelete = ({ key }: { key: ERewardChangeKey }) => () => {
+	handleDelete = ({ key }: { key: ERewardChangeKey }) => {
 		const _this = this;
 		confirm({
 			title: '是否确认删除该二维码？',
@@ -117,7 +117,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 									disabled={!isEditing}
 									url={zfbCode as string}
 									title={'支付宝二维码'}
-									onDeleteCode={this.handleDelete({
+									onDeleteCode={this.handleDelete.bind(this, {
 										key: ERewardChangeKey.zfbCode,
 									})}
 									onUploadCode={url =>
@@ -131,7 +131,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 									disabled={!isEditing}
 									url={wxCode as string}
 									title={'微信二维码'}
-									onDeleteCode={this.handleDelete({
+									onDeleteCode={this.handleDelete.bind(this, {
 										key: ERewardChangeKey.wxCode,
 									})}
 									onUploadCode={url =>
