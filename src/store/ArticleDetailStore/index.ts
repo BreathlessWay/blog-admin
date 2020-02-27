@@ -38,9 +38,6 @@ export default class ArticleDetailStore {
 	setDetail(detail: Partial<ArticleDetailType> | null) {
 		this.createArticle();
 		if (detail) {
-			if (detail.tags && detail.tags.length) {
-				detail.tags = detail.tags.map((tag: any) => tag._id).filter(v => v);
-			}
 			if (detail.renderType === EArticleRenderType.richText) {
 				detail.draftDetail = BraftEditor.createEditorState(detail.richTextRaw);
 			}

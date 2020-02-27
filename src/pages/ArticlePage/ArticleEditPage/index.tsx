@@ -107,6 +107,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 		window.clearInterval(this.time);
 		this.time = null;
 		this.props.articleDetailStore.resetError();
+		this.props.articleDetailStore.resetDetail();
 	}
 
 	get judgeCache() {
@@ -194,7 +195,6 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 			const {
 				data: { title, intro, tags, renderType, status, detail },
 			} = this.articleCache;
-
 			const params: ArticleDetailType = {
 				title,
 				intro,
@@ -202,7 +202,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 				renderType,
 				status: Number(status),
 			} as any;
-			if (tags.length) {
+			if (tags && tags.length) {
 				params.tags = this.props.tagStore.tags
 					.filter(item => item._id && tags.includes(item._id))
 					.map(tag => tag._id) as Array<string>;
@@ -220,23 +220,27 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	};
 
 	getData = async () => {
-		try {
-			const { createArticle, setDetail } = this.props.articleDetailStore;
-			if (this.isEdit && this.articleId) {
-				const res = await getArticleDetail(this.articleId);
-				if (res.data?.success) {
-					setDetail(res.data.data);
-				} else {
-					notification['error']({
-						message: '获取文章详情失败！',
-						description: res.data?.msg,
-					});
+		const { createArticle, setDetail } = this.props.articleDetailStore;
+		if (this.isEdit && this.articleId) {
+			const res = await getArticleDetail(this.articleId);
+			if (res.data?.success) {
+				const data = res.data.data;
+				if (data && data.tags && data.tags.length) {
+					data.tags = res.data.data.tags
+						.map((tag: any) => tag._id)
+						.filter((v: string) => v);
 				}
+				setDetail(data);
+			} else {
+				notification['error']({
+					message: '获取文章详情失败！',
+					description: res.data?.msg,
+				});
 			}
-			if (this.isCreate) {
-				createArticle();
-			}
-		} catch (e) {}
+		}
+		if (this.isCreate) {
+			createArticle();
+		}
 	};
 
 	get articleCache(): ArticleCacheType | null {
