@@ -15531,8 +15531,8 @@
 														a = r.color,
 														i = t.isEditing,
 														u = t.index,
-														l = o >= Ke.u ? 'rgba(0, 0, 0, .45)' : '',
-														s = o >= Ke.u ? '' : 'rgba(0, 0, 0, .45)';
+														l = o >= Ke.v ? 'rgba(0, 0, 0, .45)' : '',
+														s = o >= Ke.v ? '' : 'rgba(0, 0, 0, .45)';
 													return h.a.createElement(
 														y.a,
 														{ type: 'flex', align: 'middle' },

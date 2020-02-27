@@ -2524,7 +2524,7 @@
 								p = l.src,
 								f = u ? {} : { display: 'block' };
 							switch (!0) {
-								case w.v:
+								case w.w:
 									return a.a.createElement(
 										'div',
 										null,
@@ -2624,7 +2624,7 @@
 								var e = this.state,
 									t = e.error,
 									n = e.loading;
-								return e.src && n && !t && !w.v;
+								return e.src && n && !t && !w.w;
 							},
 						},
 					]),
@@ -3128,7 +3128,7 @@
 										(n = e.size),
 										(r = void 0 === n ? s.j : n),
 										(i = e.accept),
-										(c = void 0 === i ? s.y : i),
+										(c = void 0 === i ? s.z : i),
 										(u = a.a.loading('\u6587\u4ef6\u4e0a\u4f20\u4e2d...', 0)),
 										(g.prev = 3),
 										(f = new FormData()),
@@ -7326,7 +7326,7 @@
 											showUploadList: !1,
 											disabled: e,
 											customRequest: n.handleCustomUpload,
-											accept: M.y,
+											accept: M.z,
 										},
 										b.a.createElement(O.a, {
 											type: 'upload',

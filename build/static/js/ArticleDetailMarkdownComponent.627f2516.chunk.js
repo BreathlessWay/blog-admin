@@ -30,7 +30,7 @@
 										(a = e.size),
 										(r = void 0 === a ? u.j : a),
 										(i = e.accept),
-										(c = void 0 === i ? u.y : i),
+										(c = void 0 === i ? u.z : i),
 										(d = o.a.loading('\u6587\u4ef6\u4e0a\u4f20\u4e2d...', 0)),
 										(g.prev = 3),
 										(p = new FormData()),

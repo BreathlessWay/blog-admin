@@ -2089,7 +2089,7 @@
 								d = c.src,
 								p = u ? {} : { display: 'block' };
 							switch (!0) {
-								case g.v:
+								case g.w:
 									return l.a.createElement(
 										'div',
 										null,
@@ -2189,7 +2189,7 @@
 								var e = this.state,
 									t = e.error,
 									n = e.loading;
-								return e.src && n && !t && !g.v;
+								return e.src && n && !t && !g.w;
 							},
 						},
 					]),
@@ -2226,7 +2226,7 @@
 										(n = e.size),
 										(r = void 0 === n ? s.j : n),
 										(o = e.accept),
-										(i = void 0 === o ? s.y : o),
+										(i = void 0 === o ? s.z : o),
 										(u = l.a.loading('\u6587\u4ef6\u4e0a\u4f20\u4e2d...', 0)),
 										(v.prev = 3),
 										(p = new FormData()),
@@ -2842,10 +2842,10 @@
 														title: '\u793e\u4ea4',
 														note: '\u7b80\u5386\u9644\u4ef6\u9700\u5c0f\u4e8e'
 															.concat(
-																A.p,
+																A.q,
 																'k\uff0c\u793e\u4ea4\u4fe1\u606f\u56fe\u6807\u9700\u5c0f\u4e8e',
 															)
-															.concat(A.q, 'k'),
+															.concat(A.r, 'k'),
 														handleEdit: this.handleEdit,
 														render: function(r) {
 															var o, i;
@@ -2853,8 +2853,8 @@
 																a.a,
 																{ type: 'flex', align: 'middle' },
 																E.a.createElement(O, {
-																	size: A.p,
-																	accept: A.z,
+																	size: A.q,
+																	accept: A.A,
 																	type: 'file',
 																	title: '\u7b80\u5386',
 																	value:
@@ -2881,8 +2881,8 @@
 																}),
 																n.map(function(t, n) {
 																	return E.a.createElement(O, {
-																		size: A.q,
-																		accept: A.y,
+																		size: A.r,
+																		accept: A.z,
 																		key: t._id || ''.concat(n),
 																		type: 'image',
 																		value: t.value,

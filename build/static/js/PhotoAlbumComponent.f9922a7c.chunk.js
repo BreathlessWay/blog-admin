@@ -5059,7 +5059,7 @@
 								p = c.src,
 								f = u ? {} : { display: 'block' };
 							switch (!0) {
-								case C.v:
+								case C.w:
 									return a.a.createElement(
 										'div',
 										null,
@@ -5159,7 +5159,7 @@
 								var e = this.state,
 									t = e.error,
 									n = e.loading;
-								return e.src && n && !t && !C.v;
+								return e.src && n && !t && !C.w;
 							},
 						},
 					]),

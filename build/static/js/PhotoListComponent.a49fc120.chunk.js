@@ -5515,7 +5515,7 @@
 								p = c.src,
 								f = u ? {} : { display: 'block' };
 							switch (!0) {
-								case w.v:
+								case w.w:
 									return a.a.createElement(
 										'div',
 										null,
@@ -5615,7 +5615,7 @@
 								var e = this.state,
 									t = e.error,
 									n = e.loading;
-								return e.src && n && !t && !w.v;
+								return e.src && n && !t && !w.w;
 							},
 						},
 					]),
@@ -6308,7 +6308,7 @@
 										(n = e.size),
 										(r = void 0 === n ? s.j : n),
 										(i = e.accept),
-										(l = void 0 === i ? s.y : i),
+										(l = void 0 === i ? s.z : i),
 										(u = a.a.loading('\u6587\u4ef6\u4e0a\u4f20\u4e2d...', 0)),
 										(g.prev = 3),
 										(f = new FormData()),
@@ -17409,7 +17409,7 @@
 															c.push(e.getBoundingClientRect().height);
 														});
 													var s = Math.max.apply(Math, c);
-													i + l + A.r >= s && r && !o && (a(), Object(F.b)());
+													i + l + A.s >= s && r && !o && (a(), Object(F.b)());
 												}
 											}),
 											(n.renderPhotoList = function() {
@@ -17570,7 +17570,7 @@
 																		onUploadImage: this.handleUploadImage,
 																		multiple: !0,
 																		disabled: !1,
-																		accept: A.y,
+																		accept: A.z,
 																		showUploadList: !1,
 																	},
 																	C.a.createElement(

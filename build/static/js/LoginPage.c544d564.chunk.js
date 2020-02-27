@@ -599,8 +599,8 @@
 									: typeof e;
 						  })(e);
 			}
-			function x() {
-				return (x =
+			function P() {
+				return (P =
 					Object.assign ||
 					function(e) {
 						for (var t = 1; t < arguments.length; t++) {
@@ -611,7 +611,7 @@
 						return e;
 					}).apply(this, arguments);
 			}
-			function P(e, t, r) {
+			function x(e, t, r) {
 				return (
 					t in e
 						? Object.defineProperty(e, t, {
@@ -720,15 +720,15 @@
 										r = t.prefixCls,
 										n = t.action,
 										o =
-											(P((e = {}), V[n] || '', this.onVisibleChange),
-											P(e, 'className', ''.concat(r, '-icon')),
-											P(
+											(x((e = {}), V[n] || '', this.onVisibleChange),
+											x(e, 'className', ''.concat(r, '-icon')),
+											x(
 												e,
 												'type',
 												this.state.visible ? 'eye' : 'eye-invisible',
 											),
-											P(e, 'key', 'passwordIcon'),
-											P(e, 'onMouseDown', function(e) {
+											x(e, 'key', 'passwordIcon'),
+											x(e, 'onMouseDown', function(e) {
 												e.preventDefault();
 											}),
 											e);
@@ -770,10 +770,10 @@
 											'visibilityToggle',
 										]),
 										c = s && this.getIcon(),
-										f = a()(r, t, P({}, ''.concat(r, '-').concat(l), !!l));
+										f = a()(r, t, x({}, ''.concat(r, '-').concat(l), !!l));
 									return i.createElement(
 										n.a,
-										x({}, Object(S.a)(u, ['suffix']), {
+										P({}, Object(S.a)(u, ['suffix']), {
 											type: this.state.visible ? 'text' : 'password',
 											size: l,
 											className: f,
@@ -2861,9 +2861,9 @@
 				E = r.n(O),
 				S = r(150),
 				_ = r(695),
-				x = r.n(_),
-				P = r(213),
-				M = r.n(P),
+				P = r.n(_),
+				x = r(213),
+				M = r.n(x),
 				j = r(466),
 				C = r.n(j),
 				k = r(642),
@@ -3636,7 +3636,7 @@
 								)
 									n(X(p) ? null : p, this.fieldsStore.getFieldsValue(o));
 								else {
-									var y = new x.a(c);
+									var y = new P.a(c);
 									r && y.messages(r),
 										y.validate(f, s, function(e) {
 											var t = u()({}, p);
@@ -3921,17 +3921,17 @@
 			}
 			function _e(e, t) {
 				return !t || ('object' !== Fe(t) && 'function' !== typeof t)
-					? Pe(e)
+					? xe(e)
 					: t;
 			}
-			function xe(e) {
-				return (xe = Object.setPrototypeOf
+			function Pe(e) {
+				return (Pe = Object.setPrototypeOf
 					? Object.getPrototypeOf
 					: function(e) {
 							return e.__proto__ || Object.getPrototypeOf(e);
 					  })(e);
 			}
-			function Pe(e) {
+			function xe(e) {
 				if (void 0 === e)
 					throw new ReferenceError(
 						"this hasn't been initialised - super() hasn't been called",
@@ -3990,12 +3990,12 @@
 					var e;
 					return (
 						Ee(this, t),
-						((e = _e(this, xe(t).apply(this, arguments))).helpShow = !1),
+						((e = _e(this, Pe(t).apply(this, arguments))).helpShow = !1),
 						(e.onLabelClick = function() {
 							var t = e.props.id || e.getId();
 							if (t) {
 								var r = c
-									.findDOMNode(Pe(e))
+									.findDOMNode(xe(e))
 									.querySelector('[id="'.concat(t, '"]'));
 								r && r.focus && r.focus();
 							}
@@ -4642,8 +4642,8 @@
 				E = r(19),
 				S = r(676),
 				_ = r(687),
-				x = (r(850), b.a.confirm),
-				P =
+				P = (r(850), b.a.confirm),
+				x =
 					Object(O.b)(function(e) {
 						return { userStore: e.userStore, homepageStore: e.homepageStore };
 					})(
@@ -4665,7 +4665,7 @@
 												(e = Object(m.a)(t)).call.apply(e, [this].concat(i)),
 											)).time = null),
 											(r.state = {
-												second: E.x,
+												second: E.y,
 												codeLoading: !1,
 												codeDisabled: !1,
 												submitLoading: !1,
@@ -4768,7 +4768,7 @@
 																		? void 0
 																		: n.success)
 																			? e.handleGetCodeTime()
-																			: x({
+																			: P({
 																					title: '\u63d0\u793a',
 																					content:
 																						'\u8be5\u90ae\u7bb1\u5c1a\u672a\u6ce8\u518c\uff0c\u662f\u5426\u6ce8\u518c\uff1f',
@@ -4855,7 +4855,7 @@
 														e
 															? r.setState({ second: e - 1 })
 															: (window.clearInterval(r.time),
-															  r.setState({ codeDisabled: !1, second: E.x }));
+															  r.setState({ codeDisabled: !1, second: E.y }));
 													}, 1e3));
 											}),
 											r
@@ -4969,7 +4969,7 @@
 																						type: 'lock',
 																						className: 'login-page_icon',
 																					}),
-																					maxLength: E.n,
+																					maxLength: E.o,
 																					placeholder: '\u9a8c\u8bc1\u7801',
 																				}),
 																			),
@@ -5026,7 +5026,7 @@
 								})(w.a.Component)),
 							) || n),
 					) || n,
-				M = l.a.create({ name: 'normal_login' })(P);
+				M = l.a.create({ name: 'normal_login' })(x);
 			t.default = M;
 		},
 	},

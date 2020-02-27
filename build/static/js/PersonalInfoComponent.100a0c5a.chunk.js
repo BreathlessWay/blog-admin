@@ -1161,7 +1161,7 @@
 																		},
 																		value: i,
 																		disabled: !t,
-																		maxLength: O.o,
+																		maxLength: O.p,
 																		rows: 4,
 																	}),
 																),

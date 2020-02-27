@@ -5633,7 +5633,7 @@
 													return m.a.createElement(S.a, {
 														title: '\u83dc\u5355\u680f',
 														note: '\u83dc\u5355\u540d\u6700\u957f'.concat(
-															D.n,
+															D.o,
 															'\u4e2a\u5b57, \u53ef\u4ee5\u62d6\u62fd\u6392\u5e8f',
 														),
 														handleEdit: this.handleEdit,
@@ -5655,7 +5655,7 @@
 																				{ span: 10 },
 																				m.a.createElement(c.a, {
 																					value: n.name,
-																					maxLength: D.n,
+																					maxLength: D.o,
 																					onChange: function(t) {
 																						return e.handleChangeInput(t, n);
 																					},

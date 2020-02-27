@@ -37,28 +37,28 @@
 				r.d(e, 'i', function() {
 					return i;
 				}),
-				r.d(e, 'y', function() {
+				r.d(e, 'z', function() {
 					return a;
 				}),
-				r.d(e, 'z', function() {
+				r.d(e, 'A', function() {
 					return c;
 				}),
-				r.d(e, 'x', function() {
+				r.d(e, 'y', function() {
 					return p;
 				}),
-				r.d(e, 'u', function() {
+				r.d(e, 'v', function() {
 					return s;
 				}),
-				r.d(e, 't', function() {
+				r.d(e, 'u', function() {
 					return u;
 				}),
-				r.d(e, 's', function() {
+				r.d(e, 't', function() {
 					return l;
 				}),
-				r.d(e, 'w', function() {
+				r.d(e, 'x', function() {
 					return y;
 				}),
-				r.d(e, 'n', function() {
+				r.d(e, 'o', function() {
 					return h;
 				}),
 				r.d(e, 'm', function() {
@@ -70,41 +70,44 @@
 				r.d(e, 'k', function() {
 					return d;
 				}),
-				r.d(e, 'o', function() {
+				r.d(e, 'n', function() {
 					return O;
 				}),
-				r.d(e, 'b', function() {
+				r.d(e, 'p', function() {
 					return f;
 				}),
-				r.d(e, 'c', function() {
+				r.d(e, 'b', function() {
 					return j;
 				}),
-				r.d(e, 'd', function() {
+				r.d(e, 'c', function() {
 					return m;
 				}),
-				r.d(e, 'j', function() {
+				r.d(e, 'd', function() {
 					return w;
 				}),
-				r.d(e, 'p', function() {
+				r.d(e, 'j', function() {
 					return v;
 				}),
 				r.d(e, 'q', function() {
 					return k;
 				}),
-				r.d(e, 'a', function() {
+				r.d(e, 'r', function() {
 					return D;
 				}),
-				r.d(e, 'v', function() {
+				r.d(e, 'a', function() {
 					return P;
 				}),
-				r.d(e, 'f', function() {
+				r.d(e, 'w', function() {
 					return S;
 				}),
-				r.d(e, 'g', function() {
+				r.d(e, 'f', function() {
 					return L;
 				}),
-				r.d(e, 'r', function() {
+				r.d(e, 'g', function() {
 					return I;
+				}),
+				r.d(e, 's', function() {
+					return x;
 				});
 			var o = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
 				n = 'login_token',
@@ -132,18 +135,19 @@
 				b = 10,
 				g = 40,
 				d = 100,
-				O = 400,
-				f = 'article_cache_key',
-				j = 3e3,
-				m = 100,
-				w = 500,
-				v = 2048,
-				k = 100,
-				D = 24,
-				P = 'function' !== (typeof window.IntersectionObserver).toLowerCase(),
-				S = 'data-src',
-				L = 401,
-				I = 50;
+				O = 200,
+				f = 400,
+				j = 'article_cache_key',
+				m = 3e3,
+				w = 100,
+				v = 500,
+				k = 2048,
+				D = 100,
+				P = 24,
+				S = 'function' !== (typeof window.IntersectionObserver).toLowerCase(),
+				L = 'data-src',
+				I = 401,
+				x = 50;
 		},
 		223: function(t, e, r) {
 			t.exports = r(393);
@@ -267,7 +271,7 @@
 								{
 									key: 'componentDidMount',
 									value: function() {
-										j.v &&
+										j.w &&
 											m({
 												title: '\u8b66\u544a',
 												content:
@@ -1219,8 +1223,8 @@
 										this.userDetail &&
 											this.userDetail.personalSkill.push({
 												name: '',
-												percent: ae.u,
-												color: ae.t,
+												percent: ae.v,
+												color: ae.u,
 											});
 									},
 								},
@@ -1723,7 +1727,7 @@
 											(this.loading = !1),
 											(this.error = !1),
 											(this.errMsg = ''),
-											(this.pageSize = ae.s);
+											(this.pageSize = ae.t);
 									},
 								},
 								{
@@ -1793,7 +1797,7 @@
 						enumerable: !0,
 						writable: !0,
 						initializer: function() {
-							return ae.s;
+							return ae.t;
 						},
 					})),
 					(Pt = Object(l.a)(vt.prototype, 'pageIndex', [y.l], {

@@ -15051,7 +15051,7 @@
 							return e.map(function(e, t) {
 								return c.a.createElement(
 									xt.a,
-									{ key: e._id, color: _t.w[t] },
+									{ key: e._id, color: _t.x[t] },
 									e.name,
 								);
 							});
