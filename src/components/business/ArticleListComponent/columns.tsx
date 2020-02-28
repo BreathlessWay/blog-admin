@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Icon, Tag, Modal } from 'antd';
+import { Icon, Tag, Modal, notification } from 'antd';
 
 import store from '@/store';
 
@@ -10,8 +10,15 @@ import { ColumnProps } from 'antd/es/table';
 import { ArticleItemType } from '@/types/article';
 import { TagListType } from '@/types/tag';
 
-import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
+import {
+	EArticleRenderType,
+	EArticleStatus,
+} from '@/store/ArticleDetailStore/article.enum';
 import { TAG_COLOR } from '@/utils/constant';
+
+import { getArticleListService } from '@/service/articleService';
+
+import { deleteArticle, updateArticleDetail } from '@/apis/article';
 
 import moment from 'moment';
 
@@ -35,15 +42,15 @@ const columns: ColumnProps<ArticleItemType>[] = [
 	{
 		title: '发布日期',
 		align: 'center' as const,
-		dataIndex: 'createAt',
-		key: 'createAt',
-		render: createAt => (
+		dataIndex: 'createdAt',
+		key: 'createdAt',
+		render: createdAt => (
 			<div className="article-list_item">
-				<span>{moment(createAt).format('YYYY-MM-DD HH:mm:ss')}</span>
+				<span>{moment(createdAt).format('YYYY-MM-DD HH:mm:ss')}</span>
 			</div>
 		),
 		sorter: (a: ArticleItemType, b: ArticleItemType) => {
-			return a.createAt - b.createAt;
+			return moment(a.createdAt).valueOf() - moment(b.createdAt).valueOf();
 		},
 	},
 	{
@@ -53,7 +60,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 		key: 'tags',
 		render: (tags: TagListType) =>
 			tags.map((tag, index) => (
-				<Tag key={tag.objectId} color={TAG_COLOR[index]}>
+				<Tag key={tag._id} color={TAG_COLOR[index]}>
 					{tag.name}
 				</Tag>
 			)),
@@ -66,6 +73,20 @@ const columns: ColumnProps<ArticleItemType>[] = [
 		render: status => (
 			<div className="article-list_item">
 				<span>{status ? '显示中' : '已隐藏'}</span>
+			</div>
+		),
+	},
+	{
+		title: '编辑格式',
+		align: 'center' as const,
+		dataIndex: 'renderType',
+		key: 'renderType',
+		render: renderType => (
+			<div className="article-list_item">
+				<span>
+					{renderType === EArticleRenderType.richText && '富文本'}
+					{renderType === EArticleRenderType.markdown && 'Markdown'}
+				</span>
 			</div>
 		),
 	},
@@ -87,7 +108,7 @@ const columns: ColumnProps<ArticleItemType>[] = [
 					onClick={handleDelete(article)}
 				/>
 				&nbsp; &nbsp;
-				<Link to={`${routeMapPath.article.edit}?id=${article.objectId}`}>
+				<Link to={`${routeMapPath.article.edit}?id=${article._id}`}>
 					<Icon type="edit" style={{ fontSize: 20 }} />
 				</Link>
 			</div>
@@ -95,11 +116,21 @@ const columns: ColumnProps<ArticleItemType>[] = [
 	},
 ];
 
-const handleChangeStatus = (article: ArticleItemType) => () => {
-	const status = Boolean(article.status)
-		? EArticleStatus.hide
-		: EArticleStatus.show;
-	store.articleListStore.changeStatus([article.objectId], status);
+const handleChangeStatus = (article: ArticleItemType) => async () => {
+	try {
+		const status = Boolean(article.status)
+			? EArticleStatus.hide
+			: EArticleStatus.show;
+		const res = await updateArticleDetail(article._id, { status });
+		if (res.data?.success) {
+			store.articleListStore.changeStatus([article._id], status);
+		} else {
+			notification['error']({
+				message: '修改文章状态失败！',
+				description: res.data?.msg,
+			});
+		}
+	} catch (e) {}
 };
 
 const handleDelete = (article: ArticleItemType) => () => {
@@ -107,8 +138,22 @@ const handleDelete = (article: ArticleItemType) => () => {
 	confirm({
 		title: `确认删除该${articleAlias}？`,
 		okType: 'danger',
-		onOk() {
-			store.articleListStore.deleteArticle([article.objectId]);
+		onOk: async () => {
+			try {
+				store.articleListStore.startLoading();
+				const res = await deleteArticle(article._id);
+				if (res.data?.success) {
+					await getArticleListService();
+				} else {
+					notification['error']({
+						message: `删除${articleAlias}失败！`,
+						description: res.data?.msg,
+					});
+				}
+			} catch (e) {
+			} finally {
+				store.articleListStore.stopLoading();
+			}
 		},
 		onCancel() {
 			console.log('Cancel');

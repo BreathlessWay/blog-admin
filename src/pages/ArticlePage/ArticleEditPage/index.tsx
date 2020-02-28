@@ -2,13 +2,17 @@ import React, { Component, ComponentClass, lazy } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Modal } from 'antd';
+import { Modal, notification } from 'antd';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { StoreType } from '@/store/store';
 import { ArticleCacheType, ArticleDetailType } from '@/types/article';
 
 import { EArticleRenderType } from '@/store/ArticleDetailStore/article.enum';
+
+import { getTagListService } from '@/service/tagService';
+
+import { getArticleDetail } from '@/apis/article';
 
 import { ARTICLE_CACHE_KEY, ARTICLE_CACHE_TIME } from '@/utils/constant';
 import { parseSearch } from '@/utils/parseSearch';
@@ -58,47 +62,52 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 	time: any = null;
 
 	async componentDidMount() {
-		const _this = this;
-		const { pathname } = _this.props.location;
-		const { articleAlias } = _this.props.homepageStore;
+		try {
+			await getTagListService();
 
-		if (pathname === routeMapPath.article.edit && !_this.articleId) {
-			warning({
-				title: '提示',
-				content: `编辑${articleAlias}缺少${articleAlias}id参数！`,
-				okText: '确定',
-				onOk() {
-					_this.props.history.replace(routeMapPath.article.home);
-				},
-			});
-			return;
-		}
-		await _this.getData();
+			const _this = this;
+			const { pathname } = _this.props.location;
+			const { articleAlias } = _this.props.homepageStore;
 
-		if (_this.judgeCache) {
-			confirm({
-				title: '提示',
-				content: '您似乎有上一次未保存的草稿，是否载入？',
-				keyboard: false,
-				maskClosable: false,
-				onOk() {
-					_this.loadCache();
-				},
-				onCancel() {
-					storage.remove(ARTICLE_CACHE_KEY);
-				},
-			});
-			return;
-		}
+			if (pathname === routeMapPath.article.edit && !_this.articleId) {
+				warning({
+					title: '提示',
+					content: `编辑${articleAlias}缺少${articleAlias}id参数！`,
+					okText: '确定',
+					onOk() {
+						_this.props.history.replace(routeMapPath.article.home);
+					},
+				});
+				return;
+			}
+			await _this.getData();
 
-		storage.remove(ARTICLE_CACHE_KEY);
-		_this.startCache();
+			if (_this.judgeCache) {
+				confirm({
+					title: '提示',
+					content: '您似乎有上一次未保存的草稿，是否载入？',
+					keyboard: false,
+					maskClosable: false,
+					onOk() {
+						_this.loadCache();
+					},
+					onCancel() {
+						storage.remove(ARTICLE_CACHE_KEY);
+					},
+				});
+				return;
+			}
+
+			storage.remove(ARTICLE_CACHE_KEY);
+			_this.startCache();
+		} catch (e) {}
 	}
 
 	componentWillUnmount(): void {
 		window.clearInterval(this.time);
 		this.time = null;
 		this.props.articleDetailStore.resetError();
+		this.props.articleDetailStore.resetDetail();
 	}
 
 	get judgeCache() {
@@ -121,7 +130,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					) {
 						return true;
 					}
-					if (detail.tags.map(tag => tag.objectId).join() !== tags.join()) {
+					if (detail.tags.join() !== tags.join()) {
 						return true;
 					}
 					if (
@@ -155,7 +164,7 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 					markdown,
 					draftDetail,
 				} = detail;
-				const _cacheTag = tags.map(tag => tag.objectId).filter(value => value);
+				const _cacheTag = tags.filter(value => value);
 				let _cacheDetail = '';
 				if (renderType === EArticleRenderType.richText) {
 					if (draftDetail && draftDetail.toText()) {
@@ -186,7 +195,6 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 			const {
 				data: { title, intro, tags, renderType, status, detail },
 			} = this.articleCache;
-
 			const params: ArticleDetailType = {
 				title,
 				intro,
@@ -194,10 +202,10 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 				renderType,
 				status: Number(status),
 			} as any;
-			if (tags.length) {
-				params.tags = this.props.tagStore.tags.filter(
-					item => item.objectId && tags.includes(item.objectId),
-				);
+			if (tags && tags.length) {
+				params.tags = this.props.tagStore.tags
+					.filter(item => item._id && tags.includes(item._id))
+					.map(tag => tag._id) as Array<string>;
 			}
 			if (renderType === EArticleRenderType.richText) {
 				params.richTextRaw = detail;
@@ -211,9 +219,24 @@ class ArticleEditPage extends Component<ArticleEditPagePropType> {
 		this.startCache();
 	};
 
-	getData = () => {
-		const { createArticle } = this.props.articleDetailStore;
-		if (this.isEdit) {
+	getData = async () => {
+		const { createArticle, setDetail } = this.props.articleDetailStore;
+		if (this.isEdit && this.articleId) {
+			const res = await getArticleDetail(this.articleId);
+			if (res.data?.success) {
+				const data = res.data.data;
+				if (data && data.tags && data.tags.length) {
+					data.tags = res.data.data.tags
+						.map((tag: any) => tag._id)
+						.filter((v: string) => v);
+				}
+				setDetail(data);
+			} else {
+				notification['error']({
+					message: '获取文章详情失败！',
+					description: res.data?.msg,
+				});
+			}
 		}
 		if (this.isCreate) {
 			createArticle();

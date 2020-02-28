@@ -3,7 +3,7 @@ import React, { Component, ComponentClass, MouseEvent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Modal, Checkbox } from 'antd';
+import { Modal, Checkbox, notification } from 'antd';
 import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import PhotoActionComponent from '@/components/common/PhotoActionComponent';
 
@@ -13,11 +13,17 @@ import { AlbumItemType } from '@/types/album';
 import { routeMapPath } from '@/route';
 
 import './style.scss';
+import { deleteAlbum } from '@/apis/album';
+import { getAlbumService } from '@/service/photographyService';
 
 const { confirm } = Modal;
 
 export type PhotoAlbumItemPropType = {
-	item: AlbumItemType;
+	item: AlbumItemType & {
+		cover: {
+			url: string;
+		};
+	};
 
 	onEditAlbum: (item: AlbumItemType) => void;
 };
@@ -32,23 +38,41 @@ class PhotoAlbumItem extends Component<
 	handleEditAlbum = () => {
 		const {
 			history,
-			item: { objectId },
+			item: { _id },
 		} = this.props;
-		history.push(`${routeMapPath.photography.edit}?id=${objectId}`);
+		history.push(`${routeMapPath.photography.edit}?id=${_id}`);
 	};
 
 	handleDelete = (e: MouseEvent) => {
 		this.handleStop(e);
 		const {
 			item,
-			photoAlbumStore: { removeItem },
+			photoAlbumStore: { removeItem, hasNext, startLoading, stopLoading },
 		} = this.props;
 		confirm({
 			title: '删除该相册会删除该相册下的所有图片',
 			content: '是否确认删除？',
 			okType: 'danger',
-			onOk() {
-				removeItem(item);
+			onOk: async () => {
+				try {
+					startLoading();
+					const res = await deleteAlbum({ id: item._id });
+					if (res.data?.success) {
+						if (hasNext) {
+							await getAlbumService();
+						} else {
+							removeItem(item);
+						}
+					} else {
+						notification['error']({
+							message: '删除相册失败！',
+							description: res.data?.msg,
+						});
+					}
+				} catch (e) {
+				} finally {
+					stopLoading();
+				}
 			},
 			onCancel() {
 				console.log('Cancel');
@@ -75,7 +99,7 @@ class PhotoAlbumItem extends Component<
 	};
 
 	render() {
-		const { title, cover = '', checked } = this.props.item;
+		const { title, cover, checked } = this.props.item;
 
 		return (
 			<li className="photo-album_item" onClick={this.handleEditAlbum}>
@@ -94,7 +118,7 @@ class PhotoAlbumItem extends Component<
 					title={title}>
 					<div style={{ overflow: 'hidden' }}>
 						<ImageLoadComponent
-							url={cover}
+							url={cover?.url ?? ''}
 							title={title}
 							width={200}
 							height={200}

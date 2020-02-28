@@ -1,10 +1,13 @@
+import { EMenuType } from '@/store/HomePageStore/homepage.enum';
+
 export type MenuItemType = {
 	name: string;
-	type: string;
+	type: EMenuType;
 	path: string;
 	show: boolean;
-	objectId: string;
-	onlyAdmin?: boolean;
+	onlyAdmin: boolean;
+	_id: string;
+	sort: number;
 	children?: Array<{
 		name: string;
 		path: string;

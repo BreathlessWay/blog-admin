@@ -2,7 +2,11 @@ import React, { FC, lazy, useEffect } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
+import { Spin } from 'antd';
+
 import { StoreType } from '@/store/store';
+
+import { getAlbumService } from '@/service/photographyService';
 
 import compose from '@/utils/compose';
 
@@ -13,13 +17,15 @@ const PhotoAlbumComponent = lazy(() =>
 );
 
 const PhotographyIndexPage: FC<Pick<StoreType, 'photoAlbumStore'>> = props => {
-	const { getList } = props.photoAlbumStore;
-
 	useEffect(() => {
-		getList();
-	}, [getList]);
+		getAlbumService();
+	}, []);
 
-	return <PhotoAlbumComponent />;
+	return (
+		<Spin spinning={props.photoAlbumStore.loading}>
+			<PhotoAlbumComponent />
+		</Spin>
+	);
 };
 
 export default compose<FC>(

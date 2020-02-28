@@ -3,11 +3,12 @@ import React, { lazy } from 'react';
 import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Layout, Row, Spin, BackTop, Icon } from 'antd';
+import { Layout, Row, Spin, BackTop, Icon, message } from 'antd';
 
 import { StoreType } from '@/store/store';
 
-import { login } from '@/service/login';
+import { loginService } from '@/service/loginService';
+import { getUserDetailService } from '@/service/userService';
 
 import { routeMapPath } from '@/route';
 
@@ -88,21 +89,26 @@ export type RouterPagePropType = Pick<
 }))
 @observer
 class RouterPage extends React.Component<RouterPagePropType> {
-	componentDidMount(): void {
-		const { userStore, history, homepageStore } = this.props;
-		login({ userStore, history, homepageStore });
+	async componentDidMount() {
+		const { history } = this.props;
+		const hide = message.loading('加载中...', 0);
+		await loginService({ history });
+		await getUserDetailService();
+		hide();
 	}
 
 	render() {
 		const {
-			homepageStore: { firstMenu },
+			homepageStore: { firstMenu, hasMenu },
 			globalStore: { loading },
 		} = this.props;
 		return (
 			<Layout>
 				<Sider className="home-page_sider">
-					<aside className="home-page_logo">博客管理后台</aside>
-					<MenuComponent />
+					<a href="/" className="home-page_logo">
+						博客管理后台
+					</a>
+					{hasMenu && <MenuComponent />}
 				</Sider>
 				<Layout className="home-page_layout">
 					<Header className="home-page_header">

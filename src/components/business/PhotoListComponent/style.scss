@@ -2,6 +2,7 @@
 @import '../../../static/css/mixins';
 
 .photo-list {
+	width: 100%;
 	margin: 0 auto;
 	height: calc(100vh - 64px - 85px - 52px - 24px - 24px - 20px - 5px);
 	overflow: auto;

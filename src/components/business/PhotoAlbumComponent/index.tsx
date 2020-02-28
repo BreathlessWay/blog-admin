@@ -12,6 +12,7 @@ import {
 	Empty,
 	Typography,
 	Pagination,
+	notification,
 } from 'antd';
 import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
@@ -20,6 +21,15 @@ import BatchEditDropdownComponent from '@/components/common/BatchEditDropdownCom
 
 import { StoreType } from '@/store/store';
 import { AlbumItemType } from '@/types/album';
+
+import { getAlbumService } from '@/service/photographyService';
+
+import {
+	batchDeleteAlbum,
+	batchUpdateAlbum,
+	createAlbum,
+	updateAlbum,
+} from '@/apis/album';
 
 import { MAX_LENGTH_SM } from '@/utils/constant';
 
@@ -81,28 +91,56 @@ class PhotoAlbumComponent extends Component<
 		});
 	};
 
-	handleOk = () => {
-		const { editItem } = this.state;
-		if (!editItem.title?.trim()) {
+	handleOk = async () => {
+		try {
+			const { editItem } = this.state;
+			const { setItem, isFullPage } = this.props.photoAlbumStore;
+
+			if (!editItem.title?.trim()) {
+				this.setState({
+					titleError: true,
+				});
+				return;
+			}
 			this.setState({
-				titleError: true,
+				confirmLoading: true,
 			});
-			return;
+			if (editItem._id) {
+				// edit
+				const updateResult = await updateAlbum({
+					id: editItem._id,
+					data: { title: editItem.title, show: editItem.show as boolean },
+				});
+				if (updateResult.data?.success) {
+					setItem(editItem as AlbumItemType);
+				} else {
+					notification['error']({
+						message: '更新相册失败！',
+						description: updateResult.data?.msg,
+					});
+				}
+			} else {
+				// create
+				const createResult = await createAlbum({
+					title: editItem.title,
+					show: editItem.show as boolean,
+				});
+				if (createResult.data?.success) {
+					!isFullPage && (await getAlbumService());
+				} else {
+					notification['error']({
+						message: '新建相册失败！',
+						description: createResult.data?.msg,
+					});
+				}
+			}
+		} catch (e) {
+		} finally {
+			this.setState({
+				confirmLoading: false,
+				visible: false,
+			});
 		}
-		this.setState({
-			confirmLoading: true,
-		});
-		if (editItem.objectId) {
-			// edit
-			this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
-		} else {
-			// create
-			this.props.photoAlbumStore.setItem(editItem as AlbumItemType);
-		}
-		this.setState({
-			confirmLoading: false,
-			visible: false,
-		});
 	};
 
 	handleCancel = () => {
@@ -115,10 +153,12 @@ class PhotoAlbumComponent extends Component<
 
 	handlePaginationChange = (page: number) => {
 		this.props.photoAlbumStore.jumpToPage(page);
+		getAlbumService();
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
 		this.props.photoAlbumStore.changePageSize(size);
+		getAlbumService();
 	};
 
 	handleEditAlbum = (item: AlbumItemType) => {
@@ -132,15 +172,45 @@ class PhotoAlbumComponent extends Component<
 		this.props.photoAlbumStore.batchChangeChecked();
 	};
 
+	changeAlbumShow = async (show: boolean) => {
+		try {
+			const { checkedId, batchHide, batchShow } = this.props.photoAlbumStore;
+			show ? batchShow() : batchHide();
+			const res = await batchUpdateAlbum({ ids: checkedId, show });
+			if (!res.data?.success) {
+				notification['error']({
+					message: '批量修改相册失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
+	};
+
 	handleBatchHide = () => {
-		this.props.photoAlbumStore.batchHide();
+		this.changeAlbumShow(false);
 	};
 
 	handleBatchShow = () => {
-		this.props.photoAlbumStore.batchShow();
+		this.changeAlbumShow(true);
 	};
 
-	handleBatchDelete = () => {
+	handleBatchDelete = async () => {
+		const { checkedId, startLoading, stopLoading } = this.props.photoAlbumStore;
+		startLoading();
+		try {
+			const res = await batchDeleteAlbum(JSON.stringify(checkedId));
+			if (res.data?.success) {
+				getAlbumService();
+			} else {
+				notification['error']({
+					message: '批量删除相册失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+		} finally {
+			stopLoading();
+		}
 		this.props.photoAlbumStore.batchDelete();
 	};
 
@@ -188,8 +258,8 @@ class PhotoAlbumComponent extends Component<
 					<ul>
 						{list.map(item => (
 							<PhotoAlbumItem
-								key={item.objectId}
-								item={item}
+								key={item._id}
+								item={item as any}
 								onEditAlbum={this.handleEditAlbum}
 							/>
 						))}

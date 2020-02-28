@@ -9,15 +9,15 @@ export type ArticleQueryType = {
 	keyword: string | undefined;
 	startTime: number | undefined;
 	endTime: number | undefined;
-	status: EArticleStatus;
+	status: EArticleStatus | undefined;
 	tags: Array<string> | undefined;
 };
 
 export type ArticleItemType = {
-	objectId: string;
+	_id: string;
 	title: string;
 	status: number; // 0 隐藏 1 显示
-	createAt: number;
+	createdAt: number;
 	tags: TagListType;
 	key?: string;
 };
@@ -31,13 +31,13 @@ export type ArticleDetailType = {
 	richTextRaw: string;
 	markdown: string;
 	status: number;
-	tags: TagListType;
+	tags: Array<string>;
 	renderType: EArticleRenderType;
 
 	draftDetail?: EditorState;
 
-	objectId?: string;
-	createAt?: number;
+	_id?: string;
+	createdAt?: number;
 };
 
 export type ArticleCacheType = {

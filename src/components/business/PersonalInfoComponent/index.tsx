@@ -7,9 +7,12 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
 
 import { EPersonalChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD, MAX_LENGTH_XXL } from '@/utils/constant';
+
+import { updateUserService } from '@/service/userService';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -34,24 +37,26 @@ class PersonalInfoComponent extends Component<
 		introError: false,
 	};
 
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			const {
-				personalTitle,
-				personalInfo,
-				personalIntro,
-			} = this.props.userStore.userDetail;
-			this.setState({
-				titleError: !personalTitle.trim(),
-				infoError: !personalInfo.trim(),
-				introError: !personalIntro.trim(),
-			});
+	handleEdit = async () => {
+		const { personalTitle, personalInfo, personalIntro } = this.props.userStore
+			.userDetail as UserDetailType;
+		try {
 			if (personalTitle.trim() && personalInfo.trim() && personalIntro.trim()) {
-				resolve();
-			} else {
-				reject();
+				return updateUserService({
+					personalTitle,
+					personalInfo,
+					personalIntro,
+				});
 			}
-		});
+		} catch (e) {
+			throw new Error();
+		} finally {
+			this.setState({
+				titleError: !personalTitle || !personalTitle.trim(),
+				infoError: !personalInfo || !personalInfo.trim(),
+				introError: !personalIntro || !personalIntro.trim(),
+			});
+		}
 	};
 
 	handleChangeContent = (
@@ -82,12 +87,10 @@ class PersonalInfoComponent extends Component<
 	};
 
 	render() {
-		const {
-			personalTitle,
-			personalInfo,
-			personalIntro,
-		} = this.props.userStore.userDetail;
+		const { personalTitle, personalInfo, personalIntro } =
+			this.props.userStore.userDetail || {};
 		const { titleError, infoError, introError } = this.state;
+
 		return (
 			<BasicWrapComponent
 				title="个人信息"

@@ -1,9 +1,7 @@
-import { ImageListType } from '@/types/image';
-
 export type SocialItemType = {
 	icon: string;
 	value: string;
-	objectId?: string;
+	_id?: string;
 };
 
 export type SocialListType = Array<SocialItemType>;
@@ -12,13 +10,13 @@ export type PersonalSkillItemType = {
 	name: string;
 	percent: number;
 	color: string;
-	objectId?: string;
+	_id?: string;
 };
 
 export type PersonalSkillListType = Array<PersonalSkillItemType>;
 
 export type UserDetailType = {
-	objectId?: string;
+	_id?: string;
 	resumeAlias: string;
 	resumeUrl: string;
 	resumeName: string;

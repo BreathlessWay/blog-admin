@@ -3,7 +3,7 @@ import React, { Component, ComponentClass } from 'react';
 import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Table, Button, Pagination, Row, Col } from 'antd';
+import { Table, Button, Pagination, Row, Col, notification, Modal } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import columns from './columns';
@@ -12,9 +12,15 @@ import { StoreType } from '@/store/store';
 
 import { EArticleStatus } from '@/store/ArticleDetailStore/article.enum';
 
+import { getArticleListService } from '@/service/articleService';
+
+import { batchDeleteArticle, batchUpdateArticle } from '@/apis/article';
+
 import { routeMapPath } from '@/route';
 
 import './style.scss';
+
+const { confirm } = Modal;
 
 export type ArticleListComponentPropType = Pick<
 	StoreType,
@@ -46,28 +52,75 @@ class ArticleListComponent extends Component<
 
 	handlePaginationChange = (page: number) => {
 		this.props.articleListStore.jumpToPage(page);
+		getArticleListService();
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
 		this.props.articleListStore.changePageSize(size);
+		getArticleListService();
 	};
 
-	handleDeleteSelected = () => {
-		this.props.articleListStore.deleteArticle(this.state.selectedRowKeys);
+	handleDeleteSelected = async () => {
+		const _this = this;
+		const { articleAlias } = _this.props.homepageStore;
+		const { startLoading, stopLoading } = _this.props.articleListStore;
+		confirm({
+			title: `确认删除选中${articleAlias}？`,
+			okType: 'danger',
+			onOk: async () => {
+				try {
+					startLoading();
+					const ids = _this.state.selectedRowKeys;
+					const res = await batchDeleteArticle(JSON.stringify(ids));
+					if (res.data?.success) {
+						_this.setState({
+							selectedRowKeys: [],
+						});
+						await getArticleListService();
+					} else {
+						notification['error']({
+							message: '删除文章失败！',
+							description: res.data?.msg,
+						});
+					}
+				} catch (e) {
+				} finally {
+					stopLoading();
+				}
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
+	};
+
+	batchChangeStatus = async (status: EArticleStatus) => {
+		try {
+			const ids = this.state.selectedRowKeys;
+			const res = await batchUpdateArticle({ ids, status });
+			if (res.data?.success) {
+				this.props.articleListStore.changeStatus(
+					this.state.selectedRowKeys,
+					status,
+				);
+				this.setState({
+					selectedRowKeys: [],
+				});
+			} else {
+				notification['error']({
+					message: '修改文章状态失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
 	};
 
 	handleShowSelected = () => {
-		this.props.articleListStore.changeStatus(
-			this.state.selectedRowKeys,
-			EArticleStatus.show,
-		);
+		this.batchChangeStatus(EArticleStatus.show);
 	};
 
 	handleHideSelected = () => {
-		this.props.articleListStore.changeStatus(
-			this.state.selectedRowKeys,
-			EArticleStatus.hide,
-		);
+		this.batchChangeStatus(EArticleStatus.hide);
 	};
 
 	render() {
@@ -85,6 +138,7 @@ class ArticleListComponent extends Component<
 		return (
 			<>
 				<Table
+					rowKey="_id"
 					loading={loading}
 					bordered={true}
 					rowSelection={{ selectedRowKeys, onChange: this.handleSelectChange }}

@@ -10,16 +10,19 @@ export type FileShowComponentPropType = {
 	type: 'file' | 'image';
 	value: string;
 	onDelete: () => void;
+	isEditing: boolean;
 };
 
 const FileShowComponent: FC<FileShowComponentPropType> = props => {
-	const { type, value, onDelete } = props;
+	const { type, value, onDelete, isEditing } = props;
 	let node = null;
 
 	if (type === 'file') {
 		node = (
 			<>
 				<span>{value}</span>
+				&nbsp;
+				{isEditing && <Icon type="delete" onClick={onDelete} />}
 			</>
 		);
 	}
@@ -38,9 +41,7 @@ const FileShowComponent: FC<FileShowComponentPropType> = props => {
 		<>
 			{node}
 			&nbsp;
-			<Icon type="delete" onClick={onDelete} />
-			&nbsp;
-			<Icon type="eye" onClick={handlePreview} />
+			{type === 'image' && <Icon type="eye" onClick={handlePreview} />}
 		</>
 	) : null;
 };

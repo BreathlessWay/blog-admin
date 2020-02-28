@@ -3,29 +3,40 @@ import { action, computed, observable } from 'mobx';
 import ListStore from '@/store/ListStore';
 
 import { PhotoItemType, PhotoListType } from '@/types/photo';
+import { AlbumItemType } from '@/types/album';
 
-// import array from './data';
+import * as Qs from 'qs';
 
 export default class PhotoListStore extends ListStore<PhotoItemType> {
+	@observable
+	albumInfo: AlbumItemType | null = null;
+
 	@observable
 	column = 1;
 
 	@action.bound
+	setAlbumInfo(data: AlbumItemType | null) {
+		this.albumInfo = data;
+	}
+
+	@action.bound
 	setColumn(column: number) {
 		if (this.column !== column) {
-			this.column = column;
+			this.column = column || 1;
 		}
 	}
 
 	@action.bound
-	getList() {
-		// this.setList({ results: array, count: array.length });
+	setList({ list, count }: { list: PhotoListType; count: number }) {
+		this.list = this.list.concat(list);
+		this.count = count;
 	}
 
 	@action.bound
-	setList({ results, count }: { results: PhotoListType; count: number }) {
-		this.list = this.list.concat(results);
-		this.count = count;
+	setCover(id: string) {
+		if (this.albumInfo) {
+			this.albumInfo.cover = id;
+		}
 	}
 
 	@computed
@@ -46,5 +57,13 @@ export default class PhotoListStore extends ListStore<PhotoItemType> {
 	@computed
 	get imageUrls() {
 		return this.list.map(item => item.url).filter(value => value);
+	}
+
+	@computed
+	get query() {
+		return Qs.stringify({
+			pageIndex: this.pageIndex,
+			pageSize: this.pageSize,
+		});
 	}
 }

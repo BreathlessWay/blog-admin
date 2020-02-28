@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
-
-import qs from 'qs';
+import { notification } from 'antd';
 
 import { baseURL } from './config';
+import { storage } from '@/utils/storage';
+import { LOGIN_ERROR_CODE, LOGIN_TOKEN } from '@/utils/constant';
 
 const axios_config: AxiosRequestConfig = {
 	// `url` 是用于请求的服务器 URL
@@ -18,12 +19,12 @@ const axios_config: AxiosRequestConfig = {
 	// `transformRequest` 允许在向服务器发送前，修改请求数据
 	// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
 	// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
-	transformRequest: [
-		function(data: any, headers?: any) {
-			// 对 data 进行任意转换处理
-			return qs.stringify(data);
-		},
-	],
+	// transformRequest: [
+	// 	function(data: any, headers?: any) {
+	// 		// 对 data 进行任意转换处理
+	// 		return qs.stringify(data);
+	// 	},
+	// ],
 
 	// `transformResponse` 在传递给 then/catch 前，允许修改响应数据
 	transformResponse: [
@@ -34,13 +35,12 @@ const axios_config: AxiosRequestConfig = {
 	],
 
 	// `headers` 是即将被发送的自定义请求头
-	headers: { 'X-Requested-With': 'XMLHttpRequest' },
+	headers: {
+		'X-Requested-With': 'XMLHttpRequest',
+	},
 
 	// `params` 是即将与请求一起发送的 URL 参数
 	// 必须是一个无格式对象(plain object)或 URLSearchParams 对象
-	params: {
-		ID: 12345,
-	},
 
 	// `paramsSerializer` 是一个负责 `params` 序列化的函数
 	// (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
@@ -60,7 +60,7 @@ const axios_config: AxiosRequestConfig = {
 
 	// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 	// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-	timeout: 1000,
+	timeout: 10000,
 
 	// `withCredentials` 表示跨域请求时是否需要使用凭证
 	withCredentials: false, // default
@@ -78,18 +78,18 @@ const axios_config: AxiosRequestConfig = {
 	//   password: 's00pers3cret'
 	// },
 
+	// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
+	xsrfCookieName: 'csrfToken', // default
+
+	// `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+	xsrfHeaderName: 'X-XSRF-TOKEN', // default
+
 	// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 	responseType: 'json', // default
 
 	// `responseEncoding` indicates encoding to use for decoding responses
 	// Note: Ignored for `responseType` of 'stream' or client-side requests
 	// responseEncoding: 'utf8', // default
-
-	// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
-	xsrfCookieName: 'XSRF-TOKEN', // default
-
-	// `xsrfHeaderName` is the name of the http header that carries the xsrf token value
-	xsrfHeaderName: 'X-XSRF-TOKEN', // default
 
 	// `onUploadProgress` 允许为上传处理进度事件
 	// onUploadProgress: function (progressEvent:any) {
@@ -106,7 +106,7 @@ const axios_config: AxiosRequestConfig = {
 
 	// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，promise 将被 resolve; 否则，promise 将被 rejecte
 	validateStatus: function(status: number) {
-		return status >= 200 && status < 300; // default
+		return status >= 200 && status < 500; // default
 	},
 
 	// `maxRedirects` 定义在 node.js 中 follow 的最大重定向数目
@@ -142,12 +142,18 @@ const axios_config: AxiosRequestConfig = {
 	// })
 };
 
-axios.defaults = axios_config;
+for (let p in axios_config) {
+	(axios.defaults as any)[p] = (axios_config as any)[p];
+}
 
 // 添加请求拦截器
 axios.interceptors.request.use(
 	function(config) {
 		// 在发送请求之前做些什么
+		const storageToken = storage.get(LOGIN_TOKEN);
+		if (storageToken) {
+			config.headers['Authorization'] = `Bearer ${storageToken}`;
+		}
 		return config;
 	},
 	function(error) {
@@ -160,10 +166,17 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
 	function(response) {
 		// 对响应数据做点什么
+		if (response.status === LOGIN_ERROR_CODE) {
+			window.location.reload();
+		}
 		return response;
 	},
 	function(error) {
 		// 对响应错误做点什么
+		notification['error']({
+			message: '服务器错误！',
+			description: error?.response?.data?.msg ?? error.message,
+		});
 		return Promise.reject(error);
 	},
 );

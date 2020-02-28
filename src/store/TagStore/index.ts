@@ -7,11 +7,6 @@ export default class TagStore {
 	tags: TagListType = [];
 
 	@action.bound
-	getTags() {
-		this.setTags([]);
-	}
-
-	@action.bound
 	setTags(tags: TagListType) {
 		this.tags = tags;
 	}
@@ -72,6 +67,6 @@ export default class TagStore {
 
 	@computed
 	get usefulTag() {
-		return this.tags.filter(tag => tag.objectId);
+		return this.tags.filter(tag => tag._id);
 	}
 }

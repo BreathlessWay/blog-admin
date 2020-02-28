@@ -8,9 +8,11 @@ import DraggableComponent from '@/components/common/DraggableComponent';
 import SkillComponentItem from './item';
 
 import { StoreType } from '@/store/store';
-import { PersonalSkillItemType } from '@/types/user';
+import { PersonalSkillItemType, UserDetailType } from '@/types/user';
 
-import { MAX_LENGTH_MD } from '@/utils/constant';
+import { MAX_LENGTH_LG } from '@/utils/constant';
+
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -20,18 +22,24 @@ export type SkillComponentPropType = Pick<StoreType, 'userStore'>;
 @observer
 class SkillComponent extends Component<SkillComponentPropType> {
 	get skills() {
-		return this.props.userStore.userDetail.personalSkill.map((item, index) => {
-			return { ...item, ...{ id: item.objectId || `${index}` } };
-		});
+		const { userDetail } = this.props.userStore;
+		if (userDetail) {
+			return userDetail.personalSkill.map((item, index) => {
+				return { ...item, ...{ id: item._id || `${index}` } };
+			});
+		}
+		return [];
 	}
 
-	handleEdit = () => {
-		this.props.userStore.filterSkill();
-		return new Promise((resolve, reject) => {
-			const { personalSkill } = this.props.userStore.userDetail;
-			console.log(personalSkill);
-			resolve();
-		});
+	handleEdit = async () => {
+		try {
+			this.props.userStore.filterSkill();
+			const { personalSkill } = this.props.userStore
+				.userDetail as UserDetailType;
+			return updateUserService({ personalSkill });
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleAddSkill = () => {
@@ -56,7 +64,7 @@ class SkillComponent extends Component<SkillComponentPropType> {
 		return (
 			<BasicWrapComponent
 				title="个人技能"
-				note={`个人技能名称最长${MAX_LENGTH_MD}个字, 可以拖拽排序`}
+				note={`个人技能名称最长${MAX_LENGTH_LG}个字, 可以拖拽排序`}
 				handleEdit={this.handleEdit}
 				render={isEditing =>
 					hasSkills || isEditing ? (
@@ -68,7 +76,7 @@ class SkillComponent extends Component<SkillComponentPropType> {
 								list={skills}
 								render={(item: PersonalSkillItemType, index) => (
 									<SkillComponentItem
-										key={item.objectId || `${index}`}
+										key={item._id || `${index}`}
 										item={item}
 										index={index}
 										isEditing={isEditing}

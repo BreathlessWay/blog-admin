@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import { ConfigProvider } from 'antd';
@@ -26,7 +26,7 @@ const App: React.FC = () => {
 			<Suspense fallback={<FullLoadingComponent />}>
 				<ConfigProvider locale={zhCN}>
 					<Provider {...store}>
-						<HashRouter>
+						<BrowserRouter>
 							<Switch>
 								<Route
 									exact={true}
@@ -35,7 +35,7 @@ const App: React.FC = () => {
 								/>
 								<Route component={RouterPage} />
 							</Switch>
-						</HashRouter>
+						</BrowserRouter>
 					</Provider>
 				</ConfigProvider>
 			</Suspense>

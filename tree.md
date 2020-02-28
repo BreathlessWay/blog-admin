@@ -1,6 +1,9 @@
 ```
 .
+├── Dockerfile
 ├── README.md
+├── admin.conf
+├── build.sh
 ├── commitlint.config.js
 ├── config/
 │   ├── env.js
@@ -12,6 +15,7 @@
 │   ├── pnpTs.js
 │   ├── webpack.config.js
 │   └── webpackDevServer.config.js
+├── docker-compose.yml
 ├── jest.config.js
 ├── package-lock.json
 ├── package.json
@@ -28,6 +32,14 @@
 │   └── test.js
 ├── src/
 │   ├── apis/
+│   │   ├── album.ts
+│   │   ├── article.ts
+│   │   ├── cat.ts
+│   │   ├── login.ts
+│   │   ├── menu.ts
+│   │   ├── photo.ts
+│   │   ├── upload.ts
+│   │   └── user.ts
 │   ├── components/
 │   │   ├── business/
 │   │   │   ├── ArticleDetailButtonComponent/
@@ -181,14 +193,18 @@
 │   ├── route/
 │   │   └── index.ts
 │   ├── service/
-│   │   ├── login.ts
-│   │   └── upload.ts
+│   │   ├── articleService.ts
+│   │   ├── catListService.ts
+│   │   ├── loginService.ts
+│   │   ├── photographyService.ts
+│   │   ├── tagService.ts
+│   │   ├── uploadService.ts
+│   │   └── userService.ts
 │   ├── serviceWorker.ts
 │   ├── static/
 │   │   ├── css/
 │   │   │   ├── mixins.scss
 │   │   │   └── variables.scss
-│   │   ├── fonts/
 │   │   └── images/
 │   │       ├── background-loading.svg
 │   │       ├── image-loading.svg
@@ -198,10 +214,8 @@
 │   │   │   ├── article.enum.ts
 │   │   │   └── index.ts
 │   │   ├── ArticleListStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── CatStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.tsx
 │   │   ├── GlobalStore/
 │   │   │   └── index.ts
@@ -213,10 +227,8 @@
 │   │   ├── ListStore/
 │   │   │   └── index.ts
 │   │   ├── PhotoAlbumStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── PhotoListStore/
-│   │   │   ├── data.ts
 │   │   │   └── index.ts
 │   │   ├── TagStore/
 │   │   │   └── index.ts
@@ -248,5 +260,5 @@
 ├── tree.md
 └── tsconfig.json
 
-81 directories, 166 files
+80 directories, 179 files
 ```

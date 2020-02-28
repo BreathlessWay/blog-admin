@@ -2,9 +2,13 @@ import React, { Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Row, Col, Pagination, Button, Modal } from 'antd';
+import { Row, Col, Pagination, Button, Modal, notification } from 'antd';
 
 import { StoreType } from '@/store/store';
+
+import { getCatListService } from '@/service/catListService';
+
+import { batchChangeCatInfo, batchDeleteCatItem } from '@/apis/cat';
 
 import './style.scss';
 
@@ -17,10 +21,26 @@ export type CatPaginationComponentPropType = Pick<StoreType, 'catStore'>;
 class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 	handlePaginationChange = (page: number) => {
 		this.props.catStore.jumpToPage(page);
+		getCatListService();
 	};
 
 	handleShowSizeChange = (current: number, size: number) => {
 		this.props.catStore.changePageSize(size);
+		getCatListService();
+	};
+
+	batchChange = async (show: boolean) => {
+		try {
+			const { checkedId } = this.props.catStore;
+			const res = await batchChangeCatInfo({ ids: checkedId, show });
+			if (res.data?.success) {
+			} else {
+				notification['error']({
+					message: '批量修改图片失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {}
 	};
 
 	handleChangeChecked = () => {
@@ -29,19 +49,35 @@ class CatPaginationComponent extends Component<CatPaginationComponentPropType> {
 
 	handleBatchHide = () => {
 		this.props.catStore.batchHide();
+		this.batchChange(false);
 	};
 
 	handelBatchShow = () => {
 		this.props.catStore.batchShow();
+		this.batchChange(true);
 	};
 
 	handleBatchDelete = () => {
-		const _this = this;
+		const { checkedId, startLoading, stopLoading } = this.props.catStore;
 		confirm({
 			title: '是否确认删除选中图片？',
 			okType: 'danger',
-			onOk() {
-				_this.props.catStore.batchDelete();
+			onOk: async () => {
+				try {
+					startLoading();
+					const res = await batchDeleteCatItem(checkedId);
+					if (res.data?.success) {
+						await getCatListService();
+					} else {
+						notification['error']({
+							message: '批量删除图片失败！',
+							description: res.data?.msg,
+						});
+					}
+				} catch (e) {
+				} finally {
+					stopLoading();
+				}
 			},
 			onCancel() {
 				console.log('Cancel');

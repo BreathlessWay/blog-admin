@@ -11,6 +11,8 @@ import { MenuItemType } from '@/types/hompage';
 
 import { MAX_LENGTH_XS } from '@/utils/constant';
 
+import { updateMenuList } from '@/apis/menu';
+
 import './style.scss';
 
 const { Text } = Typography;
@@ -34,7 +36,7 @@ class MenuEditComponent extends React.Component<
 	get menuList() {
 		return this.props.homepageStore.menuList.map(item => ({
 			...item,
-			...{ error: !item.name.trim(), id: item.objectId },
+			...{ error: !item.name.trim(), id: item._id },
 		}));
 	}
 
@@ -43,19 +45,32 @@ class MenuEditComponent extends React.Component<
 		return !hasEmpty;
 	}
 
-	editMenu = () => {
-		// 发送请求
+	editMenu = async () => {
+		const { menuList, setMenuList } = this.props.homepageStore;
+		const params = menuList.map((item, index) => ({
+			name: item.name,
+			show: item.show,
+			type: item.type,
+			onlyAdmin: item.onlyAdmin,
+			sort: index,
+			_id: item._id,
+		}));
+		const res = await updateMenuList({ list: params });
+		if (res.data?.success) {
+			setMenuList(res.data?.data?.list ?? []);
+		} else {
+			const err = new Error(res.data?.msg);
+			err.name = '更新菜单栏失败！';
+			throw err;
+		}
 	};
 
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			if (this.canSubmit) {
-				this.editMenu();
-				resolve();
-			} else {
-				reject();
-			}
-		});
+	handleEdit = async () => {
+		if (this.canSubmit) {
+			return this.editMenu();
+		} else {
+			throw new Error();
+		}
 	};
 
 	handleMoveCard = (

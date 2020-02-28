@@ -1,0 +1,7 @@
+.rich-text {
+	border: 1px solid #eee;
+}
+.rich-text .bf-controlbar {
+	box-shadow: none;
+	border-bottom: 1px solid #eee;
+}

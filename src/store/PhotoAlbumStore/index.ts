@@ -1,15 +1,26 @@
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 
 import ListStore from '@/store/ListStore';
 
 import { AlbumItemType } from '@/types/album';
-
-// import { data } from './data';
+import * as Qs from 'qs';
 
 export default class PhotoAlbumStore extends ListStore<AlbumItemType> {
 	@action.bound
 	getList() {
-		// this.setList({ results: data, count: data.length });
-		this.setList({ results: [], count: 0 });
+		this.setList({ list: [], count: 0 });
+	}
+
+	@computed
+	get query() {
+		return Qs.stringify({
+			pageIndex: this.pageIndex,
+			pageSize: this.pageSize,
+		});
+	}
+
+	@computed
+	get isFullPage() {
+		return this.list.length === this.pageSize;
 	}
 }

@@ -1,6 +1,7 @@
 import React, { Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
+import { message } from 'antd';
 // 引入编辑器组件
 import BraftEditor, { EditorState } from 'braft-editor';
 
@@ -12,7 +13,9 @@ import {
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
 
-import { uploadFile } from '@/service/upload';
+import { ARTICLE_IMAGE_SIZE } from '@/utils/constant';
+
+import { uploadService } from '@/service/uploadService';
 
 // 引入编辑器样式
 import './style.scss';
@@ -75,20 +78,24 @@ class ArticleDetailUEditComponent extends Component<
 	};
 	// 如果未指定uploadFn，添加到媒体库的图片将会自动转换为base64的形式，而视频和音频则无法被添加到媒体库。
 	handleUploadFile = (params: UploadFileType) => {
-		uploadFile(params.file)
+		if (!/^(image)/g.test(params.file.type)) {
+			message.error('目前只支持上传图片');
+			return;
+		}
+		uploadService({ file: params.file, size: ARTICLE_IMAGE_SIZE })
 			.then(({ url, title }) => {
 				// 假设服务端直接返回文件上传后的地址
 				// 上传成功后调用param.success并传入上传后的文件地址
 				params.success({
 					url: url,
 					meta: {
-						id: 'xxx',
+						id: url,
 						title: title,
 						alt: title,
 						loop: true, // 指定音视频是否循环播放
 						autoPlay: true, // 指定音视频是否自动播放
 						controls: true, // 指定音视频是否显示控制栏
-						poster: 'http://xxx/xx.png', // 指定视频播放器的封面
+						poster: '', // 指定视频播放器的封面
 					},
 				});
 			})

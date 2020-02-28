@@ -15,7 +15,7 @@ import {
 	EArticleStatus,
 } from '@/store/ArticleDetailStore/article.enum';
 
-import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
+import { MAX_LENGTH_MD, MAX_LENGTH_XL } from '@/utils/constant';
 
 import './style.scss';
 
@@ -82,7 +82,9 @@ class ArticleDetailTopComponent extends Component<
 			value: !value.length,
 		});
 		if (value && hasTag) {
-			const selectedTags = tags.filter(tag => value.includes(tag.objectId));
+			const selectedTags = tags
+				.filter(tag => value.includes(tag._id))
+				.map(tag => tag._id);
 			changeDetail({
 				key: EArticleDetailKey.tags,
 				value: selectedTags,
@@ -104,7 +106,7 @@ class ArticleDetailTopComponent extends Component<
 
 	get selectTag() {
 		const { detail } = this.props.articleDetailStore;
-		return detail?.tags.map(tag => tag.objectId) ?? [];
+		return detail?.tags ?? [];
 	}
 
 	render() {
@@ -145,14 +147,14 @@ class ArticleDetailTopComponent extends Component<
 						<label htmlFor="intro">{articleAlias}描述</label>
 					</Title>
 					<Text type="warning" className="article-detail_warning">
-						{articleAlias}描述最多{MAX_LENGTH_LG}个字
+						{articleAlias}描述最多{MAX_LENGTH_XL}个字
 					</Text>
 					<TextArea
 						id="intro"
 						placeholder={`请输入${articleAlias}描述`}
 						allowClear={true}
 						rows={3}
-						maxLength={MAX_LENGTH_LG}
+						maxLength={MAX_LENGTH_XL}
 						value={detail?.intro ?? ''}
 						onChange={this.handleChangeIntro}
 						className="article-detail_intro"
@@ -191,7 +193,7 @@ class ArticleDetailTopComponent extends Component<
 						value={this.selectTag}
 						onChange={this.handleChangeTag}>
 						{tags.map(tag => (
-							<Option key={tag.objectId}>{tag.name}</Option>
+							<Option key={tag._id}>{tag.name}</Option>
 						))}
 					</Select>
 					{tagError && (

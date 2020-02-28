@@ -4,8 +4,8 @@ export type CatItemType = {
 	url: string;
 	show: boolean;
 
-	objectId: string;
-	createAt: number;
+	_id: string;
+	createdAt: number;
 
 	checked?: boolean;
 };

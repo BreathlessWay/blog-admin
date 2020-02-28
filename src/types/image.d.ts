@@ -2,10 +2,10 @@ export type ImageItemType = {
 	title: string;
 	intro?: string;
 	url: string;
-	objectId: string;
+	_id: string;
 	show: boolean;
 
-	createAt?: number;
+	createdAt?: number;
 	checked?: boolean;
 };
 

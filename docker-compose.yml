@@ -1,0 +1,20 @@
+# 这个是配置文件的版本，不同的版本号声明方式会有细微的不同
+version: '3.7'
+services:
+  docker_compose_blog_admin:
+    # docker构建镜像
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # docker启动的服务名
+    container_name: docker_container_blog_admin
+    # 启动服务依赖的镜像名
+    image: docker_image_blog_admin
+    # 启动服务时将服务的3000端口对外映射到3000端口
+    ports:
+      - '3000:3000'
+    # 重启
+    restart: always
+    # 设置网络模式, 同docker run --net=docker_network_blog
+    # 就是指定加入已存在的network
+    network_mode: 'docker_network_blog'

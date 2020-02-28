@@ -21,7 +21,11 @@ import { RouteComponentProps } from 'react-router';
 import { StoreType } from '@/store/store';
 import { TagItemType } from '@/types/tag';
 
+import { getTagListService } from '@/service/tagService';
+
 import { MAX_LENGTH_SM } from '@/utils/constant';
+
+import { updateTagList } from '@/apis/article';
 
 import './style.scss';
 
@@ -41,29 +45,44 @@ export type ArticleTagPagePropType = Pick<
 }))
 @observer
 class ArticleTagPage extends Component<ArticleTagPagePropType> {
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
-			filterEmptyTag();
-			if (hasSameNameTag) {
-				message.error('存在相同名称的标签，请确认后重试');
-				reject();
-			}
-			resolve();
-		});
+	async componentDidMount() {
+		await this.getTagList();
+	}
+
+	getTagList = async () => {
+		const hide = message.loading('加载中...', 0);
+		try {
+			await getTagListService();
+		} catch (e) {
+		} finally {
+			hide();
+		}
+	};
+
+	handleEdit = async () => {
+		const { hasSameNameTag, filterEmptyTag } = this.props.tagStore;
+		filterEmptyTag();
+		if (hasSameNameTag) {
+			const err = new Error('存在相同名称的标签，请确认后重试！');
+			err.name = '错误！';
+			throw err;
+		}
+		const { tags } = this.props.tagStore;
+		const res = await updateTagList({ list: tags });
+		if (res.data?.success) {
+			this.props.tagStore.setTags(res.data?.data?.list ?? []);
+		} else {
+			const err = new Error(res.data?.msg);
+			err.name = '更新标签列表失败！';
+			throw err;
+		}
 	};
 
 	handleChangeSwitch = (index: number) => () => {
 		this.props.tagStore.changeTagShow(index);
 	};
 
-	handleDelete = ({
-		tag,
-		index,
-	}: {
-		tag: TagItemType;
-		index: number;
-	}) => () => {
+	handleDelete({ tag, index }: { tag: TagItemType; index: number }) {
 		const _this = this;
 		const { articleAlias } = _this.props.homepageStore;
 
@@ -81,7 +100,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 				console.log('Cancel');
 			},
 		});
-	};
+	}
 
 	handleChangeInput = ({ value, index }: { value: string; index: number }) => {
 		this.props.tagStore.changeTagName({ name: value, index });
@@ -106,7 +125,10 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 			<Row type="flex" align="middle">
 				{isEditing && (
 					<Col className="article-tag_item">
-						<Icon type="delete" onClick={this.handleDelete({ tag, index })} />
+						<Icon
+							type="delete"
+							onClick={this.handleDelete.bind(this, { tag, index })}
+						/>
 					</Col>
 				)}
 				<Col className="article-tag_item">
@@ -145,7 +167,7 @@ class ArticleTagPage extends Component<ArticleTagPagePropType> {
 		return (
 			<Row type="flex">
 				{tags.map((tag, index) => (
-					<Fragment key={tag.objectId || `${index}`}>
+					<Fragment key={tag._id || `${index}`}>
 						<Col>{this.renderItem({ tag, index, isEditing })}</Col>
 						<Gap size="lg" />
 					</Fragment>

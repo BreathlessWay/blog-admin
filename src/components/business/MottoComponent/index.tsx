@@ -7,9 +7,12 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
 
 import { EMottoChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_LG, MAX_LENGTH_MD } from '@/utils/constant';
+
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -43,26 +46,29 @@ class MottoComponent extends React.Component<
 		introError: false,
 	};
 
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			const { en, zh, intro } = this.props.userStore.userDetail;
+	handleEdit = async () => {
+		const { en, zh, intro } = this.props.userStore.userDetail as UserDetailType;
+
+		try {
 			if (en.trim() && zh.trim() && intro.trim()) {
-				this.setState({
-					enError: false,
-					zhError: false,
-					introError: false,
-				});
 				// 提交更新
-				resolve();
-			} else {
-				this.setState({
-					enError: !en.trim(),
-					zhError: !zh.trim(),
-					introError: !intro.trim(),
+				return updateUserService({
+					en,
+					zh,
+					intro,
 				});
-				reject();
+			} else {
+				throw new Error();
 			}
-		});
+		} catch (e) {
+			throw new Error();
+		} finally {
+			this.setState({
+				enError: !en || !en.trim(),
+				zhError: !zh || !zh.trim(),
+				introError: !intro || !intro.trim(),
+			});
+		}
 	};
 
 	handleChangeEn = (e: ChangeEvent<HTMLInputElement>) => {
@@ -87,8 +93,9 @@ class MottoComponent extends React.Component<
 	};
 
 	render() {
-		const { en, zh, intro } = this.props.userStore.userDetail;
+		const { en, zh, intro } = this.props.userStore.userDetail || {};
 		const { enError, zhError, introError } = this.state;
+
 		return (
 			<BasicWrapComponent
 				title="座右铭"

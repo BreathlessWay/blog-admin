@@ -1,3 +1,6 @@
+// 邮箱正则
+export const EMAIL_REG = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
 // 登陆后本地的token键
 export const LOGIN_TOKEN = 'login_token';
 
@@ -5,7 +8,7 @@ export const LOGIN_TOKEN = 'login_token';
 export const MAX_IMAGE_COUNT = 5;
 
 // 默认上传图片类型
-export const UPLOAD_IMAGE_TYPE = '.ico,.png,.jpg,.jpeg';
+export const UPLOAD_IMAGE_TYPE = '.ico,.png,.jpg,.jpeg,.svg';
 
 // 默认上传简历类型
 export const UPLOAD_RESUME_TYPE = '.doc,.docx,.page,.jpeg,.png,.pdf';
@@ -42,7 +45,7 @@ export const MAX_LENGTH_XS = 4;
 
 export const MAX_LENGTH_SM = 10;
 
-export const MAX_LENGTH_MD = 20;
+export const MAX_LENGTH_MD = 40;
 
 export const MAX_LENGTH_LG = 100;
 
@@ -66,7 +69,7 @@ export const MAX_IMAGE_SIZE = 500;
 export const MAX_RESUME_SIZE = 2048;
 
 // 社交icon大小
-export const MAX_SOCIAL_SIZE = 20;
+export const MAX_SOCIAL_SIZE = 100;
 
 // icon的font-size
 export const ACTION_ICON_SIZE = 24;
@@ -77,3 +80,8 @@ export const SUPPORT_INTERSECTION_OBSERVER =
 
 // 图片src存储key
 export const IMAGE_DATA_SRC = 'data-src';
+
+// 401
+export const LOGIN_ERROR_CODE = 401;
+
+export const OFFSET_BOTTOM_HEIGHT = 50;

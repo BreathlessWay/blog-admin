@@ -15,7 +15,7 @@ import {
 	MAX_IMAGE_SIZE,
 } from '@/utils/constant';
 
-import { uploadFile } from '@/service/upload';
+import { uploadService } from '@/service/uploadService';
 
 import './style.scss';
 
@@ -68,7 +68,7 @@ export default class ImageUploadComponent extends Component<
 			const uploadFilePromise = fileList
 				.map(({ file, checked }) => {
 					if (checked) {
-						return uploadFile(file);
+						return uploadService({ file });
 					}
 					return null;
 				})
@@ -112,10 +112,11 @@ export default class ImageUploadComponent extends Component<
 
 	handleCustomUpload = (options: RcCustomRequestOptions) => {
 		message.destroy();
-		const hide = message.loading('图片转码中...', 0);
 		const { multiple, onUploadImage } = this.props;
 		const { file } = options;
 		if (multiple) {
+			const hide = message.loading('图片转码中...', 0);
+
 			const { fileList, showModal } = this.state;
 
 			const fileReader = new FileReader();
@@ -143,18 +144,20 @@ export default class ImageUploadComponent extends Component<
 		this.setState({
 			stateDisabled: true,
 		});
-		uploadFile(file).then(({ url, title, objectId }) => {
-			onUploadImage([
-				{
-					url,
-					title,
-					objectId,
-				} as ImageItemType,
-			]);
-			this.setState({
-				stateDisabled: false,
+		uploadService({ file })
+			.then(({ url, title }) => {
+				onUploadImage([
+					{
+						url,
+						title,
+					} as ImageItemType,
+				]);
+			})
+			.finally(() => {
+				this.setState({
+					stateDisabled: false,
+				});
 			});
-		});
 	};
 
 	render() {

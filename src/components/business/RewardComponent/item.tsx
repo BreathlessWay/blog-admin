@@ -7,7 +7,7 @@ import ImageLoadComponent from '@/components/common/ImageLoadComponent';
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 import { UPLOAD_IMAGE_TYPE } from '@/utils/constant';
 
-import { uploadFile } from '@/service/upload';
+import { uploadService } from '@/service/uploadService';
 
 import './style.scss';
 
@@ -36,12 +36,15 @@ export default class RewardComponentItem extends React.Component<
 			disabled: true,
 		});
 
-		uploadFile(options.file).then(({ url }) => {
-			this.props.onUploadCode(url);
-			this.setState({
-				disabled: false,
+		uploadService({ file: options.file })
+			.then(({ url }) => {
+				this.props.onUploadCode(url);
+			})
+			.finally(() => {
+				this.setState({
+					disabled: false,
+				});
 			});
-		});
 	};
 
 	renderContent = () => {

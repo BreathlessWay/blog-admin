@@ -8,9 +8,12 @@ import Gap from '@/components/common/Gap';
 import RewardComponentItem from './item';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
 
 import { ERewardChangeKey } from '@/store/UserStore/user.enum';
 import { MAX_LENGTH_SM } from '@/utils/constant';
+
+import { updateUserService } from '@/service/userService';
 
 import './style.scss';
 
@@ -21,20 +24,21 @@ export type RewardComponentPropType = Pick<StoreType, 'userStore'>;
 @inject('userStore')
 @observer
 class RewardComponent extends Component<RewardComponentPropType> {
-	handleEdit = () => {
-		return new Promise((resolve, reject) => {
-			resolve();
-		});
+	handleEdit = async () => {
+		try {
+			const { rewardEnable, rewardTitle, zfbCode, wxCode } = this.props
+				.userStore.userDetail as UserDetailType;
+			return updateUserService({ rewardEnable, rewardTitle, zfbCode, wxCode });
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleChangeSwitch = () => {
-		const {
-			userDetail: { rewardEnable },
-			setPersonalInfo,
-		} = this.props.userStore;
+		const { userDetail, setPersonalInfo } = this.props.userStore;
 		setPersonalInfo({
 			key: ERewardChangeKey.rewardEnable,
-			value: !rewardEnable,
+			value: !userDetail?.rewardEnable,
 		});
 	};
 
@@ -45,7 +49,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 		});
 	};
 
-	handleDelete = ({ key }: { key: ERewardChangeKey }) => () => {
+	handleDelete = ({ key }: { key: ERewardChangeKey }) => {
 		const _this = this;
 		confirm({
 			title: '是否确认删除该二维码？',
@@ -70,12 +74,9 @@ class RewardComponent extends Component<RewardComponentPropType> {
 	};
 
 	render() {
-		const {
-			rewardTitle,
-			zfbCode,
-			wxCode,
-			rewardEnable,
-		} = this.props.userStore.userDetail;
+		const { rewardTitle, zfbCode, wxCode, rewardEnable } =
+			this.props.userStore.userDetail || {};
+
 		return (
 			<BasicWrapComponent
 				title="打赏"
@@ -84,7 +85,7 @@ class RewardComponent extends Component<RewardComponentPropType> {
 				render={isEditing => (
 					<Row type="flex">
 						<Col>
-							{rewardEnable ? '关闭' : '开启'}打赏功能：{' '}
+							打赏功能：{' '}
 							<Switch
 								disabled={!isEditing}
 								checked={rewardEnable}
@@ -114,9 +115,9 @@ class RewardComponent extends Component<RewardComponentPropType> {
 							<ul className="reward-code_list">
 								<RewardComponentItem
 									disabled={!isEditing}
-									url={zfbCode}
+									url={zfbCode as string}
 									title={'支付宝二维码'}
-									onDeleteCode={this.handleDelete({
+									onDeleteCode={this.handleDelete.bind(this, {
 										key: ERewardChangeKey.zfbCode,
 									})}
 									onUploadCode={url =>
@@ -128,9 +129,9 @@ class RewardComponent extends Component<RewardComponentPropType> {
 								/>
 								<RewardComponentItem
 									disabled={!isEditing}
-									url={wxCode}
+									url={wxCode as string}
 									title={'微信二维码'}
-									onDeleteCode={this.handleDelete({
+									onDeleteCode={this.handleDelete.bind(this, {
 										key: ERewardChangeKey.wxCode,
 									})}
 									onUploadCode={url =>

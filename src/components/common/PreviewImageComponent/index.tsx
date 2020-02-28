@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import PreviewImageComponent from './PreviewImageComponent';
 
-import { close } from './close';
+import { close, keyDownListen } from './close';
 
 const preview = {
 	show({
@@ -16,6 +16,7 @@ const preview = {
 		index?: number;
 	}) {
 		if (urls && urls.length) {
+			window.addEventListener('keydown', keyDownListen);
 			const el = document.createElement('div');
 			el.id = 'preview';
 			document.body.append(el);

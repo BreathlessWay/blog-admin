@@ -2,15 +2,17 @@ import React, { FormEvent } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Row, Form, Icon, Input, Button, Col, Modal } from 'antd';
+import { Row, Form, Icon, Input, Button, Col, Modal, notification } from 'antd';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import { StoreType } from '@/store/store';
 
-import { login } from '@/service/login';
+import { EMAIL_REG, MAX_LENGTH_XS, TIME_COUNT_DOWN } from '@/utils/constant';
 
-import { TIME_COUNT_DOWN } from '@/utils/constant';
+import { getCode, login, register } from '@/apis/login';
+
+import { loginService } from '@/service/loginService';
 
 import './style.scss';
 
@@ -22,8 +24,9 @@ export type LoginPagePropType = Pick<StoreType, 'userStore' | 'homepageStore'> &
 
 export type LoginPageStateType = Readonly<{
 	second: number;
-	loading: boolean;
-	disabled: boolean;
+	codeLoading: boolean;
+	codeDisabled: boolean;
+	submitLoading: boolean;
 }>;
 
 @inject((allStore: StoreType) => ({
@@ -36,101 +39,140 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 
 	readonly state: LoginPageStateType = {
 		second: TIME_COUNT_DOWN,
-		loading: false,
-		disabled: false,
+		codeLoading: false,
+		codeDisabled: false,
+		submitLoading: false,
 	};
 
-	componentDidMount(): void {
-		const { userStore, history, homepageStore } = this.props;
-		login({ userStore, history, homepageStore, isLoginPage: true });
+	async componentDidMount() {
+		const { history } = this.props;
+		await loginService({
+			history,
+			isLoginPage: true,
+		});
 	}
 
 	handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
+		this.props.form.validateFields(async (err, values) => {
 			if (!err) {
-				const { userStore, history, homepageStore } = this.props;
-				// 登陆接口
-				login({
-					userStore,
-					history,
-					homepageStore,
-					isLoginPage: true,
-					token: 'login',
+				this.setState({
+					submitLoading: true,
 				});
-			}
-		});
-	};
-
-	handleGetCode = () => {
-		const _this = this;
-		// 获取邮箱输入框
-		const email = _this.props.form.getFieldValue('email');
-		// 邮箱正则
-		const emailReg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-		if (emailReg.test(email)) {
-			_this.setState({
-				loading: true,
-			});
-			// 验证邮箱是否注册过
-			const isR = false;
-			if (isR) {
-				_this.handleGetCodeRequest();
-			} else {
-				confirm({
-					title: '提示',
-					content: '该邮箱尚未注册，是否注册？',
-					okText: '注册',
-					cancelText: '不注册',
-					onOk() {
-						// 注册流程
-						_this.handleGetCodeRequest();
-					},
-					onCancel() {
-						console.log('Cancel');
-					},
-				});
-			}
-			return;
-		}
-		_this.props.form.setFields({
-			email: {
-				value: '',
-				errors: [new Error('请输入邮箱账号')],
-			},
-		});
-	};
-
-	handleGetCodeRequest = () => {
-		// 请求发送
-		// 请求发送成功后loading: false
-		// 发送验证码
-		// 回调倒计时
-		setTimeout(() => {
-			this.setState({
-				loading: false,
-				disabled: true,
-			});
-			this.time = setInterval(() => {
-				const { second } = this.state;
-				if (second) {
-					this.setState({
-						second: second - 1,
+				const { history } = this.props;
+				try {
+					const res = await login(values);
+					if (res.data?.success) {
+						notification['success']({
+							message: '登录成功',
+						});
+						await loginService({
+							history,
+							isLoginPage: true,
+							token: res.data.data.token,
+						});
+					} else {
+						throw new Error(res.data.msg);
+					}
+				} catch (e) {
+					notification['error']({
+						message: '登录失败',
+						description: e.message,
 					});
-				} else {
-					window.clearInterval(this.time);
 					this.setState({
-						disabled: false,
-						second: TIME_COUNT_DOWN,
+						submitLoading: false,
 					});
 				}
-			}, 1000);
-		}, 5000);
+			}
+		});
+	};
+
+	handleGetCode = async () => {
+		const _this = this;
+
+		try {
+			// 获取邮箱输入框
+			const email = _this.props.form.getFieldValue('email');
+			if (EMAIL_REG.test(email)) {
+				_this.setState({
+					codeLoading: true,
+				});
+				// 获取验证码
+				const res = await getCode({ email });
+				if (res.data?.success) {
+					_this.handleGetCodeTime();
+				} else {
+					confirm({
+						title: '提示',
+						content: '该邮箱尚未注册，是否注册？',
+						okText: '注册',
+						cancelText: '不注册',
+						onOk() {
+							// 注册流程
+							_this.handleRegister({ email });
+						},
+						onCancel() {
+							_this.setState({
+								codeLoading: false,
+							});
+						},
+					});
+				}
+				return;
+			}
+			_this.props.form.setFields({
+				email: {
+					value: '',
+					errors: [new Error('请输入邮箱账号')],
+				},
+			});
+		} catch (e) {
+			_this.setState({
+				codeLoading: false,
+			});
+		}
+	};
+
+	handleRegister = async ({ email }: { email: string }) => {
+		try {
+			const res = await register({ email });
+			if (res.data?.success) {
+				this.handleGetCodeTime();
+			}
+		} catch (e) {
+			this.setState({
+				codeLoading: false,
+			});
+		}
+	};
+
+	handleGetCodeTime = () => {
+		notification['success']({
+			message: '获取验证码成功！',
+		});
+		this.setState({
+			codeLoading: false,
+			codeDisabled: true,
+		});
+		this.time = setInterval(() => {
+			const { second } = this.state;
+			if (second) {
+				this.setState({
+					second: second - 1,
+				});
+			} else {
+				window.clearInterval(this.time);
+				this.setState({
+					codeDisabled: false,
+					second: TIME_COUNT_DOWN,
+				});
+			}
+		}, 1000);
 	};
 
 	get label() {
-		const { second, disabled } = this.state;
-		if (disabled) {
+		const { second, codeDisabled } = this.state;
+		if (codeDisabled) {
 			return `${second}s后重新获取`;
 		}
 		return '获取验证码';
@@ -142,7 +184,7 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		const { loading, disabled } = this.state;
+		const { codeLoading, codeDisabled, submitLoading } = this.state;
 		const { label } = this;
 
 		return (
@@ -162,11 +204,12 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 						<Form.Item>
 							<Row gutter={8}>
 								<Col span={14}>
-									{getFieldDecorator('password', {
+									{getFieldDecorator('code', {
 										rules: [{ required: true, message: '请输入验证码!' }],
 									})(
 										<Input
 											prefix={<Icon type="lock" className="login-page_icon" />}
+											maxLength={MAX_LENGTH_XS}
 											placeholder="验证码"
 										/>,
 									)}
@@ -175,16 +218,21 @@ class LoginPage extends React.Component<LoginPagePropType, LoginPageStateType> {
 									<Button
 										block={true}
 										onClick={this.handleGetCode}
-										loading={loading}
-										disabled={disabled}>
+										loading={codeLoading}
+										disabled={codeDisabled}>
 										{label}
 									</Button>
 								</Col>
 							</Row>
 						</Form.Item>
 						<Form.Item>
-							<Button type="default" htmlType="submit" block={true}>
-								登陆
+							<Button
+								type="default"
+								htmlType="submit"
+								block={true}
+								loading={submitLoading}
+								disabled={submitLoading}>
+								登录
 							</Button>
 						</Form.Item>
 					</Form>

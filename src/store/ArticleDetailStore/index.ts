@@ -48,7 +48,7 @@ export default class ArticleDetailStore {
 	@action.bound
 	createArticle() {
 		if (!this.detail) {
-			this.detail = this.emptyDetail;
+			this.detail = { ...this.emptyDetail };
 		}
 	}
 
@@ -72,5 +72,10 @@ export default class ArticleDetailStore {
 			tagError: false,
 			contentError: false,
 		};
+	}
+
+	@action.bound
+	resetDetail() {
+		this.detail = null;
 	}
 }

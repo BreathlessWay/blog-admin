@@ -7,7 +7,12 @@ import BasicWrapComponent from '@/components/business/BasicWrapComponent';
 import SocialEditItem from './item';
 
 import { StoreType } from '@/store/store';
+import { UserDetailType } from '@/types/user';
+
 import { EResumeChangeKey } from '@/store/UserStore/user.enum';
+
+import { updateUserService } from '@/service/userService';
+
 import {
 	MAX_RESUME_SIZE,
 	MAX_SOCIAL_SIZE,
@@ -33,16 +38,16 @@ class SocialEditComponent extends React.Component<
 	SocialEditComponentPropType,
 	SocialEditComponentStateType
 > {
-	handleEdit = () => {
-		this.props.userStore.filterSocial();
-		return new Promise((resolve, reject) => {
+	handleEdit = async () => {
+		try {
+			this.props.userStore.filterSocial();
 			const {
 				resumeAlias,
 				resumeUrl,
 				resumeName,
 				resumeImageUrl,
 				social,
-			} = this.props.userStore.userDetail;
+			} = this.props.userStore.userDetail as UserDetailType;
 			const params = {
 				resumeAlias,
 				resumeUrl,
@@ -50,10 +55,10 @@ class SocialEditComponent extends React.Component<
 				resumeImageUrl,
 				social,
 			};
-			console.log(params);
-			// 提交更新
-			resolve();
-		});
+			return await updateUserService(params);
+		} catch (e) {
+			throw new Error();
+		}
 	};
 
 	handleAddSocial = () => {
@@ -142,7 +147,7 @@ class SocialEditComponent extends React.Component<
 	};
 
 	get social() {
-		return this.props.userStore.userDetail.social;
+		return this.props.userStore.userDetail?.social || [];
 	}
 
 	render() {
@@ -156,12 +161,13 @@ class SocialEditComponent extends React.Component<
 				render={isEditing => (
 					<Row type="flex" align="middle">
 						<SocialEditItem
+							size={MAX_RESUME_SIZE}
 							accept={UPLOAD_RESUME_TYPE}
 							type="file"
 							title={'简历'}
-							value={userDetail.resumeAlias}
+							value={userDetail?.resumeAlias ?? ''}
 							label={'上传简历'}
-							file={userDetail.resumeName}
+							file={userDetail?.resumeName ?? ''}
 							isEditing={isEditing}
 							onUploadFile={this.handleUploadResume}
 							onDeleteFile={this.handleDeleteResume}
@@ -169,8 +175,9 @@ class SocialEditComponent extends React.Component<
 						/>
 						{social.map((item, index) => (
 							<SocialEditItem
+								size={MAX_SOCIAL_SIZE}
 								accept={UPLOAD_IMAGE_TYPE}
-								key={item.objectId || `${index}`}
+								key={item._id || `${index}`}
 								type="image"
 								value={item.value}
 								file={item.icon}

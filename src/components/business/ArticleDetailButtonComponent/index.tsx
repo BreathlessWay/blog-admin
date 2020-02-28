@@ -3,16 +3,19 @@ import React, { Component, ComponentClass } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-import { Button, Col, Row, Typography, Modal } from 'antd';
+import { Button, Col, Row, Typography, Modal, notification } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { StoreType } from '@/store/store';
+import { AxiosResponse } from 'axios';
 
 import {
 	EArticleDetailKey,
 	EArticleEditError,
 	EArticleRenderType,
 } from '@/store/ArticleDetailStore/article.enum';
+
+import { createArticle, updateArticleDetail } from '@/apis/article';
 
 import { ARTICLE_CACHE_KEY } from '@/utils/constant';
 import compose from '@/utils/compose';
@@ -29,14 +32,23 @@ export type ArticleDetailButtonComponentPropType = Pick<
 > &
 	RouteComponentProps;
 
+export type ArticleDetailButtonComponentStateType = Readonly<{
+	loading: boolean;
+}>;
+
 @inject((allStore: StoreType) => ({
 	articleDetailStore: allStore.articleDetailStore,
 	homepageStore: allStore.homepageStore,
 }))
 @observer
 class ArticleDetailButtonComponent extends Component<
-	ArticleDetailButtonComponentPropType
+	ArticleDetailButtonComponentPropType,
+	ArticleDetailButtonComponentStateType
 > {
+	readonly state: ArticleDetailButtonComponentStateType = {
+		loading: false,
+	};
+
 	handleCancel = () => {
 		this.props.history.replace(routeMapPath.article.home);
 	};
@@ -107,9 +119,55 @@ class ArticleDetailButtonComponent extends Component<
 				});
 			}
 			if (renderType === EArticleRenderType.markdown) {
-				console.log(markdown);
+				changeDetail({
+					key: EArticleDetailKey.markdown,
+					value: markdown,
+				});
 			}
-			storage.remove(ARTICLE_CACHE_KEY);
+			this.submitArticle();
+		}
+	};
+
+	submitArticle = async () => {
+		try {
+			this.setState({
+				loading: true,
+			});
+			const { detail, resetDetail } = this.props.articleDetailStore;
+			const params = {
+				title: detail!.title,
+				intro: detail!.intro,
+				richTextHtml: detail!.richTextHtml,
+				richTextRaw: detail!.richTextRaw,
+				markdown: detail!.markdown,
+				status: detail!.status,
+				tags: detail!.tags,
+				renderType: detail!.renderType,
+			};
+			let res: AxiosResponse;
+			if (detail!._id) {
+				res = await updateArticleDetail(detail!._id, params);
+			} else {
+				res = await createArticle(params);
+			}
+
+			if (res.data?.success) {
+				resetDetail();
+				storage.remove(ARTICLE_CACHE_KEY);
+				this.props.history.replace(routeMapPath.article.home);
+			} else {
+				this.setState({
+					loading: false,
+				});
+				notification['error']({
+					message: '新建文章失败！',
+					description: res.data?.msg,
+				});
+			}
+		} catch (e) {
+			this.setState({
+				loading: false,
+			});
 		}
 	};
 
@@ -118,6 +176,8 @@ class ArticleDetailButtonComponent extends Component<
 			error: { contentError },
 		} = this.props.articleDetailStore;
 		const { articleAlias } = this.props.homepageStore;
+		const { loading } = this.state;
+
 		return (
 			<>
 				{contentError && <Text type="danger">{articleAlias}内容不能为空</Text>}
@@ -129,6 +189,8 @@ class ArticleDetailButtonComponent extends Component<
 						</Button>
 						&nbsp; &nbsp; &nbsp;
 						<Button
+							loading={loading}
+							disabled={loading}
 							type="primary"
 							size="large"
 							onClick={this.handleSubmitContent}>
