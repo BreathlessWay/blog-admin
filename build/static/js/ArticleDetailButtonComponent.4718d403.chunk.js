@@ -178,6 +178,7 @@
 																				status: n.status,
 																				tags: n.tags,
 																				renderType: n.renderType,
+																				top: n.top,
 																			}),
 																			!n._id)
 																		) {

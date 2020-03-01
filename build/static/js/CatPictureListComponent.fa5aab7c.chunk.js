@@ -3835,21 +3835,481 @@
 			var E = k;
 			t.a = E;
 		},
-		552: function(e, t, n) {},
+		552: function(e, t, n) {
+			'use strict';
+			n(69), n(553);
+		},
 		553: function(e, t, n) {},
 		554: function(e, t, n) {
+			'use strict';
+			n.d(t, 'a', function() {
+				return E;
+			});
+			var r = n(0),
+				o = n(3),
+				a = n(555),
+				i = n.n(a),
+				c = n(8),
+				l = n.n(c),
+				s = n(70),
+				u = n(137),
+				f = n(14),
+				p = n(57),
+				d = n(20);
+			function h(e) {
+				return (h =
+					'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
+						? function(e) {
+								return typeof e;
+						  }
+						: function(e) {
+								return e &&
+									'function' === typeof Symbol &&
+									e.constructor === Symbol &&
+									e !== Symbol.prototype
+									? 'symbol'
+									: typeof e;
+						  })(e);
+			}
+			function m() {
+				return (m =
+					Object.assign ||
+					function(e) {
+						for (var t = 1; t < arguments.length; t++) {
+							var n = arguments[t];
+							for (var r in n)
+								Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+						}
+						return e;
+					}).apply(this, arguments);
+			}
+			function v(e, t, n) {
+				return (
+					t in e
+						? Object.defineProperty(e, t, {
+								value: n,
+								enumerable: !0,
+								configurable: !0,
+								writable: !0,
+						  })
+						: (e[t] = n),
+					e
+				);
+			}
+			function y(e, t) {
+				for (var n = 0; n < t.length; n++) {
+					var r = t[n];
+					(r.enumerable = r.enumerable || !1),
+						(r.configurable = !0),
+						'value' in r && (r.writable = !0),
+						Object.defineProperty(e, r.key, r);
+				}
+			}
+			function b(e, t) {
+				return !t || ('object' !== h(t) && 'function' !== typeof t)
+					? (function(e) {
+							if (void 0 === e)
+								throw new ReferenceError(
+									"this hasn't been initialised - super() hasn't been called",
+								);
+							return e;
+					  })(e)
+					: t;
+			}
+			function g(e) {
+				return (g = Object.setPrototypeOf
+					? Object.getPrototypeOf
+					: function(e) {
+							return e.__proto__ || Object.getPrototypeOf(e);
+					  })(e);
+			}
+			function k(e, t) {
+				return (k =
+					Object.setPrototypeOf ||
+					function(e, t) {
+						return (e.__proto__ = t), e;
+					})(e, t);
+			}
+			var E = (function(e) {
+				function t(e) {
+					var n;
+					return (
+						(function(e, t) {
+							if (!(e instanceof t))
+								throw new TypeError('Cannot call a class as a function');
+						})(this, t),
+						((n = b(this, g(t).call(this, e))).saveSwitch = function(e) {
+							n.rcSwitch = e;
+						}),
+						(n.renderSwitch = function(e) {
+							var t,
+								o = e.getPrefixCls,
+								a = n.props,
+								c = a.prefixCls,
+								p = a.size,
+								d = a.loading,
+								h = a.className,
+								y = void 0 === h ? '' : h,
+								b = a.disabled,
+								g = o('switch', c),
+								k = l()(
+									y,
+									(v((t = {}), ''.concat(g, '-small'), 'small' === p),
+									v(t, ''.concat(g, '-loading'), d),
+									t),
+								),
+								E = d
+									? r.createElement(f.a, {
+											type: 'loading',
+											className: ''.concat(g, '-loading-icon'),
+									  })
+									: null;
+							return r.createElement(
+								u.a,
+								{ insertExtraNode: !0 },
+								r.createElement(
+									i.a,
+									m({}, Object(s.a)(n.props, ['loading']), {
+										prefixCls: g,
+										className: k,
+										disabled: b || d,
+										ref: n.saveSwitch,
+										loadingIcon: E,
+									}),
+								),
+							);
+						}),
+						Object(d.a)(
+							'checked' in e || !('value' in e),
+							'Switch',
+							'`value` is not validate prop, do you mean `checked`?',
+						),
+						n
+					);
+				}
+				var n, o, a;
+				return (
+					(function(e, t) {
+						if ('function' !== typeof t && null !== t)
+							throw new TypeError(
+								'Super expression must either be null or a function',
+							);
+						(e.prototype = Object.create(t && t.prototype, {
+							constructor: { value: e, writable: !0, configurable: !0 },
+						})),
+							t && k(e, t);
+					})(t, e),
+					(n = t),
+					(o = [
+						{
+							key: 'focus',
+							value: function() {
+								this.rcSwitch.focus();
+							},
+						},
+						{
+							key: 'blur',
+							value: function() {
+								this.rcSwitch.blur();
+							},
+						},
+						{
+							key: 'render',
+							value: function() {
+								return r.createElement(p.a, null, this.renderSwitch);
+							},
+						},
+					]) && y(n.prototype, o),
+					a && y(n, a),
+					t
+				);
+			})(r.Component);
+			(E.__ANT_SWITCH = !0),
+				(E.propTypes = {
+					prefixCls: o.string,
+					size: o.oneOf(['small', 'default', 'large']),
+					className: o.string,
+				});
+		},
+		555: function(e, t, n) {
+			e.exports = n(556);
+		},
+		556: function(e, t, n) {
+			'use strict';
+			n.r(t);
+			var r = n(0),
+				o = n.n(r),
+				a = n(3),
+				i = n.n(a),
+				c = n(82);
+			function l() {
+				return (l =
+					Object.assign ||
+					function(e) {
+						for (var t = 1; t < arguments.length; t++) {
+							var n = arguments[t];
+							for (var r in n)
+								Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+						}
+						return e;
+					}).apply(this, arguments);
+			}
+			function s(e, t) {
+				if (null == e) return {};
+				var n,
+					r,
+					o = (function(e, t) {
+						if (null == e) return {};
+						var n,
+							r,
+							o = {},
+							a = Object.keys(e);
+						for (r = 0; r < a.length; r++)
+							(n = a[r]), t.indexOf(n) >= 0 || (o[n] = e[n]);
+						return o;
+					})(e, t);
+				if (Object.getOwnPropertySymbols) {
+					var a = Object.getOwnPropertySymbols(e);
+					for (r = 0; r < a.length; r++)
+						(n = a[r]),
+							t.indexOf(n) >= 0 ||
+								(Object.prototype.propertyIsEnumerable.call(e, n) &&
+									(o[n] = e[n]));
+				}
+				return o;
+			}
+			function u(e, t) {
+				for (var n = 0; n < t.length; n++) {
+					var r = t[n];
+					(r.enumerable = r.enumerable || !1),
+						(r.configurable = !0),
+						'value' in r && (r.writable = !0),
+						Object.defineProperty(e, r.key, r);
+				}
+			}
+			function f(e) {
+				return (f = Object.setPrototypeOf
+					? Object.getPrototypeOf
+					: function(e) {
+							return e.__proto__ || Object.getPrototypeOf(e);
+					  })(e);
+			}
+			function p(e, t) {
+				return (p =
+					Object.setPrototypeOf ||
+					function(e, t) {
+						return (e.__proto__ = t), e;
+					})(e, t);
+			}
+			function d(e) {
+				if (void 0 === e)
+					throw new ReferenceError(
+						"this hasn't been initialised - super() hasn't been called",
+					);
+				return e;
+			}
+			function h(e, t, n) {
+				return (
+					t in e
+						? Object.defineProperty(e, t, {
+								value: n,
+								enumerable: !0,
+								configurable: !0,
+								writable: !0,
+						  })
+						: (e[t] = n),
+					e
+				);
+			}
+			var m = n(8),
+				v = (function(e) {
+					function t(e) {
+						var n, r, o;
+						!(function(e, t) {
+							if (!(e instanceof t))
+								throw new TypeError('Cannot call a class as a function');
+						})(this, t),
+							(r = this),
+							(o = f(t).call(this, e)),
+							(n =
+								!o || ('object' !== typeof o && 'function' !== typeof o)
+									? d(r)
+									: o),
+							h(d(d(n)), 'handleClick', function(e) {
+								var t = n.state.checked,
+									r = n.props.onClick,
+									o = !t;
+								n.setChecked(o, e), r && r(o, e);
+							}),
+							h(d(d(n)), 'handleKeyDown', function(e) {
+								37 === e.keyCode
+									? n.setChecked(!1, e)
+									: 39 === e.keyCode && n.setChecked(!0, e);
+							}),
+							h(d(d(n)), 'handleMouseUp', function(e) {
+								var t = n.props.onMouseUp;
+								n.node && n.node.blur(), t && t(e);
+							}),
+							h(d(d(n)), 'saveNode', function(e) {
+								n.node = e;
+							});
+						var a = !1;
+						return (
+							(a = 'checked' in e ? !!e.checked : !!e.defaultChecked),
+							(n.state = { checked: a }),
+							n
+						);
+					}
+					var n, r, a;
+					return (
+						(function(e, t) {
+							if ('function' !== typeof t && null !== t)
+								throw new TypeError(
+									'Super expression must either be null or a function',
+								);
+							(e.prototype = Object.create(t && t.prototype, {
+								constructor: { value: e, writable: !0, configurable: !0 },
+							})),
+								t && p(e, t);
+						})(t, e),
+						(n = t),
+						(a = [
+							{
+								key: 'getDerivedStateFromProps',
+								value: function(e) {
+									var t = {},
+										n = e.checked;
+									return 'checked' in e && (t.checked = !!n), t;
+								},
+							},
+						]),
+						(r = [
+							{
+								key: 'componentDidMount',
+								value: function() {
+									var e = this.props,
+										t = e.autoFocus,
+										n = e.disabled;
+									t && !n && this.focus();
+								},
+							},
+							{
+								key: 'setChecked',
+								value: function(e, t) {
+									var n = this.props,
+										r = n.disabled,
+										o = n.onChange;
+									r ||
+										('checked' in this.props || this.setState({ checked: e }),
+										o && o(e, t));
+								},
+							},
+							{
+								key: 'focus',
+								value: function() {
+									this.node.focus();
+								},
+							},
+							{
+								key: 'blur',
+								value: function() {
+									this.node.blur();
+								},
+							},
+							{
+								key: 'render',
+								value: function() {
+									var e,
+										t = this.props,
+										n = t.className,
+										r = t.prefixCls,
+										a = t.disabled,
+										i = t.loadingIcon,
+										c = t.checkedChildren,
+										u = t.unCheckedChildren,
+										f = s(t, [
+											'className',
+											'prefixCls',
+											'disabled',
+											'loadingIcon',
+											'checkedChildren',
+											'unCheckedChildren',
+										]),
+										p = this.state.checked,
+										d = m(
+											(h((e = {}), n, !!n),
+											h(e, r, !0),
+											h(e, ''.concat(r, '-checked'), p),
+											h(e, ''.concat(r, '-disabled'), a),
+											e),
+										);
+									return o.a.createElement(
+										'button',
+										l({}, f, {
+											type: 'button',
+											role: 'switch',
+											'aria-checked': p,
+											disabled: a,
+											className: d,
+											ref: this.saveNode,
+											onKeyDown: this.handleKeyDown,
+											onClick: this.handleClick,
+											onMouseUp: this.handleMouseUp,
+										}),
+										i,
+										o.a.createElement(
+											'span',
+											{ className: ''.concat(r, '-inner') },
+											p ? c : u,
+										),
+									);
+								},
+							},
+						]) && u(n.prototype, r),
+						a && u(n, a),
+						t
+					);
+				})(r.Component);
+			(v.propTypes = {
+				className: i.a.string,
+				prefixCls: i.a.string,
+				disabled: i.a.bool,
+				checkedChildren: i.a.any,
+				unCheckedChildren: i.a.any,
+				onChange: i.a.func,
+				onMouseUp: i.a.func,
+				onClick: i.a.func,
+				tabIndex: i.a.number,
+				checked: i.a.bool,
+				defaultChecked: i.a.bool,
+				autoFocus: i.a.bool,
+				loadingIcon: i.a.node,
+			}),
+				(v.defaultProps = {
+					prefixCls: 'rc-switch',
+					checkedChildren: null,
+					unCheckedChildren: null,
+					className: '',
+					defaultChecked: !1,
+				}),
+				Object(c.polyfill)(v),
+				(t.default = v);
+		},
+		557: function(e, t, n) {},
+		558: function(e, t, n) {},
+		559: function(e, t, n) {
 			var r = n(454),
-				o = n(555);
+				o = n(560);
 			e.exports = function(e, t) {
 				return e && e.length ? o(e, r(t, 2)) : [];
 			};
 		},
-		555: function(e, t, n) {
+		560: function(e, t, n) {
 			var r = n(455),
-				o = n(556),
-				a = n(560),
+				o = n(561),
+				a = n(565),
 				i = n(456),
-				c = n(561),
+				c = n(566),
 				l = n(435);
 			e.exports = function(e, t, n) {
 				var s = -1,
@@ -3875,41 +4335,41 @@
 				return d;
 			};
 		},
-		556: function(e, t, n) {
-			var r = n(557);
+		561: function(e, t, n) {
+			var r = n(562);
 			e.exports = function(e, t) {
 				return !!(null == e ? 0 : e.length) && r(e, t, 0) > -1;
 			};
 		},
-		557: function(e, t, n) {
+		562: function(e, t, n) {
 			var r = n(510),
-				o = n(558),
-				a = n(559);
+				o = n(563),
+				a = n(564);
 			e.exports = function(e, t, n) {
 				return t === t ? a(e, t, n) : r(e, o, n);
 			};
 		},
-		558: function(e, t) {
+		563: function(e, t) {
 			e.exports = function(e) {
 				return e !== e;
 			};
 		},
-		559: function(e, t) {
+		564: function(e, t) {
 			e.exports = function(e, t, n) {
 				for (var r = n - 1, o = e.length; ++r < o; ) if (e[r] === t) return r;
 				return -1;
 			};
 		},
-		560: function(e, t) {
+		565: function(e, t) {
 			e.exports = function(e, t, n) {
 				for (var r = -1, o = null == e ? 0 : e.length; ++r < o; )
 					if (n(t, e[r])) return !0;
 				return !1;
 			};
 		},
-		561: function(e, t, n) {
+		566: function(e, t, n) {
 			var r = n(460),
-				o = n(562),
+				o = n(567),
 				a = n(435),
 				i =
 					r && 1 / a(new r([, -0]))[1] == 1 / 0
@@ -3919,13 +4379,13 @@
 						: o;
 			e.exports = i;
 		},
-		562: function(e, t) {
+		567: function(e, t) {
 			e.exports = function() {};
 		},
-		563: function(e, t, n) {
+		568: function(e, t, n) {
 			var r = n(510),
 				o = n(454),
-				a = n(564),
+				a = n(569),
 				i = Math.max;
 			e.exports = function(e, t, n) {
 				var c = null == e ? 0 : e.length;
@@ -3934,15 +4394,15 @@
 				return l < 0 && (l = i(c + l, 0)), r(e, o(t, 3), l);
 			};
 		},
-		564: function(e, t, n) {
-			var r = n(565);
+		569: function(e, t, n) {
+			var r = n(570);
 			e.exports = function(e) {
 				var t = r(e),
 					n = t % 1;
 				return t === t ? (n ? t - n : t) : 0;
 			};
 		},
-		565: function(e, t, n) {
+		570: function(e, t, n) {
 			var r = n(215);
 			e.exports = function(e) {
 				return e
@@ -3956,8 +4416,8 @@
 					: 0;
 			};
 		},
-		566: function(e, t, n) {},
-		569: function(e, t, n) {
+		571: function(e, t, n) {},
+		574: function(e, t, n) {
 			'use strict';
 			var r = n(0),
 				o = n.n(r),
@@ -4815,9 +5275,9 @@
 					openFileDialogOnClick: !0,
 				});
 			var W = z,
-				U = n(554),
+				U = n(559),
 				R = n.n(U),
-				V = n(563),
+				V = n(568),
 				H = n.n(V),
 				q = n(52);
 			function G() {
@@ -7035,7 +7495,7 @@
 			Ct.Dragger = Dt;
 			t.a = Ct;
 		},
-		570: function(e, t, n) {
+		575: function(e, t, n) {
 			'use strict';
 			var r,
 				o = n(0),
@@ -7054,7 +7514,7 @@
 				f = function(e) {
 					27 === e.keyCode && u();
 				};
-			n(566);
+			n(571);
 			!(function(e) {
 				(e.add = 'add'), (e.minus = 'minus');
 			})(r || (r = {}));
@@ -7139,7 +7599,7 @@
 				};
 			t.a = d;
 		},
-		571: function(e, t, n) {
+		576: function(e, t, n) {
 			'use strict';
 			var r = n(0),
 				o = n(3),
@@ -7679,469 +8139,9 @@
 			j.Group = I;
 			t.a = j;
 		},
-		572: function(e, t, n) {
+		577: function(e, t, n) {
 			'use strict';
-			n(69), n(552), n(553), n(543);
-		},
-		578: function(e, t, n) {
-			'use strict';
-			n(69), n(579);
-		},
-		579: function(e, t, n) {},
-		580: function(e, t, n) {
-			'use strict';
-			n.d(t, 'a', function() {
-				return E;
-			});
-			var r = n(0),
-				o = n(3),
-				a = n(581),
-				i = n.n(a),
-				c = n(8),
-				l = n.n(c),
-				s = n(70),
-				u = n(138),
-				f = n(14),
-				p = n(57),
-				d = n(20);
-			function h(e) {
-				return (h =
-					'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
-						? function(e) {
-								return typeof e;
-						  }
-						: function(e) {
-								return e &&
-									'function' === typeof Symbol &&
-									e.constructor === Symbol &&
-									e !== Symbol.prototype
-									? 'symbol'
-									: typeof e;
-						  })(e);
-			}
-			function m() {
-				return (m =
-					Object.assign ||
-					function(e) {
-						for (var t = 1; t < arguments.length; t++) {
-							var n = arguments[t];
-							for (var r in n)
-								Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
-						}
-						return e;
-					}).apply(this, arguments);
-			}
-			function v(e, t, n) {
-				return (
-					t in e
-						? Object.defineProperty(e, t, {
-								value: n,
-								enumerable: !0,
-								configurable: !0,
-								writable: !0,
-						  })
-						: (e[t] = n),
-					e
-				);
-			}
-			function y(e, t) {
-				for (var n = 0; n < t.length; n++) {
-					var r = t[n];
-					(r.enumerable = r.enumerable || !1),
-						(r.configurable = !0),
-						'value' in r && (r.writable = !0),
-						Object.defineProperty(e, r.key, r);
-				}
-			}
-			function b(e, t) {
-				return !t || ('object' !== h(t) && 'function' !== typeof t)
-					? (function(e) {
-							if (void 0 === e)
-								throw new ReferenceError(
-									"this hasn't been initialised - super() hasn't been called",
-								);
-							return e;
-					  })(e)
-					: t;
-			}
-			function g(e) {
-				return (g = Object.setPrototypeOf
-					? Object.getPrototypeOf
-					: function(e) {
-							return e.__proto__ || Object.getPrototypeOf(e);
-					  })(e);
-			}
-			function k(e, t) {
-				return (k =
-					Object.setPrototypeOf ||
-					function(e, t) {
-						return (e.__proto__ = t), e;
-					})(e, t);
-			}
-			var E = (function(e) {
-				function t(e) {
-					var n;
-					return (
-						(function(e, t) {
-							if (!(e instanceof t))
-								throw new TypeError('Cannot call a class as a function');
-						})(this, t),
-						((n = b(this, g(t).call(this, e))).saveSwitch = function(e) {
-							n.rcSwitch = e;
-						}),
-						(n.renderSwitch = function(e) {
-							var t,
-								o = e.getPrefixCls,
-								a = n.props,
-								c = a.prefixCls,
-								p = a.size,
-								d = a.loading,
-								h = a.className,
-								y = void 0 === h ? '' : h,
-								b = a.disabled,
-								g = o('switch', c),
-								k = l()(
-									y,
-									(v((t = {}), ''.concat(g, '-small'), 'small' === p),
-									v(t, ''.concat(g, '-loading'), d),
-									t),
-								),
-								E = d
-									? r.createElement(f.a, {
-											type: 'loading',
-											className: ''.concat(g, '-loading-icon'),
-									  })
-									: null;
-							return r.createElement(
-								u.a,
-								{ insertExtraNode: !0 },
-								r.createElement(
-									i.a,
-									m({}, Object(s.a)(n.props, ['loading']), {
-										prefixCls: g,
-										className: k,
-										disabled: b || d,
-										ref: n.saveSwitch,
-										loadingIcon: E,
-									}),
-								),
-							);
-						}),
-						Object(d.a)(
-							'checked' in e || !('value' in e),
-							'Switch',
-							'`value` is not validate prop, do you mean `checked`?',
-						),
-						n
-					);
-				}
-				var n, o, a;
-				return (
-					(function(e, t) {
-						if ('function' !== typeof t && null !== t)
-							throw new TypeError(
-								'Super expression must either be null or a function',
-							);
-						(e.prototype = Object.create(t && t.prototype, {
-							constructor: { value: e, writable: !0, configurable: !0 },
-						})),
-							t && k(e, t);
-					})(t, e),
-					(n = t),
-					(o = [
-						{
-							key: 'focus',
-							value: function() {
-								this.rcSwitch.focus();
-							},
-						},
-						{
-							key: 'blur',
-							value: function() {
-								this.rcSwitch.blur();
-							},
-						},
-						{
-							key: 'render',
-							value: function() {
-								return r.createElement(p.a, null, this.renderSwitch);
-							},
-						},
-					]) && y(n.prototype, o),
-					a && y(n, a),
-					t
-				);
-			})(r.Component);
-			(E.__ANT_SWITCH = !0),
-				(E.propTypes = {
-					prefixCls: o.string,
-					size: o.oneOf(['small', 'default', 'large']),
-					className: o.string,
-				});
-		},
-		581: function(e, t, n) {
-			e.exports = n(582);
-		},
-		582: function(e, t, n) {
-			'use strict';
-			n.r(t);
-			var r = n(0),
-				o = n.n(r),
-				a = n(3),
-				i = n.n(a),
-				c = n(82);
-			function l() {
-				return (l =
-					Object.assign ||
-					function(e) {
-						for (var t = 1; t < arguments.length; t++) {
-							var n = arguments[t];
-							for (var r in n)
-								Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
-						}
-						return e;
-					}).apply(this, arguments);
-			}
-			function s(e, t) {
-				if (null == e) return {};
-				var n,
-					r,
-					o = (function(e, t) {
-						if (null == e) return {};
-						var n,
-							r,
-							o = {},
-							a = Object.keys(e);
-						for (r = 0; r < a.length; r++)
-							(n = a[r]), t.indexOf(n) >= 0 || (o[n] = e[n]);
-						return o;
-					})(e, t);
-				if (Object.getOwnPropertySymbols) {
-					var a = Object.getOwnPropertySymbols(e);
-					for (r = 0; r < a.length; r++)
-						(n = a[r]),
-							t.indexOf(n) >= 0 ||
-								(Object.prototype.propertyIsEnumerable.call(e, n) &&
-									(o[n] = e[n]));
-				}
-				return o;
-			}
-			function u(e, t) {
-				for (var n = 0; n < t.length; n++) {
-					var r = t[n];
-					(r.enumerable = r.enumerable || !1),
-						(r.configurable = !0),
-						'value' in r && (r.writable = !0),
-						Object.defineProperty(e, r.key, r);
-				}
-			}
-			function f(e) {
-				return (f = Object.setPrototypeOf
-					? Object.getPrototypeOf
-					: function(e) {
-							return e.__proto__ || Object.getPrototypeOf(e);
-					  })(e);
-			}
-			function p(e, t) {
-				return (p =
-					Object.setPrototypeOf ||
-					function(e, t) {
-						return (e.__proto__ = t), e;
-					})(e, t);
-			}
-			function d(e) {
-				if (void 0 === e)
-					throw new ReferenceError(
-						"this hasn't been initialised - super() hasn't been called",
-					);
-				return e;
-			}
-			function h(e, t, n) {
-				return (
-					t in e
-						? Object.defineProperty(e, t, {
-								value: n,
-								enumerable: !0,
-								configurable: !0,
-								writable: !0,
-						  })
-						: (e[t] = n),
-					e
-				);
-			}
-			var m = n(8),
-				v = (function(e) {
-					function t(e) {
-						var n, r, o;
-						!(function(e, t) {
-							if (!(e instanceof t))
-								throw new TypeError('Cannot call a class as a function');
-						})(this, t),
-							(r = this),
-							(o = f(t).call(this, e)),
-							(n =
-								!o || ('object' !== typeof o && 'function' !== typeof o)
-									? d(r)
-									: o),
-							h(d(d(n)), 'handleClick', function(e) {
-								var t = n.state.checked,
-									r = n.props.onClick,
-									o = !t;
-								n.setChecked(o, e), r && r(o, e);
-							}),
-							h(d(d(n)), 'handleKeyDown', function(e) {
-								37 === e.keyCode
-									? n.setChecked(!1, e)
-									: 39 === e.keyCode && n.setChecked(!0, e);
-							}),
-							h(d(d(n)), 'handleMouseUp', function(e) {
-								var t = n.props.onMouseUp;
-								n.node && n.node.blur(), t && t(e);
-							}),
-							h(d(d(n)), 'saveNode', function(e) {
-								n.node = e;
-							});
-						var a = !1;
-						return (
-							(a = 'checked' in e ? !!e.checked : !!e.defaultChecked),
-							(n.state = { checked: a }),
-							n
-						);
-					}
-					var n, r, a;
-					return (
-						(function(e, t) {
-							if ('function' !== typeof t && null !== t)
-								throw new TypeError(
-									'Super expression must either be null or a function',
-								);
-							(e.prototype = Object.create(t && t.prototype, {
-								constructor: { value: e, writable: !0, configurable: !0 },
-							})),
-								t && p(e, t);
-						})(t, e),
-						(n = t),
-						(a = [
-							{
-								key: 'getDerivedStateFromProps',
-								value: function(e) {
-									var t = {},
-										n = e.checked;
-									return 'checked' in e && (t.checked = !!n), t;
-								},
-							},
-						]),
-						(r = [
-							{
-								key: 'componentDidMount',
-								value: function() {
-									var e = this.props,
-										t = e.autoFocus,
-										n = e.disabled;
-									t && !n && this.focus();
-								},
-							},
-							{
-								key: 'setChecked',
-								value: function(e, t) {
-									var n = this.props,
-										r = n.disabled,
-										o = n.onChange;
-									r ||
-										('checked' in this.props || this.setState({ checked: e }),
-										o && o(e, t));
-								},
-							},
-							{
-								key: 'focus',
-								value: function() {
-									this.node.focus();
-								},
-							},
-							{
-								key: 'blur',
-								value: function() {
-									this.node.blur();
-								},
-							},
-							{
-								key: 'render',
-								value: function() {
-									var e,
-										t = this.props,
-										n = t.className,
-										r = t.prefixCls,
-										a = t.disabled,
-										i = t.loadingIcon,
-										c = t.checkedChildren,
-										u = t.unCheckedChildren,
-										f = s(t, [
-											'className',
-											'prefixCls',
-											'disabled',
-											'loadingIcon',
-											'checkedChildren',
-											'unCheckedChildren',
-										]),
-										p = this.state.checked,
-										d = m(
-											(h((e = {}), n, !!n),
-											h(e, r, !0),
-											h(e, ''.concat(r, '-checked'), p),
-											h(e, ''.concat(r, '-disabled'), a),
-											e),
-										);
-									return o.a.createElement(
-										'button',
-										l({}, f, {
-											type: 'button',
-											role: 'switch',
-											'aria-checked': p,
-											disabled: a,
-											className: d,
-											ref: this.saveNode,
-											onKeyDown: this.handleKeyDown,
-											onClick: this.handleClick,
-											onMouseUp: this.handleMouseUp,
-										}),
-										i,
-										o.a.createElement(
-											'span',
-											{ className: ''.concat(r, '-inner') },
-											p ? c : u,
-										),
-									);
-								},
-							},
-						]) && u(n.prototype, r),
-						a && u(n, a),
-						t
-					);
-				})(r.Component);
-			(v.propTypes = {
-				className: i.a.string,
-				prefixCls: i.a.string,
-				disabled: i.a.bool,
-				checkedChildren: i.a.any,
-				unCheckedChildren: i.a.any,
-				onChange: i.a.func,
-				onMouseUp: i.a.func,
-				onClick: i.a.func,
-				tabIndex: i.a.number,
-				checked: i.a.bool,
-				defaultChecked: i.a.bool,
-				autoFocus: i.a.bool,
-				loadingIcon: i.a.node,
-			}),
-				(v.defaultProps = {
-					prefixCls: 'rc-switch',
-					checkedChildren: null,
-					unCheckedChildren: null,
-					className: '',
-					defaultChecked: !1,
-				}),
-				Object(c.polyfill)(v),
-				(t.default = v);
+			n(69), n(557), n(558), n(543);
 		},
 		583: function(e, t, n) {
 			'use strict';
@@ -8224,8 +8224,8 @@
 			var r = n(134),
 				o = (n(415), n(14)),
 				a = n(40),
-				i = (n(572), n(569)),
-				c = n(137),
+				i = (n(577), n(574)),
+				c = n(138),
 				l = (n(452), n(453)),
 				s = n(11),
 				u = n(12),
@@ -8573,7 +8573,7 @@
 				n.d(t, 'b', function() {
 					return m;
 				});
-			var r = n(137),
+			var r = n(138),
 				o = n(83),
 				a = n.n(o),
 				i = function() {
@@ -8693,10 +8693,10 @@
 			var r,
 				o = n(412),
 				a = (n(409), n(410)),
-				i = (n(578), n(580)),
+				i = (n(552), n(554)),
 				c = (n(216), n(140)),
 				l = (n(415), n(14)),
-				s = (n(583), n(571)),
+				s = (n(583), n(576)),
 				u = n(40),
 				f = n(396),
 				p = n.n(f),
@@ -8716,7 +8716,7 @@
 				C = n(544),
 				M = n(606),
 				_ = n(398),
-				F = n(570),
+				F = n(575),
 				P = n(800),
 				S = n(617),
 				L = n(19),

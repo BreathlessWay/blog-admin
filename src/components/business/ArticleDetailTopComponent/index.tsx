@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component, ComponentClass } from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Col, Input, Radio, Row, Select, Typography } from 'antd';
+import { Col, Input, Radio, Row, Select, Switch, Typography } from 'antd';
 import Gap from '@/components/common/Gap';
 
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
@@ -49,6 +49,15 @@ class ArticleDetailTopComponent extends Component<
 		changeDetail({
 			key: EArticleDetailKey.title,
 			value: value,
+		});
+	};
+
+	handleSwitchTop = () => {
+		const { changeDetail, detail } = this.props.articleDetailStore;
+
+		changeDetail({
+			key: EArticleDetailKey.top,
+			value: !(detail?.top ?? false),
 		});
 	};
 
@@ -140,6 +149,18 @@ class ArticleDetailTopComponent extends Component<
 							{articleAlias}标题不能为空
 						</Text>
 					)}
+				</Col>
+				<Gap size="lg" />
+				<Col span={24}>
+					<Row type="flex" align="middle">
+						<Title level={4} style={{ marginBottom: 0, marginRight: 10 }}>
+							<label htmlFor="intro">置顶</label>
+						</Title>
+						<Switch
+							checked={detail?.top ?? false}
+							onChange={this.handleSwitchTop}
+						/>
+					</Row>
 				</Col>
 				<Gap size="lg" />
 				<Col span={24}>

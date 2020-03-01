@@ -30,6 +30,7 @@ export default class ArticleDetailStore {
 		markdown: '',
 		status: 1,
 		tags: [],
+		top: false,
 		draftDetail: BraftEditor.createEditorState(null),
 		renderType: EArticleRenderType.richText,
 	};

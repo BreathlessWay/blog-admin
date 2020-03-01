@@ -474,7 +474,8 @@
 						(t.status = 'status'),
 						(t.tags = 'tags'),
 						(t.renderType = 'renderType'),
-						(t.draftDetail = 'draftDetail');
+						(t.draftDetail = 'draftDetail'),
+						(t.top = 'top');
 				})(i || (i = {})),
 				(function(t) {
 					(t.titleError = 'titleError'),
@@ -976,7 +977,7 @@
 						v.prototype,
 					),
 					v),
-				oe = r(137),
+				oe = r(138),
 				ne = r(76),
 				ie =
 					((S = y.f.bound),
@@ -2128,6 +2129,7 @@
 									markdown: '',
 									status: 1,
 									tags: [],
+									top: !1,
 									draftDetail: je.a.createEditorState(null),
 									renderType: fe.c.richText,
 								});

@@ -33,6 +33,7 @@ export type ArticleDetailType = {
 	status: number;
 	tags: Array<string>;
 	renderType: EArticleRenderType;
+	top: boolean;
 
 	draftDetail?: EditorState;
 

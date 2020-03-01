@@ -19,6 +19,7 @@ export enum EArticleDetailKey {
 	tags = 'tags',
 	renderType = 'renderType',
 	draftDetail = 'draftDetail',
+	top = 'top',
 }
 
 export enum EArticleEditError {

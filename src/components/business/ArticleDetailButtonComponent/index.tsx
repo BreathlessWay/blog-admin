@@ -143,6 +143,7 @@ class ArticleDetailButtonComponent extends Component<
 				status: detail!.status,
 				tags: detail!.tags,
 				renderType: detail!.renderType,
+				top: detail!.top,
 			};
 			let res: AxiosResponse;
 			if (detail!._id) {
