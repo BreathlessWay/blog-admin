@@ -83,7 +83,7 @@ module.exports = function(proxy, allowedHost) {
 		public: allowedHost,
 		proxy: {
 			'/api': {
-				target: 'http://120.26.145.31:7001',
+				target: 'http://breathlessway.com:7001',
 				pathRewrite: { '^/api': '' },
 			},
 		},
