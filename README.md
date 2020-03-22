@@ -113,3 +113,17 @@
 10. [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages), 结合 github action 发布 gh-page
 
 11. 如果赋值 this 为一个变量，该赋值要在最上层，且该函数内的 this 都要用变量代替，否则编译出的代码 this 指向会变成 undefined
+
+12. 使用 proxy 时，会出现`405 not allowed`的问题，需要配置 changeOrigin
+
+```
+proxy: {
+    '/api': {
+        target: 'http://域名/',
+        changeOrigin: true,  // target是域名的话，需要这个参数，
+        pathRewrite: {
+            '^/api': ''
+        }
+    }
+}
+```

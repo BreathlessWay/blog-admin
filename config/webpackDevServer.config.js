@@ -83,8 +83,11 @@ module.exports = function(proxy, allowedHost) {
 		public: allowedHost,
 		proxy: {
 			'/api': {
-				target: 'http://breathlessway.com:7001',
-				pathRewrite: { '^/api': '' },
+				target: 'http://server.breathlessway.com/', //对应自己的接口
+				changeOrigin: true, // target是域名的话，需要这个参数，
+				pathRewrite: {
+					'^/api': '',
+				},
 			},
 		},
 		before(app, server) {
